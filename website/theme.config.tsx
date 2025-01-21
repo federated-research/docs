@@ -19,7 +19,7 @@ export default {
           height: "1.3rem",
           marginRight: "0.5rem",
         }}
-        src="docs/logo-small.png"
+        src="/docs/images/logo-small.png"
         alt="logo"
       />
       Documentation
@@ -36,7 +36,10 @@ export default {
           content={frontMatter.description || 'Federated Analytics Documentation.'}
         />
         <title>{frontMatter.title || 'Federated Analytics'}</title>
-        <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href="/docs/images/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/docs/images/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/docs/images/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/docs/images/favicon-16x16.png" />
       </>
     )
   },
