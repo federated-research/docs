@@ -22,7 +22,7 @@ export default {
         src="/docs/images/logo-small.png"
         alt="logo"
       />
-      Documentation
+      Federated Analytics Documentation
     </span>
   ),
   head() {
