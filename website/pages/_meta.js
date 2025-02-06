@@ -1,4 +1,4 @@
 export default {
   index: "Federated Analytics",
-  deployment: "Deployment"
+  deployment: "All In One"
 }

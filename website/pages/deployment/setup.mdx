@@ -1,0 +1,62 @@
+import { Steps,Callout } from "nextra/components"
+
+<Steps>
+### Login
+For the All In One demo purposes there is a pre-set TRE, Project and user assigned.
+There is a demo admin user created to log in to `Submission` `Egress` and `TRE` layers
+```
+Username: globaladminuser
+
+Password: password123
+```
+Skip to the [submission section](#submission) for how to submit a sample RO-Crate.
+
+
+### Create a TRE
+Navigate to the TRE tab in the Submission UI. 
+
+<img src="/images/createTre.png" width="500"></img>
+
+<Callout> The admin username has to match the keycloak credentials for that TRE. </Callout>
+
+### Create a Project
+Navigate to the Projects tab -> Create Project.
+<img src="/images/createProject.png" width="500"></img>
+Once a Project is created, assign a TRE and a user that will be associated with the submissions.
+
+### TRE layer
+The TRE layer will sync any Projects created in the submission layer. This may take up to 10 minutes.
+
+### Approve Project and Membership
+Once the Project is visible in the TRE UI then the Project and the user membership needs to be approved for the TRE to accept submissions on that Project from the approved user.
+<img src="/images/approveProject.png" width="400"></img>
+
+
+### Submission
+ 
+Download a sample Beacon RO-Crate [here](https://raw.githubusercontent.com/federated-analytics/docs/refs/heads/main/samples/crates/beacon_crate.zip) or by running the command:
+
+```bash copy
+wget https://raw.githubusercontent.com/federated-analytics/docs/refs/heads/main/samples/crates/beacon_crate.zip
+```
+### Submit sample RO-Crate
+Navigate to the `Projects` tab in the submission UI, select a Project and then `Create Submission` on the `Submissions` section.
+<img src="/images/submission.png" width="400"></img>
+
+### Approve Egress
+Once the submission page status shows `Requested Egress`
+Navigate to Egress UI and approve the output files for your submission and select `Complete & Close request`
+<img src="/images/egress.png" width="400"></img>
+
+### Completed
+Submission is finished executing, there is an option to download the output file at the bottom of the `Submissions` -> `submission name` in the Submission UI
+</Steps>
+
+
+
+
+
+
+
+
+ 
