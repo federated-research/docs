@@ -1,2 +1,19 @@
-# Quickstart
+import { Steps, Callout } from 'nextra/components'
 
+# Getting started
+This page will guide you through getting the TRE-FX All in One docker compose running locally.
+
+<Steps>
+### Clone the repository
+Start by cloning the All in One [repository](https://github.com/SwanseaUniversityMedical/DARE-TREFX-Environment1).
+###  Run the stack
+In the same directory as the docker-compose.yml run:
+
+```bash copy
+docker compose up -d
+```
+<Callout> Docker may need access to the file directory to mount the init.sql file.
+Add the directory path to the shared paths from Docker -> Prefererences -> 
+Resources -> File Sharing </Callout>
+
+</Steps>
