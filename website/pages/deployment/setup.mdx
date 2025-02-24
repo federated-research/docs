@@ -2,33 +2,47 @@ import { Steps,Callout } from "nextra/components"
 
 <Steps>
 ### Login
-For the All In One demo purposes there is a pre-set TRE, Project and user assigned.
-There is a demo admin user created to log in to `Submission` `Egress` and `TRE` layers
+There are three layers : `Submission` `Egress` and `TRE` 
+
+- The **Submission Layer** is hosted at `localhost:7220`
+- The **TRE Layer** is hosted at `localhost:8989 `
+- The **Egress Layer** is hosted at `localhost:8100`
+
+For the All In One demo purposes there is a pre-set TRE, Project and user created and assigned.
+There is a demo admin user created to log in to all three layers
 ```
 Username: globaladminuser
 
 Password: password123
 ```
-Skip to the [submission section](#submission) for how to submit a sample RO-Crate.
-
+Skip to the [project approval section](#submission) if you already have a TRE, Project and user set up in the Submission Layer.
+If you need to create them first then follow the steps below.
 
 ### Create a TRE
-Navigate to the TRE tab in the Submission UI. 
+Navigate to the ***TRE*** tab in the Submission Layer. 
 
 <img src="/images/createTre.png" width="500"></img>
+For the All In One the TRE admin username is `accessfromtretosubmission`
 
-<Callout> The admin username has to match the keycloak credentials for that TRE. </Callout>
+<Callout> The admin username has to match the existing keycloak username for that TRE. </Callout>
+
+
+### Create a User
+You can create a user by navigating to ***People-> Create New User***.
+For the All In One the username would be `globaladminuser`
+
+<Callout> The username has to match the an existing keycloak user account.</Callout>
 
 ### Create a Project
-Navigate to the Projects tab -> Create Project.
+Navigate to the ***Projects -> Create Project***.
 <img src="/images/createProject.png" width="500"></img>
 Once a Project is created, assign a TRE and a user that will be associated with the submissions.
 
 ### TRE layer
-The TRE layer will sync any Projects created in the submission layer. This may take up to 10 minutes.
+The TRE layer will sync any Projects created in the submission layer. This will take up to 10 minutes.
 
 ### Approve Project and Membership
-Once the Project is visible in the TRE UI then the Project and the user membership needs to be approved for the TRE to accept submissions on that Project from the approved user.
+Once the Project is visible in the TRE Layer then the Project and the user membership needs to be approved for the TRE to accept submissions on that Project from the approved user.
 <img src="/images/approveProject.png" width="400"></img>
 
 
@@ -40,16 +54,16 @@ Download a sample Beacon RO-Crate [here](https://raw.githubusercontent.com/feder
 wget https://raw.githubusercontent.com/federated-analytics/docs/refs/heads/main/samples/crates/beacon_crate.zip
 ```
 ### Submit sample RO-Crate
-Navigate to the `Projects` tab in the submission UI, select a Project and then `Create Submission` on the `Submissions` section.
+Navigate to the ***Projects*** tab in the submission layer, select a Project and then `Create Submission` from the `Submissions` section.
 <img src="/images/submission.png" width="400"></img>
 
 ### Approve Egress
 Once the submission page status shows `Requested Egress`
-Navigate to Egress UI and approve the output files for your submission and select `Complete & Close request`
+Navigate to Egress Layer and approve the output files for your submission and then select `Complete & Close request`
 <img src="/images/egress.png" width="400"></img>
 
 ### Completed
-Submission is finished executing, there is an option to download the output file at the bottom of the `Submissions` -> `submission name` in the Submission UI
+Submission is finished executing, there is an option to download the output file at the bottom of the ***Submissions*** -> ***submission name*** in the Submission Layer
 </Steps>
 
 
