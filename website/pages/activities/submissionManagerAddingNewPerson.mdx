@@ -1,1 +1,60 @@
-#Empty page 2
+import {Steps, Callout} from "nextra/components"
+
+# Adding a New Person to the Submission Layer
+
+## Prerequisites and Notes
+
+Required information:
+- First Name
+- Last Name
+- Email
+- Username
+
+<Callout>
+The username **must** matches the username entered into Keycloak for the same user.
+This must be checked manually.
+</Callout>
+
+
+<img src="/images/TREFX_LoginPage.png" width="500"></img>
+
+The Submission Manager needs to log into the Submission Layer.
+In the 'AllInOne' stack this is at `localhost:8888`,
+and the log-in details are:
+- username: `globaladminuser`
+- password: `password123`
+
+
+## Workflow
+
+<Steps>
+### Open the 'People' page.
+Select the 'People' tab at the top of the home page.
+This will display the list of existing users.
+
+<img src="/images/TREFX_PeoplePage.png" width="500"></img>
+
+### Open the 'Create User' page.
+Click the blue `+ Create New User` button at the top-right of the 'People' page.
+This will open the 'Create User' page.
+
+<img src="/images/TREFX_CreateUserPage.png" width="500"></img>
+
+### Enter User details.
+Enter the user details:
+1. Full Name (mandatory)
+2. Username (mandatory)
+3. Email (mandatory)
+
+<Callout>
+Make sure that the username matches the username entered into Keycloak for the same user.
+</Callout>
+
+### Submit informaation.
+Once all details have been added click the blue 'Submit' button.
+This will return you to the People page, where the new user will be displayed.
+
+<img src="/images/TREFX_PersonPage_WithNewPerson.png" width="500"></img>
+
+
+</Steps>
