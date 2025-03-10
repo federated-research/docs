@@ -9,16 +9,23 @@ This a glossary of terms which relate to the techonology stack and general resea
 - **Egress Manager:** This is the manager of the egress layer. They deal with approving data release from TREs.
 - **Researcher:** This is the researcher using the service. They will be registered to use the submission layer, and they may be associated with one or more projects. They will be submitting tasks to be run in the TREs.
 
+# TRE-FX Services
+- **Egress Layer:** In TRE-FX context, the egress layer serves as a temporary holding space for data returned from the Trusted Research Environment which needs to be authorised for release before being passed to the Submission Layer.
+- **HUTCH:** This is an open-source tool designed to facilitate federated activities - such as analytics, data discovery and machine learning within secure environments.
+- **Submission Layer:** In TRE-FX contex, the submission layer serves as the intial point of contact for incoming analytical tasks, responsible for receiving user-submitted tasks, performing preliminary validation and queuing the tasks for further processing.
+- **TRE Controller Layer:** This is the outer layer of the TRE, responsible for task scheduling, data coordination and messaging between the different layers of the TRE.
+- **TRE-UI:** This is the user interface that offers an integrated view of ongoing tasks, logs and system metrics.
+- **TRINO:** This is a distributed SQL query engine designed to query large data sets distributed over one or more heterogeneous data sources.
+- **Wizard UI:** A user interface that guides users through a series of steps to complete, allowing the user to break down complex processes into small steps to achieve a goal.
+
 # Trusted Research Environment / Health Research Terms
 - **Data Anonymisation:** This is the removal or protection of any identifiable personal information from datasets.
 - **Data Provenance:** This refers to the history and origin of data.
 - **Dataset:** A collection of data, often structured in columns and rows (tabular form). Datasets can differ in sizes from a few records to billon of data points.
 - **Egress:** This refers to data leaving an environment or a network system.
-- **Egress Layer:** In TRE-FX context, the egress layer serves as a temporary holding space for data returned from the Trusted Research Environment which needs to be authorised for release before being passed to the Submission Layer.
 - **FAIR:** Findable, Acceptable, Interoperable and Re-usable. This is a framework used in the research space.
 - **Federated Activities (Trusted Research Environment):** This a network of TRE institutions that collaborate among themselves without compromising data privacy and security.
 - **Federated Query:** This involves getting data from multiple databases as if it were one single database.
-- **HUTCH:** This is an open-source tool designed to facilitate federated activities - such as analytics, data discovery and machine learning within secure environments.
 - **Ingress:** This refers to data entering a system or a network. 
 - **Metadata:** Important information associated with the data. It details the origin, version, authors, source data, and other information about the data set.
 - **OMOP:** Observational Medical Outcomes Partnership
@@ -29,15 +36,10 @@ This a glossary of terms which relate to the techonology stack and general resea
 - **RO Crate:** A transport format to bundle metadata for submission along with required input parameters and everything implementation needs to know in order to perform the requested analysis
 It is a methodology of packaging research data, with it's associated metedata and it's components and files."
 - **SDE:** Secure Data Environment- a platform where sensitive health and care data is stored securely which can be used for research and analysis.
-- **Submission Layer:** In TRE-FX contex, the submission layer serves as the intial point of contact for incoming analytical tasks, responsible for receiving user-submitted tasks, performing preliminary validation and queuing the tasks for further processing.
 - **Task:** A request submitted by a submission layer User as part of a project, for some analysis or computation within one or more Trusted Research Environments.
 - **TRE (Trusted Research Environment):** This is a secure digital environment that has valuable de-identified health and care data that can only be accessed by approved researchers.
-- **TRE Controller Layer:** This is the outer layer of the TRE, responsible for task scheduling, data coordination and messaging between the different layers of the TRE.
-- **TRE-UI:** This is the user interface that offers an integrated view of ongoing tasks, logs and system metrics.
-- **TRINO:** This is a distributed SQL query engine designed to query large data sets distributed over one or more heterogeneous data sources.
-- **Wizard UI:** A user interface that guides users through a series of steps to complete, allowing the user to break down complex processes into small steps to achieve a goal.
 
-# Techonology
+# Technology
 - **API (Application Programming Interface):** This comprises of guidelines, and protocols that enable software applications to interact with each other by specifying the techniques and data structures for requesting and sharing information.
 - **Application Stack:** This is a collection of software technologies and tools that collaborate to develop and operate an application efficiently and effectively.
 - **Database:** This is a collection of data that is organised, stored and managed electronically.
