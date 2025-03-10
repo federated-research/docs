@@ -13,24 +13,38 @@ Required information:
 - First Name
 - Last Name
 - Email address
-- Username
-- User group(s) to add user to (basic here is **dare-tre-user**)
-
-<Callout>
-The researcher should have signed any user agreements 
-that might be required for accessing the TRE-FX submission layer.
-What nature these agreements should take is not covered here. 
-</Callout>
 
 ## Workflow
 
-<Callout>
-The order in which the steps below are taken is not critical.
-Note that the Keycloak 
-</Callout>
 
 <Steps>
+### Researcher requests account on platform.
+
+The researcher fills out a request form for an account on the service.
+
+<Callout>
+This step is needed, but out of scope for this documentation.
+</Callout>
+
+### Request is approved.
+
+The request is approved.
+**At this point a `username` should be defined for the researcher**.
+The researcher should sign any user agreements 
+that might be required for accessing the TRE-FX submission layer.
+
+<Callout>
+This step is needed, but out of scope for this documentation.
+</Callout>
+
+
 ### [Add the researcher to KeyCloak](/activities/keycloakAdminAddingNewUser)
+
+The groups that the user should be allocated to should be defined before this step.
+
+<Callout>
+The order in which the steps for creating user accounts are taken is not critical.
+</Callout>
 
 ### [Create a new person on the Submission Layer](/activities/submissionManagerAddingNewPerson)
 
