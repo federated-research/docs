@@ -1,0 +1,51 @@
+import {Steps, Callout} from "nextra/components"
+
+# Adding a researcher to the platform
+
+To fully add a researcher to the TRE-FX platform
+they need to both be given an account to the Keycloak user management system,
+and to be added to the people records in the TRE-FX submission layer.
+Their records across these are implicitly associated by their `username`.
+
+## Prerequisites
+
+Required information:
+- First Name
+- Last Name
+- Email address
+
+## Workflow
+
+
+<Steps>
+### Researcher requests account on platform.
+
+The researcher fills out a request form for an account on the service.
+
+<Callout>
+This step is needed, but out of scope for this documentation.
+</Callout>
+
+### Request is approved.
+
+The request is approved.
+**At this point a `username` should be defined for the researcher**.
+The researcher should sign any user agreements 
+that might be required for accessing the TRE-FX submission layer.
+
+<Callout>
+This step is needed, but out of scope for this documentation.
+</Callout>
+
+
+### [Add the researcher to KeyCloak](/activities/keycloakAdminAddingNewUser)
+
+The groups that the user should be allocated to should be defined before this step.
+
+<Callout>
+The order in which the steps for creating user accounts are taken is not critical.
+</Callout>
+
+### [Create a new person on the Submission Layer](/activities/submissionManagerAddingNewPerson)
+
+</Steps>

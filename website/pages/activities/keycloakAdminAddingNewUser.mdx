@@ -1,0 +1,68 @@
+import {Steps, Callout} from "nextra/components"
+
+# Adding a New User to Key Cloak
+
+## Prerequisites and Notes
+
+Required information:
+- First Name
+- Last Name
+- Email
+- Username
+- User group(s) to add user to (basic here is **dare-tre-user**)
+
+
+<img src="/images/KeyCloak_LoginPage.png" width="500"></img>
+
+The Keycloak admin needs to log onto the Keycloak server.
+In the 'AllInOne' stack this is at `localhost:8085`,
+and the log-in details are:
+- username: `admin`
+- password: `admin`
+
+## Workflow
+
+<Steps>
+### Select the `Dare-Control` 'User' page.
+1. Open the `Dare-Control` home page.
+This is done using the drop-down menu
+at the top of the side-bar on the left of the home page.
+If the left side-bar is not visible it can be accessed 
+using the 'three bar' button in the top-left corner of the page.
+2. Then open the 'Users' page using the 'Users' option in the same side-bar.
+<img src="/images/KeyCloak_DareControlUserPage.png" width="500"></img>
+
+### Open Create User dialog.
+Click on the blue 'Add user' button on the 'Users' page, shown in the previous step, 
+to open the 'Create user' dialog.
+
+### Enter User Details, and Assign to Required Groups.
+<img src="/images/KeyCloak_DareControlCreateUser.png" width="500"></img>
+1. Select the required user actions on first log-in
+(this is optional, and recommended to be left blank for the demonstration)
+2. Select if email verification is needed
+(this is optional, and recommended to be left blank for the demonstration)
+3. Set Username (mandatory)
+4. Set Email, First and Last names (optional)
+5. Open the 'Select groups to join' dialog by clicking the 'Join Groups' button.
+Select the required groups (as noted in the prerequisites).
+<img src="/images/KeyCloak_DareControlCreateUserSelectGroups.png" width="500"></img>
+6. Finally, click the blue 'Create' button at the bottom of the screen.
+
+### Apply any Required Extra Configurations
+
+Once the user account has been created then
+the 'User details' page for the new user will be displayed.
+At this point you can set any required extra configurations for the new account.
+
+<img src="/images/KeyCloak_ChangeUserDetails.png" width="500"></img>
+
+<Callout>
+For the demonstration 'AllInOne' stack use these configurations:
+1. **Set Password:** Select 'Credentials' tab, and click the blue 'Set Password' button.
+Enter a password, and deselect the 'Temporary' option.
+2. **Remove Required User Actions:** Select 'Details' tab,
+and remove any items from the 'Required user actions' list (such as 'Configure OTP').
+</Callout>
+
+</Steps>
