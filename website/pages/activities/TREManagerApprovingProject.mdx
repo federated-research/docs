@@ -1,0 +1,59 @@
+import {Steps, Callout} from "nextra/components"
+
+# Approving Project Access to TRE
+
+## Prerequisites and Notes
+
+Required Information:
+- Database Credentials
+- Project access expiry date
+
+## Workflow
+
+<Steps>
+### Display all 'Unprocessed' Projects
+
+Select the 'Projects' tab at the top of the page.
+Then select the 'Unprocessed Projects' tab.
+All projects which require processing will be listed.
+
+<img src="/images/TRE_UnprocessedProjects.png" width="500"></img>
+
+### Review Project requiring Approval
+
+Select the project you wish to process by
+clicking the 'Review' button at the right side of the listing.
+
+<img src="/images/TRE_ProjectReview.png" width="500"></img>
+
+Enter the following information:
+1. Local Name of Project (optional)
+2. Project Expiry Date. This determines when project access to the TRE will end.
+3. Decision: Approved or Rejected.
+
+<Callout>
+Note that rejected projects cannot be returned
+to an 'undecided' or 'approved' status again.
+</Callout>
+
+##### Enter Database Credentials
+
+If the project is set to 'Approved' then the 'Database Credentials' dialog is opened.
+Enter the database credentials for use by the project.
+
+<img src="/images/TRE_ProjectReview_DatabaseCredentials.png" width="500"></img>
+
+Once all details are entered click the blue 'Update' button.
+
+### Review Project Memberships
+
+Select the 'Memberships' tab at the top of the Project page.
+This will display all people which have been allocated to the project,
+as well as their Status.
+
+<img src="/images/TRE_ProjectReview_Memberships.png" width="500"></img>
+
+Set the Decisions for each person.
+Once ready click the blue 'Save Changes' button.
+
+</Steps>

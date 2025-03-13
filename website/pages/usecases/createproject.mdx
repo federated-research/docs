@@ -2,8 +2,54 @@ import {Steps, Callout} from "nextra/components"
 
 # Creating a Project
 
+Adding a project to the TRE-FX platform involves two main steps.
+First the Submission Layer Manager needs to create it in the TRE-FX submission layer.
+Then the TRE Manager(s) whose TRE's the project will use need to approve access.
 
 ## Prerequisites
 
+Required information:
+- Project Name
+- Start and End dates
+- Project embargo status
+- Researcher usernames to be associated with project
+
+Optional (for this system) information:
+- Project Owner, and contact
+- Project Description
+
+The TRE Manager(s) will need:
+- Database Credentials
+- Project access expiry date
 
 ## Workflow
+
+<Steps>
+### Researcher requests project is added to platform
+
+The researcher fills out a request form to add a project,
+specifying in this which TRE's they wish to use.
+
+<Callout>
+This step is needed, but out of scope for this documentation.
+</Callout>
+
+### Request is approved
+
+<Callout>
+This step is needed, but out of scope for this documentation.
+</Callout>
+
+### [Add the project to Submission Layer](/activities/submissionManagerAddingNewProject)
+
+The project is added to the Submission Layer by the Submission Layer Manager.
+Researchers are added to the project at this point too.
+
+### [Approve project access to TRE](/activites/TREManagerApprovingProject)
+
+The TRE Manager reviews the access request to their TRE for the project,
+and approve these as appropriate.
+At this stage the TRE Manager will also approve any Researchers
+who have been allocated to the project.
+
+</Steps>
