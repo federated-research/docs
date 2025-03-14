@@ -14,7 +14,7 @@ If you deploy this stack for public access then these must be changed.
 ## TRE-FX Website (Submission Layer)
 
 <Callout>
-**Web Address:** [http://localhost:8888](http://localhost:8888)
+**Web Address:** [http://localhost:7220](http://localhost:7220)
 </Callout>
 
 This is the front page of the stack, which any researchers interacting
@@ -104,9 +104,17 @@ Job tracking service for the TRE service.
 
 <Callout>
 - **MinioAAA Web Address:** [htpp://localhost:9000](http://localhost:9000)
-- **Minio2 Web Address:** [htpp://localhost:9000](http://localhost:9002)
+- **Minio2 Web Address:** [htpp://localhost:9002](http://localhost:9002)
 </Callout>
 
+These are the object stores for the stack.
+MinioAAA is the Submission Layer store, while Minio2 is the TRE Layer store.
+
+<Callout>
+**Administration account**
+- Username: `minio`
+- Password: `minio123`
+</Callout>
 
 
 
