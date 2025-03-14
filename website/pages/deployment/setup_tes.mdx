@@ -6,12 +6,11 @@ import { Steps,Callout } from "nextra/components"
 [Funnel](https://github.com/ohsu-comp-bio/funnel) is an implementation of the GA4GH Task Execution Schemas. It provides an API server, 
 multiple storage backends, multiple compute backends and a web UI.
 For the purposes of the All In One stack we will be configuring the TRE Agent to use Funnel as the TES compatible execution backend and any outputs from the execution will be stored in the TRE Layer MinIO instance.
-
 <Steps>
 
 ### Set up MinIO Access key
 Navigate to the TRE layer MinIO instance, hosted at `http://localhost:9002` and create access key credentials.
-The MinIO login credentials for the All In One Demo version are:
+To login to MinIO use:
 ```
 Username: minio
 Password: minio123
