@@ -1,4 +1,4 @@
-import {Callout} from "nextra/components"
+import {Callout,Table} from "nextra/components"
 
 # Stack Components
 
@@ -11,109 +11,106 @@ and with the local web addresses and user accounts.
 Note that these user accounts are only intended for local training purposes.
 If you deploy this stack for public access then these must be changed.
 
-## TRE-FX Website (Submission Layer)
 
-<Callout>
-**Web Address:** [http://localhost:7220](http://localhost:7220)
-</Callout>
+## TRE-FX Website (Submission Layer)
 
 This is the front page of the stack, which any researchers interacting
 with the service will use.
 
-<Callout>
-**Administration account**
-- Username: `globaladminuser`
-- Password: `password123`
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:7220](http://localhost:7220)|
+|:--|:------|
+|**Administration account**||
+|Username|`globaladminuser`|
+|Password|`password123`|
 </Callout>
 
 ## KeyCloak Server
 
-<Callout>
-**Web Address:** [htpp://localhost:8085](http://localhost:8085)
-</Callout>
-
 The user management service for the stack.
 
-<Callout>
-**Administration account**
-- Username: `admin`
-- Password: `admin`
+<Callout type="info" emoji="ℹ️">
+|**Web Address:**|[http://localhost:8085](http://localhost:8085)|
+|:--|:--|
+|**Administration account**||
+| Username| `admin`|
+| Password| `admin`|
 </Callout>
 
 ## TRE Management Website (TRE Layer)
 
-<Callout>
-**Web Address:** [htpp://localhost:8989](http://localhost:8989)
-</Callout>
-
 TRE management services.
 
-<Callout>
-**Administration account**
-- Username: `globaladminuser`
-- Password: `password123`
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:8989](http://localhost:8989)|
+|:--|:------|
+|**Administration account**||
+|Username|`globaladminuser`|
+|Password|`password123`|
 </Callout>
 
 ## Egress Layer
 
-<Callout>
-**Web Address:** [htpp://localhost:8100](http://localhost:8100)
-</Callout>
-
 Egress management services.
 
-<Callout>
-**Administration account**
-- Username: `globaladminuser`
-- Password: `password123`
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:8100](http://localhost:8100)|
+|:--|:------|
+|**Administration account**||
+|Username|`globaladminuser`|
+|Password|`password123`|
 </Callout>
 
 ## Backend Services
 
 ### Seq Activity Logs
 
-<Callout>
-**Web Address:** [htpp://localhost:5341](http://localhost:5341)
-</Callout>
-
 Activity logs for the stack.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:5341](http://localhost:5341)|
+|:--|:------|
+</Callout>
 
 ### TRE API
 
-<Callout>
-**Web Address:** [htpp://localhost:8072/swagger](http://localhost:8072/swagger)
-</Callout>
-
 SWAGGER documentation for the TRE service.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:8072/swagger](http://localhost:8072/swagger)|
+|:--|:------|
+</Callout>
 
 ### TRE Job Tracking
 
-<Callout>
-**Web Address:** [htpp://localhost:8072/swagger](http://localhost:8072/hangfire)
-</Callout>
-
 Job tracking service for the TRE service.
 
-<Callout>
-**Administration account**
-- Username: `admin`
-- Password: `password123`
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:8072/hangfire](http://localhost:8072/hangfire)|
+|:--|:------|
+|**Administration account**||
+|Username|`admin`|
+|Password|`password123`|
 </Callout>
 
 ### Min IO Services
 
-<Callout>
-- **MinioAAA Web Address:** [htpp://localhost:9000](http://localhost:9000)
-- **Minio2 Web Address:** [htpp://localhost:9002](http://localhost:9002)
-</Callout>
-
 These are the object stores for the stack.
-MinioAAA is the Submission Layer store, while Minio2 is the TRE Layer store.
 
-<Callout>
-**Administration account**
-- Username: `minio`
-- Password: `minio123`
+<Callout type="info" emoji="ℹ️">
+|**Submission Layer Store**| MinioAAA |
+|:--|:------|
+|**Web Address**|[http://localhost:9000](http://localhost:9000)|
+|**Administration account**||
+|Username|`minio`|
+|Password|`minio123`|
+
+|**TRE Layer Store**| Minio2 |
+|:--|:------|
+|**Web Address**|[http://localhost:9002](http://localhost:9002)|
+|**Administration account**||
+|Username|`minio`|
+|Password|`minio123`|
 </Callout>
 
 
