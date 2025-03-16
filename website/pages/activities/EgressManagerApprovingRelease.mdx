@@ -1,0 +1,38 @@
+import {Steps, Callout} from "nextra/components"
+
+# Egress Data Release Approval
+
+## Prerequisites and Notes
+
+
+
+## Workflow
+
+<Steps>
+### Egress Manager logs onto the [Egress Layer](/deployment/stackinfo#egress-layer)
+
+### Display all 'Unprocessed' Egresses
+
+Select the 'Requests' tab at the top of the page.
+Then select the 'Unprocessed Requests' tab.
+All requests which require processing will be listed.
+
+<img src="/images/Egress_UnprocessedEgresses.png" width="500"></img>
+
+### Review Request requiring Approval
+
+Select the request you wish to process by
+clicking the 'Review' button at the right side of the listing.
+
+<img src="/images/Egress_RequestReview.png" width="500"></img>
+
+The request data can be downloaded to review.
+For each data object within the request select either 'Approved' or 'Rejected'.
+Partial reviews can be saved using the 'Save' button.
+Once the review is complete click the blue 'Complete & Close Request' button.
+You will be returned to the 'Requests' tab,
+and the request will be show the new status (e.g. Fully Approved).
+
+<img src="/images/Egress_RequestsApproved.png" width="500"></img>
+
+</Steps>
