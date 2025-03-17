@@ -15,12 +15,15 @@ To login to MinIO use:
 Username: minio
 Password: minio123
 ```
+To create the access keys, in the MinIO console navigate to ***Access Keys -> Create access key***
+
+![MinIO](/images/MinioAccessKey.png)
 <Callout> 
-Note the name of the TRE output bucket of the Project that you want to submit to. The naming pattern is: ` <projectName> + <uniqueID> + outputtre`. You will need to reference this in the `outputs` section in the [TES message](#submit-a-tes-message)
+In the *Object Browser* note the name of the TRE output bucket of the Project that you want to submit to. The naming pattern is: ` <projectName> + <uniqueID> + outputtre`. You will need to reference this in the `outputs` section in the [TES message](#make-submission)
 
 </Callout>
 
-### Install funnel
+### Install Funnel
 Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.github.io/funnel/download/)
 
 <Callout> It is currently only available on linux and macOS.</Callout>
@@ -70,6 +73,7 @@ From the Submission Layer navigate to ***API Access Token -> Copy to Clipboard**
 You can make the request from the swagger API hosted at `http://localhost:5034/swagger`.
 Authorise the request with the Token from the ***Authorise*** button on the top right.
 
+#### Make submission
 More information on the TES payload can be found at the TES API [specification](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask) website.
 
 ```bash copy
