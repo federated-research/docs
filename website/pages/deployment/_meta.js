@@ -1,4 +1,5 @@
 export default {
     quickstart: 'Getting Started',
-    setup: 'Setup'
+    stackinfo: 'Stack Components',
+    setup: 'First Run Through'
 }
