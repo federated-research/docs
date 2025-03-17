@@ -1,0 +1,117 @@
+import {Callout,Table} from "nextra/components"
+
+# Stack Components
+
+The All In One stack provides a number of services which would
+usually be hosted separately, but are combined together here
+for the convenience of users.
+
+Below these are listed, along with a short description of their function,
+and with the local web addresses and user accounts.
+Note that these user accounts are only intended for local training purposes.
+If you deploy this stack for public access then these must be changed.
+
+
+## TRE-FX Website (Submission Layer)
+
+This is the front page of the stack, which any researchers interacting
+with the service will use.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:7220](http://localhost:7220)|
+|:--|:------|
+|**Administration account**||
+|Username|`globaladminuser`|
+|Password|`password123`|
+</Callout>
+
+## KeyCloak Server
+
+The user management service for the stack.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address:**|[http://localhost:8085](http://localhost:8085)|
+|:--|:--|
+|**Administration account**||
+| Username| `admin`|
+| Password| `admin`|
+</Callout>
+
+## TRE Management Website (TRE Layer)
+
+TRE management services.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:8989](http://localhost:8989)|
+|:--|:------|
+|**Administration account**||
+|Username|`globaladminuser`|
+|Password|`password123`|
+</Callout>
+
+## Egress Layer
+
+Egress management services.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:8100](http://localhost:8100)|
+|:--|:------|
+|**Administration account**||
+|Username|`globaladminuser`|
+|Password|`password123`|
+</Callout>
+
+## Backend Services
+
+### Seq Activity Logs
+
+Activity logs for the stack.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:5341](http://localhost:5341)|
+|:--|:------|
+</Callout>
+
+### TRE API
+
+SWAGGER documentation for the TRE service.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:8072/swagger](http://localhost:8072/swagger)|
+|:--|:------|
+</Callout>
+
+### TRE Job Tracking
+
+Job tracking service for the TRE service.
+
+<Callout type="info" emoji="ℹ️">
+|**Web Address**|[http://localhost:8072/hangfire](http://localhost:8072/hangfire)|
+|:--|:------|
+|**Administration account**||
+|Username|`admin`|
+|Password|`password123`|
+</Callout>
+
+### Min IO Services
+
+These are the object stores for the stack.
+
+<Callout type="info" emoji="ℹ️">
+|**Submission Layer Store**| MinioAAA |
+|:--|:------|
+|**Web Address**|[http://localhost:9000](http://localhost:9000)|
+|**Administration account**||
+|Username|`minio`|
+|Password|`minio123`|
+
+|**TRE Layer Store**| Minio2 |
+|:--|:------|
+|**Web Address**|[http://localhost:9002](http://localhost:9002)|
+|**Administration account**||
+|Username|`minio`|
+|Password|`minio123`|
+</Callout>
+
+
+

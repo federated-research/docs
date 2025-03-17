@@ -1,5 +1,6 @@
 export default {
     quickstart: 'Getting Started',
-    setup: 'Setup',
-    setup_tes:'Funnel TES'
+    setup_tes:'Run with Funnel TES',
+    stackinfo: 'Stack Components',
+    setup: 'Run All In One Demo'
 }
