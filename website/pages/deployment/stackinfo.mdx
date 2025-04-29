@@ -6,60 +6,67 @@ The All In One stack provides a number of services which would
 usually be hosted separately, but are combined together here
 for the convenience of users.
 
-Below these are listed, along with a short description of their function,
+These are listed below, along with a short description of their function,
 and with the local web addresses and user accounts.
 Note that these user accounts are only intended for local training purposes.
 If you deploy this stack for public access then these must be changed.
 
 
-## TRE-FX Website (Submission Layer)
+## Submission Layer
 
 This is the front page of the stack, which any researchers interacting
-with the service will use.
+with the service will use. Approved researchers can submit tasks to a Project using the API or by interacting with the UI.
 
-<Callout type="info" emoji="ℹ️">
-|**Web Address**|[http://localhost:7220](http://localhost:7220)|
-|:--|:------|
-|**Administration account**||
-|Username|`globaladminuser`|
-|Password|`password123`|
-</Callout>
+**Hosted at** : [localhost:7220](http://localhost:7220)
+##### Login credentials:
+
+```
+Username: globaladminuser
+
+Password: password123
+```
 
 ## KeyCloak Server
 
-The user management service for the stack.
+Keycloak is used for user authentication & user management across all three layers.
 
-<Callout type="info" emoji="ℹ️">
-|**Web Address:**|[http://localhost:8085](http://localhost:8085)|
-|:--|:--|
-|**Administration account**||
-| Username| `admin`|
-| Password| `admin`|
-</Callout>
+**Hosted at** : [localhost:8085](http://localhost:8085)
+##### Login credentials:
 
-## TRE Management Website (TRE Layer)
+```
+Username: admin
 
-TRE management services.
+Password: admin
+```
 
-<Callout type="info" emoji="ℹ️">
-|**Web Address**|[http://localhost:8989](http://localhost:8989)|
-|:--|:------|
-|**Administration account**||
-|Username|`globaladminuser`|
-|Password|`password123`|
-</Callout>
+## TRE Management Website (TRE Agent Layer)
+
+The TRE Agent handles the communication between the Submission Layer and the TRE.
+The TRE Agent polls out to the Submission Layer, gets a task, then sends the task to an implementation of the GA4GH Task Execution Schemas ([TESK](https://github.com/elixir-cloud-aai/TESK) or [Funnel](https://github.com/ohsu-comp-bio/funnel)). 
+Once the task is finished executing the TRE Agent sends the results to the Egress Layer.
+
+**Hosted at** : [localhost:8989](http://localhost:8989)
+##### Login credentials:
+
+```
+Username: globaladminuser
+
+Password: password123
+```
 
 ## Egress Layer
 
-Egress management services.
+The Egress Layer handles egress requests. Once a task is finished executing the results are then waiting for approval in the Egress layer.
+Once results are approved/rejected it sends an update to the TRE Agent.
 
-<Callout type="info" emoji="ℹ️">
-|**Web Address**|[http://localhost:8100](http://localhost:8100)|
-|:--|:------|
-|**Administration account**||
-|Username|`globaladminuser`|
-|Password|`password123`|
-</Callout>
+**Hosted at** : [localhost:8100](http://localhost:8100)
+##### Login credentials:
+
+```
+Username: globaladminuser
+
+Password: password123
+```
 
 ## Backend Services
 
@@ -67,51 +74,50 @@ Egress management services.
 
 Activity logs for the stack.
 
-<Callout type="info" emoji="ℹ️">
-|**Web Address**|[http://localhost:5341](http://localhost:5341)|
-|:--|:------|
-</Callout>
+**Hosted at**: [localhost:5341](http://localhost:5341)
 
 ### TRE API
 
-SWAGGER documentation for the TRE service.
+Swagger UI API documentation for the TRE service.
 
-<Callout type="info" emoji="ℹ️">
-|**Web Address**|[http://localhost:8072/swagger](http://localhost:8072/swagger)|
-|:--|:------|
-</Callout>
+**Hosted at**: [localhost:8072/swagger](http://localhost:8072/swagger)
+
 
 ### TRE Job Tracking
 
 Job tracking service for the TRE service.
 
-<Callout type="info" emoji="ℹ️">
-|**Web Address**|[http://localhost:8072/hangfire](http://localhost:8072/hangfire)|
-|:--|:------|
-|**Administration account**||
-|Username|`admin`|
-|Password|`password123`|
-</Callout>
+**Hosted at**: [localhost:8072/hangfire](http://localhost:8072/hangfire)
+```
+Username: admin
 
-### Min IO Services
+Password: password123
+```
+
+### MinIO
 
 These are the object stores for the stack.
 
-<Callout type="info" emoji="ℹ️">
-|**Submission Layer Store**| MinioAAA |
-|:--|:------|
-|**Web Address**|[http://localhost:9000](http://localhost:9000)|
-|**Administration account**||
-|Username|`minio`|
-|Password|`minio123`|
+#### Submission Minio:
+Submission Layer MinIO stores any inputs and after execution, stores the results for a submission.
 
-|**TRE Layer Store**| Minio2 |
-|:--|:------|
-|**Web Address**|[http://localhost:9002](http://localhost:9002)|
-|**Administration account**||
-|Username|`minio`|
-|Password|`minio123`|
-</Callout>
+**Hosted at**: [localhost:9000](http://localhost:9000)
+
+```
+Username: minio
+
+Password: minio123
+```
+#### TRE Minio
+TRE Agent MinIO, stores any inputs copied over from the Submission layer, and the results of the analysis.
+
+**Hosted at**: [localhost:9002](http://localhost:9002)
+
+```
+Username: minio
+
+Password: minio123
+```
 
 
 
