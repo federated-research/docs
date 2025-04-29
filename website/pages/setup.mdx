@@ -1,0 +1,139 @@
+import { Cards, Tabs, Steps, Callout } from 'nextra/components'
+
+# Initial Setup
+
+This page will guide you through getting the TRE-FX All in One docker compose running locally.
+
+## Requirements
+
+The service is deployed using [Docker](https://www.docker.com/),
+and you will need to install this in order to use this service.
+<Cards.Card
+  title="Install Docker"
+  href="https://www.docker.com/get-started/"
+  arrow
+/>
+
+The configuration script is shared via [GitHub](https://www.github.com).
+You do not need a GitHub account to access these,
+but you may wish to create one in order to keep your configuration script in version control.
+If you do this you will also need Git installed on your machine.
+<Cards>
+  <Cards.Card
+    title="GitHub Signup (optional)"
+    href="https://github.com/signup"
+    arrow
+  />
+  <Cards.Card
+    title="Git Installation (optional)"
+    href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"
+    arrow
+  />  
+</Cards>
+
+## Pre-Reading
+
+The instructions below for starting the service are reasonably well contained,
+but we will not explain in detail here what the specific docker or git commands do.
+For your reference we include here links to introductionary training courses on Docker and Git. 
+<Cards>
+  <Cards.Card
+    title="Introduction to Docker"
+    href="https://uomresearchit.github.io/docker-introduction/index.html"
+    arrow
+  />
+  <Cards.Card
+    title="Introduction to Git"
+    href="https://swcarpentry.github.io/git-novice/"
+    arrow
+  />  
+</Cards>
+
+
+
+## Download Tooling
+
+The docker configuration scripts are shared via Github:
+<Cards.Card
+  title="DARE-TREFX-Environment1"
+  href="https://github.com/SwanseaUniversityMedical/DARE-TREFX-Environment1"
+  arrow
+/>
+
+<img src="/images/DARE-TREFX-GitRepo.png" width="500"></img>
+
+<Tabs items={['Direct Download', 'Clone Using Git']}>
+  <Tabs.Tab>
+    Click on the Green `Code` button in the middle of the repository website.
+    This will open the menu below. Select the `Download ZIP` option.
+    Once the zip archive has downloaded open it in your working directory.
+    <img src="/images/github_clone_menu.png" width="300"></img>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    Click on the Green `Code` button in the middle of the repository website.
+    This will open the menu below.
+    <img src="/images/github_clone_menu.png" width="300"></img>
+    Choose the protocol you wish to use,
+    **HTTPS**, **SSH**, or **GitHub CLI**, and copy the address or command shown.
+    In your terminal change to your chosen working directory.
+    If you are using either **HTTPS** or **SSH** protocol then use the `git clone` command:    
+    ```bash copy
+    git clone git@github.com:SwanseaUniversityMedical/DARE-TREFX-Environment1.git
+    ```
+    If you are using **GitHub CLI** then use the `gh repo clone` command:
+    ```bash copy
+    gh repo clone SwanseaUniversityMedical/DARE-TREFX-Environment1
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Starting All-In-One Stack
+
+To start the service follow the steps below:
+
+<Steps>
+### Change to directory containing Docker Compose configuration file
+
+Within the **DARE-TREFX-Environment1** directory the configuration files are in the
+`AllInOne` directory:
+```
+cd AllInOne
+```
+
+### Start the Docker Service
+
+In the same directory as the `docker-compose.yml` file run:
+```bash copy
+docker compose up -d
+```
+This will start the docker stack - you should see a list of services starting up.
+
+### Checking Status of Docker Service
+
+The status of the services can be checked using Docker Desktop,
+or by running this command:
+```bash copy
+docker stats
+```
+
+### Stopping the Docker Service
+
+Once you have finished using the service it can be stopped by
+running this command in the same directory as the `docker-compose.yml` file:
+```bash copy
+docker compose down
+```
+
+</Steps>
+
+## Troubleshooting
+
+<Tabs items={['Windows']}>
+  <Tabs.Tab>
+    Docker may need access to the file directory to mount the `init.sql` file.
+    Add the directory path to the shared paths from `Docker -> Preferences -> 
+    Resources -> File Sharing`
+  </Tabs.Tab>
+</Tabs>
+

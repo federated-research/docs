@@ -3,7 +3,9 @@ export default {
   acronyms: "Acronyms",
   actors: "Actors",
   glossary: "Glossary",
-  aio_demo: "All In One (Demo)",
+  setup: "Initial Set Up",
+  first_demo: "All In One (First Demo)",
+  deployable_demo: "All In One (Deployable Demo)",
   usecases: "Use Cases",
   activities: "Common Activities"
 }
