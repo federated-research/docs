@@ -81,29 +81,20 @@ More information on the TES payload can be found at the TES API [specification](
 POST localhost:5034/v1/tasks
 {
     "state": 0,
-    "name": "Hello world",
-    "inputs": [
-        {
-            "url": "s3://<TREOutputBucket>/hello.txt",
-            "path": "/inputs/hello.txt"
-        }
-    ],
+    "name": "Hello World",
+    "inputs": [],
     "outputs": [
-        {
-            "url": "s3://<TREOutputBucket>/output.txt", // TREOutputBucket needs to match the bucket name from Step 1
-            "path": "/outputs/stdout"
-        }
     ],
     "executors": [
         {
-            "image": "alpine",
+            "image": "ubuntu",
             "command": [
-                "cat",
-                "/inputs/hello.txt"
+                "echo",
+                "Hello World"
             ],
-            "stdout": "/outputs/stdout"
+            "workdir": "/outputs"
         }
-    ],
+    ]
     "volumes": null,
     "tags": {
         "project": "<ProjectName>", // Project that you would like to submit to.
