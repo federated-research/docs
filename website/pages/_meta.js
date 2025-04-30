@@ -6,6 +6,6 @@ export default {
   setup: "Initial Set Up",
   first_demo: "All In One (First Demo)",
   deployable_demo: "All In One (Deployable Demo)",
-  usecases: "Use Cases",
+  guides: "Usage Guides",
   activities: "Common Activities"
 }
