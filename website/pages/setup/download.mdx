@@ -1,0 +1,88 @@
+import { Cards, Tabs, Steps, Callout } from 'nextra/components'
+
+## Download Tooling
+
+The docker configuration scripts are shared via Github:
+<Cards.Card
+  title="DARE-TREFX-Environment1"
+  href="https://github.com/SwanseaUniversityMedical/DARE-TREFX-Environment1"
+  arrow
+/>
+
+<img src="/images/DARE-TREFX-GitRepo.png" width="500"></img>
+
+<Tabs items={['Direct Download', 'Clone Using Git']}>
+  <Tabs.Tab>
+    Click on the Green `Code` button in the middle of the repository website.
+    This will open the menu below. Select the `Download ZIP` option.
+    Once the zip archive has downloaded open it in your working directory.
+    <img src="/images/github_clone_menu.png" width="300"></img>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    Click on the Green `Code` button in the middle of the repository website.
+    This will open the menu below.
+    <img src="/images/github_clone_menu.png" width="300"></img>
+    Choose the protocol you wish to use,
+    **HTTPS**, **SSH**, or **GitHub CLI**, and copy the address or command shown.
+    In your terminal change to your chosen working directory.
+    If you are using either **HTTPS** or **SSH** protocol then use the `git clone` command:    
+    ```bash copy
+    git clone git@github.com:SwanseaUniversityMedical/DARE-TREFX-Environment1.git
+    ```
+    If you are using **GitHub CLI** then use the `gh repo clone` command:
+    ```bash copy
+    gh repo clone SwanseaUniversityMedical/DARE-TREFX-Environment1
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Starting All-In-One Stack
+
+To start the service follow the steps below:
+
+<Steps>
+### Change to directory containing Docker Compose configuration file
+
+Within the **DARE-TREFX-Environment1** directory the configuration files are in the
+`AllInOne` directory:
+```
+cd AllInOne
+```
+
+### Start the Docker Service
+
+In the same directory as the `docker-compose.yml` file run:
+```bash copy
+docker compose up -d
+```
+This will start the docker stack - you should see a list of services starting up.
+
+### Checking Status of Docker Service
+
+The status of the services can be checked using Docker Desktop,
+or by running this command:
+```bash copy
+docker stats
+```
+
+### Stopping the Docker Service
+
+Once you have finished using the service it can be stopped by
+running this command in the same directory as the `docker-compose.yml` file:
+```bash copy
+docker compose down
+```
+
+</Steps>
+
+## Troubleshooting
+
+<Tabs items={['Windows']}>
+  <Tabs.Tab>
+    <Callout> Docker may need access to the file directory to mount the `init.sql` file.
+    Add the directory path to the shared paths from `Docker -> Preferences -> 
+    Resources -> File Sharing` </Callout>
+  </Tabs.Tab>
+</Tabs>
+
