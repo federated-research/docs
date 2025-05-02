@@ -42,4 +42,5 @@ export default {
       </>
     )
   },
+  footer: false
 };
