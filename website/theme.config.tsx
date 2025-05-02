@@ -6,6 +6,9 @@ export default {
   project: {
     link: "https://github.com/federated-analytics/docs",
   },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+  },
   logo: (
     <span
       style={{
