@@ -1,5 +1,15 @@
 export default {
-  index: "Federated Analytics",
+  index: {
+    title: "TRE-FX",
+    description: "TRE-FX Documentation",
+    theme: {
+      breadcrumb: false,
+      layout: 'full',
+      timestamp: false,
+      pagination: false,
+
+    }
+  },
   acronyms: "Acronyms",
   actors: "Actors",
   glossary: "Glossary",
@@ -26,7 +36,4 @@ export default {
   "public-trust": {
     display: "hidden"
   }
-
-  
-  
 }
