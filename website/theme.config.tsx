@@ -6,11 +6,13 @@ export default {
   project: {
     link: "https://github.com/federated-analytics/docs",
   },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+  },
   logo: (
     <span
       style={{
         display: "flex",
-        color: "#6855ff",
       }}
     >
       <img
@@ -19,10 +21,10 @@ export default {
           height: "1.3rem",
           marginRight: "0.5rem",
         }}
-        src="/images/logo-small.png"
+        src="/logo.svg"
         alt="logo"
       />
-      Federated Analytics Documentation
+      Documentation
     </span>
   ),
   head() {
@@ -30,17 +32,18 @@ export default {
  
     return (
       <>
-        <meta property="og:title" content={frontMatter.title || 'Federated Analytics'} />
+        <meta property="og:title" content={frontMatter.title || 'TRE-FX Documentation'} />
         <meta
           property="og:description"
-          content={frontMatter.description || 'Federated Analytics Documentation.'}
+          content={frontMatter.description || 'TRE-FX Documentation.'}
         />
-        <title>{frontMatter.title || 'Federated Analytics'}</title>
-        <link rel="icon" type="image/svg+xml" href="/images/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+        <title>{frontMatter.title || 'TRE-FX Documentation'}</title>
+        <link rel="icon" type="image/svg+xml" href="/icons/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
       </>
     )
   },
+  footer: false
 };
