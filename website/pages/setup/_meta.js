@@ -1,5 +1,5 @@
 export default {
     requirements: 'Requirements',
     download: 'Download',
-    starting_stack: 'Running All-In-One Stack'
+    starting_stack: 'Setup All-In-One Stack'
 }
