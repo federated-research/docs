@@ -1,0 +1,95 @@
+import { Steps, Callout } from "nextra/components";
+
+# Deploy a TRE Layer
+
+To deploy an instance of the [TRE Agent](/first_demo/stackinfo#tre-agent-tre-layer) & [Egress](/first_demo/stackinfo#egress-tre-layer):
+
+<Steps>
+### Go to the TRE Layer directory
+Within the DARE-TREFX-Environment1 directory the TRE Layer docker-compose and configuration files are in the `TRE-Keycloak` directory:
+
+```bash copy
+cd TRE-Keycloak
+```
+
+### Configure the .env file
+
+Unless you are running it locally, change `localhost` to the machine's host.
+
+```yaml filename=".env"
+# Set the following env vars to point to your machine's host:
+KeycloakHostName=http://localhost:8085
+MinioBrowser=http://localhost:9003
+EgressKeyCloakClientUIRedirectURL=https//localhost:8100/
+EgressKeyCloakTokenExpiredAddressUI=http://localhost:8100/Account/LoginAfterTokenExpired
+
+# For example if running on a VM then change the hostname:
+KeycloakHostName=http://<VMHost>:8085
+MinioBrowser=http://<VMHost>:9003
+EgressKeyCloakClientUIRedirectURL=https//<VMHost>:8100/
+EgressKeyCloakTokenExpiredAddressUI=http://<VMHost>:8100/Account/LoginAfterTokenExpired
+
+# Set TesAPIUrl to the URL where the TES API executing agent is hosted. e.g Funnel or TES-K
+TesAPIUrl=http://localhost:8000/v1/tasks
+
+# Set SubmissionAPIAddressURL to the URL where the Submission API is hosted
+# If you are using the default docker-compose then the port is 5034
+# So only the hostname needs to change
+SubmissionAPIAddressURL=http://localhost:5034
+```
+
+### Run docker-compose
+
+```bash copy
+docker-compose up -d
+```
+
+### TRE Agent
+
+The TRE Agent UI is hosted on port `8989`
+
+<Steps>
+### Enter Submission Credentials
+The TRE Agent UI will prompt you to provide the submission credentials in order to authenticate against the `Submission Layer API`.
+By default these are:
+
+```yaml copy
+Username: accessfromtretosubmission
+Password: password123
+```
+
+<Callout>
+  These are the TRE Agent user credentials, created in the Submission Layer
+  Keycloak realm.
+</Callout>
+
+### Enter Egress Credentials
+
+Next, the TRE Agent UI will prompt you to provide the egress credentials in order to authenticate against the `Egress API`.
+By default these are:
+
+```yaml copy
+Username: accessfromtretoegress
+Password: password123
+```
+
+<Callout>
+  These are the TRE Agent user credentials, created in the Egress Layer Keycloak
+  realm.{" "}
+</Callout>
+
+</Steps>
+### Egress
+The Egress UI is hosted on port `8100`
+<Steps>
+### Enter TRE credentials
+The Egress UI will prompt you to provide the tre credentials in order to authenticate against the `TRE API`.
+By default these are:
+```yaml copy
+Username: accessfromegresstotre
+Password: password123
+```
+<Callout>These are the Egress user credentials, created in the TRE Agent Keycloak realm. </Callout>
+</Steps>
+
+</Steps>

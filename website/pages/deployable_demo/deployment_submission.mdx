@@ -1,0 +1,35 @@
+import { Steps, Callout } from "nextra/components"
+
+# Deploy a Submission Layer
+To deploy an instance of the [Submission Layer](/first_demo/stackinfo#submission-layer):
+
+<Steps>
+
+### Go to the Submission Layer directory
+Within the DARE-TREFX-Environment1 directory the Submission Layer docker-compose and configuration files are in the `Submission-Keycloak` directory:
+
+```bash copy
+cd Submission-Keycloak
+```
+### Configure the .env file
+Unless you are running it locally, change `localhost` to the machine's host.
+
+```yaml filename=".env"
+# Default settings:
+KeycloakHostName=http://localhost:8085
+MinioBrowserHost=localhost 
+
+# New settings:
+# If running on a VM then: 
+KeycloakHostName=http://<VMHost>:8085
+MinioBrowserHost=<VMHost>
+```
+
+### Run docker-compose
+```bash copy
+docker-compose up -d
+```
+
+### Go to the Submission Layer UI
+Hosted on port `7220`
+</Steps>

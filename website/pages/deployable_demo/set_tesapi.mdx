@@ -1,0 +1,21 @@
+import { Callout } from "nextra/components";
+
+## Set the TES API executing agent.
+In the TRE Agent .env file change the following config:
+
+```yaml copy filename=".env"
+
+// UseTESK should be set to true:
+UseTESK = true 
+
+// Set TesAPIUrl to the URL where the TES API executing agent is hosted. e.g Funnel or TES-K:
+TesAPIUrl=http://localhost:8000/v1/tasks 
+
+// Output bucket prefix for the TES executing agent to write outputs to, default is s3 bucket prefix:
+TesOutputBucketPrefix=s3:// 
+```
+
+<Callout type="info">
+Restart the TRE Agent container to apply the new configuration.
+</Callout>
+
