@@ -1,0 +1,89 @@
+import { Steps, Cards } from "nextra/components";
+
+## Run analysis with All In One Demo
+<Steps>
+
+### Install Funnel
+
+<Cards>
+
+<Cards.Card 
+
+title="How to install Funnel"
+  href='/deployable_demo/install_funnel'
+  arrow
+ 
+/>
+
+</Cards>
+### In the All In One repository change these settings:
+
+Change these settings in the **_.env_** file:
+
+```bash copy filename=".env"
+UseTESK = true
+```
+
+In the **_docker-compose.yml_** set:
+
+```yaml copy filename="docker-compose.yml"
+// Set all instances of DemoMode and KeycloakDemoMode in the file to:
+DemoMode = false
+KeyCloakDemoMode = true
+
+// Set TESKAPIURL to the URL where Funnel is hosted:
+TESKAPIURL = "http://localhost:8000/v1/tasks"
+
+// Set the prefix for GenericS3 storage:
+TESKOutputBucketPrefix = "s3://" 
+```
+</Steps>
+
+### Submit a TES message
+
+Once the Funnel is running and the All In One is up and configured, you can submit a TES payload to the Submission Layer.
+
+#### Get Access Token
+
+From the Submission Layer navigate to **_API Access Token -> Copy to Clipboard_**
+
+#### Authorise request
+
+You can make the request from the swagger API hosted at `http://localhost:5034/swagger`.
+Authorise the request with the Token from the **_Authorise_** button on the top right.
+
+#### Make submission
+
+More information on the TES payload can be found at the TES API [specification](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask) website.
+
+```bash copy
+
+POST localhost:5034/v1/tasks
+{
+    "state": 0,
+    "name": "Hello World",
+    "inputs": [],
+    "outputs": [
+    ],
+    "executors": [
+        {
+            "image": "ubuntu",
+            "command": [
+                "echo",
+                "Hello World"
+            ],
+            "workdir": "/outputs"
+        }
+    ],
+    "volumes": null,
+    "tags": {
+        "project": "<ProjectName>", // Project that you would like to submit to.
+        "tres": "<TREName>" // TRE related to that Project
+    },
+    "logs": null,
+    "creation_time": null
+}
+
+```
+
+

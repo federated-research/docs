@@ -10,14 +10,14 @@ export default {
 
     }
   },
-  acronyms: "Acronyms",
-  actors: "Actors",
-  glossary: "Glossary",
   setup: "Initial Set Up",
-  first_demo: "All In One (First Demo)",
-  deployable_demo: "All In One (Deployable Demo)",
+  first_demo: "All In One",
+  deployable_demo: "Deploy TRE-FX",
   guides: "Usage Guides",
   activities: "Common Activities",
+  actors: "Actors",
+  acronyms: "Acronyms",
+  glossary: "Glossary",
   implementation: {
     display: "hidden"
   },

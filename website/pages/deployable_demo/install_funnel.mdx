@@ -1,0 +1,88 @@
+import { Steps, Callout, Tabs } from "nextra/components";
+
+## Funnel TES
+
+[Funnel](https://github.com/ohsu-comp-bio/funnel) is an implementation of the GA4GH Task Execution Schemas. It provides an API server,
+multiple storage backends, multiple compute backends and a web UI.
+For the purposes of the All In One stack we will be configuring the TRE Agent to use Funnel as the TES compatible execution backend and any outputs from the execution will be stored in the TRE Layer MinIO instance.
+
+<Steps>
+
+### Set up MinIO Access key
+
+Navigate to the TRE layer MinIO instance, using the details given in the [MinIO Stack Component](/first_demo/stackinfo#minio) section.
+
+To create the access keys, in the MinIO console navigate to **_Access Keys -> Create access key_**
+
+![MinIO](/images/MinioAccessKey.png)
+
+<Callout> 
+In the *Object Browser* note the name of the TRE output bucket of the Project that you want to submit to. The naming pattern is: ` <projectName> + <uniqueID> + outputtre`. You will need to reference this in the `outputs` section in the [TES message](#make-submission)
+
+</Callout>
+
+### Install Funnel
+
+Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.github.io/funnel/download/)
+
+<Callout> It is currently only available on linux and macOS.</Callout>
+
+<Tabs items={['Curl', 'Homebrew', 'Manually']}>
+ <Tabs.Tab>
+    ```bash copy
+    /bin/bash -c "$(curl -fsSL https://github.com/ohsu-comp-bio/funnel/releases/latest/download/install-funnel.sh)" -- 0.11.2
+    ```
+ </Tabs.Tab>
+
+ <Tabs.Tab>
+    ```bash copy
+    brew tap ohsu-comp-bio/formula
+
+    brew install funnel
+    ```
+
+ </Tabs.Tab>
+ 
+ <Tabs.Tab>
+    ```bash copy
+    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/install-funnel.sh
+    
+    chmod +x install-funnel.sh
+    
+    ./install-funnel.sh 0.11.2
+
+    # If it complains about checksums then download them and re-run the install script:
+    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/funnel_0.11.2_checksums.txt
+
+    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/install-funnel.sh_checksums.txt
+    ```
+ </Tabs.Tab>
+
+</Tabs>
+
+### Check if funnel has been successfully installed
+```bash copy
+funnel --help
+```
+
+### Funnel config file
+Funnel will need access to the TRE layer MinIO. Once funnel is installed create a config.yaml file.
+- `Endpoint` is where the instance of MinIO in the TRE Layer is hosted.
+- `Access key` & `Secret` as created in the [previous step](#set-up-minio-access-key).
+
+```yaml filename="config.yml"
+GenericS3:
+  - Disabled: false
+    Endpoint: "localhost:9002" // URL where the MinIO instance is hosted. The port stays the same, change the host to match your environment.
+    Key: “<access key>”
+    Secret: “<secret>"
+```
+
+### Run Funnel
+
+Run the funnel server using the config created above.
+
+```bash copy
+funnel server run -c config.yml
+```
+</Steps>
