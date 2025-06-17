@@ -18,11 +18,17 @@ Unless you are running it locally, change `localhost` to the machine's host.
 # Default settings:
 KeycloakHostName=http://localhost:8085
 MinioBrowserHost=localhost 
+FrontEndMinioUrl=localhost:9001
+submissionMinioUrl=http://localhost:9000
+submissionMinioAdminConsole=http://localhost:9001
 
 # New settings:
 # If running on a VM then: 
 KeycloakHostName=http://<VMHost>:8085
 MinioBrowserHost=<VMHost>
+FrontEndMinioUrl=<VMHost>:9001
+submissionMinioUrl=http://<VMHost>:9000
+submissionMinioAdminConsole=http://<VMHost>:9001
 ```
 
 ### Run docker-compose
