@@ -2,7 +2,7 @@ import { Steps, Callout } from "nextra/components";
 
 # Deploy a TRE Layer
 
-To deploy an instance of the [TRE Agent](/first_demo/stackinfo#tre-agent-tre-layer) & [Egress](/first_demo/stackinfo#egress-tre-layer):
+To deploy an instance of the [TRE Agent](/setup/stackinfo#tre-agent-tre-layer) & [Egress](/setup/stackinfo#egress-tre-layer):
 
 <Steps>
 ### Go to the TRE Layer directory
@@ -29,15 +29,28 @@ MinioBrowser=http://<VMHost>:9003
 EgressKeyCloakClientUIRedirectURL=https//<VMHost>:8100/
 EgressKeyCloakTokenExpiredAddressUI=http://<VMHost>:8100/Account/LoginAfterTokenExpired
 
+# Set SubmissionAPIAddressURL to the URL where the Submission API is hosted
+# This is assuming you have deployed an instance of the Submission Layer, or that there is an existing Submission Layer you can connect the TRE Agent to.
+
+# If you are using the default docker compose then the port is 5034
+# So only the hostname needs to change
+SubmissionAPIAddressURL=http://localhost:5034
+
 # Set TesAPIUrl to the URL where the TES API executing agent is hosted. e.g Funnel or TES-K
 TesAPIUrl=http://localhost:8000/v1/tasks
 
-# Set SubmissionAPIAddressURL to the URL where the Submission API is hosted
-# If you are using the default docker-compose then the port is 5034
-# So only the hostname needs to change
-SubmissionAPIAddressURL=http://localhost:5034
+# Set output bucket prefix for the TES executing agent to write results to default is:
+TesOutputBucketPrefix=s3://
+
+# Optional: The TRE Agent syncs with the Submission Layer Projects every 10 minutes by default, adjust if needed:
+syncSchedule=10
+
+
 ```
 
+<Callout type="info">
+Instructions on how to set up a Funnel TES API executing agent can be found [here](install_funnel/#funnel-tes)
+</Callout>
 ### Run docker-compose
 
 ```bash copy
@@ -75,7 +88,7 @@ Password: password123
 
 <Callout>
   These are the TRE Agent user credentials, created in the Egress Layer Keycloak
-  realm.{" "}
+  realm.
 </Callout>
 
 </Steps>

@@ -12,7 +12,7 @@ export default {
   },
   setup: "Initial Set Up",
   first_demo: "All In One",
-  deployable_demo: "Deploy TRE-FX",
+  deploy_stack: "Deploy TRE-FX",
   guides: "Usage Guides",
   activities: "Common Activities",
   actors: "Actors",
