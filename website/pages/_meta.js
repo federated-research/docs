@@ -10,7 +10,6 @@ export default {
 
     }
   },
-  setup: "Initial Set Up",
   first_demo: "All In One",
   deploy_stack: "Deploy Five Safes TES",
   guides: "Usage Guides",
