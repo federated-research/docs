@@ -1,7 +1,7 @@
 export default {
   index: {
     title: "Federated Analytics Implementations",
-    description: "Details of the implementations of Trellis weaves in the Health Data Research uK Programme",
+    description: "Details of the implementations of Trellis weaves in the Health Data Research UK Programme",
     theme: {
       breadcrumb: false,
       layout: 'full',
