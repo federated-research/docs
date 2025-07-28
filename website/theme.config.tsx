@@ -21,7 +21,7 @@ export default {
           height: "1.3rem",
           marginRight: "0.5rem",
         }}
-        src="/logo.svg"
+        src="/trellis_logo.png"
         alt="logo"
       />
       Documentation
