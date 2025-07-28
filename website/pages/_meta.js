@@ -16,7 +16,5 @@ export default {
   guides: "Usage Guides",
   activities: "Common Activities",
   actors: "Actors",
-  implementation: {
-    display: "hidden"
-  }
+
 }
