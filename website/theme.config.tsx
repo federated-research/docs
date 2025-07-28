@@ -18,13 +18,12 @@ export default {
       <img
         style={{
           display: "flex",
-          height: "1.3rem",
+          height: "4rem",
           marginRight: "0.5rem",
         }}
-        src="/trellis_logo.png"
+        src="/logo.png"
         alt="Trellis logo"
       />
-      Documentation
     </span>
   ),
   head() {

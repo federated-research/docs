@@ -1,0 +1,30 @@
+# Bunny – Summary of What It Does
+
+[Bunny](https://hutch.health/bunny) is a small, containerized application developed by the University of Nottingham that enables **privacy-preserving cohort discovery** across federated health data networks. It is designed to work with **OMOP Common Data Model (CDM)** databases and is typically deployed at partner institutions as a secure, read-only query agent.
+
+## Core Functionality
+
+Bunny processes two main types of cohort discovery queries:
+
+- **Availability**: Answers the question “how many patients meet certain criteria?” without revealing individual-level data.
+- **Distribution**: Returns de-identified aggregate statistics (e.g. age, sex, diagnosis counts) for a cohort of interest.
+
+These queries are designed to protect privacy through configurable obfuscation techniques such as rounding and low-count suppression.
+
+## Use in Federated Research
+
+Bunny is built to support **federated research networks**, where each site runs its own copy of Bunny locally. It polls a central **Task API** (such as [Relay](https://hutch.health/relay) or RQUEST) to retrieve incoming tasks, processes them against the site’s OMOP database, and returns anonymized, aggregate results.
+
+This model allows institutions to collaborate on large-scale health research without sharing raw patient-level data, maintaining **data sovereignty and privacy**.
+
+## Integration and Extensibility
+
+Bunny integrates easily with orchestration platforms like **RQUEST**, allowing coordinated Availability and Distribution querying across multiple nodes. It’s well-suited for **privacy-preserving record linkage** and **multi-site feasibility analysis**.
+
+## Ideal Use Cases
+
+- **Cohort discovery** for clinical trials or observational studies
+- **Feasibility assessments** before launching multi-center research
+- **Federated analytics** across health data networks
+
+Bunny is open-source, lightweight, and security-conscious — enabling ethical, scalable health research without compromising data control at the institutional level.
