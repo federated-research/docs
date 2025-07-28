@@ -1,6 +1,6 @@
 export default {
   index: {
-    title: "Federated Analytics Implementations",
+    title: "Federated Research Activities",
     description: "Details of the implementations of Trellis weaves in the Health Data Research UK Programme",
     theme: {
       breadcrumb: false,
@@ -10,10 +10,6 @@ export default {
 
     }
   },
-  first_demo: "All In One",
-  deploy_stack: "Deploy Five Safes TES",
-  guides: "Usage Guides",
-  activities: "Common Activities",
-  actors: "Actors",
-
+  five_safes_tes: "Five Safes TES",
+  software: "Our software"
 }
