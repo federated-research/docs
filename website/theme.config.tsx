@@ -22,7 +22,7 @@ export default {
           marginRight: "0.5rem",
         }}
         src="/trellis_logo.png"
-        alt="logo"
+        alt="Trellis logo"
       />
       Documentation
     </span>
