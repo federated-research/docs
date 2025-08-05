@@ -11,5 +11,6 @@ export default {
     }
   },
   five_safes_tes: "Five Safes TES",
+  standards: "Standards",
   software: "Our software"
 }
