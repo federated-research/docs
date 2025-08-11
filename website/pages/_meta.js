@@ -7,10 +7,10 @@ export default {
       layout: 'full',
       timestamp: false,
       pagination: false,
-
+      
     }
   },
-  five_safes_tes: "Five Safes TES",
   standards: "Standards",
+  five_safes_tes: "Five Safes TES",
   software: "Our software"
 }
