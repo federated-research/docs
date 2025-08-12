@@ -7,7 +7,7 @@ export default {
       layout: 'full',
       timestamp: false,
       pagination: false,
-
+      
     }
   },
   standards: "Standards",
