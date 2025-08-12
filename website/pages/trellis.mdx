@@ -2,15 +2,13 @@
 
 **Trellis** is a framework for defining, governing, and deploying the components needed to support secure federation across Trusted Research Environments (TREs).
 
-- Captures the governance, networking, metadata, and relationships needed for cross-TRE collaboration.
-- Organises federated capabilities into clearly defined Planes for consistent description, security, and governance.
-- Provides a structured model for describing interfaces, dependencies, lifecycle, and operational considerations.
-- Uses Weaves to define deployable configurations of software and metadata across Planes.
-- Supports repeatable, standards-based federation deployments for consortia and collaborative projects.
+The framework provides a structured model for describing interfaces, dependencies, lifecycle, and operational considerations.
+Through the concept of **Weaves**, Trellis enables deployable configurations of software, governance, and metadata across its **Planes**,
+supporting repeatable, standards-based federation deployments for consortia and collaborative projects.
 
 ## Planes
 
-In Trellis, a **Plane** is a logical layer of functions and responsibilities within a federated TRE, grouping related capabilities so they can be described and secured consistently. 
+A **Plane** is a logical layer of functions and responsibilities within a federated TRE, grouping related capabilities so they can be described and secured consistently.
 
 The five Planes are:
 
@@ -24,9 +22,9 @@ The five Planes are:
 
 A **Weave** is a deployable configuration that combines the software, configuration, governance, and metadata required for one or more Planes.
 
-A Weave can reference Helm charts, configuration files, and operational metadata, enabling reproducible deployment of federation capabilities.
+By referencing Helm charts, configuration files, and operational metadata, a Weave enables reproducible deployment of federation capabilities.
 Weaves are used to operationalise Trellis, such as when a TRE consortium is formed and needs a consistent, standards-aligned deployment.
 
-Different Weaves will enable different capability and software across a federated TRE. 
+Different Weaves provide different capability and software across a federated TRE.
 
 An example of a Weave in development is [Five Safes TES](/five_safes_tes).
