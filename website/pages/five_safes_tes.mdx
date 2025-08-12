@@ -1,0 +1,17 @@
+# Five Safes Tes
+
+**Five Safes TES** is a system for the secure, remote execution of [GA4GH TES workflows](/standards#global-alliance-for-genomics-and-health-ga4gh) in Trusted Research Environments (TREs).
+
+- TRE managers can register environments, create projects, and manage authorised access.
+- Researchers can submit GA4GH TES workflows for secure execution within participating TREs.
+- Agents at remote TREs automatically collect and run approved workflows.
+- Supports offline TREs by enabling pre-approved container images to be loaded in advance.
+- Delivers results through a controlled egress process for review before release to the requester.
+
+Five Safes TES enables secure cross-TRE federated analytics, where the data remains in place and only the researchers’
+analysis code is sent to the data. Unlike many federated analytics tools, it is specifically designed to meet the
+stringent technical and governance constraints of TREs by separating the logical stages of a federated project.
+
+Built on international [open standards](/standards) from GA4GH and ELIXIR, **Five Safes TES** uses the GA4GH Task Execution Service
+to receive federated analysis requests. This approach supports the essential disclosure control processes within TREs, ensuring outputs are reviewed
+to prevent disclosive data from leaving secure environments. 
