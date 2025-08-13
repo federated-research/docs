@@ -21,8 +21,8 @@ export default {
           height: "4rem",
           marginRight: "0.5rem",
         }}
-        src="/logo.png"
-        alt="Trellis logo"
+        src="/logo.svg"
+        alt="Federated Research logo"
       />
     </span>
   ),
