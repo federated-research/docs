@@ -10,6 +10,7 @@ export default {
       
     }
   },
+  about_us: "About us",
   standards: "Standards",
   trellis: "Trellis",
   five_safes_tes: "Five Safes TES",
