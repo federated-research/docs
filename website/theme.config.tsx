@@ -31,12 +31,12 @@ export default {
  
     return (
       <>
-        <meta property="og:title" content={frontMatter.title || 'Five Safes TES Documentation'} />
+        <meta property="og:title" content={frontMatter.title || 'Federated Research'} />
         <meta
           property="og:description"
-          content={frontMatter.description || 'Five Safes TES Documentation.'}
+          content={frontMatter.description || 'Adopt Standards. Build Trust. Enable Federation. Accelerate Research.'}
         />
-        <title>{frontMatter.title || 'Five Safes TES Documentation'}</title>
+        <title>{frontMatter.title || 'Federated Research'}</title>
         </>
     )
   },
