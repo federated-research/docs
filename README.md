@@ -1,4 +1,8 @@
-# HDR UK Federated Analytics Documentation
+# Federated Research Documentation
+
+This repository contains documentation for Federated Research.
+
+## Developer
 
 To run locally: `npm run dev --prefix website`
 
