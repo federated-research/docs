@@ -1,0 +1,37 @@
+# Control Plane
+
+The **Control Plane** orchestrates queries, validation, and permissions within a federated Trusted Research Environment (TRE).
+This plane serves as the central coordination layer that manages the flow of queries and ensures proper governance across all other planes.
+
+## Overview
+
+The Control Plane acts as the "controller" of the Trellis framework, responsible for coordinating activities across all other planes, validating requests, managing permissions, and ensuring that all operations comply with governance policies and security requirements.
+
+## Core Capabilities
+
+### Query Orchestration
+
+- **Query Routing**: Routing of queries to appropriate data sources
+- **Federation Coordination**: Coordination of queries across multiple federated sites
+
+### Validation & Compliance
+
+- **Query Validation**: Validation of query syntax, semantics, and permissions
+- **Policy Enforcement**: Enforcement of governance policies and data access rules
+- **Compliance Checking**: Verification of regulatory and organisational compliance
+
+### Permission Management
+
+- **Access Control**: Access control based on user roles and data sensitivity
+- **Permission Validation**: Validation of user permissions for specific operations
+- **Permission Auditing**: Auditing of permission decisions
+
+### Workflow Management
+
+- **Query Workflows**: Management of multi-step workflows
+- **State Management**: Tracking the state of queries and workflows across the system
+- **Error Handling**: Handling and recovery from errors and failures
+
+## Interface Specifications
+
+Read the [Control Plane API specification](https://trellis.federated-analytics.ac.uk/control/v0.0.1/)
