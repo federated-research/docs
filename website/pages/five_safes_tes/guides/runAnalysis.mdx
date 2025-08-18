@@ -5,7 +5,7 @@
 ### Infrastructure requirements
 * Fully deployed Five Safes TES stack
 * At least one TRE
-* OMOP database connected to each TRE (the default demo expects an OMOP database)
+* [OMOP CDM database](/standards#observational-medical-outcomes-partnership-omop) connected to each TRE (the default demo expects an OMOP database)
 
 ### Information requirements
 * Project name
@@ -22,16 +22,16 @@ It is assumed that the full five safes TES stack is already fully deployed, and 
 2. Install dependencies (using poetry is recommended, ```poetry install```), or use pip
 ```pip install -r requirements.txt```
 3. Edit the env.example file to update the environment variables.
-4. Rename the env.example to .env
+4. Rename the `env.example` to `.env`
 5. Log in to the submission layer GUI.
 6. Retrieve a token - This has a limited lifetime! 
    Click 'API Access Token' on the top, then renew and copy the token to clipboard.
-7. Paste the token into the .env file and save the file.
+7. Paste the token into the `.env` file and save the file.
 
 ## Run an analysis
-This runs the basic default demo, which will calculate means of measurement values with a particular concept id (3037532).
+This runs the basic default demo, which will calculate means of measurement values with a particular concept id (`3037532`).
 
-3. Run analysis_engine.py. Using poetry, the command is:
+3. Run `analysis_engine.py`. Using poetry, the command is:
  ```poetry run python analysis_engine.py```
  4. Review the submission details. Terminal will give updates on the submission status, the submission GUI will give more details under the submissions tab.
  5. Wait.
