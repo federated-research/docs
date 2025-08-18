@@ -1,13 +1,13 @@
 # Egress
 
-The Egress application handles data egress requests. Once a task is finished executing, the results are submitted to it for approval where a TRE administrator can check them. Once results are approved/rejected Egress then sends an update to the [TRE Agent](/software/agent) API.
+The Egress application handles data egress requests. Once a task is finished executing, the results are submitted to it for approval where a Trusted Research Environment (TRE) administrator can check them. Once results are approved or rejected, Egress then sends an update to the [TRE Agent](/software/agent) API.
 
 The code for Egress is open source, and can be found on [Github](https://github.com/SwanseaUniversityMedical/DARE-Control).
 
 ## Core Functionality
 
 - Accepts submitted results from completed TRE tasks for review
-- Provides an approval/rejection workflow for TRE administrators
+- Provides an approval and rejection workflow for TRE administrators
 - Tracks the status of egress requests and their outcomes
 - Notifies the TRE Agent when results are approved or rejected
 - Maintains an auditable record of egress decisions
