@@ -1,5 +1,26 @@
 # Submission Layer
 
-This is the front page of the stack, which any researchers interacting with the service will use. Approved researchers can submit tasks to a Project using the API or by interacting with the UI.
+This is the entry point for a researcher. Approved researchers can submit tasks to a Project using the API or by interacting with the UI.
 
 The code for Submission is open source, and can be found on [Github](https://github.com/SwanseaUniversityMedical/DARE-Control).
+
+## Core Functionality
+
+- Provides an API and UI for researchers to submit tasks
+- Authenticates and authorises approved researchers
+- Forwards validated tasks to the Trusted Research Environment agent for execution
+- Tracks the status of submitted tasks
+
+## Use in Federated Research
+
+Submission Layer is used within the [Five Safes TES](/five_safes_tes) weave.
+
+## Integration and Extensibility
+
+Submission Layer provides a API that can be used to integrate and build against. 
+
+## Ideal Uses Cases
+
+- Entry point for researchers into a federated TRE system
+- Submitting and monitoring analysis tasks
+- Integrating external tools with the TRE task workflow
