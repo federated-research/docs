@@ -1,6 +1,30 @@
 # TRE Agent
 
-The TRE Agent handles the communication between the Submission Layer and the TRE. The TRE Agent polls out to the Submission Layer, gets a task, then sends the task to an implementation of the GA4GH Task Execution Schemas (TESK or Funnel). Once the task is finished executing the TRE Agent sends the results to Egress.
+The TRE Agent handles the communication between the [Submission Layer](/software/submission) and a Trusted Research Environment.
+The TRE Agent polls out to the Submission Layer, gets a task, then sends the task to an implementation of the [GA4GH Task Execution Service](/standards/#task-execution-service-tes).
+Once the task is finished executing the TRE Agent sends the results to [Egress](/software/egress).
 
 The code for TRE Agent is open source, and can be found on [Github](https://github.com/SwanseaUniversityMedical/DARE-Control).
 
+## Core Functionality
+
+- Polls the Submission Layer to retrieve new tasks
+- Submits tasks to a GA4GH TES implementation
+- Monitors task execution and collects results
+- Sends task outputs to the Egress service for approval
+- Maintains communication flow between the Submission Layer, TES, and Egress
+
+## Use in Federated Research
+
+TRE Agent is used within the [Five Safes TES](/five_safes_tes) weave, and is situated within the [Control Plane](/trellis/planes/control).
+
+## Integration and Extensibility
+
+TRE Agent provides a API that can be used to integrate and build against.
+
+## Ideal Uses Cases
+
+- Orchestrating task execution inside a TRE
+- Connecting submission workflows to TES backends
+- Enabling controlled communication between TRE components
+- Supporting federated task execution across TREs
