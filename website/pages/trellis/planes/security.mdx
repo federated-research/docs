@@ -1,0 +1,33 @@
+# Security Plane
+
+The **Security Plane** focusses on governance security, it manages ingress and egress control within a federated Trusted Research Environment (TRE). 
+This plane provides security controls and mechanisms to validate what analysis is allowed to run and what results can be returned to users.
+
+## Overview
+
+The Security Plane serves as the protective layer of the Trellis framework, responsible for validating analytical queries before execution and checking analysis results before they are returned to users. 
+It ensures that only approved analyses are executed and that results comply with privacy, governance, and security requirements.
+
+## Core Capabilities
+
+### Analysis Ingress Control
+- **Policy Compliance**: Checking of queries against security policies
+- **Algorithm Approval**: Verification that requested algorithms are approved for use
+- **Data Access Validation**: Checking that queries only access permitted data sources
+- **Privacy Budget Enforcement**: Ensuring queries respect privacy budget constraints
+
+### Result Egress Control
+- **Output Validation**: Validation and sanitisation of analysis results
+- **Privacy Protection**: Protection of sensitive information in results
+- **Statistical Disclosure Control**: Application of statistical disclosure control methods
+- **Result Filtering**: Filtering of results that may reveal sensitive information
+
+### Policy Enforcement
+- **Security Policy Application**: Application of security policies to queries and results
+- **Privacy Policy Enforcement**: Enforcement of privacy protection requirements
+- **Compliance Checking**: Verification of compliance with regulatory requirements
+- **Risk Assessment**: Assessment of privacy and security risks for queries and results
+
+## Interface Specifications
+
+Read the [Security Plane API specification](https://trellis.federated-analytics.ac.uk/security/v0.0.1/)

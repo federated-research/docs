@@ -1,12 +1,14 @@
-# Bunny – Summary of What It Does
+# Bunny
 
-[Bunny](https://hutch.health/bunny) is a small, containerised application developed by the University of Nottingham that enables **privacy-preserving cohort discovery** across federated health data networks. It is designed to work with **OMOP Common Data Model (CDM)** databases and is  deployed at partner institutions as a secure, read-only query agent.
+[Bunny](https://hutch.health/bunny) is an application developed by the University of Nottingham that enables **privacy-preserving cohort discovery** across federated health data networks. It is designed to work with **OMOP Common Data Model (CDM)** databases and is deployed at partner institutions as a secure, read-only query agent.
+
+The code for Bunny is open source, and can be found on [Github](https://github.com/Health-Informatics-UoN/hutch-bunny).
 
 ## Core Functionality
 
 Bunny processes two main types of cohort discovery queries:
 
-- **Availability**: Answers the question “how many patients meet certain criteria?” without revealing individual-level data.
+- **Availability**: Answers the question _“how many patients meet certain criteria?”_ without revealing individual-level data.
 - **Distribution**: Returns de-identified aggregate statistics (e.g. age, sex, diagnosis counts) for a cohort of interest.
 
 These queries are designed to protect privacy through configurable obfuscation techniques such as rounding and low-count suppression.
@@ -26,4 +28,4 @@ Bunny integrates easily with orchestration platforms like **RQUEST**, allowing c
 - **Cohort discovery** for clinical trials or observational studies
 - **Feasibility assessments** before launching multi-center research
 
-Bunny is open-source, lightweight, and security-conscious — enabling ethical, scalable health research without compromising data control at the institutional level.
+Bunny is open-source, lightweight, and security-conscious, enabling ethical, scalable health research without compromising data control at the institutional level.
