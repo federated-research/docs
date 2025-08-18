@@ -6,7 +6,7 @@ The code for Relay is open source, and can be found on [Github](https://github.c
 
 ## Core Functionality
 
-Relay coordinates Cohort Discovery queries across a federated network of subnodes. It can retreive queries from any compatible upstream Task API, fan out to a network, and aggregate the returned results into a single response.
+Relay coordinates Cohort Discovery queries across a federated network of subnodes. It can fetch queries from any compatible Upstream Task API and then - after federating those queries to any compatible Downstream Task API clients - aggregates the returned results into a single response, which is sent back Upstream.
 
 To support data governance, Relay applies configurable obfuscation techniques such as suppression or rounding, ensuring sensitive counts are protected. It is designed for resilience, returning aggregated results even if one or more nodes are unavailable.
 
