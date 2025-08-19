@@ -37,7 +37,10 @@ export default {
           content={frontMatter.description || 'Adopt Standards. Build Trust. Enable Federation. Accelerate Research.'}
         />
         <title>{frontMatter.title || 'Federated Research'}</title>
-        </>
+        <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon.png" />
+        <link rel="manifest" href="/icons/manifest.json" />
+      </>
     )
   },
   footer: false
