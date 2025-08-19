@@ -6,6 +6,7 @@ export default {
     TREManagerApprovingProject: "TRE manager approving project",
     createproject: 'Create a new project',
     addresearchertoproject: 'Add a researcher to a project',
-    EgressManagerApprovingRelease: "Approving a release"
+    EgressManagerApprovingRelease: "Approving a release",
+    runAnalysis: "Run an analysis"
 
 }
