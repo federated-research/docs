@@ -33,7 +33,10 @@ Using poetry is recommended. Run the command ```poetry install```
 Alternatively, you can use pip with the requirements file:
 ```pip install -r requirements.txt```
 #### Edit the `env.example`
-Editi the 'env.example' file to update the environment variables. The example file has placeholders for all the relevant details. They are all required.
+Edit the 'env.example' file to update the environment variables. The example file has placeholders for all the relevant details. They are all required.
+
+This demo requires an SQL docker image. In the `env.example` file, set the `TES_DOCKER_IMAGE`:
+```TES_DOCKER_IMAGE=harbor.ukserp.ac.uk/dare-trefx/control-tre-sqlpg@sha256:18a8d3b056fd573ec199523fc333c691cd4e7e90ff1c43e59be8314066e1313c```
 #### Rename the `env.example` to `.env`
 #### Log in to the submission layer GUI.
 #### Retrieve a token
