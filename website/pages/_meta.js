@@ -14,5 +14,5 @@ export default {
   standards: "Standards",
   trellis: "Trellis",
   five_safes_tes: "Five Safes TES",
-  software: "Our software"
+  software: "Our Software"
 }
