@@ -1,6 +1,6 @@
 import { Steps, Callout, Tabs } from "nextra/components";
 
-## Funnel TES
+# Funnel TES
 
 [Funnel](https://github.com/ohsu-comp-bio/funnel) is an implementation of the GA4GH Task Execution Schemas. It provides an API server,
 multiple storage backends, multiple compute backends and a web UI.
@@ -8,7 +8,7 @@ For the purposes of the All In One stack we will be configuring the TRE Agent to
 
 <Steps>
 
-### Set up MinIO Access key
+## Set up MinIO Access key
 
 Navigate to the TRE layer MinIO instance, using the details given in the [MinIO Stack Component](/setup/stackinfo#tre-minio) section.
 
@@ -16,7 +16,7 @@ To create the access keys, in the MinIO console navigate to **_Access Keys -> Cr
 
 ![MinIO](/images/MinioAccessKey.png)
 
-### Install Funnel
+## Install Funnel
 
 Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.github.io/funnel/download/)
 
@@ -55,12 +55,12 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
 
 </Tabs>
 
-### Check if funnel has been successfully installed
+## Check if funnel has been successfully installed
 ```bash copy
 funnel --help
 ```
 
-### Funnel config file
+## Funnel config file
 Funnel will need access to the TRE layer MinIO. Once funnel is installed create a config.yaml file.
 - `Endpoint` is where the instance of MinIO in the TRE Layer is hosted.
 - `Access key` & `Secret` as created in the [previous step](#set-up-minio-access-key).
@@ -73,7 +73,7 @@ GenericS3:
     Secret: “<secret>"
 ```
 
-### Run Funnel
+## Run Funnel
 
 Run the funnel server using the config created above.
 

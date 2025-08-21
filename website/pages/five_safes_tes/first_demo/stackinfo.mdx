@@ -18,7 +18,7 @@ This is the front page of the stack, which any researchers interacting
 with the service will use. Approved researchers can submit tasks to a Project using the API or by interacting with the UI.
 
 **Hosted at** : [localhost:7220](http://localhost:7220)
-##### Login credentials:
+### Login credentials:
 
 ```
 Username: globaladminuser
@@ -31,7 +31,7 @@ Password: password123
 Keycloak is used for user authentication & user management across all three layers.
 
 **Hosted at** : [localhost:8085](http://localhost:8085)
-##### Login credentials:
+### Login credentials:
 
 ```
 Username: admin
@@ -46,7 +46,7 @@ The TRE Agent polls out to the Submission Layer, gets a task, then sends the tas
 Once the task is finished executing the TRE Agent sends the results to Egress.
 
 **Hosted at** : [localhost:8989](http://localhost:8989)
-##### Login credentials:
+### Login credentials:
 
 ```
 Username: globaladminuser
@@ -60,7 +60,7 @@ The Egress API handles egress requests. Once a task is finished executing the re
 Once results are approved/rejected it sends an update to the TRE Agent.
 
 **Hosted at** : [localhost:8100](http://localhost:8100)
-##### Login credentials:
+### Login credentials:
 
 ```
 Username: globaladminuser
