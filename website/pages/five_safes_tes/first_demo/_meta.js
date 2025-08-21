@@ -1,6 +1,6 @@
 export default {
 
-    requirements:'Pre-installs required',
+    requirements:'Requirements',
     download:'Download',
     stackinfo:'Core components',
     starting_stack:'Starting the demo',
