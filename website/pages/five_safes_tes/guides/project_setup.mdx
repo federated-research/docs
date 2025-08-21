@@ -11,7 +11,7 @@ Enter the name for the TRE and the admin username. The default Keycloak TRE admi
 &nbsp;
 <img src="/images/createTre.png" width="500"></img>
 
-<Callout type="info"> These are the TRE Agent user credentials, created in the Submission Layer Keycloak realm & are the same credentials set in the [TRE Agent](/deploy_stack/deployment_tre#enter-submission-credentials) </Callout>
+<Callout type="info"> These are the TRE Agent user credentials, created in the Submission Layer Keycloak realm & are the same credentials set in the [TRE Agent](/five_safes_tes/deploy/deployment_tre#enter-submission-credentials) </Callout>
 
 ### Create a User
 Create a user by navigating to ***People-> Create New User***.
@@ -28,7 +28,7 @@ Once a Project is created, assign a TRE and a user that will be associated with 
 
 ### TRE layer
 The TRE Agent will sync any Projects created in the submission layer every 10 minutes by default.
-To adjust how long between each sync change the `syncSchedule` [setting](/deploy_stack/deployment_tre#configure-the-env-file).
+To adjust how long between each sync change the `syncSchedule` [setting](/five_safes_tes/deploy/deployment_submission#configure-the-env-file).
 
 ### Approve Project and Membership
 Once the TRE Agent is in sync the Project will appear in the TRE Agent UI.
