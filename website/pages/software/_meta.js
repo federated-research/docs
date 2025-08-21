@@ -1,5 +1,5 @@
 export default {
-    submission: 'Submission',
+    submission: 'Submission Layer',
     agent: 'TRE Agent',
     egress: 'Egress',
     bunny:'Bunny',

@@ -1,6 +1,6 @@
 import { Steps, Callout, Cards } from "nextra/components"
 
-# Environment Verification
+# Project Setup
 
 <Steps>
 ## Create a TRE
@@ -45,66 +45,6 @@ Navigate to the ***Memberships*** section to approve the users that can submit t
 
 &nbsp;
 <img src="/images/TRE_ProjectReview_Memberships.png" width="400"></img>
-</Steps>
-
-### Run Analysis
-
-<Steps>
-### Get Access Token
-
-From the Submission Layer navigate to **_API Access Token -> Copy to Clipboard_**
-
-#### Authorise request
-
-You can make the request from the swagger API hosted at `http://localhost:5034/swagger`.
-Authorise the request with the Token from the **_Authorise_** button on the top right.
-
-#### Get Project Output Bucket
-The output bucket for a project can be found in the Submission UI.
-Go to `Project` -> `About` page and hover over `Output Bucket`.
-    The naming pattern is: `<projectName> + <projectUniqueID> + output`.
-
-```bash copy
-
-POST localhost:5034/v1/tasks
-{
-    "state": 0,
-    "name": "Hello World",
-    "inputs": [],
-    "outputs": [
-        {
-            "name": "Stdout",
-            "description": "Stdout results",
-            "url": "s3://<outputBucketName>", // Set the output bucket
-            "path": "/outputs",
-            "type": "DIRECTORY"
-        }
-    ],
-    "executors": [
-        {
-            "image": "ubuntu",
-            "command": [
-                "echo",
-                "Hello World"
-            ],
-            "workdir": "/outputs",
-            "stdout": "/outputs/stdout",
-        }
-    ],
-    "volumes": null,
-    "tags": {
-        "project": "<ProjectName>", // Project that you would like to submit to.
-        "tres": "<TREName>" // TRE related to that Project
-    },
-    "logs": null,
-    "creation_time": null
-}
-
-```
-<Callout type="info">
-More information on the TES payload can be found at the TES API [specification](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask) website.
-</Callout>
-
 </Steps>
 
 

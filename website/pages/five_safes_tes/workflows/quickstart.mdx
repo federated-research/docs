@@ -1,0 +1,73 @@
+import { Steps, Callout, Cards } from "nextra/components"
+
+# Quickstart
+
+## Summary
+
+This quickstart guide provides the essential steps to run your first workflow on the Five Safes TES weave. 
+
+It covers obtaining authentication tokens, identifying project output buckets, and submitting a simple "Hello World" workflow through the Submission Layer API. 
+
+## Prerequisites
+
+- Deployed Five Safes TES stack
+- [Project Setup](/five_safes_tes/guides/project_setup)
+- [Access Token](/five_safes_tes/guides/get_token)
+
+## Run a workflow
+<Steps>
+### Get Project Output Bucket
+
+The output bucket for a project can be found in the Submission UI.
+Go to `Project` -> `About` page and hover over `Output Bucket`.
+
+The naming pattern is: `<projectName> + <projectUniqueID> + output`.
+
+### Send workflow
+
+You can make the request from the Submission Layer Swagger API hosted at `http://localhost:5034/swagger`.
+
+Authorise the request with the Access Token with the **_Authorise_** button on the top right.
+
+```bash copy
+POST localhost:5034/v1/tasks
+{
+    "state": 0,
+    "name": "Hello World",
+    "inputs": [],
+    "outputs": [
+        {
+            "name": "Stdout",
+            "description": "Stdout results",
+            "url": "s3://<outputBucketName>", // Set the output bucket
+            "path": "/outputs",
+            "type": "DIRECTORY"
+        }
+    ],
+    "executors": [
+        {
+            "image": "ubuntu",
+            "command": [
+                "echo",
+                "Hello World"
+            ],
+            "workdir": "/outputs",
+            "stdout": "/outputs/stdout",
+        }
+    ],
+    "volumes": null,
+    "tags": {
+        "project": "<ProjectName>", // Project that you would like to submit to.
+        "tres": "<TREName>" // TRE related to that Project
+    },
+    "logs": null,
+    "creation_time": null
+}
+
+```
+<Callout type="info">
+More information on the TES payload can be found at the TES API [specification](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask) website.
+</Callout>
+
+
+</Steps>

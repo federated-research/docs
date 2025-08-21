@@ -1,4 +1,6 @@
 export default {
+    project_setup: 'Project Setup',
+    actors: 'Actors',
     addresearchertoplatform: 'Add a researcher to the platform',
     keycloakAdminAddingNewUser: "Adding a new user",
     submissionManagerAddingNewPerson: "Adding person to Submission layer",
@@ -7,6 +9,5 @@ export default {
     createproject: 'Create a new project',
     addresearchertoproject: 'Add a researcher to a project',
     EgressManagerApprovingRelease: "Approving a release",
-    runAnalysis: "Run an analysis"
-
+    get_token: 'Get an Access Token',
 }
