@@ -37,7 +37,7 @@ It is assumed that the complete Five Safes TES stack is deployed, and you have a
 
 <Steps>
 
-#### Clone the repository
+### Clone the repository
 
 Clone the repository from here: https://github.com/Health-Informatics-UoN/Five-Safes-TES-Analytics
 
@@ -45,7 +45,7 @@ Clone the repository from here: https://github.com/Health-Informatics-UoN/Five-S
 git clone https://github.com/Health-Informatics-UoN/Five-Safes-TES-Analytics.git
 ```
 
-#### Install dependencies
+### Install dependencies
 
 Using Poetry is recommended. Run the command:
 
@@ -59,7 +59,7 @@ Alternatively, you can use pip with the requirements file:
 pip install -r requirements.txt
 ```
 
-#### Edit the `env.example`
+### Edit the `env.example`
 
 Edit the `env.example` file to update the environment variables. The example file has placeholders for all the relevant details. They are all required.
 
@@ -98,9 +98,9 @@ In the `env.example` file, set the `TES_DOCKER_IMAGE`:
 TES_DOCKER_IMAGE=harbor.ukserp.ac.uk/dare-trefx/control-tre-sqlpg@sha256:18a8d3b056fd573ec199523fc333c691cd4e7e90ff1c43e59be8314066e1313c
 ```
 
-#### Rename the `env.example` to `.env`
+### Rename the `env.example` to `.env`
 
-#### Put the Access Token into the '.env' file.
+### Put the Access Token into the '.env' file.
 
 Paste the Access Token into the `.env` file under `TRE_FX_TOKEN` and save the file.
 
@@ -112,7 +112,7 @@ This runs the basic default demo, which will calculate means of measurement valu
 
 <Steps>
 
-#### Run `analysis_engine.py`.
+### Run `analysis_engine.py`.
 
 Using poetry, the command is:
 
@@ -120,25 +120,28 @@ Using poetry, the command is:
 poetry run python analysis_engine.py
 ```
 
-#### Review submission details.
+### Review submission details.
 
 The terminal will give updates on the submission status from the Python script. The Submission GUI will give more details under the submissions tab.
 
-#### Wait.
+### Wait.
 
-#### Check the status
+### Check the status
 
 When the processing is complete, the status in the Submission layer will change to waiting for egress. This means that the analysis has been processed and needs to be approved before the results can leave the TREs.
 
-#### Approve/deny egress requests
+### Approve/deny egress requests
 
-Acting as the TREs, log into the Egress control(s) and approve (or deny) the egress. The default behaviour is to complete the analysis with the results given, even if one or more TREs don't provide results. Once they have been approved, the status in both the submission layer GUI and the terminal will be updated the next time it polls.
+Acting as the TREs, access the [Egress control(s)](/five_safes_tes/guides/EgressManagerApprovingRelease) and approve (or deny) the egress. 
 
-#### Fetch partial results
+The default behaviour is to complete the analysis with the results given, even if one or more TREs don't provide results. 
+Once they have been approved, the status in both the submission layer GUI and the terminal will be updated the next time it polls.
+
+### Fetch partial results
 
 The partial results from each TRE will be fetched automatically.
 
-#### Aggregate results
+### Aggregate results
 
 The partial results will be aggregated and return the final result to the terminal.
 
