@@ -1,3 +1,4 @@
 export default {
-    implementation: 'Implementation',
+    quickstart: 'Quickstart',
+    TES: 'Task Execution Service',
 }
