@@ -18,7 +18,6 @@ export default {
     type: "separator"
   },
   five_safes_tes: "Five Safes TES",
-  cohort_discovery: "Cohort Discovery",
   our_software: {
     title: "Software",
     type: "separator"
