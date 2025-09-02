@@ -20,28 +20,30 @@ title="How to install Funnel"
 
 Change these settings in the **_.env_** file:
 
-```bash copy filename=".env"
-UseTESK = true
-```
+```yaml copy filename=".env"
 
-In the **_docker-compose.yml_** set:
-
-```yaml copy filename="docker-compose.yml"
-// Set all instances of DemoMode and KeycloakDemoMode in the file to:
+// Turn off Demo mode to execute analysis:
 DemoMode = false
+
+// Allow Keycloak to not require https:
 KeyCloakDemoMode = true
 
-// Set TESKAPIURL to the URL where Funnel is hosted:
-TESKAPIURL = "http://localhost:8000/v1/tasks"
+// Set UseTESK to true:
+UseTESK = true 
+ 
+// Set TesAPIUrl to the URL where the TES API executing agent is hosted. e.g Funnel or TES-K:
+TesAPIUrl=http://<HostName>:8000/v1/tasks
+ 
+// Output bucket prefix for the TES executing agent to write outputs to, default is s3 bucket prefix:
+TesOutputBucketPrefix=s3:// 
 
-// Set the prefix for GenericS3 storage:
-TESKOutputBucketPrefix = "s3://" 
+
 ```
 </Steps>
 
 ## Submit a TES message
 
-Once the Funnel is running and the All In One is up and configured, you can submit a TES payload to the Submission Layer.
+Once Funnel is running and the All In One is up and configured, you can submit a TES payload to the Submission Layer.
 
 <Cards>
 
