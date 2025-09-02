@@ -22,10 +22,10 @@ export default {
     title: "Software",
     type: "separator"
   },
-  bunny: "Bunny",
-  relay: "Relay",
   submission: "Submission Layer",
   tre_agent: "TRE Agent",
   egress: "Egress",
+  bunny: "Bunny",
+  relay: "Relay",
 
 }
