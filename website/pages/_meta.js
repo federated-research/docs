@@ -13,6 +13,19 @@ export default {
   about_us: "About us",
   standards: "Standards",
   trellis: "Trellis",
+  weaves: {
+    title: "Weaves",
+    type: "separator"
+  },
   five_safes_tes: "Five Safes TES",
-  software: "Our Software"
+  our_software: {
+    title: "Software",
+    type: "separator"
+  },
+  bunny: "Bunny",
+  relay: "Relay",
+  submission: "Submission Layer",
+  tre_agent: "TRE Agent",
+  egress: "Egress",
+
 }
