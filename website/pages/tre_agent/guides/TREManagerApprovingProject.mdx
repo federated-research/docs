@@ -9,53 +9,38 @@ Required Information:
 - Project access expiry date
 
 ## Process
-
+The TRE Agent will sync any Projects created in the submission layer every 10 minutes by default.
+To adjust how long between each sync change the `syncSchedule` [setting](/tre_agent/deploy#configure-the-env-file).
 <Steps>
-### TRE Manager logs onto the [TRE Layer](/setup/stackinfo#tre-agent-tre-layer)
+### Login
+Log in to the [TRE Agent](/five_safes_tes/quickstart/stackinfo#tre-agent-tre-layer)
 
-### Display all 'Unprocessed' Projects
 
-Select the 'Projects' tab at the top of the page.
-Then select the 'Unprocessed Projects' tab.
-All projects which require processing will be listed.
+### Find Project
+Once the TRE Agent is in sync the Project will appear in the TRE Agent UI. 
+<img src="/images/TRE_UnprocessedProjects.png" width="400"></img>
 
-<img src="/images/TRE_UnprocessedProjects.png" width="500"></img>
 
-### Review Project requiring Approval
+#### Approve Project
 
-Select the project you wish to process by
-clicking the 'Review' button at the right side of the listing.
+Select the project you wish to process.
+Navigate to the ***Project Approval*** section to approve the Project
 
-<img src="/images/TRE_ProjectReview.png" width="500"></img>
+<img src="/images/approveProject.png" width="380"></img>
 
-Enter the following information:
+You may also enter the following information:
 1. Local Name of Project (optional)
 2. Project Expiry Date. This determines when project access to the TRE will end.
-3. Decision: Approved or Rejected.
 
 <Callout>
 Note that rejected projects cannot be returned
 to an 'undecided' or 'approved' status again.
 </Callout>
 
-##### Enter Database Credentials
-
-If the project is set to 'Approved' then the 'Database Credentials' dialog is opened.
-Enter the database credentials for use by the project.
-
-<img src="/images/TRE_ProjectReview_DatabaseCredentials.png" width="500"></img>
-
-Once all details are entered click the blue 'Update' button.
-
-### Review Project Memberships
-
-Select the 'Memberships' tab at the top of the Project page.
-This will display all people which have been allocated to the project,
-as well as their Status.
-
-<img src="/images/TRE_ProjectReview_Memberships.png" width="500"></img>
-
-Set the Decisions for each person.
-Once ready click the blue 'Save Changes' button.
-
+#### Approve Project User Membership
+Navigate to the ***Memberships*** section to approve the users that can submit to that Project.
+Set the decisions for each user.
+Once ready click the 'Save Changes' button.
+&nbsp;
+<img src="/images/TRE_ProjectReview_Memberships.png" width="400"></img>
 </Steps>
