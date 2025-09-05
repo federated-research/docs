@@ -1,4 +1,4 @@
-import { Steps } from "nextra/components";
+import { Steps, Cards, Callout } from "nextra/components";
 
 # Run an Analysis
 
@@ -16,20 +16,41 @@ It demonstrates running a basic statistical analysis (mean calculation) on measu
 
 ### Infrastructure Prerequisites
 
-- Deployed Five Safes TES
-- At least one TRE
+- Deployed [Five Safes TES](/five_safes_tes/quickstart/starting_stack) or one [Submission Layer](/submission) and at least one [TRE Agent](/tre_agent) with [Funnel](/five_safes_tes/TES/install_funnel) connected to the agent.
 - [OMOP CDM database](/standards#observational-medical-outcomes-partnership-omop) connected to each TRE. You can use [`omop-lite`](https://github.com/Health-Informatics-UoN/omop-lite) for a quickstart synthetic OMOP CDM.
 
 ### Information Prerequisites
 
-- [Project Setup](/five_safes_tes/guides/project_setup)
-- [Access Token](/five_safes_tes/guides/get_token)
-- TRE access
-- Project name
-- TES endpoint
-- Minio endpoint
-- Database endpoint and credentials for each TRE
-- Submission Layer endpoint and Credentials
+<Cards>
+
+<Cards.Card 
+
+title="Project Setup"
+  href='/submission/guides/project_setup'
+  arrow
+ 
+/>
+
+<Cards.Card 
+
+title="Project Approval"
+  href='/tre_agent/guides/TREManagerApprovingProject'
+  arrow
+ 
+/>
+
+<Cards.Card 
+
+title="Get Access Token"
+  href='/submission/guides/get_token'
+  arrow
+ 
+/>
+
+</Cards>
+- Submission Layer endpoint and API Token
+- Submission Layer MinIO endpoint. 
+- Database host and credentials for each TRE
 
 It is assumed that the complete Five Safes TES stack is deployed, and you have all the required information. 
 
@@ -132,7 +153,7 @@ When the processing is complete, the status in the Submission layer will change 
 
 ### Approve/deny egress requests
 
-Acting as the TREs, access the [Egress control(s)](/five_safes_tes/guides/EgressManagerApprovingRelease) and approve (or deny) the egress. 
+Acting as the TREs, access the [Egress control(s)](/egress/guides/EgressManagerApprovingRelease) and approve (or deny) the egress. 
 
 The default behaviour is to complete the analysis with the results given, even if one or more TREs don't provide results. 
 Once they have been approved, the status in both the submission layer GUI and the terminal will be updated the next time it polls.
