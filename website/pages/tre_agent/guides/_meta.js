@@ -1,3 +1,5 @@
 export default {
-    TREManagerApprovingProject: "TRE manager approving project",
+    set_tesapi: "Set TES API",
+    TREManagerApprovingProject: "Approve a project",
+    
 }
