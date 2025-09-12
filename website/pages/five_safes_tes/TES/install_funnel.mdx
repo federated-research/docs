@@ -65,12 +65,12 @@ Funnel will need access to the TRE layer MinIO. Once funnel is installed create 
 - `Endpoint` is where the instance of MinIO in the TRE Layer is hosted.
 - `Access key` & `Secret` as created in the [previous step](#set-up-minio-access-key).
 
-```yaml filename="config.yml"
+```yaml filename="config.yml" copy
 GenericS3:
   - Disabled: false
-    Endpoint: "localhost:9002" // URL where the MinIO instance is hosted. The port stays the same, change the host to match your environment.
-    Key: “<access key>”
-    Secret: “<secret>"
+    Endpoint: "localhost:9002" # URL where the MinIO instance is hosted. The port stays the same, change the host to match your environment.
+    Key: "<access key>"
+    Secret: "<secret>"
 ```
 
 ## Run Funnel
