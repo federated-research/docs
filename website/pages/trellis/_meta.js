@@ -1,3 +1,5 @@
 export default {
-    planes: 'Planes',
+    planes: {
+        display: 'hidden',
+    },
 }
