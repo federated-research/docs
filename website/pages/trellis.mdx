@@ -3,28 +3,16 @@
 **Trellis** is a framework for defining, governing, and deploying the components needed to support secure federation across Trusted Research Environments (TREs).
 
 The framework provides a structured model for describing interfaces, dependencies, lifecycle, and operational considerations.
-Through the concept of **Weaves**, Trellis enables deployable configurations of software, governance, and metadata across its **Planes**,
+Through the concept of **Weaves**, Trellis enables deployable configurations of software, governance, and metadata across its zones,
 supporting repeatable, standards-based federation deployments for consortia and collaborative projects.
-
-## Planes
-
-A **Plane** is a logical layer of functions and responsibilities within a federated TRE, grouping related capabilities so they can be described and secured consistently.
-
-The five Planes are:
-
-- Analysis: Where queries and analyses are initiated.
-- Control: Orchestration of queries, validation, and permissions.
-- Management: Infrastructure creation, configuration, and monitoring.
-- Data: Processing and computation; where analyses run.
-- Security: Ingress and egress control.
 
 ## Weaves
 
-A **Weave** is a deployable configuration that combines the software, configuration, governance, and metadata required for one or more Planes.
+A **Weave** is a deployable configuration that combines the description of software capability, governance, configuration, and metadata required for a model of federation.
 
-By referencing Helm charts, configuration files, and operational metadata, a Weave enables reproducible deployment of federation capabilities.
+By referencing configuration, and metadata, a Weave implementation enables reproducible deployment of federation capabilities.
 Weaves are used to operationalise Trellis, such as when a TRE consortium is formed and needs a consistent, standards-aligned deployment.
 
-Different Weaves provide different capability and software across a federated TRE.
+Different Weaves provide different capability across a federated TRE, and is not software specific. 
 
 An example of a Weave in development is [Five Safes TES](/five_safes_tes).
