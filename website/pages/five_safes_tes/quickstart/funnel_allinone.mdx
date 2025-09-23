@@ -1,18 +1,19 @@
 import { Steps, Cards, Callout } from "nextra/components";
 
 # Run analysis with All In One Demo
+
 <Steps>
 
 ## Install Funnel
 
 <Cards>
 
-<Cards.Card 
+<Cards.Card
 
 title="How to install Funnel"
-  href='/five_safes_tes/TES/install_funnel'
-  arrow
- 
+href='/five_safes_tes/TES/install_funnel'
+arrow
+
 />
 
 </Cards>
@@ -29,20 +30,36 @@ DemoMode = false
 KeyCloakDemoMode = true
 
 // Set UseTESK to true:
-UseTESK = true 
- 
+UseTESK = true
+
 // Set TesAPIUrl to the URL where the TES API executing agent is hosted. e.g Funnel or TES-K:
 TesAPIUrl=http://<HostName>:8000/v1/tasks
- 
+
 // Output bucket prefix for the TES executing agent to write outputs to, default is s3 bucket prefix:
-TesOutputBucketPrefix=s3:// 
+TesOutputBucketPrefix=s3://
 
 
 ```
 
 <Callout type="info">
-Restart the containers to apply the new configuration.
+  Restart the containers to apply the new configuration.
 </Callout>
+
+## Configure Keycloak
+
+Access the Keycloak console at `http://localhost:8085`, using the admin credentials:
+
+```yaml copy
+Username: admin
+Password: admin
+```
+
+Change the SSL setting of each Realm (`DARE-Control`, `DARE-TRE`, `DARE-Egress`) by these steps:
+
+1. Navigate to the `Realm settings` under `Configure` section on the left-hand side.
+2. Choose `None` from the `Require SSL` dropdown.
+3. Click on the `Save` button.
+
 </Steps>
 
 ## Submit a TES message
@@ -51,20 +68,20 @@ Once Funnel is running and the All In One is up and configured, you can submit a
 
 <Cards>
 
-
-<Cards.Card 
+<Cards.Card
 
 title="Run Hello World"
-  href='/submission/tasks/quickstart'
-  arrow
- 
-/>
-<Cards.Card 
+href='/submission/tasks/quickstart'
+arrow
 
-title="Run analysis"
-  href='/submission/tasks/run_analysis'
-  arrow
- 
+/>
+
+<Cards.Card
+
+title="Run analysis workflow"
+href='/submission/tasks/run_analysis'
+arrow
+
 />
 
 </Cards>
