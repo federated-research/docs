@@ -45,21 +45,23 @@ TesOutputBucketPrefix=s3://
   Restart the containers to apply the new configuration.
 </Callout>
 
-## Configure Keycloak
+<Callout type="warning">
+There is a known issue where `KeyCloakDemoMode = true` in `.env` but KeyCloak stills requires HTTPS when logging in locally with Docker.
+We are currently working on a fix and in the meantime, it can be resolved by the following steps:
 
-Access the Keycloak console at `http://localhost:8085`, using the admin credentials:
+1. Access the Keycloak console at `http://localhost:8085`, using the admin credentials:
 
 ```yaml copy
 Username: admin
 Password: admin
 ```
 
-Change the SSL setting of each Realm (`DARE-Control`, `DARE-TRE`, `DARE-Egress`) by these steps:
+2. Navigate to each Realm: `DARE-Control`, `DARE-TRE`, `DARE-Egress` by clicking on the Realm name in the left-hand side.
+3. Access `Realm settings` under `Configure` section on the left-hand side menu.
+4. Choose `None` from the `Require SSL` dropdown.
+5. Click on the `Save` button.
 
-1. Navigate to the `Realm settings` under `Configure` section on the left-hand side.
-2. Choose `None` from the `Require SSL` dropdown.
-3. Click on the `Save` button.
-
+</Callout>
 </Steps>
 
 ## Submit a TES message
