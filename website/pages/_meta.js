@@ -1,7 +1,7 @@
 export default {
   index: {
     title: "Federated Research",
-    description: "Details of the implementations of Trellis weaves in the Health Data Research UK Programme",
+    description: "Details of the implementations of Federated Research Patterns and associated weaves in the Health Data Research UK Programme",
     theme: {
       breadcrumb: false,
       layout: 'full',
@@ -12,7 +12,7 @@ export default {
   },
   about_us: "About us",
   standards: "Standards",
-  trellis: "Trellis",
+  patterns: "Patterns",
   weaves: {
     title: "Weaves",
     type: "separator"
