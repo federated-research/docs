@@ -23,28 +23,28 @@ It demonstrates running a basic statistical analysis (mean calculation) on measu
 
 <Cards>
 
-<Cards.Card 
+<Cards.Card
 
 title="Project Setup"
-  href='/submission/guides/project_setup'
-  arrow
- 
+href='/submission/guides/project_setup'
+arrow
+
 />
 
-<Cards.Card 
+<Cards.Card
 
 title="Project Approval"
-  href='/tre_agent/guides/TREManagerApprovingProject'
-  arrow
- 
+href='/tre_agent/guides/TREManagerApprovingProject'
+arrow
+
 />
 
-<Cards.Card 
+<Cards.Card
 
 title="Get Access Token"
-  href='/submission/guides/get_token'
-  arrow
- 
+href='/submission/guides/get_token'
+arrow
+
 />
 
 </Cards>
@@ -52,7 +52,7 @@ title="Get Access Token"
 - Submission Layer MinIO endpoint. 
 - Database host and credentials for each TRE
 
-It is assumed that the complete Five Safes TES stack is deployed, and you have all the required information. 
+It is assumed that the complete Five Safes TES stack is deployed, and you have all the required information.
 
 ## Setup
 
@@ -94,8 +94,8 @@ TRE_FX_TOKEN=your_jwt_token_here
 TRE_FX_PROJECT=your_project_name
 
 # TES (Task Execution Service) Configuration
-TES_BASE_URL=http://your-tes-endpoint:5034/v1/tasks
-TES_DOCKER_IMAGE=harbor.ukserp.ac.uk/dare-trefx/control-tre-sqlpg@sha256:18a8d3b056fd573ec199523fc333c691cd4e7e90ff1c43e59be8314066e1313c
+TES_BASE_URL=http://your-tes-endpoint:5034/  # Host and Port of the Submission Layer API
+TES_DOCKER_IMAGE=the-docker-image-to-be-executed
 
 # Database Configuration
 DB_HOST=your-database-host
@@ -107,17 +107,22 @@ DB_NAME=your-database-name
 # MinIO Configuration
 MINIO_STS_ENDPOINT=http://your-minio-endpoint:9000/sts
 MINIO_ENDPOINT=your-minio-endpoint:9000
-MINIO_OUTPUT_BUCKET=your-output-bucket-name 
+MINIO_OUTPUT_BUCKET=your-output-bucket-name
 ```
-
 
 This demo requires an SQL Docker container that will be used to run the analysis.
 
-In the `env.example` file, set the `TES_DOCKER_IMAGE`:
+To do this, in the `env.example` file, set the `TES_DOCKER_IMAGE`:
 
 ```bash copy
 TES_DOCKER_IMAGE=harbor.ukserp.ac.uk/dare-trefx/control-tre-sqlpg@sha256:18a8d3b056fd573ec199523fc333c691cd4e7e90ff1c43e59be8314066e1313c
 ```
+
+<Callout type="warning">
+  There is an known issue running this image by Docker on certain
+  machines/configurations (ex. ARM64). We are currently working on a fix for
+  this.
+</Callout>
 
 ### Rename the `env.example` to `.env`
 
@@ -153,9 +158,9 @@ When the processing is complete, the status in the Submission layer will change 
 
 ### Approve/deny egress requests
 
-Acting as the TREs, access the [Egress control(s)](/egress/guides/EgressManagerApprovingRelease) and approve (or deny) the egress. 
+Acting as the TREs, access the [Egress control(s)](/egress/guides/EgressManagerApprovingRelease) and approve (or deny) the egress.
 
-The default behaviour is to complete the analysis with the results given, even if one or more TREs don't provide results. 
+The default behaviour is to complete the analysis with the results given, even if one or more TREs don't provide results.
 Once they have been approved, the status in both the submission layer GUI and the terminal will be updated the next time it polls.
 
 ### Fetch partial results
