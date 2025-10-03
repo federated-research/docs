@@ -95,7 +95,7 @@ TRE_FX_PROJECT=your_project_name
 
 # TES (Task Execution Service) Configuration
 TES_BASE_URL=http://your-tes-endpoint:5034/  # Host and Port of the Submission Layer API
-TES_DOCKER_IMAGE=the-docker-image-to-be-executed
+TES_DOCKER_IMAGE=harbor.ukserp.ac.uk/dare-trefx/control-tre-sqlpg@sha256:18a8d3b056fd573ec199523fc333c691cd4e7e90ff1c43e59be8314066e1313c
 
 # Database Configuration
 DB_HOST=your-database-host
@@ -110,13 +110,7 @@ MINIO_ENDPOINT=your-minio-endpoint:9000
 MINIO_OUTPUT_BUCKET=your-output-bucket-name
 ```
 
-This demo requires an SQL Docker container that will be used to run the analysis.
-
-To do this, in the `env.example` file, set the `TES_DOCKER_IMAGE`:
-
-```bash copy
-TES_DOCKER_IMAGE=harbor.ukserp.ac.uk/dare-trefx/control-tre-sqlpg@sha256:18a8d3b056fd573ec199523fc333c691cd4e7e90ff1c43e59be8314066e1313c
-```
+This demo requires an SQL Docker container that will be used to run the analysis and the required container image is already set in the `env.example` file, at the `TES_DOCKER_IMAGE` variable.
 
 <Callout type="warning">
   There is an known issue running this image by Docker on certain
