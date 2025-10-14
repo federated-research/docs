@@ -27,5 +27,9 @@ export default {
   egress: "Egress",
   bunny: "Bunny",
   relay: "Relay",
-
+  branding_sep: {
+    title: "Branding",
+    type: "separator"
+  },
+  branding: "Branding",
 }
