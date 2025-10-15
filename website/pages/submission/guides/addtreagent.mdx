@@ -1,0 +1,48 @@
+import {Steps, Callout} from "nextra/components"
+
+## Connect a TRE Agent
+The TRE Agent needs credentials to call the Submission API.
+## Submission Layer setup:
+<Steps>
+### Keycloak admin logs onto the [Keycloak server](/five_safes_tes/quickstart/stackinfo#keycloak-server).
+
+### Create a user for the TRE
+Create an admin user for the TRE Agent in the Submission Layer keycloak realm.
+Follow this [guide](/submission/guides/keycloakAdminAddingNewUser.mdx) to create an admin user for the TRE Agent.
+
+### Create a TRE 
+From the Submission Layer navigate to the  ***TRE -> Create new TRE***.
+Set the the username from the step above as the TRE admin username.
+
+
+&nbsp;
+
+<img src="/images/createTRE.png" width="500"></img>
+
+<Callout type="info">If you are using the defaults the admin username is: `accessfromtretosubmission` and the role is: `dare-tre-admin`  </Callout>
+
+### Create a Project
+Follow this [guide](/submission/guides/createproject.mdx) to:
+- Create a Project.
+- Add the TRE you created to the Project.
+- Assign any users to the Project.
+</Steps>
+
+## TRE Agent setup
+Prerequisites:
+- Deploy at least one [TRE Agent](/tre_agent) with [Funnel](/five_safes_tes/TES/install_funnel) connected to the agent.
+<Steps>
+### Enter Submission Credentials
+The TRE Agent UI will prompt you to provide the submission credentials in order to authenticate against the `Submission Layer API`.
+These are the TRE Agent user credentials set in [Create a user for the TRE](/submission/guides/addtreagent#create-a-user-for-the-tre)
+
+<Callout type="info">
+Defaults:
+```yaml copy
+Username: accessfromtretosubmission
+Password: password123
+```
+
+</Callout>
+
+</Steps>
