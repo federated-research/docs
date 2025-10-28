@@ -45,23 +45,6 @@ TesOutputBucketPrefix=s3://
   Restart the containers to apply the new configuration.
 </Callout>
 
-<Callout type="warning">
-There is a known issue where `KeyCloakDemoMode = true` in `.env` but KeyCloak stills requires HTTPS when logging in locally with Docker.
-We are currently working on a fix and in the meantime, it can be resolved by the following steps:
-
-1. Access the Keycloak console at `http://localhost:8085`, using the admin credentials:
-
-```yaml copy
-Username: admin
-Password: admin
-```
-
-2. Navigate to each Realm: `DARE-Control`, `DARE-TRE`, `DARE-Egress` by clicking on the Realm name in the left-hand side.
-3. Access `Realm settings` under `Configure` section on the left-hand side menu.
-4. Choose `None` from the `Require SSL` dropdown.
-5. Click on the `Save` button.
-
-</Callout>
 </Steps>
 
 ## Submit a TES message
@@ -87,3 +70,41 @@ arrow
 />
 
 </Cards>
+
+## Troubleshooting
+
+### 1. [Keycloak console](http://localhost:8085) requires HTTPS
+
+If you encounter issues where the Keycloak console requires HTTPS, you can resolve this by accessing the Docker container directly:
+
+1. Access the Docker exec of Keycloak container:
+
+```bash
+docker exec -it <keycloak-container-name> bash
+```
+
+2. Navigate to the Keycloak bin directory and configure the realm:
+
+```bash
+cd /opt/keycloak/bin
+./kcadm.sh config credentials --server http://localhost:8080 --realm master --user admin
+./kcadm.sh update realms/master -s sslRequired=NONE
+```
+
+3. Enter `admin` for the password when prompted.
+
+### 2. `KeyCloakDemoMode = true` in `.env` but KeyCloak still requires HTTPS
+
+If you have set `KeyCloakDemoMode = true` in your `.env` file but KeyCloak still requires HTTPS when logging in locally into the Submission layer, for example, follow these steps:
+
+1. Access the Keycloak console at `http://localhost:8085`, using the admin credentials:
+
+```yaml copy
+Username: admin
+Password: admin
+```
+
+2. Navigate to each Realm: `DARE-Control`, `DARE-TRE`, `DARE-Egress` by clicking on the Realm name in the left-hand side.
+3. Access `Realm settings` under `Configure` section on the left-hand side menu.
+4. Choose `None` from the `Require SSL` dropdown.
+5. Click on the `Save` button.
