@@ -9,7 +9,7 @@ Required information:
 - Last Name
 - Email
 - Username
-- User group(s) to add user to (basic here is **dare-tre-user**)
+- User group(s) to add user to (default role is **default-roles-dare-control**)
 
 
 ## Process
@@ -57,6 +57,14 @@ For the demonstration 'AllInOne' stack use these configurations:
 Enter a password, and deselect the 'Temporary' option.
 2. **Remove Required User Actions:** Select 'Details' tab,
 and remove any items from the 'Required user actions' list (such as 'Configure OTP').
+</Callout>
+
+<Callout type='warning'>
+
+For the communication between components in the stack working, a "middleman" user needs to be created. 
+For example, TRE agents need to access Submission layer using a user credentials created here. 
+When creating this "middleman" users, "Configure OTP" at "Required user actions" should be removed to avoid a known authentication issue.
+
 </Callout>
 
 </Steps>
