@@ -7,21 +7,17 @@ import { Steps,Callout } from "nextra/components"
 </Callout>
 
 **Federated Research Patterns** is a framework defining dimensions required to support secure federation across Trusted Research Environments (TREs). The framework is defined by:
-| Dimensions | Description |
-|-------------|--------------|
-| A set of Functional patterns | Definition: The components that are functionally required to enable federation. <br><br>Authentication  <br>Authorisation <br>Central submission <br>Central Artefact Storage  <br>Fan-out federation  <br>Individual Node Task fetching (outbound) <br>Task Execution  <br>Per node automated disclosure control  <br>Automated node Egress  <br>Manual node Egress <br>Execution Storage  <br>Central Aggregation |
-| A set of Analytic patterns | Definition:The type(s) of analysis patterns supported.  <br><br>Decomposable: An algorithm in which the final result can be exactly reconstructed from local results computed on separate subsets of data in one round of aggregation.  <br>Iterative: A federated algorithm which required multiple rounds of local calculation and aggregation.  <br>Convergent: An iterative algorithm which is mathematically guaranteed to converge on the exact solution within a given number of iterations.  <br>Non-distributable: An algorithm which cannot be separated or calculated iteratively. These are only possible by pooling data. |
-| A set of Movement patterns | Definition: How the movement of analyses to be approved moves in/out a TRE and how it is approved to be executed.  <br><br>Summary statistics  <br>Model updates  <br>Data |
-| A set of Data Egress patterns | Definition: The data egress that is required to support the analytical profile.  <br><br>Between TREs/aggregator  <br>Manual, Semi-automated, Automated  <br><br>To the researcher  <br>Manual, Semi-automated, Automated  <br><br>* For many machine learning models, only partial checking is practical between TREs.  <br>**This is possible for some iterative results, but for many machine learning models, manual disclosure checking is not meaningful due to the complexity. |
-| A set of Metadata Requirements | Definition: What descriptive/provenance information must accompany analyses, results, or is necessary to run (e.g. metadata discovery). |
-
-
+- A set of Functional patterns
+- A set of Analytical patterns
+- A set of Movement patterns
+- A set of Data Egress patterns
+- A set of Metadata requirements
 
 By understanding the technical and non-technical requirements, **Patterns** enable configurations of software, governance, and metadata, supporting repeatable, standards-based federation for consortia and collaborative projects.
 
 ## Weaves
 
-A **Weave** is a configuration that combines the description of software capability, governance, configuration, and metadata required for a model of federation.
+A **Weave** is a configuration that combines the description of software capability, governance, and metadata required for a model of federation.
 
 A Weave implementation enables a consistent description of federation capabilities.
 Weaves are used to implement a Pattern, such as when a TRE consortium is formed and needs a consistent, standards-aligned description of a model of federation.
