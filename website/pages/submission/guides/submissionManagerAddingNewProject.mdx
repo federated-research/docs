@@ -1,16 +1,18 @@
-import {Steps, Callout} from "nextra/components"
+import { Steps, Callout } from "nextra/components";
 
 # Adding a New Project to the Submission Layer
 
 ## Prerequisites and Notes
 
 Required information:
+
 - Project Name
 - Start and End dates
 - Project embargo status
 - Researcher usernames to be associated with project
 
 Optional (for this system) information:
+
 - Project Owner, and contact
 - Project Description
 
@@ -31,6 +33,7 @@ on the top right of the Projects page.
 
 The project information should be entered.
 This includes:
+
 1. Project Name (mandatory)
 2. Start and End dates (mandatory)
 3. Project Owner (optional)
@@ -58,12 +61,18 @@ This opens a menu containing the available users.
 Select those that you wish to add to the project,
 and then click the blue 'Add' button.
 
+<Callout>
+  To be able to add/remove people to/from a project, users need to have
+  `dare-control-admin` role (Role Mapping tab) and joined `dare-control-admin`
+  group (Groups tab) on KeyCloak.
+  <img src="/images/AddPeopleSubmissionLayerNote.png" width="500"></img>
+</Callout>
+
 ### Add TRE(s) to the Project
 
 Select the 'TREs' tab within the project page,
 and click the blue '+ Add TRE' button.
 This opens a menu containing the available TREs.
-
 
 Select those that you wish to add to the project,
 and then click the blue 'Add' button.
@@ -81,7 +90,7 @@ the project status with the TRE is 'Undecided'.
 should be requested from the TRE Manager.
 
 <Callout>
-The process for requesting approval is out of scope of this document.
+  The process for requesting approval is out of scope of this document.
 </Callout>
 
 ### Approval Received from TRE
@@ -91,6 +100,4 @@ then the TRE status will change to 'Approved'.
 
 <img src="/images/TREFX_ProjectAddTRE-Approved.png" width="500"></img>
 
-
 </Steps>
-
