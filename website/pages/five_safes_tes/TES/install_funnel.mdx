@@ -22,10 +22,10 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
 
 <Callout> It is currently only available on linux and macOS.</Callout>
 
-<Tabs items={['Curl', 'Homebrew', 'Manually']}>
+<Tabs items={['Install Script', 'Homebrew', 'Manual Binary Install', 'Build from Source']}>
  <Tabs.Tab>
     ```bash copy
-    /bin/bash -c "$(curl -fsSL https://github.com/ohsu-comp-bio/funnel/releases/latest/download/install-funnel.sh)" -- 0.11.2
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohsu-comp-bio/funnel/refs/heads/develop/install.sh)" -- v0.11.7-rc.12
     ```
  </Tabs.Tab>
 
@@ -35,22 +35,22 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
 
     brew install funnel
     ```
-
  </Tabs.Tab>
  
  <Tabs.Tab>
-    ```bash copy
-    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/install-funnel.sh
-    
-    chmod +x install-funnel.sh
-    
-    ./install-funnel.sh 0.11.2
-
-    # If it complains about checksums then download them and re-run the install script:
-    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/funnel_0.11.2_checksums.txt
-
-    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/install-funnel.sh_checksums.txt
-    ```
+   ### Choose the  binary matching your CPU architecture 
+   #### MacOS Intel (AMD64)
+   ```bash copy
+   wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-darwin-amd64-v0.11.6.tar.gz
+   tar -xzvf funnel-darwin-amd64-v0.11.6.tar.gz
+   sudo mv funnel /usr/local/bin/ 
+   ```
+   #### Apple Silicon (ARM64)
+   ```bash copy
+   wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-darwin-arm64-v0.11.6.tar.gz
+   tar -xzvf funnel-darwin-arm64-v0.11.6.tar.gz
+   sudo mv funnel /usr/local/bin/ 
+   ```
  </Tabs.Tab>
 
 </Tabs>
