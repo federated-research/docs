@@ -38,19 +38,50 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
  </Tabs.Tab>
  
  <Tabs.Tab>
-   ### Choose the  binary matching your CPU architecture 
-   #### MacOS Intel (AMD64)
+   <Tabs items={['MacOS', 'Linux']}>
+      <Tabs.Tab>
+         For Intel (AMD64) architecture: 
+         ```bash copy
+         wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-darwin-amd64-v0.11.6.tar.gz
+         tar -xzvf funnel-darwin-amd64-v0.11.6.tar.gz
+         sudo mv funnel /usr/local/bin/ 
+         ```
+
+         For Apple Silicon (ARM64) architecture: 
+         ```bash copy
+         wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-darwin-arm64-v0.11.6.tar.gz
+         tar -xzvf funnel-darwin-arm64-v0.11.6.tar.gz
+         sudo mv funnel /usr/local/bin/ 
+         ```
+         
+      </Tabs.Tab>
+
+      <Tabs.Tab>
+         For Intel (AMD64) architecture: 
+         ```bash copy
+         wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-linux-amd64-v0.11.6.tar.gz
+         tar -xzvf funnel-linux-amd64-v0.11.6.tar.gz
+         sudo mv funnel /usr/local/bin/ 
+         ```
+
+         For ARM64 architecture: 
+         ```bash copy
+         wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-linux-arm64-v0.11.6.tar.gz
+         tar -xzvf funnel-linux-arm64-v0.11.6.tar.gz
+         sudo mv funnel /usr/local/bin/ 
+         ```
+      </Tabs.Tab>
+   </Tabs>
+ </Tabs.Tab>
+
+ <Tabs.Tab>
+   In order to build the latest development code, run:
    ```bash copy
-   wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-darwin-amd64-v0.11.6.tar.gz
-   tar -xzvf funnel-darwin-amd64-v0.11.6.tar.gz
-   sudo mv funnel /usr/local/bin/ 
+   git clone https://github.com/ohsu-comp-bio/funnel.git
+   cd funnel
+   make
    ```
-   #### Apple Silicon (ARM64)
-   ```bash copy
-   wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-darwin-arm64-v0.11.6.tar.gz
-   tar -xzvf funnel-darwin-arm64-v0.11.6.tar.gz
-   sudo mv funnel /usr/local/bin/ 
-   ```
+   This requires Go 1.21+ to be installed. 
  </Tabs.Tab>
 
 </Tabs>
