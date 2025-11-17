@@ -41,6 +41,8 @@ TesOutputBucketPrefix=s3://
 
 ```
 
+If using a system-wide installation of `funnel` as the TES API executing agent then the `HostName` should be `host.docker.internal`. 
+
 <Callout type="info">
   Restart the containers to apply the new configuration.
 </Callout>
@@ -50,6 +52,8 @@ TesOutputBucketPrefix=s3://
 ## Submit a TES message
 
 Once Funnel is running and the All In One is up and configured, you can submit a TES payload to the Submission Layer.
+
+Note that the project access to the TRE must first be approved, see [project access to TRE guide](/tre_agent/guides/TREManagerApprovingProject).  
 
 <Cards>
 

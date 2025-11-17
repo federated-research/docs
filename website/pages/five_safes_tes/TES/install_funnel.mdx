@@ -22,35 +22,69 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
 
 <Callout> It is currently only available on linux and macOS.</Callout>
 
-<Tabs items={['Curl', 'Homebrew', 'Manually']}>
+<Tabs items={['Install Script', 'Homebrew', 'Manual Binary Install', 'Build from Source']}>
  <Tabs.Tab>
+   This installs the latest release candidate at the time of writing `v0.11.7-rc.12`. 
     ```bash copy
-    /bin/bash -c "$(curl -fsSL https://github.com/ohsu-comp-bio/funnel/releases/latest/download/install-funnel.sh)" -- 0.11.2
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohsu-comp-bio/funnel/refs/heads/develop/install.sh)" -- v0.11.7-rc.12
     ```
  </Tabs.Tab>
 
  <Tabs.Tab>
+ The latest version available via `brew` is `v0.11.3`. 
     ```bash copy
     brew tap ohsu-comp-bio/formula
 
     brew install funnel
     ```
-
  </Tabs.Tab>
  
  <Tabs.Tab>
-    ```bash copy
-    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/install-funnel.sh
-    
-    chmod +x install-funnel.sh
-    
-    ./install-funnel.sh 0.11.2
+   This installs the most recent Funnel release at the time of writing `v0.11.6`.
+   <Tabs items={['MacOS', 'Linux']}>
+      <Tabs.Tab>
+         For Intel (AMD64) architecture: 
+         ```bash copy
+         wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-darwin-amd64-v0.11.6.tar.gz
+         tar -xzvf funnel-darwin-amd64-v0.11.6.tar.gz
+         sudo mv funnel /usr/local/bin/ 
+         ```
 
-    # If it complains about checksums then download them and re-run the install script:
-    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/funnel_0.11.2_checksums.txt
+         For Apple Silicon (ARM64) architecture: 
+         ```bash copy
+         wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-darwin-arm64-v0.11.6.tar.gz
+         tar -xzvf funnel-darwin-arm64-v0.11.6.tar.gz
+         sudo mv funnel /usr/local/bin/ 
+         ```
+         
+      </Tabs.Tab>
 
-    wget https://github.com/ohsu-comp-bio/funnel/releases/download/0.11.2/install-funnel.sh_checksums.txt
-    ```
+      <Tabs.Tab>
+         For Intel (AMD64) architecture: 
+         ```bash copy
+         wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-linux-amd64-v0.11.6.tar.gz
+         tar -xzvf funnel-linux-amd64-v0.11.6.tar.gz
+         sudo mv funnel /usr/local/bin/ 
+         ```
+
+         For ARM64 architecture: 
+         ```bash copy
+         wget https://github.com/ohsu-comp-bio/funnel/releases/download/v0.11.6/funnel-linux-arm64-v0.11.6.tar.gz
+         tar -xzvf funnel-linux-arm64-v0.11.6.tar.gz
+         sudo mv funnel /usr/local/bin/ 
+         ```
+      </Tabs.Tab>
+   </Tabs>
+ </Tabs.Tab>
+
+ <Tabs.Tab>
+   In order to build the latest development code, run:
+   ```bash copy
+   git clone https://github.com/ohsu-comp-bio/funnel.git
+   cd funnel
+   make
+   ```
+   This requires Go 1.21+ to be installed. 
  </Tabs.Tab>
 
 </Tabs>
