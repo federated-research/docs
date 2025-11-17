@@ -1,5 +1,5 @@
 export default {
-    working: 'Working of 5S-TES',
+    overview: 'Overview',
     quickstart: 'Quickstart',
     TES: 'Task Execution Service',
     branding: 'Branding',

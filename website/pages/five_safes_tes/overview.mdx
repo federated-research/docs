@@ -2,38 +2,15 @@ import { Callout } from "nextra/components";
 
 # Working of 5 Safes TES
 
-Weaves is the combination which implements FIVE Safe TES principles as a software which includes adhering governance and standards. 
+**Five Safes TES** follows a **Fan-out pattern for architecture design**.
 
-The **FIVE Safes** TES follows a **Fan-out pattern for architecture design**.
+### Architecture : Five Safes TES
 
-### What is Fan-out pattern?
+The 5 Safes TES (Trusted Execution Service) is designed to handle sensitive data analysis within a secure and controlled environment. The architecture followed by a Fan-out pattern for the implementation and is organized into multiple layers and application components.
 
-**Fan-out** is a execution pattern where the gateway (Central Service) receives a single client query is resolved by parallel calls to multiple domain services. The fan-out occurs when resolving a single query that requires data from multiple domain services.
+Aggregation is supported via external tools and after 5S-TES completes analysis tasks, users can run a dedicated aggregation tool to collect and summarise results. Check [Run an Analysis section](https://docs.federated-analytics.ac.uk/submission/tasks/run_analysis) for an example aggregation.
 
-**Fan-out Federation** is a specific implementation of the pattern where a single operation from a client can trigger multiple parallel requests from the central service to various services and then unify their responses into one and returns the unified payload to the client.
-
-
-<figure style={{ textAlign: 'center', paddingTop: '20px' }}>
-  <img 
-    src="/images/fan-outArchitecture.png" 
-    alt="Fan-out Architecture Pattern" 
-    width="500"
-    style={{ display: "block", margin: "0 auto" }}
-  />
-    <figcaption style={{ fontStyle: 'italic', fontSize: '0.7em', marginTop: '8px' }}>
-        Figure 1: illustrates Fan-out architecture pattern
-    </figcaption>
-</figure>
-
-### Architecture & Overview: Five Safe TES
-
-The 5 Safe TES (Trusted Execution Service) is designed to handle sensitive data analysis within a secure and controlled environment. The architecture followed by a Fan-out Architecture for the implementation and is organized into multiple layers and application components.
-
-<Callout type="warning">
-    As of now, the aggregation part in the fan-out architecture is not perform by itself as the user needs to aggregate by themself or run another job.
-</Callout>
-
-The 5 Safe TES is divided into multiple layers of process and multiple app stack as discussed below.
+The 5 Safes TES is divided into multiple layers of process and multiple app stack as discussed below.
 
 **The layers of the architecture are:**
 
@@ -42,7 +19,7 @@ The 5 Safe TES is divided into multiple layers of process and multiple app stack
 - **TRE Layer**: Core processing layer for data analysis.
 - **Storage Layer (Collection of Results)**: Secure storage for storing analysis results for the data owner.
 
-**The Five Safe TES app stack includes:**
+**The Five Safes TES app stack includes:**
 
 - **Submission App:** Handles user submissions.
 - **TRE Agent App:** Manages task execution within the TRE for data analytics.
@@ -61,9 +38,9 @@ The 5 Safe TES is divided into multiple layers of process and multiple app stack
     </figcaption>
 </figure>
 
-**Operational Overview: Five Safe TES**
+### Operational Overview: Five Safes TES
 
-The high level overview of working of the Five Safe TES is as follows:
+The high level overview of working of the Five Safes TES is as follows:
 
 
 <u style={{ display: 'block', marginTop: '20px' }}>
