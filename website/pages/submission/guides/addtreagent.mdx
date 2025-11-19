@@ -1,30 +1,32 @@
 import {Steps, Callout} from "nextra/components"
 
 ## Connect a TRE Agent
-The TRE Agent needs credentials to call the Submission API.
+To connect a TRE Agent to the Submission Layer, some setup is required from the Submission Layer and the TRE Agent side:
+
 ## Submission Layer setup:
 <Steps>
 ### Keycloak admin logs onto the [Keycloak server](/five_safes_tes/quickstart/stackinfo#keycloak-server).
 
-### Create a user for the TRE
-Create an admin user for the TRE Agent in the Submission Layer keycloak realm.
-Follow this [guide](/submission/guides/keycloakAdminAddingNewUser.mdx) to create an admin user for the TRE Agent.
+### Create a user to access the Submission Layer from TRE
+- Login to [Keycloak server](/five_safes_tes/quickstart/stackinfo#keycloak-server) as an admin user.
+- Navigate to the `Dare-Control` realm.
+- Follow this [guide](/submission/guides/keycloakAdminAddingNewUser.mdx) to create a user with the `dare-tre-admin` role. Use the username and password of this user for steps below
 
 ### Create a TRE 
-From the Submission Layer navigate to the  ***TRE -> Create new TRE***.
-Set the the username from the step above as the TRE admin username.
-
+- From the Submission Layer navigate to the  ***TRE -> Create new TRE***.
+- Set the name of the TRE you want to connect to as `Name`.
+- Set the the username from the step above as `Admin Username`.
+- Click `Submit`
 
 &nbsp;
 
-<img src="/images/createTRE.png" width="500"></img>
+<img src="/images/createTre.png" width="500"></img>
 
-<Callout type="info">If you are using the defaults the admin username is: `accessfromtretosubmission` and the role is: `dare-tre-admin`  </Callout>
+<Callout type="info">If you are using the AllInOne stack, the user in step 2 already exists and its username is: `accessfromtretosubmission`  </Callout>
 
-### Create a Project
-Follow this [guide](/submission/guides/createproject.mdx) to:
-- Create a Project.
-- Add the TRE you created to the Project.
+### Create a Project with the TRE
+- Create a Project following this [guide](/submission/guides/createproject.mdx).
+- Add the TRE you want to connect to the Project.
 - Assign any users to the Project.
 </Steps>
 
@@ -34,15 +36,19 @@ Prerequisites:
 <Steps>
 ### Enter Submission Credentials
 The TRE Agent UI will prompt you to provide the submission credentials in order to authenticate against the `Submission Layer API`.
-These are the TRE Agent user credentials set in [Create a user for the TRE](/submission/guides/addtreagent#create-a-user-for-the-tre)
+These are the TRE Agent user credentials set in step 2 of the Submission Layer setup above.
 
 <Callout type="info">
-Defaults:
+If you are using the AllInOne stack, the credentials are:
 ```yaml copy
 Username: accessfromtretosubmission
 Password: password123
 ```
-
 </Callout>
+### Wait for the TRE Agent to sync with the Submission Layer
+After these setup steps, the TRE Agent should try to reach out and connect (sync) with the Submission Layer where the project in step 4 above is created. 
+The sync process will happen every 10 minutes by default.
+To adjust how long between each sync change the `syncSchedule` [setting](/tre_agent/deploy#configure-the-env-file).
+
 
 </Steps>
