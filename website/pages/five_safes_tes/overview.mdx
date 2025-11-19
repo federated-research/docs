@@ -1,12 +1,10 @@
 import { Callout } from "nextra/components";
 
-# Working of 5 Safes TES
-
-**Five Safes TES** follows a **Fan-out pattern for architecture design**.
+# Overview of 5 Safes TES
 
 ### Architecture : Five Safes TES
 
-The 5 Safes TES (Trusted Execution Service) is designed to handle sensitive data analysis within a secure and controlled environment. The architecture followed by a Fan-out pattern for the implementation and is organized into multiple layers and application components.
+The 5 Safes TES (Task Execution Service) is designed to handle sensitive data analysis within a secure and controlled environment. The architecture followed by a Fan-out pattern for the implementation and is organized into multiple layers and application components.
 
 Aggregation is supported via external tools and after 5S-TES completes analysis tasks, users can run a dedicated aggregation tool to collect and summarise results. Check [Run an Analysis section](https://docs.federated-analytics.ac.uk/submission/tasks/run_analysis) for an example aggregation.
 
@@ -34,7 +32,7 @@ The 5 Safes TES is divided into multiple layers of process and multiple app stac
     style={{ display: "block", margin: "0 auto" }}
   />
     <figcaption style={{ fontStyle: 'italic', fontSize: '0.7em', marginTop: '8px' }}>
-        Figure 2: illustrates app structure and working of Five Safe TES Architecture
+        Figure 1: illustrates app structure and working of Five Safe TES Architecture
     </figcaption>
 </figure>
 
@@ -47,28 +45,37 @@ The high level overview of working of the Five Safes TES is as follows:
   <strong>Submission App</strong>
 </u>
 <div>
-    - The process begins with the end user or researcher submitting a request for the desired analysis over the Trusted Research Environments. Then, authentication and authorisation checks are performed to ensure the user is assigned to the relevant project.
-    - Once the request is accepted by the Trusted Research Environments Agent(based on the authentication & Authorisation), which contains code for analysis, metadata information, etc and saves the artefacts in the centralised storage at the user level.
-    - The request is then placed in a queue as a task for the corresponding nodes in the federated network, and the user is notified that their request has been accepted.
-</div>
 
+  1. The process begins with the end user or researcher submitting a request for the desired analysis through the Trusted Research Environments. Then, authentication and authorisation checks are performed to ensure the user is assigned to the relevant project.
+
+  2. Once the request (contains the code for analysis, metadata information) is accepted by the TRE Agent, it then processes the request and saves the outputs in centralized storage at the user level.
+
+  3. The request is then placed in a queue as a task for the corresponding nodes in the federated network, and the user is notified that their request has been accepted.
+
+</div>
 
 <u style={{ display: 'block', marginTop: '20px' }}>
   <strong>TRE Agent App</strong>
 </u>
 <div>
-    - The TRE Agent in the TRE Layer monitors the queue for new jobs (tasks). Once identified, the task are taken from the queue and sent to the for authorisation by TREs.
-    - Then, a tool is called Camunda is used to dynamically inject the database connection string and credentials into the Funnel container to connect the database.
-    - All together, complete payload is send to the Task Execution Service API which receives code & message and translates them into the common one.
-    - Then, the standardised payload is sent by the TES API to a Docker image which executes the analysis query on the database with the respected database crentials managed by camunda.
-    - The results of this analysis are then saved in storage at the TRE Agent Owner Level.
+    1. The TRE Agent in the TRE Layer monitors the queue for new jobs (tasks). Once identified, the task are taken from the queue and sent to the for authorisation by TREs.
+
+    2. Then, a tool is called Camunda is used to dynamically inject the database connection string and credentials into the Funnel container to connect the database.
+
+    3. Then the payload is send to the Task Execution Service API(TES API) which receives code & message and translates them into the unified, platform-independent format.
+
+    4. All together, the standardised payload is sent by the TES API to a Docker image which executes the analysis query on the database with the respected database crentials managed by camunda.
+
+    5. The results of this analysis are then saved in storage at the TRE Agent Owner Level.
 </div>
 
 <u style={{ display: 'block', marginTop: '20px' }}>
   <strong>Egress App</strong>
 </u>
 <div>
-    - After the analysis results are stored, the TRE notifies the data owner (a designated human reviewer) to approve the release of results.
-    - The owner can now reviews the output and, if approved, authorises the egress.
-    - Upon approval, the results are retrieved from storage and sent back through the submission layer and finally, the end user or researcher receives their requested analysis results.
+    1. After the analysis results are stored, the TRE notifies the data owner (a designated human reviewer) to approve the release of results.
+    
+    2. The owner can now reviews the output and, if approved, authorises the egress.
+    
+    3. Upon approval, the results are retrieved from storage and sent back through the submission layer and finally, the end user or researcher receives their requested analysis results.
 </div>
