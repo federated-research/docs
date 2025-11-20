@@ -1,0 +1,39 @@
+import {Steps, Callout} from "nextra/components"
+
+# Connect a TRE Agent to Egress
+To establish a connection between a TRE Agent and Egress, two users need to be created in the Egress Layer and the TRE Agent side:
+1. A user to access the Egress Layer from the TRE Agent.
+2. A user to access the TRE Layer from the Egress Layer.
+
+<Steps>
+### Create and add a user to access the Egress from the TRE Agent
+- Login to [Keycloak server](/five_safes_tes/quickstart/stackinfo#keycloak-server) as an admin user.
+- Navigate to the `Data-Egress` realm.
+- Create a user with the `dare-tre-admin` role.
+- Navigate to `TRE-UI` and then `Update Data Egress Credentials` and add the username and password of the user you just created.
+
+
+<Callout type="info">
+If you are using the AllInOne stack, the user already exists and its credentials are:
+```yaml copy
+Username: accessfromtretoegress
+Password: password123
+```
+</Callout>
+
+### Create and add a user to access the TRE Layer from the Egress 
+- Login to [Keycloak server](/five_safes_tes/quickstart/stackinfo#keycloak-server) as an admin user.
+- Navigate to the `Dare-TRE` realm.
+- Create a user with the `dare-egress-admin` role.
+- Navigate to `Egress-UI` and then `Update TRE Credentials` and add the username and password of the user you just created.
+
+
+<Callout type="info">
+If you are using the AllInOne stack, the user already exists and its credentials are:
+```yaml copy
+Username: accessfromegresstotre
+Password: password123
+```
+</Callout>
+
+</Steps>
