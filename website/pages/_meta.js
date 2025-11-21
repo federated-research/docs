@@ -12,7 +12,7 @@ export default {
   },
   about_us: "About us",
   standards: "Standards",
-  patterns: "Federated Research Patterns",
+  federated_research_patterns: "Federated Research Patterns",
   weaves: {
     title: "Weaves",
     type: "separator"
