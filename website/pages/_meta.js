@@ -1,6 +1,6 @@
 export default {
   index: {
-    title: "Federated Research",
+    title: "Principles",
     description: "Details of the implementations of Federated Research Patterns and associated weaves in the Health Data Research UK Programme",
     theme: {
       breadcrumb: false,
@@ -12,9 +12,7 @@ export default {
   },
   about_us: "About us",
   standards: "Standards",
-  patterns: { 
-    title: "Federated Research Patterns"
-  },
+  patterns: "Federated Research Patterns",
   weaves: {
     title: "Weaves",
     type: "separator"
