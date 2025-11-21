@@ -1,3 +1,4 @@
 export default {
-    patterns: 'patterns',
+    patterns: 'Patterns',
+    weaves: 'Weaves',
 }
