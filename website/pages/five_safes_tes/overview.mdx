@@ -48,9 +48,7 @@ The high level overview of working of the Five Safes TES is as follows:
 
   1. The process begins with the end user or researcher submitting a request for the desired analysis through the Trusted Research Environments. Then, authentication and authorisation checks are performed to ensure the user is assigned to the relevant project.
 
-  2. Once the request (contains the code for analysis, metadata information) is accepted by the TRE Agent, it then processes the request and saves the outputs in centralized storage at the user level.
-
-  3. The request is then placed in a queue as a task for the corresponding nodes in the federated network, and the user is notified that their request has been accepted.
+  2. The request is then placed in a queue as a task for the corresponding nodes in the federated network, and the user is notified that their request has been accepted.
 
 </div>
 
@@ -58,15 +56,13 @@ The high level overview of working of the Five Safes TES is as follows:
   <strong>TRE Agent App</strong>
 </u>
 <div>
-    1. The TRE Agent in the TRE Layer monitors the queue for new jobs (tasks). Once identified, the task are taken from the queue and sent to the for authorisation by TREs.
+    1. The TRE Agent in the TRE Layer monitors the queue for new jobs (tasks). Once identified, the task are taken from the queue and sent to TREs.
 
-    2. Then, a tool is called Camunda is used to dynamically inject the database connection string and credentials into the Funnel container to connect the database.
+    2. Then, a tool called Camunda will dynamically inject the database credentials into the environment variables of the TES message, which Funnel will use to connect to the database.
 
-    3. Then the payload is send to the Task Execution Service API(TES API) which receives code & message and translates them into the unified, platform-independent format.
+    3. Then the payload is send to the Task Execution Service API(TES API) which receives code & message and translates them into the unified, platform-independent format. All together, standardised payload is pulled by Funnel to execute the analysis on the database. 
 
-    4. All together, the standardised payload is sent by the TES API to a Docker image which executes the analysis query on the database with the respected database crentials managed by camunda.
-
-    5. The results of this analysis are then saved in storage at the TRE Agent Owner Level.
+    4. The results of this analysis are then saved in storage at the TRE Agent Owner Level.
 </div>
 
 <u style={{ display: 'block', marginTop: '20px' }}>
