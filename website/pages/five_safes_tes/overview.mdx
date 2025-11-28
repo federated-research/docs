@@ -58,9 +58,9 @@ The high level overview of working of the Five Safes TES is as follows:
 <div>
     1. The TRE Agent in the TRE Layer monitors the queue for new jobs (tasks). Once identified, the task are taken from the queue and sent to TREs.
 
-    2. Then, a tool called Camunda will dynamically inject the database credentials into the environment variables of the TES message, which Funnel will use to connect to the database.
+    2. Then, a tool called Camunda will dynamically inject the database credentials into the environment variables of the TES message, which Executor will use to connect to the database.
 
-    3. Then the payload is send to the Task Execution Service API (TES API) which receives code & message and translates them into the unified, platform-independent format. All together, standardised payload is pulled by Funnel to execute the analysis on the database. 
+    3. Then the standardised payload is pulled by the Executor, then the analysis will be executed over the database. 
 
     4. The results of this analysis are then saved in storage at the TRE Agent Owner Level.
 </div>
