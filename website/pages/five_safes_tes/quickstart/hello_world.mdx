@@ -7,7 +7,7 @@ This page will guide you through sending your first "Hello World" submission to 
 ## Prerequisites
 
 - Docker daemon is running.
-- Funnel installed and running with Minio access configured. Instructions can be found [here](/five_safes_tes/TES/install_funnel).
+- [Funnel](https://github.com/ohsu-comp-bio/funnel) installed and running with Minio access configured. Instructions can be found [here](/five_safes_tes/TES/install_funnel).
 
 ## Steps to send the first submission
 
@@ -24,15 +24,13 @@ cd AllInOne
 ### Start the Docker Service with `DemoMode = true`
 
 By default, the docker compose file is configured to run in `DemoMode = true`. This will start the stack with the seeding of some demo data and instances.
-For example, `Testing` project will be created, TRE named `DEMO` will be deployed, and users credentials used to communicate between apps will be created.
+For example, admin user `globaladminuser` to access Submission UI, TRE-UI and Data Egress UI will be seeded, `Testing` project will be created, TRE named `DEMO` will be deployed, and users credentials used to communicate between apps will be seeded.
 
 In the same directory as the `docker-compose.yml` file run:
 
 ```bash copy
 docker compose up -d
 ```
-
-### Checking Status of Docker Service
 
 The status of the services can be checked using Docker Desktop,
 or by running this command:
@@ -78,4 +76,64 @@ If using a system-wide installation of `funnel` as the TES API executing agent t
   following command to restart the containers: `docker compose up -d`
 </Callout>
 
+### Send the Hello World submission using Swagger API
+
+The Hello World submission is a simple submission that will be used to demo the AllInOne stack.
+
+To send this submission using Submission Layer Swagger API hosted at `http://localhost:5034/swagger`, follow these steps:
+
+1. Authorise the request with the Access Token with the Authorise button on the top right. The access token is obtained by this [guide](/submission/guides/get_token).
+2. Click on the `POST /v1/tasks` endpoint, under the `TaskServiceApi` section. Then click on the `Try it out` button.
+3. Enter the following payload, then click on the `Execute` button:
+
+```json copy
+{
+  "state": 0,
+  "name": "Hello World",
+  "inputs": [],
+  "outputs": [
+    {
+      "name": "Stdout",
+      "description": "Stdout results",
+      "url": "s3://",
+      "path": "/outputs",
+      "type": "DIRECTORY"
+    }
+  ],
+  "executors": [
+    {
+      "image": "ubuntu",
+      "command": ["echo", "Hello World"],
+      "workdir": "/outputs",
+      "stdout": "/outputs/stdout"
+    }
+  ],
+  "volumes": null,
+  "tags": {
+    "project": "Testing", // Project that was seeded in the Demo mode
+    "tres": "DEMO" // TRE that was seeded in the Demo mode
+  },
+  "logs": null,
+  "creation_time": null
+}
+```
+
+### Tracking and approving the submission results
+
+Navigate back to [Submission Layer UI](http://localhost:7220), and click onto the submission you just sent.
+
+You should see the processing status of the submission. Once the submission is processed, and `Requested Egress` is on waiting, follow this [guide](/egress/guides/EgressManagerApprovingRelease) to approve the submission results.
+
+### View the submission results
+
+Once the Egress request has been approved, you can view the results in the Submission Layer's output bucket.
+
+The final successful process should be like this:
+
+<img src="/images/download_results.png" width="400"></img>
+
 </Steps>
+
+## Next steps
+
+Now you have sent your first submission, you can try to send a different submission with a different project and TRE using this [guide](/submission/tasks/run_analysis).
