@@ -1,8 +1,8 @@
 import { Steps, Cards, Callout } from "nextra/components";
 
-## Troubleshooting
+# Troubleshooting
 
-### 1. [Keycloak console](http://localhost:8085) requires HTTPS
+## [Keycloak console](http://localhost:8085) requires HTTPS
 
 If you encounter issues where the Keycloak console requires HTTPS, you can resolve this by accessing the Docker container directly:
 
@@ -22,7 +22,7 @@ cd /opt/keycloak/bin
 
 3. Enter `admin` for the password when prompted.
 
-### 2. `KeyCloakDemoMode = true` in `.env` but KeyCloak still requires HTTPS
+## `KeyCloakDemoMode = true` in `.env` but KeyCloak still requires HTTPS
 
 If you have set `KeyCloakDemoMode = true` in your `.env` file but KeyCloak still requires HTTPS when logging in locally into the Submission layer, for example, follow these steps:
 
@@ -38,6 +38,6 @@ Password: admin
 4. Choose `None` from the `Require SSL` dropdown.
 5. Click on the `Save` button.
 
-### 3. Docker can't access the file directory to mount the `init.sql` file
+## Docker can't access the file directory to mount the `init.sql` file
 
 If you encounter issues where Docker can't access the file directory to mount the `init.sql` file, you can resolve this by adding the directory path to the shared paths from `Docker -> Preferences -> Resources -> File Sharing`.
