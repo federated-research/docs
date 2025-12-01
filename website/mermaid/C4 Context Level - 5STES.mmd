@@ -1,0 +1,23 @@
+---
+title: C4 Context Level - Five Safes TES
+---
+graph TD
+
+    %% ---------- nodes ----------
+    researcher([Researcher<br/><font size='1'>#40;Submits analysis#41;</font>])
+    fivesafes[[Five Safes TES<br/><font size='1'>#40;Manages requests#41;</font>]]
+    treagent1[[TRE Agent<br/><font size='1'>#40;Executes securely#41;</font>]]
+    treagent2[[TRE Agent<br/><font size='1'>#40;Executes securely#41;</font>]]
+    treagent3[[TRE Agent<br/><font size='1'>#40;Executes securely#41;</font>]]
+
+    %% ---------- connections ----------
+    researcher -->|Send Analysis| fivesafes
+    fivesafes -.-> treagent1
+    fivesafes -.-> treagent2
+    fivesafes -.-> treagent3
+
+    %% ---------- styling ----------
+    classDef person fill:#08427b,color:#fff,stroke:#052e56
+    classDef system fill:#1168bd,color:#fff,stroke:#0a4a8c
+    class researcher person
+    class fivesafes,treagent1,treagent2,treagent3 system
