@@ -41,7 +41,7 @@ TesOutputBucketPrefix=s3://
 
 ```
 
-If using a system-wide installation of `funnel` as the TES API executing agent then the `HostName` should be `host.docker.internal`. 
+If using a system-wide installation of `funnel` as the TES API executing agent then the `HostName` should be `host.docker.internal`.
 
 <Callout type="info">
   Restart the containers to apply the new configuration.
@@ -53,7 +53,7 @@ If using a system-wide installation of `funnel` as the TES API executing agent t
 
 Once Funnel is running and the All In One is up and configured, you can submit a TES payload to the Submission Layer.
 
-Note that the project access to the TRE must first be approved, see [project access to TRE guide](/tre_agent/guides/TREManagerApprovingProject).  
+Note that the project access to the TRE must first be approved, see [project access to TRE guide](/tre_agent/guides/TREManagerApprovingProject).
 
 <Cards>
 
@@ -74,41 +74,3 @@ arrow
 />
 
 </Cards>
-
-## Troubleshooting
-
-### 1. [Keycloak console](http://localhost:8085) requires HTTPS
-
-If you encounter issues where the Keycloak console requires HTTPS, you can resolve this by accessing the Docker container directly:
-
-1. Access the Docker exec of Keycloak container:
-
-```bash
-docker exec -it <keycloak-container-name> bash
-```
-
-2. Navigate to the Keycloak bin directory and configure the realm:
-
-```bash
-cd /opt/keycloak/bin
-./kcadm.sh config credentials --server http://localhost:8080 --realm master --user admin
-./kcadm.sh update realms/master -s sslRequired=NONE
-```
-
-3. Enter `admin` for the password when prompted.
-
-### 2. `KeyCloakDemoMode = true` in `.env` but KeyCloak still requires HTTPS
-
-If you have set `KeyCloakDemoMode = true` in your `.env` file but KeyCloak still requires HTTPS when logging in locally into the Submission layer, for example, follow these steps:
-
-1. Access the Keycloak console at `http://localhost:8085`, using the admin credentials:
-
-```yaml copy
-Username: admin
-Password: admin
-```
-
-2. Navigate to each Realm: `DARE-Control`, `DARE-TRE`, `DARE-Egress` by clicking on the Realm name in the left-hand side.
-3. Access `Realm settings` under `Configure` section on the left-hand side menu.
-4. Choose `None` from the `Require SSL` dropdown.
-5. Click on the `Save` button.

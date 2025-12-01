@@ -4,4 +4,5 @@ export default {
   stackinfo: "Core components",
   hello_world: "Send the first submission",
   funnel_allinone: "Run analysis with Funnel",
+  troubleshooting: "Troubleshooting",
 };

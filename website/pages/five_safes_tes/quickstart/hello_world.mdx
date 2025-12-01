@@ -55,7 +55,6 @@ You should see **_Approved_** status for the TRE.
 To send a real submission, some settings need to be adjusted in the `.env` file inside the `AllInOne` directory as follow.
 
 ```yaml copy filename=".env"
-
 // Turn off Demo mode to execute analysis:
 DemoMode = false
 
@@ -70,8 +69,6 @@ TesAPIUrl=http://<HostName>:8000/v1/tasks
 
 // Output bucket prefix for the TES executing agent to write outputs to, default is s3 bucket prefix:
 TesOutputBucketPrefix=s3://
-
-
 ```
 
 If using a system-wide installation of `funnel` as the TES API executing agent then the `HostName` should be `host.docker.internal`.
@@ -82,16 +79,3 @@ If using a system-wide installation of `funnel` as the TES API executing agent t
 </Callout>
 
 </Steps>
-
-## Troubleshooting
-
-<Tabs items={["Windows"]}>
-  <Tabs.Tab>
-    <Callout>
-      {" "}
-      Docker may need access to the file directory to mount the `init.sql` file.
-      Add the directory path to the shared paths from `Docker -> Preferences -> Resources
-      -> File Sharing`{" "}
-    </Callout>
-  </Tabs.Tab>
-</Tabs>
