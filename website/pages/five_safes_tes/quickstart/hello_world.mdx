@@ -1,6 +1,6 @@
 import { Cards, Tabs, Steps, Callout } from "nextra/components";
 
-# Send the first submission
+# Send the Hello World submission
 
 This page will guide you through sending your first "Hello World" submission to the Five Safes TES weave.
 
@@ -24,7 +24,7 @@ cd AllInOne
 ### Start the Docker Service with `DemoMode = true`
 
 By default, the docker compose file is configured to run in `DemoMode = true`. This will start the stack with the seeding of some demo data and instances.
-For example, admin user `globaladminuser` to access Submission UI, TRE-UI and Data Egress UI will be seeded, `Testing` project will be created, TRE named `DEMO` will be deployed, and users credentials used to communicate between apps will be seeded.
+For example, `Testing` project will be created, TRE named `DEMO` will be deployed, and users credentials used to communicate between apps will be seeded.
 
 In the same directory as the `docker-compose.yml` file run:
 
@@ -32,12 +32,21 @@ In the same directory as the `docker-compose.yml` file run:
 docker compose up -d
 ```
 
-The status of the services can be checked using Docker Desktop,
-or by running this command:
+<Callout type="info">
+  You can check the status of the services by running `docker stats` in the
+  terminal.
+</Callout>
 
-```bash copy
-docker stats
+<Callout>
+  When `keycloak` service is started, configurations for three realms `DARE-Control`, `DARE-TRE` and `Data-Egress` will be imported and applied automatically. 
+  At a result, admin user `globaladminuser` will be created in each realm.
+
+```yaml copy
+Username: globaladminuser
+Password: password123
 ```
+
+  </Callout>
 
 ### Approve the Project access to the TRE
 
