@@ -1,46 +1,40 @@
-import {Steps, Callout} from "nextra/components"
+import { Steps, Callout } from "nextra/components";
 
 # Approving Project Access to TRE
 
-## Prerequisites and Notes
-
-Required Information:
-- Database Credentials
-- Project access expiry date
-
 ## Process
+
 The TRE Agent will sync any Projects created in the submission layer every 10 minutes by default.
 To adjust how long between each sync change the `syncSchedule` [setting](/tre_agent/deploy#configure-the-env-file).
+
 <Steps>
 ### Login
 Log in to the [TRE Agent](/five_safes_tes/quickstart/stackinfo#tre-agent-tre-layer)
 
-
 ### Find Project
-Once the TRE Agent is in sync the Project will appear in the TRE Agent UI. 
-<img src="/images/TRE_UnprocessedProjects.png" width="400"></img>
 
+Once the TRE Agent is in sync, the Project will appear in the TRE Agent UI.
+
+<img src="/images/TRE_UnprocessedProjects.png" width="400"></img>
 
 #### Approve Project
 
 Select the project you wish to process.
-Navigate to the ***Project Approval*** section to approve the Project
+Navigate to the **_Project Approval_** section to approve the Project.
 
-<img src="/images/approveProject.png" width="380"></img>
-
-You may also enter the following information:
-1. Local Name of Project (optional)
-2. Project Expiry Date. This determines when project access to the TRE will end.
+You may also enter the local name of the project.
 
 <Callout>
-Note that rejected projects cannot be returned
-to an 'undecided' or 'approved' status again.
+  Note that rejected projects cannot be returned to an 'undecided' or 'approved'
+  status again.
 </Callout>
 
 #### Approve Project User Membership
-Navigate to the ***Memberships*** section to approve the users that can submit to that Project.
+
+Navigate to the **_Memberships_** section to approve the users that can submit to that Project.
 Set the decisions for each user.
 Once ready click the 'Save Changes' button.
 &nbsp;
+
 <img src="/images/TRE_ProjectReview_Memberships.png" width="400"></img>
 </Steps>
