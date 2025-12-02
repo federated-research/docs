@@ -1,0 +1,110 @@
+import { Callout } from "nextra/components";
+
+# Overview of 5 Safes TES
+
+### Architecture : Five Safes TES
+
+The 5 Safes TES (Task Execution Service) is designed to handle sensitive data analysis within a secure and controlled environment. The architecture followed by a Fan-out pattern for the implementation and is organized into multiple layers and application components.
+
+Aggregation is supported via external tools and after 5S-TES completes analysis tasks, users can run a dedicated aggregation tool to collect and summarise results. Check [Run an Analysis section](https://docs.federated-analytics.ac.uk/submission/tasks/run_analysis) for an example aggregation.
+
+<figure style={{ textAlign: 'center', paddingTop: '20px' }}>
+```mermaid
+---
+title: Five Safes TES - Context Diagram
+---
+graph TD
+
+    %% ---------- nodes ----------
+    researcher([Researcher<br/><font size='1'>#40;Submits analysis#41;</font>])
+    fivesafes[[Five Safes TES<br/><font size='1'>#40;Manages requests#41;</font>]]
+    treagent1[[TRE Agent<br/><font size='1'>#40;Executes securely#41;</font>]]
+    treagent2[[TRE Agent<br/><font size='1'>#40;Executes securely#41;</font>]]
+    treagent3[[TRE Agent<br/><font size='1'>#40;Executes securely#41;</font>]]
+
+    %% ---------- connections ----------
+    researcher -->|Send Analysis| fivesafes
+    fivesafes -.-> treagent1
+    fivesafes -.-> treagent2
+    fivesafes -.-> treagent3
+
+    %% ---------- styling ----------
+    classDef person fill:#08427b,color:#fff,stroke:#052e56
+    classDef system fill:#1168bd,color:#fff,stroke:#0a4a8c
+    class researcher person
+    class fivesafes,treagent1,treagent2,treagent3 system
+
+```
+
+  <figcaption style={{ fontStyle: 'italic', fontSize: '0.7em', marginTop: '8px' }}>
+      Figure 1: illustrates the Context Level diagram of the Five Safes TES architecture.
+  </figcaption>
+</figure>
+
+The 5 Safes TES is divided into multiple layers of process and multiple app stack as discussed below.
+
+**The layers of the architecture are:**
+
+- **Submission Layer**: Entrypoint for user requests, authentication, and authorisation.
+- **Storage Layer (User)**: Centralized storage for user inputs, metadata and artefacts.
+- **TRE Layer**: Core processing layer for data analysis.
+- **Storage Layer (Collection of Results)**: Secure storage for storing analysis results for the data owner.
+
+**The Five Safes TES app stack includes:**
+
+- **Submission App:** Handles user submissions.
+- **TRE Agent App:** Manages task execution within the TRE for data analytics.
+- **Egress App:** Controls the release of results to users
+
+
+<figure style={{ textAlign: 'center', paddingTop: '20px' }}>
+  <img 
+    src="/images/Five Safes TES - Architecture.png"
+    alt="Five Safe TES Architecture" 
+    width="700"
+    style={{ display: "block", margin: "0 auto" }}
+  />
+    <figcaption style={{ fontStyle: 'italic', fontSize: '0.7em', marginTop: '8px' }}>
+        Figure 2: illustrates app structure and working of Five Safe TES Architecture
+    </figcaption>
+</figure>
+
+### Operational Overview: Five Safes TES
+
+The high level overview of working of the Five Safes TES is as follows:
+
+
+<u style={{ display: 'block', marginTop: '20px' }}>
+  <strong>Submission App</strong>
+</u>
+<div>
+
+  1. The process begins with the end user or researcher submitting a request for the desired analysis through the Trusted Research Environments. Then, authentication and authorisation checks are performed to ensure the user is assigned to the relevant project.
+
+  2. The request is then placed in a queue as a task for the corresponding nodes in the federated network, and the user is notified that their request has been accepted.
+
+</div>
+
+<u style={{ display: 'block', marginTop: '20px' }}>
+  <strong>TRE Agent App</strong>
+</u>
+<div>
+    1. The TRE Agent in the TRE Layer monitors the queue for new jobs (tasks). Once identified, the task are taken from the queue and sent to TREs.
+
+    2. Then, a tool called Camunda will dynamically inject the database credentials into the environment variables of the TES message, which Executor will use to connect to the database.
+
+    3. The standardised payload is pulled by the Executor, then the analysis will be executed over the database. 
+
+    4. The results of this analysis are then saved in storage at the TRE Agent Owner Level.
+</div>
+
+<u style={{ display: 'block', marginTop: '20px' }}>
+  <strong>Egress App</strong>
+</u>
+<div>
+    1. After the analysis results are stored, the TRE notifies the data owner (a designated human reviewer) to approve the release of results.
+    
+    2. The owner can now reviews the output and, if approved, authorises the egress.
+    
+    3. Upon approval, the results are retrieved from storage and sent back through the submission layer and finally, the end user or researcher receives their requested analysis results.
+</div>
