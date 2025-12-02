@@ -2,4 +2,83 @@ import { Steps, Callout, Cards } from "nextra/components";
 
 # Quickstart
 
-You can use this [guide](/five_safes_tes/quickstart/hello_world) to quickly get started with the Submission Layer and the Five Safes TES weave.
+## Summary
+
+This quickstart guide provides the essential steps to run your first task on the Five Safes TES weave.
+
+It covers submitting a simple "Hello World" task through the Submission Layer API.
+
+## Run a task
+
+<Steps>
+
+### Preparation
+
+To submit a task through the Submission Layer API, please make sure the following prerequisites are met:
+
+- A TRE Agent is deployed. Guide is [here](/tre_agent/deploy).
+- A project is [set up](/submission/guides/project_setup) and has been approved for access to the TRE. Guide can be found [here](/tre_agent/guides/TREManagerApprovingProject). To make sure that the project has been approved and Submission Layer is in sync with TRE Agent, choose the project in Submission layer and navigate to the **_TREs_** section.
+  You should see **_Approved_** status for the TRE.
+
+<img src="/images/ProjectApproved.png" width="400"></img>- An access token is obtained.
+Guide is [here](/submission/guides/get_token).
+
+### Send task
+
+You can make the request from the Submission Layer Swagger API hosted at `http://localhost:5034/swagger`. Do this by the following steps:
+
+1. Authorise the request with the Access Token obtained in the previous step with the **_Authorise_** button on the top right.
+
+2. Click on the `POST /v1/tasks` endpoint, under the `TaskServiceApi` section. Then click on the `Try it out` button.
+
+3. Enter the following payload, then click on the `Execute` button:
+
+```json copy
+{
+  "state": 0,
+  "name": "Hello World",
+  "inputs": [],
+  "outputs": [
+    {
+      "name": "Stdout",
+      "description": "Stdout results",
+      "url": "s3://",
+      "path": "/outputs",
+      "type": "DIRECTORY"
+    }
+  ],
+  "executors": [
+    {
+      "image": "ubuntu",
+      "command": ["echo", "Hello World"],
+      "workdir": "/outputs",
+      "stdout": "/outputs/stdout"
+    }
+  ],
+  "volumes": null,
+  "tags": {
+    "project": "<ProjectName>", // Project that you would like to submit to.
+    "tres": "<TREName>" // TRE related to that Project
+  },
+  "logs": null,
+  "creation_time": null
+}
+```
+
+<Callout type="info">
+  More information on the TES payload can be found at the TES API
+  [specification](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask)
+  website.
+</Callout>
+
+### Egress
+
+For the data to be released an Egress Manager needs to [approve the request](/egress/guides/EgressManagerApprovingRelease).
+
+### Results
+
+Once the Egress request has been approved you can view them in the output bucket:
+
+<img src="/images/download_results.png" width="400"></img>
+
+</Steps>
