@@ -1,6 +1,8 @@
 export default {
-    overview: 'Overview',
-    quickstart: 'Quickstart',
-    TES: 'Task Execution Service',
-    branding: 'Branding',
-}
+  overview: "Overview",
+  core_components: "Core components",
+  quickstart: "Quickstart",
+  TES: "Task Execution Service",
+  troubleshooting: "Troubleshooting",
+  branding: "Branding",
+};
