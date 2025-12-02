@@ -1,0 +1,25 @@
+---
+title: Context Level - Five Safes TES
+---
+graph TB
+
+%% ---------- nodes ----------
+    researcher([Researcher<br/><font size='1'>#40;Submits analysis#41;</font>])
+    subApp[[Submission App<br/><font size='1'>#40;Collects & manages requests#41;</font>]]
+    treApp[[TRE Agent App<br/><font size='1'>#40; Executes analysis <br>within TRE #41;</font>]]
+    egressApp[[Egress App<br/><font size='1'>#40; Reviews analysis & Approve <br> before returning #41;</font>]]
+
+%% ---------- connections ----------
+    researcher -->|"Sends Analysis"| subApp
+    subApp -->|"Tre Gets Analysis"| treApp
+    treApp -->|"Send Results"| egressApp
+    egressApp -->|"Returns Approved Results"| subApp
+    subApp -->|"Delivers Approved Results"| researcher
+
+ %% ---------- styling ----------
+    classDef person fill:#08427b,color:#fff,stroke:#052e56
+    classDef system fill:#1168bd,color:#fff,stroke:#0a4a8c
+    class researcher person
+    class subApp system
+    class treApp system
+    class egressApp system

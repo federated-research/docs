@@ -1,16 +1,37 @@
-import { Steps,Callout } from "nextra/components"
+# Patterns framework
 
-# Federated Research Patterns
+The **Patterns Framework** defines the dimensions required to support secure federation across Trusted Research Environments (TREs). By understanding the requirements, the configuration of the **Patterns** supports sustainable, repeatable, and standards-based federation.
 
-<Callout type="default">
-    These concepts are still emerging, so get [in touch](https://federated-analytics.ac.uk/federated-analytics/community/) if you have feedback.
-</Callout>
+| Pattern dimensions    | Description                                                                                | Component                                       |
+|-----------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------|
+| **Analytical**        | Understanding the analytics required for the research informs the statistics and determines the algorithm type. Where the algorithm type categorises what analyses could be supported. | Decomposable, Iterative, Data Pooling           |
+| **Data Movement**     | As deteremined by the algorithm type, this is how data is required to moves in and out of a TRE and how it is exectued.  | Summary, Model Weights, Row level data    |
+| **Data Egress**       | The output checking method required for the egress of results                              | Off, Manual, Semi-automated, Automated          |
+| **Metadata**          | Information that is descriptive for reproducability and/ or attributes provenance that accompanies the analyses or results. |                                                 |
+| **Functional**        | The components that are functionally required to enable federation.                        | Initiate, Input, Process, Output                |
 
-**Federated Research Patterns** is a framework defining dimensions required to support secure federation across Trusted Research Environments (TREs). The framework is defined by:
-- A set of Functional patterns
-- A set of Analytical patterns
-- A set of Data Movement patterns
-- A set of Data Egress patterns
-- A set of Metadata patterns
+## Framework components
 
-By understanding the technical and non-technical requirements, **Patterns** enable configurations of software, governance, and metadata, supporting repeatable, standards-based federation for consortia and collaborative projects.
+### Analytical
+
+- Decomposable: An algorithm in which the final result can be exactly reconstructed from local results computed on separate subsets of data in one round of aggregation.
+- Iterative: A federated algorithm which required multiple rounds of local calculation and aggregation.
+- Data Pooling: An algorithm which cannot be separated or calculated iteratively. These are only possible by pooling data.
+
+### Data Movement
+- Summary
+- Model weights
+- Row level data
+
+### Data Egress
+- Off
+- Manual
+- Semi-automated
+- Automated
+
+### Functional
+- Initiate
+- Input
+- Process
+- Output
+
