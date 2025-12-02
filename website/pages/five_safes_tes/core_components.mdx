@@ -7,9 +7,9 @@ The Five Safes TES Weave comprises of a number of services which would usually b
 These are listed below, along with a short description of their function, and with the local web addresses and user accounts.
 
 <Callout type="warning">
-  Note that these user accounts are only intended for local training purposes
-  and used in the All-In-One Quickstart. If you deploy this stack for public
-  access then these must be changed.
+  These user accounts are only intended to be used in the All-In-One Quickstart
+  for demonstration purposes. If you deploy this stack in a production
+  environment then these must be changed.
 </Callout>
 
 ## Submission Layer
@@ -34,6 +34,11 @@ Backend logic for the Submission Layer.
 
 **Hosted at**: [localhost:5034](http://localhost:5034)
 
+<Callout type="info">
+  The Swagger UI for this service is hosted at
+  [localhost:5034/swagger](http://localhost:5034/swagger).
+</Callout>
+
 ## TRE Layer
 
 ### TRE UI
@@ -54,6 +59,11 @@ Password: password123
 Backend logic for the TRE service or TRE Agent.
 
 **Hosted at**: [localhost:8072](http://localhost:8072)
+
+<Callout type="info">
+  The Swagger UI for this service is hosted at
+  [localhost:8072/swagger](http://localhost:8072/swagger).
+</Callout>
 
 ### TRE-Camunda
 
@@ -78,7 +88,7 @@ In short, Camunda will create the ephemeral user credentials and store them in V
 
 These services are used to manage Trino's ephemeral user accounts for the stack.
 
-### Egress (TRE Layer)
+### Egress
 
 The Egress API handles egress requests. Once a task is finished executing the results are then waiting for approval in the Egress layer.
 Once results are approved/rejected it sends an update to the TRE Agent.
