@@ -14,7 +14,7 @@ import {
 This guide walks you through the complete process of running a federated analysis using the Five Safes TES Weave.
 It covers setting up the environment, configuring connections to TREs (Trusted Research Environments), submitting analysis jobs, and retrieving aggregated results.
 
-It demonstrates running a basic statistical analysis (mean calculation) on measurement values from OMOP Concept "History Source" across multiple TREs.
+It demonstrates running a basic statistical analysis (mean calculation) on measurement values from OMOP Concept "Airway resistance --during inspiration" across multiple TREs.
 
 ## Requirements
 
@@ -27,7 +27,8 @@ It demonstrates running a basic statistical analysis (mean calculation) on measu
 
 - Deployed Five Safes TES [All-In-One Quickstart](/five_safes_tes/quickstart) or one [Submission Layer](/submission) and at least one [TRE Agent](/tre_agent) with [Funnel](/five_safes_tes/TES/install_funnel) connected to the agent.
 - [OMOP CDM database](/standards#observational-medical-outcomes-partnership-omop) connected to each TRE. You can use [`omop-lite`](https://github.com/Health-Informatics-UoN/omop-lite) for a quickstart synthetic OMOP CDM.
-  This OMOP CDM should be under the schema with the name is the same as the project name in the Submission Layer. For example, if the project name is "testing", the OMOP CDM should be under the schema "testing".
+
+<Callout>Please make sure that OMOP CDM schema name is in lowercase.</Callout>
 
 ### Information Prerequisites
 
@@ -71,23 +72,20 @@ Login to the TRE Layer UI and navigate to the "DMN Rules" section. This page hel
 
 Find the rules with the following tags and change them to the correct values of the TRE DB credentials.
 
-| Output:tag       | Output:value                        |
-| ---------------- | ----------------------------------- |
-| postgresDatabase | "change to the TREDBDatabase above" |
-| postgresServer   | "change to the TREDBHost above"     |
-| postgresPort     | "change to the TREDBPort above"     |
+| Output:tag       | Output:value                                     |
+| ---------------- | ------------------------------------------------ |
+| postgresDatabase | "change to the TREDBDatabase above"              |
+| postgresServer   | "change to the TREDBHost above"                  |
+| postgresPort     | "change to the TREDBPort above"                  |
+| postgresSchema   | "change to the schema of the OMOP CDM in TRE DB" |
 
 **Notices**:
 
 - The values put into `Output Value` should be inside double quotes.
-- You don't need to put the values into `postgresPassword` tag.
+- You don't need to put any value into `postgresPassword` tag.
 - The value of `postgresUsername` can be kept unchanged.
 - The value of `postgresSchema` is defaulted to the project name in the Submission Layer.
-
-<Callout>
-  Please make sure that all of the project and schema names should be in
-  lowercase, due to a known issue. We are working on fixing this.
-</Callout>
+  But if the OMOP CDM is under a different schema, you need to change the value to the actual lowercase schema name.
 
 </Steps>
 
@@ -213,7 +211,8 @@ WHERE measurement_concept_id = 21490742
 AND value_as_number IS NOT NULL
 ```
 
-This assumes that the OMOP CDM is under the public schema. If it is under a different schema, you need to change the `public.measurement` to the actual schema name. For example, if the schema name and the project name are both `testing`, the query should be:
+This assumes that the OMOP CDM is under the public schema. If it is under a different schema, you need to change the `public.measurement` to the actual schema name.
+For example, if the schema name of OMOP CDM is `testing`, the query should be:
 
 ```sql
 SELECT value_as_number FROM testing.measurement
