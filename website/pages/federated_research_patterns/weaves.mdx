@@ -1,17 +1,18 @@
 # Developing a Weave
 
-A **Weave** is a configuration of Patterns that enables a consistent description of the capabilities for a model of federation. 
+A **Weave** is a instantiation of Patterns that enables a consistent description of the capabilities for an approach to federation.
 
-A Weave describes the Patterns to provide reproducible federated capability, that is consistent, standards-aligned description of a model of federation. Different Weaves define a different capability across a federated TRE, and is not software specific. 
+A Weave describes the Patterns to provide reproducible federated capability. Different Weaves define a different capability across a federated TRE, and is not software specific.
 
 ## Weave Identity
 
-A Weave is defined by changes in the following Pattern and listed component:
+A weave must contain:
+-	One Analytical Pattern
+- 	One Data Movement Pattern
+- 	One Initiate Pattern
+- 	One Process Pattern
+- 	One or more Egress Pattern
+- 	None to Many Metadata Pattern
+- 	An open source reference implementation
 
-- Analytical
-    - Algorithm type
-- Data egress 
-    - Egress type
-- Functional
-    - Initiate
-    - Process
+Given a Weave can only contain a single analytical, data, initiate and process Pattern it is therefore the case that if any of those change it is required to create a new Weave.

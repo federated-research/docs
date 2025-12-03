@@ -11,13 +11,13 @@ These queries are designed to protect privacy through configurable obfuscation t
 
 ## Weave Identity
 
-| Analytical   | Data Movement | Data Egress | Functional                                               | Metadata |
+| Analytical   | Data Movement | Data Egress | Initiate                                               | Process |
 |--------------|---------------|-------------|----------------------------------------------------------|----------|
-| Isolated | Summary       | Manual      | Initiate: BC RQUEST and Process: BC Link or Bunny        |          |
+| Isolated | Summary       | Off      | Discovery API      | Discovery API           |
 
 ## Use in Federated Research
 
-**Discovery** is built to support federated research networks where each site runs its own software locally. It polls a central **Task API** (such as [Relay](https://hutch.health/relay) or RQUEST) to retrieve incoming tasks, processes them against the site’s OMOP database, and returns anonymised, aggregate results.
+**Discovery** is built to support federated research networks where each site runs its own software locally.
 
 This model allows institutions to collaborate on large-scale health research without sharing raw patient-level data, maintaining **data sovereignty and privacy**.
 

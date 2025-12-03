@@ -4,34 +4,36 @@ The **Patterns Framework** defines the dimensions required to support secure fed
 
 | Pattern dimensions    | Description                                                                                | Component                                       |
 |-----------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------|
-| **Analytical**        | Understanding the analytics required for the research informs the statistics and determines the algorithm type. Where the algorithm type categorises what analyses could be supported. | Decomposable, Iterative, Data Pooling           |
+| **Analytical**        | Understanding the analytics required for the research informs the statistics and determines the algorithm type. Where the algorithm type categorises what analyses could be supported. | Isolated, Connected, Centralised          |
 | **Data Movement**     | As deteremined by the algorithm type, this is how data is required to moves in and out of a TRE and how it is exectued.  | Summary, Model Weights, Row level data    |
 | **Data Egress**       | The output checking method required for the egress of results                              | Off, Manual, Semi-automated, Automated          |
-| **Metadata**          | Information that is descriptive for reproducability and/ or attributes provenance that accompanies the analyses or results. |                                                 |
-| **Functional**        | The components that are functionally required to enable federation.                        | Initiate, Input, Process, Output                |
+| **Metadata**          | Data that assists the researcher to construct analyses to run with the weave | Metadata specification                                             |
+| **Initiate**        | The components that are functionally required to enable federation.                        | API Specification               |
+| **Process**        | The components that are functionally required to enable federation.                        | API Specification                 |
 
 ## Framework components
 
 ### Analytical
 
-- Decomposable: An algorithm in which the final result can be exactly reconstructed from local results computed on separate subsets of data in one round of aggregation.
-- Iterative: A federated algorithm which required multiple rounds of local calculation and aggregation.
-- Data Pooling: An algorithm which cannot be separated or calculated iteratively. These are only possible by pooling data.
+- Isolated – these are analyses that are replicated in each TRE, on the data within TRE. These analyses require no state to be maintained and there is no sharing of intermediary results.  The only results to be shared in this category will be a Summary Data Movement Pattern and only supported Federated Analytics.
+- Connected – these analyses are performed within each TRE but can involve the sharing of global analyses back to each TRE that influence or change the analyses to be performed locally. These analyses may require a state to be maintained, and the results will either by a Summary or Model Weight and this can support Federated Analytics or Federated Learning.
+- Centralised – these analyses require data to be pooled, even temporarily, for the analyses to be performed. This will always require a row level data movement.
 
 ### Data Movement
-- Summary
-- Model weights
-- Row level data
+- Summary - where a statistical result is shared back that does not relate to any individual but is a calculation based on the confidential data. It is the summary result that moves from the TRE.
+- Model weights - where a machine learning algorithm has been run on the data and the weights are moved from the TRE.
+- Row level data - where row level data is moving, whether that is anonymised (or not) but each data element is that at the level of an individual.
 
 ### Data Egress
-- Off
-- Manual
-- Semi-automated
-- Automated
+- Off – where the egress being requested is essentially set to auto-approve, there can be no manual or automated egress check in place.
+- Manual - where at least one person checks the results by eye and approves the release of the data
+- Semi-automated – where at least one person checks the results and aided by a risk tool
+- Automated – where no one has checked the results but a computational approach has been taken to check contents and make the decision with no human involvement.
 
-### Functional
-- Initiate
-- Input
-- Process
-- Output
+### Initiate
+- API specification for the receiving of the analysis to run across the network
+
+### Process
+- API specification for the processing of the analysis with a TRE.
+
 
