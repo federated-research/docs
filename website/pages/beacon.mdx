@@ -1,0 +1,26 @@
+# Beacon
+
+## Core Functionality
+
+**Beacon** is a Weave for cohort discovery queries across a federated network of subnodes to the [GA4GH Beacon](https://www.ga4gh.org/product/beacon-api/) standard.
+- Accept queries via a GA4GH Beacon v2 API.
+- Federating those queries to any compatible Downstream Task API clients.
+- Aggregate the returned results into a single GA4GH Beacon v2 response, which is returned to the requester.
+
+## Weave Identity
+
+| Analytical   | Data Movement | Data Egress | Functional                                 | Metadata |
+|--------------|---------------|-------------|--------------------------------------------|----------|
+| Decomposable | Summary       | Manual      | Initiate: Task API and Process: Relay      |          |
+
+## Use in Federated Research
+
+**Beacon** is deployed in a centralised environment to form a connected network of subnodes, each typically running its own Cohort Discovery system. This architecture enables distributed datasets to be queried as though they were one, without sharing patient-level data.
+
+By aggregating results centrally, institutions can collaborate on large-scale research while maintaining data sovereignty and privacy.
+
+## Reference Implementation
+
+The open-source, reference implementation is **Relay**, which provides a containerised and security-conscious—enabling ethical, scalable health research through federated collaboration. 
+
+To support data governance, Beacon applies configurable obfuscation techniques such as suppression or rounding, ensuring sensitive counts are protected. It is designed for resilience, returning aggregated results even if one or more nodes are unavailable.
