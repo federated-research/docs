@@ -1,29 +1,33 @@
-import { Steps, Callout } from "nextra/components"
+import { Steps, Callout } from "nextra/components";
 
 # Deploy a Submission Layer
+
 To deploy an instance of the Submission Layer
 
 <Steps>
 
 ## Go to the Submission Layer directory
-Within the DARE-TREFX-Environment1 directory the Submission Layer docker compose and configuration files are in the `Submission` [directory](https://github.com/SwanseaUniversityMedical/DARE-TREFX-Environment1/tree/main/Submission):
+
+Within the 5S-TES-deployment directory the Submission Layer docker compose and configuration files are in the `Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/Submission):
 
 ```bash copy
 cd Submission
 ```
+
 ## Configure the .env file
+
 Unless you are running it locally, change `localhost` to the machine's host.
 
 ```yaml filename=".env"
 ### Default settings:
 KeycloakHostName=http://localhost:8085
-MinioBrowserHost=localhost 
+MinioBrowserHost=localhost
 URLSettingsFrontEndMinioUrl=localhost:9001
 submissionMinioUrl=http://localhost:9000
 submissionMinioAdminConsole=http://localhost:9001
 
 ### New settings:
-#### If running on a VM then: 
+#### If running on a VM then:
 KeycloakHostName=http://<VMHost>:8085
 MinioBrowserHost=<VMHost>
 URLSettingsFrontEndMinioUrl=<VMHost>:9001
@@ -32,10 +36,13 @@ submissionMinioAdminConsole=http://<VMHost>:9001
 ```
 
 ## Run docker-compose
+
 ```bash copy
 docker-compose up -d
 ```
 
 ## Go to the Submission Layer UI
+
 Hosted on port `7220`
+
 </Steps>

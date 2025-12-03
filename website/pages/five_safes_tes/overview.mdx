@@ -1,10 +1,10 @@
 import { Callout } from "nextra/components";
 
-# Overview of 5 Safes TES
+# Overview of Five Safes TES
 
-### Architecture : Five Safes TES
+## Architecture
 
-The 5 Safes TES (Task Execution Service) is designed to handle sensitive data analysis within a secure and controlled environment. The architecture followed by a Fan-out pattern for the implementation and is organized into multiple layers and application components.
+The Five Safes TES (Task Execution Service) is designed to handle sensitive data analysis within a secure and controlled environment. The architecture followed by a Fan-out pattern for the implementation and is organized into multiple layers and application components.
 
 Aggregation is supported via external tools and after 5S-TES completes analysis tasks, users can run a dedicated aggregation tool to collect and summarise results. Check [Run an Analysis section](https://docs.federated-analytics.ac.uk/submission/tasks/run_analysis) for an example aggregation.
 
@@ -58,9 +58,9 @@ The 5 Safes TES is divided into multiple layers of process and multiple app stac
 
 
 <figure style={{ textAlign: 'center', paddingTop: '20px' }}>
-  <img 
+  <img
     src="/images/Five Safes TES - Architecture.png"
-    alt="Five Safe TES Architecture" 
+    alt="Five Safe TES Architecture"
     width="700"
     style={{ display: "block", margin: "0 auto" }}
   />
@@ -69,7 +69,7 @@ The 5 Safes TES is divided into multiple layers of process and multiple app stac
     </figcaption>
 </figure>
 
-### Operational Overview: Five Safes TES
+## Operational Overview
 
 The high level overview of working of the Five Safes TES is as follows:
 
@@ -93,7 +93,7 @@ The high level overview of working of the Five Safes TES is as follows:
 
     2. Then, a tool called Camunda will dynamically inject the database credentials into the environment variables of the TES message, which Executor will use to connect to the database.
 
-    3. The standardised payload is pulled by the Executor, then the analysis will be executed over the database. 
+    3. The standardised payload is pulled by the Executor, then the analysis will be executed over the database.
 
     4. The results of this analysis are then saved in storage at the TRE Agent Owner Level.
 </div>
@@ -103,8 +103,8 @@ The high level overview of working of the Five Safes TES is as follows:
 </u>
 <div>
     1. After the analysis results are stored, the TRE notifies the data owner (a designated human reviewer) to approve the release of results.
-    
+
     2. The owner can now reviews the output and, if approved, authorises the egress.
-    
+
     3. Upon approval, the results are retrieved from storage and sent back through the submission layer and finally, the end user or researcher receives their requested analysis results.
 </div>

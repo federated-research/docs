@@ -1,0 +1,43 @@
+import { Steps, Cards, Callout } from "nextra/components";
+
+# Troubleshooting
+
+## [Keycloak console](http://localhost:8085) requires HTTPS
+
+If you encounter issues where the Keycloak console requires HTTPS, you can resolve this by accessing the Docker container directly:
+
+1. Access the Docker exec of Keycloak container:
+
+```bash
+docker exec -it <keycloak-container-name> bash
+```
+
+2. Navigate to the Keycloak bin directory and configure the realm:
+
+```bash
+cd /opt/keycloak/bin
+./kcadm.sh config credentials --server http://localhost:8080 --realm master --user admin
+./kcadm.sh update realms/master -s sslRequired=NONE
+```
+
+3. Enter `admin` for the password when prompted.
+
+## `KeyCloakDemoMode = true` in `.env` but KeyCloak still requires HTTPS
+
+If you have set `KeyCloakDemoMode = true` in your `.env` file but KeyCloak still requires HTTPS when logging in locally into the Submission layer, for example, follow these steps:
+
+1. Access the Keycloak console at `http://localhost:8085`, using the admin credentials:
+
+```yaml copy
+Username: admin
+Password: admin
+```
+
+2. Navigate to each Realm: `DARE-Control`, `DARE-TRE`, `DARE-Egress` by clicking on the Realm name in the left-hand side.
+3. Access `Realm settings` under `Configure` section on the left-hand side menu.
+4. Choose `None` from the `Require SSL` dropdown.
+5. Click on the `Save` button.
+
+## Docker can't access the file directory to mount the `init.sql` file
+
+If you encounter issues where Docker can't access the file directory to mount the `init.sql` file, you can resolve this by adding the directory path to the shared paths from `Docker -> Preferences -> Resources -> File Sharing`.
