@@ -1,6 +1,6 @@
 export default {
   index: {
-    title: "Principles",
+    title: "About us",
     description: "Details of the implementations of Federated Research Patterns and associated weaves in the Health Data Research UK Programme",
     theme: {
       breadcrumb: false,
@@ -10,7 +10,6 @@ export default {
       
     }
   },
-  about_us: "About us",
   standards: "Standards",
   federated_research_patterns: "Federated Research Patterns",
   weaves: {
@@ -18,6 +17,8 @@ export default {
     type: "separator"
   },
   five_safes_tes: "Five Safes TES",
+  discovery: "Discovery",
+  beacon: "Beacon",
   our_software: {
     title: "Software",
     type: "separator"
@@ -25,8 +26,7 @@ export default {
   submission: "Submission Layer",
   tre_agent: "TRE Agent",
   egress: "Egress",
-  bunny: "Bunny",
-  relay: "Relay",
+
   branding_sep: {
     title: "Branding",
     type: "separator"

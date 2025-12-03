@@ -1,0 +1,26 @@
+# Discovery
+
+## Core Functionality
+
+**Discovery** is a Weave for cohort discovery against OMOP CDM databases. This Weave process two main types of queries:
+
+- **Availability**: Answers the question _“how many patients meet certain criteria?”_ without revealing individual-level data.
+- **Distribution**: Returns de-identified aggregate statistics (e.g. age, sex, diagnosis counts) for a cohort of interest.
+
+These queries are designed to protect privacy through configurable obfuscation techniques such as rounding and low-count suppression.
+
+## Weave Identity
+
+| Analytical   | Data Movement | Data Egress | Functional                                               | Metadata |
+|--------------|---------------|-------------|----------------------------------------------------------|----------|
+| Isolated | Summary       | Manual      | Initiate: BC RQUEST and Process: BC Link or Bunny        |          |
+
+## Use in Federated Research
+
+**Discovery** is built to support federated research networks where each site runs its own software locally. It polls a central **Task API** (such as [Relay](https://hutch.health/relay) or RQUEST) to retrieve incoming tasks, processes them against the site’s OMOP database, and returns anonymised, aggregate results.
+
+This model allows institutions to collaborate on large-scale health research without sharing raw patient-level data, maintaining **data sovereignty and privacy**.
+
+## Reference Implementation
+
+Bunny is open-source, lightweight, and security-conscious, enabling scalable health research without compromising data control at the institutional level. [Bunny](https://hutch.health/bunny) is an application developed by the University of Nottingham that enables **privacy-preserving cohort discovery** across federated health data networks. It is designed to work with **OMOP Common Data Model (CDM)** databases and is deployed at partner institutions as a secure, read-only query agent.
