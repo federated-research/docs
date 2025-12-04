@@ -1,8 +1,8 @@
 # Patterns framework
 
-The **Patterns Framework** defines the dimensions required to support secure federation across Trusted Research Environments (TREs). By understanding the requirements, the configuration of the **Patterns** supports sustainable, repeatable, and standards-based federation.
+The **Patterns Framework** defines all patterns that are grouped by theme that are required to support secure federation across Trusted Research Environments (TREs). By understanding the requirements, the configuration of the **Patterns** supports sustainable, repeatable, and standards-based federation.
 
-| Pattern dimensions    | Description                                                                                | Component                                       |
+| Pattern theme    | Description                                                                                | Component                                       |
 |-----------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------|
 | **Analytical**        | Understanding the analytics required for the research informs the statistics and determines the algorithm type. Where the algorithm type categorises what analyses could be supported. | Isolated, Connected, Centralised          |
 | **Data Movement**     | As deteremined by the algorithm type, this is how data is required to moves in and out of a TRE and how it is exectued.  | Summary, Model Weights, Row level data    |
@@ -15,8 +15,8 @@ The **Patterns Framework** defines the dimensions required to support secure fed
 
 ### Analytical
 
-- Isolated – these are analyses that are replicated in each TRE, on the data within TRE. These analyses require no state to be maintained and there is no sharing of intermediary results.  The only results to be shared in this category will be a Summary Data Movement Pattern and only supported Federated Analytics.
-- Connected – these analyses are performed within each TRE but can involve the sharing of global analyses back to each TRE that influence or change the analyses to be performed locally. These analyses may require a state to be maintained, and the results will either by a Summary or Model Weight and this can support Federated Analytics or Federated Learning.
+- Isolated – these are analyses that are replicated individually within each TRE and require no state to be maintained. The only results to be shared in this category will be a Summary Data Movement Pattern.
+- Connected – these are analyses which require multiple rounds of local calculation and aggregation, requiring the TREs to receive results from other TREs to be included in the local calculations. These analyses may require a state to be maintained, and the results will either be a Summary or Model Parameter.
 - Centralised – these analyses require data to be pooled, even temporarily, for the analyses to be performed. This will always require a row level data movement.
 
 ### Data Movement
