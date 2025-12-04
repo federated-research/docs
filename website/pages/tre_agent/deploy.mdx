@@ -2,6 +2,79 @@ import { Steps, Callout } from "nextra/components";
 
 # Deploy a TRE Layer
 
+This page contains:
+
+- a summary of what is involved when deploying a Five Safes TES TRE Layer
+- a Sample Deployment Guide
+  - with recommendations for deploying in Production
+
+## Component Summary
+
+Here is a summary of the required components which make up the Submission Layer:
+
+| Component                 | Notes                                                                                                              |
+| ------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| **KeyCloak**              | The TRE Agent and Egress apps each require a Keycloak realm containing users and clients authorised to access them |
+| **Minio**                 | An Amazon S3 compatible TRE Storage service                                                                        |
+| **Hashicorp Vault**       | Used for accessing ephemeral credentials as secrets                                                                |
+| **OpenLDAP**              | Used to provide ephemeral credentials for Trino (if in use as a datasource)                                        |
+| **ElasticSearch**         | Used for Camunda `// TODO: How? Why?`                                                                              |
+| **Camunda Connectors**    | `// TODO: Help explain this please`                                                                                |
+| **Camunda Orchestration** | Zeebe? `// TODO: Help explain this please`                                                                         |
+| **TRE Agent API**         | A REST API for TRE Agent functionality                                                                             |
+| **TRE Agent GUI**         | A Web Frontend for TRE Admins to log into and interact with the TRE Agent                                          |
+| **Egress API**            | A REST API for Egress Portal functionality                                                                         |
+| **Egress GUI**            | A Web Frontend for Egress Officers to log into and interact with the Egress Portal                                 |
+
+You may choose how to distribute your own deployment of these components, as long as they are able to communicate with each other over the network.
+
+For some components, such as KeyCloak or MinIO, you may wish to use your own existing deployments.
+
+### User accessible components
+
+A subset of the components will need to be accessible by users, outside of the host environent:
+
+| Component         | Reason                                                                                        |
+| ----------------- | :-------------------------------------------------------------------------------------------- |
+| **KeyCloak**      | So that users can authenticate and admins can manage the TRE Agent and Egress KeyCloak Realms |
+| **TRE Agent GUI** | So that TRE Admins can log into and interact with the TRE Agent                               |
+| **TRE Agent API** | _Optional_. So that other services can integrate with the TRE Agent REST API                  |
+| **Egress GUI**    | So that Egress Officers can log into and interact with the Egress Portal                      |
+| **Egress API**    | _Optional_. So that other services can integrate with the Egress REST API                     |
+
+## Sample Deployment Guide
+
+<Callout type="info">
+  Note that this guide is a *sample*. It can be modified to reflect the your own
+  infrastructure and configuration choices.
+</Callout>
+
+This guide deploys all the components of the TRE Layer (except the TES Backend) on a single host (e.g. a Virtual Machine) using Docker Compose.
+
+All the components are deployed on suitable Docker networks and can communicate with each other as required.
+
+#### User accessible components
+
+Components which may need to be accessed from outside the host are forwarded to the host on specific ports
+
+| Component         | Ports        |
+| ----------------- | :----------- |
+| **KeyCloak**      | HTTP: `8085` |
+| **TRE Agent GUI** | HTTP: `????` |
+| **TRE Agent API** | HTTP: `????` |
+| **Egress GUI**    | HTTP: `8100` |
+| **Egress API**    | HTTP: `????` |
+
+`// TODO: do other things need to route through the host and not docker internal network?! unclear based on the compose file...`
+
+#### Production Recommendations
+
+To use this sample as a starting point for a production deployment, some [general recommendations](/five_safes_tes/deploy_production) should be considered.
+
+The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
+
+### Deployment steps
+
 To deploy an instance of the TRE Agent and data Egress
 
 <Steps>

@@ -10,6 +10,10 @@ For the purposes of the All In One stack we will be configuring the TRE Agent to
 
 ## Set up MinIO Access key
 
+<Callout>
+This guidance refers to the preset credentials for the All In One quickstart. If you are setting up Funnel for a regular deployment, you'll need to use your TRE Agent realm credentials.
+</Callout>
+
 Navigate to the MinIO instance of the TRE Layer (hosted at: [localhost:9002](http://localhost:9002)).
 If you see the option to login with `SSO_Identifier`, use the following credentials:
 
@@ -33,7 +37,7 @@ To create the access keys, in the MinIO console navigate to **_Access Keys -> Cr
 
 Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.github.io/funnel/download/)
 
-<Callout> It is currently only available on linux and macOS.</Callout>
+<Callout type="info">Funnel is currently only available on linux and macOS.</Callout>
 
 <Tabs items={['Install Script', 'Homebrew', 'Manual Binary Install', 'Build from Source']}>
  <Tabs.Tab>
@@ -104,6 +108,14 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
 
 </Tabs>
 
+<Callout>
+  For a production deployment, some [general recommendations](/five_safes_tes/deploy_production) should be considered.
+
+  The ports Funnel runs on can be configured in the next step, if needed for configuring a reverse proxy.
+
+  Funnel's own [deployment documentation](https://ohsu-comp-bio.github.io/funnel/docs/compute/deployment/) also offers suggested approaches to deployment.
+</Callout>
+
 ## Check if funnel has been successfully installed
 
 ```bash copy
@@ -120,10 +132,22 @@ Funnel will need access to the TRE layer MinIO. Once funnel is installed, create
 ```yaml filename="config.yml" copy
 GenericS3:
   - Disabled: false
-    Endpoint: "localhost:9002" # URL where the MinIO instance is hosted. The port stays the same, change the host to match your environment.
+    Endpoint: "localhost:9002" # URL to MinIO. Change to match your environment. `9002` is the default port in our deployment samples.
     Key: "<access key>"
     Secret: "<secret>"
 ```
+
+You may also wish to configure other elements of the Funnel installation, e.g.:
+
+```yaml filename="config.yml" copy
+Server:
+  HTTPPort: 8080 # Control which port Funnel binds on
+Worker:
+  WorkDir: "/var/opt/funnel" # explicitly specify Funnel's working directory
+# ...
+```
+
+[Funnel's documentation](https://ohsu-comp-bio.github.io/funnel/docs/) offers configuration details in the relevant pages for each feature area.
 
 ## Run Funnel
 
@@ -133,6 +157,7 @@ Run the funnel server using the config created above.
 funnel server run -c config.yml
 ```
 
+
 <Callout type="info">
   You can decide the location of the config file, but the command above will need to be changed to point to the correct config file location.
   For example, if the config file is located in `/etc/funnel/`:
@@ -140,5 +165,24 @@ funnel server run -c config.yml
   funnel server run -c /etc/funnel/config.yml
   ```
 </Callout>
+
+Optionally, to run Funnel in the background on a typical linux server, you may wish to setup a systemd service.
+
+For example, if Funnel is installed manually to `/opt/funnel/funnel`:
+
+```inf filename="funnel.service" copy
+[Unit]
+Description=Funnel Server
+
+[Service]
+ExecStart=/opt/funnel/funnel server run --config /etc/funnel/config.yml
+SyslogIdentifier=funnel
+LimitNOFILE=1000000
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
 
 </Steps>
