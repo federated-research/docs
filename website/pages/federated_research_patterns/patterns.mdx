@@ -1,37 +1,39 @@
 # Patterns framework
 
-The **Patterns Framework** defines the dimensions required to support secure federation across Trusted Research Environments (TREs). By understanding the requirements, the configuration of the **Patterns** supports sustainable, repeatable, and standards-based federation.
+The **Patterns Framework** defines all patterns that are grouped by theme that are required to support secure federation across Trusted Research Environments (TREs). By understanding the requirements, the configuration of the **Patterns** supports sustainable, repeatable, and standards-based federation.
 
-| Pattern dimensions    | Description                                                                                | Component                                       |
+| Pattern theme    | Description                                                                                | Component                                       |
 |-----------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------|
-| **Analytical**        | Understanding the analytics required for the research informs the statistics and determines the algorithm type. Where the algorithm type categorises what analyses could be supported. | Decomposable, Iterative, Data Pooling           |
+| **Analytical**        | Understanding the analytics required for the research informs the statistics and determines the algorithm type. Where the algorithm type categorises what analyses could be supported. | Isolated, Connected, Centralised          |
 | **Data Movement**     | As deteremined by the algorithm type, this is how data is required to moves in and out of a TRE and how it is exectued.  | Summary, Model Weights, Row level data    |
 | **Data Egress**       | The output checking method required for the egress of results                              | Off, Manual, Semi-automated, Automated          |
-| **Metadata**          | Information that is descriptive for reproducability and/ or attributes provenance that accompanies the analyses or results. |                                                 |
-| **Functional**        | The components that are functionally required to enable federation.                        | Initiate, Input, Process, Output                |
+| **Metadata**          | Data that assists the researcher to construct analyses to run with the weave | Metadata specification                                             |
+| **Initiate**        | The components that are functionally required to enable federation.                        | API Specification               |
+| **Process**        | The components that are functionally required to enable federation.                        | API Specification                 |
 
 ## Framework components
 
 ### Analytical
 
-- Decomposable: An algorithm in which the final result can be exactly reconstructed from local results computed on separate subsets of data in one round of aggregation.
-- Iterative: A federated algorithm which required multiple rounds of local calculation and aggregation.
-- Data Pooling: An algorithm which cannot be separated or calculated iteratively. These are only possible by pooling data.
+- Isolated – these are analyses that are replicated individually within each TRE and require no state to be maintained. The only results to be shared in this category will be a Summary Data Movement Pattern.
+- Connected – these are analyses which require multiple rounds of local calculation and aggregation, requiring the TREs to receive results from other TREs to be included in the local calculations. These analyses may require a state to be maintained, and the results will either be a Summary or Model Parameter.
+- Centralised – these analyses require data to be pooled, even temporarily, for the analyses to be performed. This will always require a row level data movement.
 
 ### Data Movement
-- Summary
-- Model weights
-- Row level data
+- Summary - where a statistical result is shared back that does not relate to any individual but is a calculation based on the confidential data. It is the summary result that moves from the TRE.
+- Model weights - where a machine learning algorithm has been run on the data and the weights are moved from the TRE.
+- Row level data - where row level data is moving, whether that is anonymised (or not) but each data element is that at the level of an individual.
 
 ### Data Egress
-- Off
-- Manual
-- Semi-automated
-- Automated
+- Off – where the egress being requested is essentially set to auto-approve, there can be no manual or automated egress check in place.
+- Manual - where at least one person checks the results by eye and approves the release of the data
+- Semi-automated – where at least one person checks the results and aided by a risk tool
+- Automated – where no one has checked the results but a computational approach has been taken to check contents and make the decision with no human involvement.
 
-### Functional
-- Initiate
-- Input
-- Process
-- Output
+### Initiate
+- API specification for the receiving of the analysis to run across the network
+
+### Process
+- API specification for the processing of the analysis with a TRE.
+
 
