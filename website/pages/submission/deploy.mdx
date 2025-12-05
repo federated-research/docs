@@ -25,6 +25,8 @@ You may choose how to distribute your own deployment of these components, as lon
 
 For some components, such as KeyCloak or MinIO, you may wish to use your own existing deployments.
 
+{/* TODO: Keycloak realm setup guide */}
+
 ### User accessible components
 
 A subset of the components will need to be accessible by users, outside of the host environent:
@@ -47,7 +49,9 @@ This guide deploys all the components of the Submission Layer on a single host (
 
 All the components are deployed on suitable Docker networks and can communicate with each other as required.
 
-#### User accessible components
+It also automatically configures the KeyCloak realm, ready for following our other guides.
+
+### User accessible components
 
 Components which may need to be accessed from outside the host are forwarded to the host on specific ports
 
@@ -65,13 +69,13 @@ This sample also includes some additional components useful for diagnostic purpo
 | **Seq**     | Logs aggregator and web-based viewer | HTTP: `5341` |
 | **Adminer** | Web-based PostgreSQL client          | HTTP: `8087` |
 
-#### Production Recommendations
+### Production Recommendations
 
 To use this sample as a starting point for a production deployment, some [general recommendations](/five_safes_tes/reference_implementation/deploy_production) should be considered.
 
 The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
 
-### Deployment steps
+## Deployment steps
 
 To deploy a Submission Layer:
 
