@@ -10,12 +10,13 @@ This page contains:
 
 ## Component Summary
 
-Here is a summary of the required components which make up the Submission Layer:
+Here is a summary of the required components which make up the TRE Layer:
 
 | Component                 | Notes                                                                                                              |
 | ------------------------- | :----------------------------------------------------------------------------------------------------------------- |
 | **KeyCloak**              | The TRE Agent and Egress apps each require a Keycloak realm containing users and clients authorised to access them |
 | **Minio**                 | An Amazon S3 compatible TRE Storage service                                                                        |
+| **RabbitMQ**              | `// TODO: What is this used for in the TRE Layer?`                                                                 |
 | **Hashicorp Vault**       | Used for accessing ephemeral credentials as secrets                                                                |
 | **OpenLDAP**              | Used to provide ephemeral credentials for Trino (if in use as a datasource)                                        |
 | **ElasticSearch**         | Used for Camunda `// TODO: How? Why?`                                                                              |
@@ -26,6 +27,7 @@ Here is a summary of the required components which make up the Submission Layer:
 | **TRE Agent GUI**         | A Web Frontend for TRE Admins to log into and interact with the TRE Agent                                          |
 | **Egress API**            | A REST API for Egress Portal functionality                                                                         |
 | **Egress GUI**            | A Web Frontend for Egress Officers to log into and interact with the Egress Portal                                 |
+| **TES Backend**           | A standard GA4GH TES implementation to execute the analysis                                                        |
 
 You may choose how to distribute your own deployment of these components, as long as they are able to communicate with each other over the network.
 
@@ -35,13 +37,13 @@ For some components, such as KeyCloak or MinIO, you may wish to use your own exi
 
 A subset of the components will need to be accessible by users, outside of the host environent:
 
-| Component         | Reason                                                                                        |
-| ----------------- | :-------------------------------------------------------------------------------------------- |
-| **KeyCloak**      | So that users can authenticate and admins can manage the TRE Agent and Egress KeyCloak Realms |
-| **TRE Agent GUI** | So that TRE Admins can log into and interact with the TRE Agent                               |
-| **TRE Agent API** | _Optional_. So that other services can integrate with the TRE Agent REST API                  |
-| **Egress GUI**    | So that Egress Officers can log into and interact with the Egress Portal                      |
-| **Egress API**    | _Optional_. So that other services can integrate with the Egress REST API                     |
+| Component         | Reason                                                                                                               |
+| ----------------- | :------------------------------------------------------------------------------------------------------------------- |
+| **KeyCloak**      | So that users can authenticate and admins can manage the TRE Agent and Egress KeyCloak Realms                        |
+| **TRE Agent GUI** | So that TRE Admins can log into and interact with the TRE Agent                                                      |
+| **TRE Agent API** | So that TRE Agent GUI browser functionality, and optionally other services, can interact with the TRE Agent REST API |
+| **Egress GUI**    | So that Egress Officers can log into and interact with the Egress Portal                                             |
+| **Egress API**    | _Optional_. So that other services can integrate with the Egress REST API                                            |
 
 ## Sample Deployment Guide
 
@@ -53,6 +55,15 @@ A subset of the components will need to be accessible by users, outside of the h
 This guide deploys all the components of the TRE Layer (except the TES Backend) on a single host (e.g. a Virtual Machine) using Docker Compose.
 
 All the components are deployed on suitable Docker networks and can communicate with each other as required.
+
+<Callout>
+  Because the TES Backend is not part of this deployment, it will need to be
+  deployed separately and configured to communicate with the required
+  components.
+
+We also provide guidance for [installing Funnel](/five_safes_tes/reference_implementation/TES/install_funnel) as a TES Backend.
+
+</Callout>
 
 #### User accessible components
 
@@ -68,9 +79,28 @@ Components which may need to be accessed from outside the host are forwarded to 
 
 `// TODO: do other things need to route through the host and not docker internal network?! unclear based on the compose file...`
 
+In this sample, where the TES Backend is deployed elsewhere, the TES Backend will also need access to some components:
+
+| Component         | Ports            |
+| ----------------- | :--------------- |
+| **MinIO**         | API HTTP: `9002` |
+| **TRE Agent API** | HTTP: `8072`     |
+
+<Callout>
+  Remember the TES Backend's environment will also need network access to
+  project data sources, in order for analysis to run against them.
+</Callout>
+
+This sample also includes some additional components useful for diagnostic purposes:
+
+| Component   | Notes                                | Ports        |
+| ----------- | :----------------------------------- | ------------ |
+| **Seq**     | Logs aggregator and web-based viewer | HTTP: `5341` |
+| **Adminer** | Web-based PostgreSQL client          | HTTP: `8087` |
+
 #### Production Recommendations
 
-To use this sample as a starting point for a production deployment, some [general recommendations](/five_safes_tes/deploy_production) should be considered.
+To use this sample as a starting point for a production deployment, some [general recommendations](/five_safes_tes/reference_implementation/deploy_production) should be considered.
 
 The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
 
@@ -126,7 +156,7 @@ syncSchedule=10
 
 <Callout type="info">
   Instructions on how to set up a Funnel TES API executing agent can be found
-  [here](/five_safes_tes/TES/install_funnel)
+  [here](/five_safes_tes/reference_implementation/TES/install_funnel)
 </Callout>
 ### Run docker-compose
 
