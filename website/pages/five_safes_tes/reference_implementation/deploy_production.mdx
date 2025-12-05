@@ -1,0 +1,98 @@
+import { Steps, Callout } from "nextra/components";
+
+# Production Deployment Recommendations
+
+This document provides some general recommendations and guidance for deploying Five Safes TES components in production.
+
+## General Principles
+
+- Components should be accessed by a **hostname** (ideally a custom fully qualified domain name)
+- Components accessed outside their host environment should be accessed over **HTTPS**
+- Valid [**TLS/SSL certificates**](#tls-certificate-provision) for hostnames should be used
+- Components accessed outside their host environment should be accessible on standard ports
+  - e.g. **HTTPS** on port `443`
+
+When running a single component on a host, the component should be bound via HTTPS (on port `443`), and the host should be assigned a fully qualified domain name, with a registered signed TLS certificate.
+
+When running multiple components on a host (requiring access outside the host), a reverse proxy component should be introduced.
+
+## Example Reverse Proxy Setup
+
+If you run multiple components that you want to be accessible outside of the same host, you should use a reverse proxy, to map different custom domain names externally to the services running on different ports on the host.
+
+This allows multiple different fully qualified domain names to resolve to the same host (where there is a registered signed [TLS certificate](#tls-certificate-provision) for each).
+Each relevant component should be bound (via HTTP or HTTPS) to different ports on the host, and the reverse proxy bound via HTTP and HTTPS (on ports `80` and `443`).
+The reverse proxy then handles TLS termination for HTTP services, and proxies the incoming domain names to the correct services on whatever port they are running.
+
+Here is an abstract example:
+
+<Callout>
+  This is not the *only* way to achieve this, just a working example that abides
+  by the principles above.
+</Callout>
+
+Contoso have deployed their new Contoso Online Reticulation Service.
+
+This consists of three containers running on a single Virtual Machine:
+
+- Frontend Web App
+- Message Queue
+- Backend REST API
+
+All three containers are running on the same Docker network on the VM, so without any further configuration:
+
+- the Frontend can call the REST API, and queue messages in the Queue
+- the Backend can fetch messages from the queue
+
+Now Contoso want users to be able to use the Frontend, and the REST API, without exposing the queue.
+
+<Steps>
+
+### Register Subdomains
+
+They register subdomains for the two user-accessible components, and acquire signed [TLS certificates](#tls-certificate-provision) for them:
+
+- Frontend - `https://reticulate.contoso.com`
+- REST API - `https://api.reticulate.contoso.com`
+
+These subdomains DNS records must point them at the host Virtual Machine, e.g.:
+
+- with an `A` record to the Host's public IP address
+- or with a `CNAME` to an existing public hostname for the Host (e.g. `myhost.contoso.com`)
+
+### Forward Ports
+
+They set the components in the Docker deployment to forward their HTTP binding to ports on the Host machine (e.g. using Docker Compose):
+
+- Frontend - port `8080`
+- REST API - port `9090`
+
+### Configure Reverse Proxy
+
+Then they run Nginx, a popular web server and reverse proxy, in a separate container. They bind Nginx to the Host on ports `80` and `443`, the standard ports for `HTTP` and `HTTPS` respectively.
+
+They configure Nginx to do the following things:
+
+- Forward HTTP requests on port `80` to HTTPS on port `443`
+- Proxy requests for `https://reticulate.contoso.com:443` to port `8080`
+- Proxy requests for `https://api.reticulate.contoso.com:443` to port `9090`
+
+</Steps>
+
+Once this is complete:
+
+- All requests use HTTPS with valid certificates.
+- Each service that should be accessible by users can be reached by the correct domain name, over HTTPS, without a special port requirement.
+- Components which should not be accessible (the Message Queue) are not.
+
+even though all components run on the same host.
+
+## TLS certificate provision
+
+It's beyond the scope of this documentation to recommend how to acquire and register TLS certificates, however it is recognised that people may prefer different approaches in different contexts:
+
+- You can get individual certificates per domain
+- You can use a single certificate for multiple domains or subdomains using Subject Alternative Name (SAN)
+- You can use a single certificate for any subdomains of a domain using wildcards (e.g. `*.contoso.com`)
+
+It may be possible to get free certificates from a provider such as Let's Encrypt, and to have them automatically renew by configuring the host environment appropriately.
