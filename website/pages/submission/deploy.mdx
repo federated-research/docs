@@ -17,6 +17,7 @@ Here is a summary of the required components which make up the Submission Layer:
 | **KeyCloak**       | The Submission apps require a Keycloak realm containing users and clients authorised to access them |
 | **Minio**          | An Amazon S3 compatible Submission Storage service                                                  |
 | **RabbitMQ**       | A message broker for queueing submissions for target TREs                                           |
+| **PostgreSQL**     | A database for the Submission apps to keep local state                                              |
 | **Submission API** | A REST API for Submission Layer functionality, including the GA4GH TES API                          |
 | **Submission GUI** | A Web Frontend for users to log into and interact with the Submission Layer                         |
 
@@ -28,17 +29,17 @@ For some components, such as KeyCloak or MinIO, you may wish to use your own exi
 
 A subset of the components will need to be accessible by users, outside of the host environent:
 
-| Component          | Reason                                                                                      |
-| ------------------ | :------------------------------------------------------------------------------------------ |
-| **KeyCloak**       | So that users can authenticate and admins can manage the Submission KeyCloak Realm          |
-| **Minio**          | So that researchers can upload and download Submission data (inputs or outputs)             |
-| **Submission GUI** | So that users can log into and interact with the Submission Layer                           |
-| **Submission API** | _Optional_. So that researchers can make submissions, and check their status via a REST API |
+| Component          | Reason                                                                                   |
+| ------------------ | :--------------------------------------------------------------------------------------- |
+| **KeyCloak**       | So that users can authenticate and admins can manage the Submission KeyCloak Realm       |
+| **Minio**          | So that Researchers and TREs can upload and download Submission data (inputs or outputs) |
+| **Submission GUI** | So that users can log into and interact with the Submission Layer                        |
+| **Submission API** | So that Researchers and TREs can interact with the Submission Layer via a REST API       |
 
 ## Sample Deployment Guide
 
 <Callout type="info">
-  Note that this guide is a *sample*. It can be modified to reflect the your own
+  Note that this guide is a *sample*. It can be modified to reflect your own
   infrastructure and configuration choices.
 </Callout>
 
