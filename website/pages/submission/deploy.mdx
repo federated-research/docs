@@ -2,11 +2,86 @@ import { Steps, Callout } from "nextra/components";
 
 # Deploy a Submission Layer
 
-To deploy an instance of the Submission Layer
+This page contains:
+
+- a summary of what is involved when deploying a Five Safes TES Submission Layer
+- a Sample Deployment Guide
+  - with recommendations for deploying in Production
+
+## Component Summary
+
+Here is a summary of the required components which make up the Submission Layer:
+
+| Component          | Notes                                                                                               |
+| ------------------ | :-------------------------------------------------------------------------------------------------- |
+| **KeyCloak**       | The Submission apps require a Keycloak realm containing users and clients authorised to access them |
+| **Minio**          | An Amazon S3 compatible Submission Storage service                                                  |
+| **RabbitMQ**       | A message broker for queueing submissions for target TREs                                           |
+| **PostgreSQL**     | A database for the Submission apps to keep local state                                              |
+| **Submission API** | A REST API for Submission Layer functionality, including the GA4GH TES API                          |
+| **Submission GUI** | A Web Frontend for users to log into and interact with the Submission Layer                         |
+
+You may choose how to distribute your own deployment of these components, as long as they are able to communicate with each other over the network.
+
+For some components, such as KeyCloak or MinIO, you may wish to use your own existing deployments.
+
+{/* TODO: Keycloak realm setup guide */}
+
+### User accessible components
+
+A subset of the components will need to be accessible by users, outside of the host environent:
+
+| Component          | Reason                                                                                   |
+| ------------------ | :--------------------------------------------------------------------------------------- |
+| **KeyCloak**       | So that users can authenticate and admins can manage the Submission KeyCloak Realm       |
+| **Minio**          | So that Researchers and TREs can upload and download Submission data (inputs or outputs) |
+| **Submission GUI** | So that users can log into and interact with the Submission Layer                        |
+| **Submission API** | So that Researchers and TREs can interact with the Submission Layer via a REST API       |
+
+## Sample Deployment Guide
+
+<Callout type="info">
+  Note that this guide is a *sample*. It can be modified to reflect your own
+  infrastructure and configuration choices.
+</Callout>
+
+This guide deploys all the components of the Submission Layer on a single host (e.g. a Virtual Machine) using Docker Compose.
+
+All the components are deployed on suitable Docker networks and can communicate with each other as required.
+
+It also automatically configures the KeyCloak realm, ready for following our other guides.
+
+### User accessible components
+
+Components which may need to be accessed from outside the host are forwarded to the host on specific ports
+
+| Component          | Ports                              |
+| ------------------ | :--------------------------------- |
+| **KeyCloak**       | HTTP: `8085`                       |
+| **MinIO**          | API HTTP: `9000`, GUI HTTP: `9001` |
+| **Submission GUI** | HTTP: `7220`                       |
+| **Submission API** | HTTP: `5034`                       |
+
+This sample also includes some additional components useful for diagnostic purposes:
+
+| Component   | Notes                                | Ports        |
+| ----------- | :----------------------------------- | ------------ |
+| **Seq**     | Logs aggregator and web-based viewer | HTTP: `5341` |
+| **Adminer** | Web-based PostgreSQL client          | HTTP: `8087` |
+
+### Production Recommendations
+
+To use this sample as a starting point for a production deployment, some [general recommendations](/five_safes_tes/reference_implementation/deploy_production) should be considered.
+
+The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
+
+## Deployment steps
+
+To deploy a Submission Layer:
 
 <Steps>
 
-## Go to the Submission Layer directory
+### Go to the Submission Layer directory
 
 Within the 5S-TES-deployment directory the Submission Layer docker compose and configuration files are in the `Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/Submission):
 
@@ -14,7 +89,7 @@ Within the 5S-TES-deployment directory the Submission Layer docker compose and c
 cd Submission
 ```
 
-## Configure the .env file
+### Configure the .env file
 
 Unless you are running it locally, change `localhost` to the machine's host.
 
@@ -35,13 +110,13 @@ submissionMinioUrl=http://<VMHost>:9000
 submissionMinioAdminConsole=http://<VMHost>:9001
 ```
 
-## Run docker-compose
+### Run docker-compose
 
 ```bash copy
 docker-compose up -d
 ```
 
-## Go to the Submission Layer UI
+### Go to the Submission Layer UI
 
 Hosted on port `7220`
 
