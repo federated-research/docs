@@ -12,22 +12,23 @@ This page contains:
 
 Here is a summary of the required components which make up the TRE Layer:
 
-| Component                 | Notes                                                                                                              |
-| ------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| **KeyCloak**              | The TRE Agent and Egress apps each require a Keycloak realm containing users and clients authorised to access them |
-| **Minio**                 | An Amazon S3 compatible TRE Storage service                                                                        |
-| **RabbitMQ**              | `// TODO: What is this used for in the TRE Layer?`                                                                 |
-| **Hashicorp Vault**       | Used for accessing ephemeral credentials as secrets                                                                |
-| **OpenLDAP**              | Used to provide ephemeral credentials for Trino (if in use as a datasource)                                        |
-| **ElasticSearch**         | Used for Camunda `// TODO: How? Why?`                                                                              |
-| **Camunda Connectors**    | `// TODO: Help explain this please`                                                                                |
-| **Camunda Orchestration** | Zeebe? `// TODO: Help explain this please`                                                                         |
-| **PostgreSQL**            | A database for the Submission apps to keep local state                                                             |
-| **TRE Agent API**         | A REST API for TRE Agent functionality                                                                             |
-| **TRE Agent GUI**         | A Web Frontend for TRE Admins to log into and interact with the TRE Agent                                          |
-| **Egress API**            | A REST API for Egress Portal functionality                                                                         |
-| **Egress GUI**            | A Web Frontend for Egress Officers to log into and interact with the Egress Portal                                 |
-| **TES Backend**           | A standard GA4GH TES implementation to execute the analysis                                                        |
+| Component                 | Notes                                                                                                                                   |
+| ------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| **KeyCloak**              | The TRE Agent and Egress apps each require a Keycloak realm containing users and clients authorised to access them                      |
+| **Minio**                 | An Amazon S3 compatible TRE Storage service                                                                                             |
+| **RabbitMQ**              | A message broker used for queueing                                                                                                      |
+| **PostgreSQL**            | A database for the Submission apps to keep local state                                                                                  |
+| **Hashicorp Vault**       | Used for accessing ephemeral credentials as secrets                                                                                     |
+| **OpenLDAP**              | Used to provide ephemeral credentials for Trino (if in use as a datasource)                                                             |
+| **Camunda Connectors**    | A REST API allowing other services (e.g. TRE Agent) to integrate with Camunda                                                           |
+| **Camunda Orchestration** | A consolidated service that combines Camunda functionality via [Zeebe + Operate + Tasklist](https://camunda.com/process-orchestration/) |
+| **ElasticSearch**         | Used for Camunda's local datastore such as workflow state                                                                               |
+| **TRE-Camunda**           | A service defining the handlers for ephemeral credentials management. Registers the handlers with Camunda, via Zeebe                    |
+| **TRE Agent API**         | A REST API for TRE Agent functionality                                                                                                  |
+| **TRE Agent GUI**         | A Web Frontend for TRE Admins to log into and interact with the TRE Agent                                                               |
+| **Egress API**            | A REST API for Egress Portal functionality                                                                                              |
+| **Egress GUI**            | A Web Frontend for Egress Officers to log into and interact with the Egress Portal                                                      |
+| **TES Backend**           | A standard GA4GH TES implementation to execute the analysis                                                                             |
 
 You may choose how to distribute your own deployment of these components, as long as they are able to communicate with each other over the network.
 
