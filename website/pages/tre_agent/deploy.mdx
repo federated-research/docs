@@ -107,23 +107,38 @@ To use this sample as a starting point for a production deployment, some [genera
 
 The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
 
-## Deployment steps
+## Get Started
 
-To deploy an instance of the TRE Agent and data Egress
+### Prerequisites
+
+- Docker and Docker Compose installed. For Linux/Ubuntu VMs, you can follow this [guide](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your machine.
+
+### Deployment Steps
+
+To deploy a TRE Agent and Data Egress:
 
 <Steps>
 
-### Go to the TRE Layer directory
+#### Clone the repository
 
-Within the 5S-TES-deployment directory the TRE Layer docker-compose and configuration files are in the `TRE` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/TRE):
+```bash copy
+git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
+```
+
+#### Go to the TRE Layer directory
+
+Within the 5S-TES-deployment directory, the TRE Layer docker-compose and configuration files are in the `TRE` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/TRE):
 
 ```bash copy
 cd TRE
 ```
 
-### Configure the .env file
+#### Configure the .env file
 
-Unless you are running it locally, change `localhost` to the machine's host.
+Open the `.env` file in the `Submission` directory and configure the environment variables.
+
+The descriptions of the environment variables and the guide to set them are as follows:
 
 ```yaml filename=".env"
 # Set the following env vars to point to your machine's host:
@@ -157,14 +172,20 @@ syncSchedule=10
 
 ```
 
-<Callout type="info">
+<Callout>
   Instructions on how to set up a Funnel TES API executing agent can be found
   [here](/five_safes_tes/reference_implementation/TES/install_funnel)
 </Callout>
-### Run docker-compose
+
+<Callout type="info">
+  You can find an example `.env` file
+  [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/TRE/.env).
+</Callout>
+
+#### Run docker compose
 
 ```bash copy
-docker-compose up -d
+docker compose up -d
 ```
 
 ### TRE Agent
