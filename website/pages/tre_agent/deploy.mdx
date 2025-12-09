@@ -158,42 +158,22 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`PGLOGIN`</Td>
+      <Td>`PGLOGIN` and `PGPASSWORD`</Td>
       <Td>
-        The admin username for the PostgreSQL database used by the TRE Agent.
+        The admin credentials for the PostgreSQL database used by the TRE Agent.
       </Td>
     </Tr>
     <Tr>
-      <Td>`PGPASSWORD`</Td>
       <Td>
-        The admin password for the PostgreSQL database used by the TRE Agent.
+        `TRE_DATA_SERVER` `TRE_DATA_PORT` `TRE_DATA_DATABASE` `TRE_DATA_USER`
+        `TRE_DATA_PASSWORD`
       </Td>
-    </Tr>
-    <Tr>
-      <Td>`TRE_DATA_SERVER`</Td>
       <Td>
-        The hostname of the PostgreSQL database server used for TRE data. Used
-        for the TRE Agent to create temporary credentials against a postgres
-        database.
+        The credentials for the PostgreSQL database used to hold the TRE data,
+        e.g., OMOP CDM data. Camunda will use these credentials to create the
+        ephemeral user accounts for the TES executing agent (e.g., Funnel) to
+        access the TRE data.
       </Td>
-    </Tr>
-    <Tr>
-      <Td>`TRE_DATA_PORT`</Td>
-      <Td>
-        The port number of the PostgreSQL database server used for TRE data.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TRE_DATA_DATABASE`</Td>
-      <Td>The name of the PostgreSQL database used for TRE data.</Td>
-    </Tr>
-    <Tr>
-      <Td>`TRE_DATA_USER`</Td>
-      <Td>The username for the PostgreSQL database used for TRE data.</Td>
-    </Tr>
-    <Tr>
-      <Td>`TRE_DATA_PASSWORD`</Td>
-      <Td>The password for the PostgreSQL database used for TRE data.</Td>
     </Tr>
     <Tr>
       <Td>`DemoMode`</Td>
@@ -237,7 +217,8 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>`TesAPIUrl`</Td>
       <Td>
         Where TESK or Funnel API is hosted. For example,
-        `http://localhost:8000/v1/tasks`.
+        `http://host.docker.internal:8000/v1/tasks` (when Funnel is hosted
+        locally) or `http://my-funnel.com/tasks`.
       </Td>
     </Tr>
     <Tr>
@@ -256,7 +237,9 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>
         The OpenID secret for the Minio client of Dare-TRE realm. There is a
         default value in the realm configuration, but you should regenerate it
-        for production deployments.
+        for production deployments. Do this by navigating to `Dare-TRE` realm ->
+        `Clients` -> `Dare-TRE-Minio` -> `Credentials`. Then click `Regenerate`
+        and copy the new value into this environment variable.
       </Td>
     </Tr>
     <Tr>
@@ -264,16 +247,17 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>
         The OpenID configuration URL for the Dare-TRE realm. For example,
         `http://keycloak:8080/realms/Dare-TRE/.well-known/openid-configuration`
-        (if Keycloak is running on the same Docker network).
+        (if Keycloak is running on the same Docker network) or
+        `https://my-keycloak.net/realms/Dare-TRE/.well-known/openid-configuration`.
       </Td>
     </Tr>
     <Tr>
       <Td>`MinioRootUser`</Td>
-      <Td>The root user for the Minio server.</Td>
+      <Td>The root user for the Submission Layer Minio server.</Td>
     </Tr>
     <Tr>
       <Td>`MinioRootPass`</Td>
-      <Td>The root password for the Minio server.</Td>
+      <Td>The root password for the Submission Layer Minio server.</Td>
     </Tr>
     <Tr>
       <Td>`TreMinioAdminUser`</Td>
@@ -294,29 +278,43 @@ The descriptions of the environment variables and the guide to set them are as f
     <Tr>
       <Td>`MinioTreUrl`</Td>
       <Td>
-        The URL for the TRE Minio server, for internal access within Docker
-        network. For example, `http://minio:9000`.
+        The URL for the TRE Minio server used by Egress, for internal access
+        within Docker network. For example, `http://minio:9002`.
       </Td>
     </Tr>
     <Tr>
       <Td>`MinioTreAdminConsoleUrl`</Td>
       <Td>
         The URL for the TRE Minio server's admin console. For example,
-        `http://minio:9001`.
+        `http://minio:9003`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`submissionMinioUrl`</Td>
+      <Td>
+        Point to Submission Layer Minio server, used by TRE Agent. For example,
+        `http://host-of-submission-layer:9000`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`submissionMinioAdminConsole`</Td>
+      <Td>
+        The URL for the Submission Layer's Minio admin console. For example,
+        `http://host-of-submission-layer:9001`.
       </Td>
     </Tr>
     <Tr>
       <Td>`TreUiPublicUrl`</Td>
       <Td>
         The public URL for the TRE Agent GUI. For example,
-        `http://localhost:8989`.
+        `http://my-TRE-host:8989`.
       </Td>
     </Tr>
     <Tr>
       <Td>`TreApiPublicUrl`</Td>
       <Td>
         The public URL for the TRE Agent API. For example,
-        `http://localhost:8072`.
+        `http://my-TRE-host:8072`.
       </Td>
     </Tr>
     <Tr>
@@ -325,7 +323,7 @@ The descriptions of the environment variables and the guide to set them are as f
     </Tr>
     <Tr>
       <Td>`CAMUNDA_BUNDLE_VERSION`</Td>
-      <Td>The bundle version of Camunda to deploy.</Td>
+      <Td>The version of Camunda Bundle to deploy.</Td>
     </Tr>
     <Tr>
       <Td>`ELASTIC_VERSION`</Td>
@@ -348,31 +346,6 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`useproxy`</Td>
-      <Td>Set to `true` to use a proxy, otherwise set to `false`.</Td>
-    </Tr>
-    <Tr>
-      <Td>`proxyurl`</Td>
-      <Td>
-        The proxy URL if using a proxy. For example,
-        `http://192.168.10.15:8080`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`sslcookies`</Td>
-      <Td>
-        If this is set to `true`, the TRE Agent will use secure SSL cookies.
-        Default is `false` to prevent issues with Keycloak.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`httpsRedirect`</Td>
-      <Td>
-        Disable HTTPS redirect (setting this to `false`) if using http only site
-        to prevent silent redirect to non existent https site.
-      </Td>
-    </Tr>
-    <Tr>
       <Td>`syncSchedule`</Td>
       <Td>
         Sync Projects & Users between TRE & Submission Layer - default every 10
@@ -384,25 +357,6 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>
         Scan Submission Layer for available submissions - default every 1 minute
         (in minutes).
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIAddressURL`</Td>
-      <Td>
-        The Submission API address URL. For example, `http://localhost:5034`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`submissionMinioUrl`</Td>
-      <Td>
-        Point to submission minio. For example, `http://minioSubmission:9000`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`submissionMinioAdminConsole`</Td>
-      <Td>
-        The URL for the Submission Layer's Minio admin console. For example,
-        `http://minioSubmission:9001`.
       </Td>
     </Tr>
     <Tr>
@@ -422,7 +376,8 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>`EgressKeyCloakBaseRealmAddress`</Td>
       <Td>
         This is the realm address for the Egress's Keycloak server. For example,
-        `http://keycloak:8080/realms/Data-Egress`.
+        `http://keycloak:8080/realms/Data-Egress` or
+        `https://my-keycloak.net/realms/Data-Egress`.
       </Td>
     </Tr>
     <Tr>
@@ -464,7 +419,10 @@ The descriptions of the environment variables and the guide to set them are as f
     <Tr>
       <Td>`EgressKeyCloakSecret`</Td>
       <Td>
-        The OpenID secret for the Egress Keycloak client `Data-Egress-API`.
+        The OpenID secret for the Egress Keycloak client `Data-Egress-API`. Find
+        and regenerate this secret by navigating to `Data-Egress` realm ->
+        `Clients` -> `Data-Egress-API` -> `Credentials`. Then click `Regenerate`
+        and copy the new value into this environment variable.
       </Td>
     </Tr>
     <Tr>
@@ -474,10 +432,24 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
+      <Td>`SubmissionAPIAddressURL`</Td>
+      <Td>
+        The Submission API address URL. For example,
+        `http://host-of-submission-layer:5034`.
+      </Td>
+    </Tr>
+    <Tr>
       <Td>`SubmissionAPIKeyCloakUseRedirect`</Td>
       <Td>
         If this is set to `true`, the Submission API will use redirects for
         Keycloak authentication. Default is `false`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionAPIKeyCloakClientUIRedirectURL`</Td>
+      <Td>
+        The URL for the Submission API's Keycloak redirect URL. For example,
+        `http://host-of-submission-layer:8989/`.
       </Td>
     </Tr>
     <Tr>
@@ -500,15 +472,16 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>`SubmissionAPIKeyCloakAuthority`</Td>
       <Td>
         The OpenID authority URL for the Submission Keycloak realm. For example,
-        `http://keycloak:8080/realms/Dare-Control/.well-known/openid-configuration`.
+        `http://keycloak:8080/realms/Dare-Control/.well-known/openid-configuration`
+        or
+        `https://my-keycloak.net/realms/Dare-Control/.well-known/openid-configuration`.
       </Td>
     </Tr>
     <Tr>
       <Td>`SubmissionAPIKeyCloakMetadataAddress`</Td>
       <Td>
-        The OpenID metadata address URL for the Submission Keycloak realm. For
-        example,
-        `http://keycloak:8080/realms/Dare-Control/.well-known/openid-configuration`.
+        The OpenID metadata address URL for the Submission Keycloak realm. Same
+        as `SubmissionAPIKeyCloakAuthority`.
       </Td>
     </Tr>
     <Tr>
@@ -519,27 +492,24 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`SubmissionAPIKeyCloakClientUIRedirectURL`</Td>
-      <Td>
-        The URL for the Submission API's Keycloak redirect URL. For example,
-        `http://localhost:8989/`.
-      </Td>
-    </Tr>
-    <Tr>
       <Td>`SubmissionAPIKeyCloakTokenExpiredAddressUI`</Td>
       <Td>
         The URL for the Submission API's Keycloak token expired address. For
-        example, `http://localhost:8989/Account/LoginAfterTokenExpired`.
+        example,
+        `http://host-of-submission-layer:8989/Account/LoginAfterTokenExpired`.
       </Td>
     </Tr>
     <Tr>
       <Td>`SubmissionAPIKeyCloakSecret`</Td>
       <Td>
         The OpenID secret for the Submission API Keycloak client
-        `Dare-Control-API`.
+        `Dare-Control-API`. Find and regenerate this secret by navigating to
+        `Dare-Control` realm -> `Clients` -> `Dare-Control-API` ->
+        `Credentials`. Then click `Regenerate` and copy the new value into this
+        environment variable.
       </Td>
     </Tr>
-    <Tr>
+    {/* <Tr>
       <Td>`KeyCloakUseRedirect`</Td>
       <Td>
         If this is set to `true`, the TRE Agent will use redirects for Keycloak
@@ -550,16 +520,16 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>`KeyCloakClientUIRedirectURL`</Td>
       <Td>
         The URL for the TRE Agent's Keycloak redirect URL. For example,
-        `http://localhost:8888/`.
+        `http://host-of-tre:8888/`.
       </Td>
     </Tr>
     <Tr>
       <Td>`KeyCloakTokenExpiredAddressUI`</Td>
       <Td>
         The URL for the TRE Agent's Keycloak token expired address. For example,
-        `http://localhost:8888/Account/LoginAfterTokenExpired`.
+        `http://host-of-tre:8888/Account/LoginAfterTokenExpired`.
       </Td>
-    </Tr>
+    </Tr> */}
     <Tr>
       <Td>`TreKeyCloakUseRedirect`</Td>
       <Td>
@@ -571,32 +541,40 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>`TreKeyCloakClientUIRedirectURL`</Td>
       <Td>
         The URL for the TRE UI's Keycloak redirect URL. For example,
-        `http://localhost:8989/`.
+        `http://host-of-tre:8989/`.
       </Td>
     </Tr>
     <Tr>
       <Td>`TreKeyCloakTokenExpiredAddressUI`</Td>
       <Td>
         The URL for the TRE UI's Keycloak token expired address. For example,
-        `http://localhost:8989/Account/LoginAfterTokenExpired`.
+        `http://host-of-tre:8989/Account/LoginAfterTokenExpired`.
       </Td>
     </Tr>
     <Tr>
       <Td>`TreKeyCloakSecret`</Td>
-      <Td>The OpenID secret for the TRE UI Keycloak client `Dare-TRE-UI`.</Td>
+      <Td>
+        The OpenID secret for the TRE UI Keycloak client `Dare-TRE-UI`. Find and
+        regenerate this secret by navigating to `Dare-TRE` realm -> `Clients` ->
+        `Dare-TRE-UI` -> `Credentials`. Then click `Regenerate` and copy the new
+        value into this environment variable.
+      </Td>
     </Tr>
     <Tr>
       <Td>`TreKeyCloakBaseRealmAddress`</Td>
       <Td>
         This is the realm address for the TRE's Keycloak server. For example,
-        `http://keycloak:8080/realms/Dare-TRE`.
+        `http://keycloak:8080/realms/Dare-TRE` or
+        `https://my-keycloak.net/realms/Dare-TRE`.
       </Td>
     </Tr>
     <Tr>
       <Td>`TreKeyCloakAuthority`</Td>
       <Td>
         The OpenID authority URL for the TRE Keycloak realm. For example,
-        `http://keycloak:8080/realms/Dare-TRE/.well-known/openid-configuration`.
+        `http://keycloak:8080/realms/Dare-TRE/.well-known/openid-configuration`
+        or
+        `https://my-keycloak.net/realms/Dare-TRE/.well-known/openid-configuration`.
       </Td>
     </Tr>
     <Tr>
@@ -608,8 +586,8 @@ The descriptions of the environment variables and the guide to set them are as f
     <Tr>
       <Td>`TreKeyCloakMetadataAddress`</Td>
       <Td>
-        The OpenID metadata address URL for the TRE Keycloak realm. For example,
-        `http://keycloak:8080/realms/Dare-TRE/.well-known/openid-configuration`.
+        The OpenID metadata address URL for the TRE Keycloak realm. Same as
+        `TreKeyCloakAuthority`.
       </Td>
     </Tr>
     <Tr>
@@ -649,7 +627,12 @@ The descriptions of the environment variables and the guide to set them are as f
     </Tr>
     <Tr>
       <Td>`TreAPIKeyCloakSecret`</Td>
-      <Td>The OpenID secret for the TRE API Keycloak client `Dare-TRE-API`.</Td>
+      <Td>
+        The OpenID secret for the TRE API Keycloak client `Dare-TRE-API`. Find
+        and regenerate this secret by navigating to `Dare-TRE` realm ->
+        `Clients` -> `Dare-TRE-API` -> `Credentials`. Then click `Regenerate`
+        and copy the new value into this environment variable.
+      </Td>
     </Tr>
     <Tr>
       <Td>`TreAPIKeyCloakBaseRealmAddress`</Td>
