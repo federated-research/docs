@@ -1,4 +1,4 @@
-import { Steps, Callout } from "nextra/components";
+import { Steps, Callout, Table, Td, Th, Tr } from "nextra/components";
 
 # Deploy a Submission Layer
 
@@ -75,49 +75,293 @@ To use this sample as a starting point for a production deployment, some [genera
 
 The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
 
-## Deployment steps
+## Get Started
+
+### Prerequisites
+
+- Docker and Docker Compose installed. For Linux/Ubuntu VMs, you can follow this [guide](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your machine.
+
+### Deployment Steps
 
 To deploy a Submission Layer:
 
 <Steps>
 
-### Go to the Submission Layer directory
+#### Clone the repository
 
-Within the 5S-TES-deployment directory the Submission Layer docker compose and configuration files are in the `Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/Submission):
+```bash copy
+git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
+```
+
+#### Go to the Submission Layer directory
+
+Within the 5S-TES-deployment directory, the Submission Layer docker compose and configuration files are in the `Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/Submission):
 
 ```bash copy
 cd Submission
 ```
 
-### Configure the .env file
+#### Configure the .env file
 
-Unless you are running it locally, change `localhost` to the machine's host.
+Open the `.env` file in the `Submission` directory and configure the environment variables.
 
-```yaml filename=".env"
-### Default settings:
-KeycloakHostName=http://localhost:8085
-MinioBrowserHost=localhost
-URLSettingsFrontEndMinioUrl=localhost:9001
-submissionMinioUrl=http://localhost:9000
-submissionMinioAdminConsole=http://localhost:9001
+The descriptions of the environment variables and the guide to set them are as follows:
 
-### New settings:
-#### If running on a VM then:
-KeycloakHostName=http://<VMHost>:8085
-MinioBrowserHost=<VMHost>
-URLSettingsFrontEndMinioUrl=<VMHost>:9001
-submissionMinioUrl=http://<VMHost>:9000
-submissionMinioAdminConsole=http://<VMHost>:9001
-```
+<Table>
+  <thead>
+    <Tr>
+      <Th>Environment Variable</Th>
+      <Th>Description</Th>
+    </Tr>
+  </thead>
+  <tbody>
+    <Tr>
+      <Td>`dareVer`</Td>
+      <Td>
+        The version of the Submission Layer app you are deploying. Find the
+        version
+        [here](https://github.com/SwanseaUniversityMedical/DARE-Control/releases),
+        between `v` and `-containers`. For example, `2.15.1` is the version for
+        the release `v2.15.1-containers`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`DemoMode`</Td>
+      <Td>
+        Set to true if you'd like to simulate execution, otherwise default to
+        false.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeyCloakDemoMode`</Td>
+      <Td>Allows Keycloak to not require https. Default is true.</Td>
+    </Tr>
+    <Tr>
+      <Td>`PGLOGIN` and `PGPASSWORD`</Td>
+      <Td>
+        The admin credentials for the PostgreSQL database used by the Submission
+        Layer.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`sslcookies`</Td>
+      <Td>
+        If this is set to `true`, the Submission Layer will use secure SSL
+        cookies. Default is `false` to prevent issues with Keycloak.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`httpsRedirect`</Td>
+      <Td>
+        Disable HTTPS redirect (setting this to `false`) if using http only site
+        to prevent silent redirect to non existent https site
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeycloakHostName`</Td>
+      <Td>
+        The hostname of the Keycloak server. For example,
+        `https://my-keycloak.net`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioOpenidSecret`</Td>
+      <Td>
+        The OpenID secret for the Minio client of Dare-Control realm. There is a
+        default value in the realm configuration, but you should regenerate it
+        for production deployments. Do this by navigating to `Dare-Control`
+        realm -> `Clients` -> `Dare-Control-Minio` -> `Credentials`. Then click
+        `Regenerate` and copy the new value into this environment variable.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioIdentityID`</Td>
+      <Td>Name of Dare-Control's Minio client, i.e., `Dare-Control-Minio`</Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioIdentityConfigURL`</Td>
+      <Td>
+        The OpenID configuration URL for the Dare-Control realm. For example,
+        `https://my-keycloak.net/realms/Dare-Control/.well-known/openid-configuration`
+        or
+        `http://keycloak:8080/realms/Dare-Control/.well-known/openid-configuration`
+        (if Keycloak is running on the same Docker network)
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioRootUser`</Td>
+      <Td>The root user for the Minio server</Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioRootPass`</Td>
+      <Td>The root password for the Minio server</Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioBrowserHost`</Td>
+      <Td>
+        This is useful if you are using a reverse proxy to access the Minio
+        server. Read more about this
+        [here](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/settings/console/#env-minio-browser-redirect-url)
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioSubmissionUrl`</Td>
+      <Td>
+        The URL for the Minio server, for internal access within Docker network.
+        For example, `http://minio:9000`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioSubmissionAdminConsoleUrl`</Td>
+      <Td>
+        The URL for the Minio server's admin console. For example,
+        `http://minio:9001`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionAPIKeyCloakBaseRealmAddress`</Td>
+      <Td>
+        This is the realm address for the Submission's Keycloak server. For
+        example, `http://keycloak:8080/realms/Dare-Control` (if Keycloak is
+        running on the same Docker network) or
+        `https://my-keycloak.net/realms/Dare-Control`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionAPIKeyCloakAuthority`</Td>
+      <Td>Same as `MinioIdentityConfigURL`</Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionAPIKeyCloakMetadataAddress`</Td>
+      <Td>Same as `MinioIdentityConfigURL`</Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionAPIKeyCloakSecret`</Td>
+      <Td>
+        Same as `MinioOpenidSecret`, but this one is for `Dare-Control-API`
+        client.{" "}
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionUIAccountManagementURL`</Td>
+      <Td>
+        The URL for the Submission Layer's Keycloak server's account management.
+        For example, `http://keycloak:8080/realms/Dare-Control/account` or
+        `https://my-keycloak.net/realms/Dare-Control/account`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionUIKeyCloakBaseUrl`</Td>
+      <Td>Same as `SubmissionAPIKeyCloakBaseRealmAddress`</Td>
+    </Tr>
+    <Tr>
+      <Td>`KeyCloakUseRedirect`</Td>
+      <Td>
+        If this is set to `true`, the Submission Layer will use redirects for
+        Keycloak authentication. Default is `false`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeyCloakClientUIRedirectURL`</Td>
+      <Td>
+        The URL for the Submission Layer's Keycloak redirect URL. For example,
+        `http://localhost:8888/`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeyCloakTokenExpiredAddressUI`</Td>
+      <Td>
+        The URL for the Submission Layer's Keycloak token expired address.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionUIClientSecret`</Td>
+      <Td>
+        {" "}
+        Same as `MinioOpenidSecret`, but this one is for `Dare-Control-UI` client.{" "}
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionUIKeyCloakMetadataAddress`</Td>
+      <Td>Same as `MinioIdentityConfigURL`</Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionUIKeyCloakAuthority`</Td>
+      <Td>Same as `SubmissionAPIKeyCloakBaseRealmAddress`</Td>
+    </Tr>
+    <Tr>
+      <Td>`SuppressAntiforgery`</Td>
+      <Td>
+        If this is set to `true`, the Submission Layer will suppress
+        antiforgery. Default is `false`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionSignedOutRedirectUri`</Td>
+      <Td>
+        The URL for the Submission Layer's Keycloak signed out redirect URI.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionTokenRefreshSeconds`</Td>
+      <Td>
+        The number of seconds to refresh the Submission Layer's Keycloak token.
+        Default is `3600`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionValidAudiences`</Td>
+      <Td>
+        The valid audiences for the Submission Layer's Keycloak token. Default
+        is `Dare-Control-UI,Dare-Control-API,Dare-Control-Minio`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionServer`</Td>
+      <Td>
+        The URL for the Submission Layer's Keycloak server. For example,
+        `keycloak:8080` or `my-keycloak.net`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionServerProtocol`</Td>
+      <Td>
+        The protocol for the Submission Layer's Keycloak server. Default is
+        `http`. If you are using HTTPS for Keycloak, set this to `https`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionRealm`</Td>
+      <Td>
+        Realm name for the Submission Layer's Keycloak server, i.e.,
+        `Dare-Control`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionAutoTrustKeycloakCert`</Td>
+      <Td>
+        If this is set to `true`, the Submission Layer will automatically trust
+        the Keycloak certificate. Default is `false`.
+      </Td>
+    </Tr>
+  </tbody>
+</Table>
 
-### Run docker-compose
+<Callout type="info">
+  You can find an example `.env` file
+  [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/Submission/.env).
+</Callout>
+
+#### Run docker compose
 
 ```bash copy
-docker-compose up -d
+docker compose up -d
 ```
 
-### Go to the Submission Layer UI
+#### Check-in
 
-Hosted on port `7220`
+After the containers are running, if you have configured the ports for the Submission layer components for [user accessibility](#user-accessible-components),
+you can access the Submission Layer UI by navigating to `http://<hostname>:7220` in your browser.
 
 </Steps>
