@@ -695,60 +695,16 @@ The descriptions of the environment variables and the guide to set them are as f
 docker compose up -d
 ```
 
-### TRE Agent
+#### Check-in
 
-The TRE Agent UI is hosted on port `8989`
+After the containers are running, if you have configured the ports for the TRE Agent components for [user accessibility](#user-accessible-components),
+you can access the TRE Agent UI and Egress UI by navigating to `http://<hostname>:8989` and `http://<hostname>:8100`, respectively, in your browser.
 
-<Steps>
-#### Enter Submission Credentials
-The TRE Agent UI will prompt you to provide the submission credentials in order to authenticate against the `Submission Layer API`.
-By default these are:
+#### Next steps
 
-```yaml copy
-Username: accessfromtretosubmission
-Password: password123
-```
-
-<Callout>
-  These are the TRE Agent user credentials, created in the Submission Layer
-  Keycloak realm.
-</Callout>
-
-#### Enter Egress Credentials
-
-Next, the TRE Agent UI will prompt you to provide the egress credentials in order to authenticate against the `Egress API`.
-By default these are:
-
-```yaml copy
-Username: accessfromtretoegress
-Password: password123
-```
-
-<Callout>
-  These are the TRE Agent user credentials, created in the Egress Layer Keycloak
-  realm.
-</Callout>
-
-</Steps>
-
-### Egress
-
-The Egress UI is hosted on port `8100`
-
-<Steps>
-  #### Enter TRE credentials 
-  The Egress UI will prompt you to provide the TRE credentials in order to authenticate against the `TRE API`. 
-  By default these are:
-
-```yaml copy
-Username: accessfromegresstotre
-Password: password123
-```
-
-  <Callout>
-    These are the Egress user credentials, created in the TRE Agent Keycloak
-    realm.{" "}
-  </Callout>
-</Steps>
+- Add a new user in the `Dare-TRE` Keycloak realm with appropriate permissions, then use this user credentials to access the TRE Agent UI.
+- Add a new user in the `Data-Egress` Keycloak realm with appropriate permissions, then use this user credentials to access the Egress UI.
+- Connect the TRE Agent to the Submission Layer by following this [guide](/submission/guides/addtreagent).
+- Connect the TRE Agent to Egress by following this [guide](/tre_agent/guides/connecttoegress).
 
 </Steps>
