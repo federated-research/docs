@@ -214,17 +214,15 @@ Description of the variables:
 - In this demo, the analysis is running with the query (named as `user_query`) which is located in the end of the `analysis_engine.py` file:
 
 ```sql
-query_template = Template("""SELECT value_as_number FROM $schema.$table 
+query_template = Template("""SELECT value_as_number FROM $schema
 WHERE measurement_concept_id = 21490742
 AND value_as_number IS NOT NULL""")
 
 # Automatically uses your environment variables
-sql_schema = os.getenv("SQL_SCHEMA", "public")
-sql_table = os.getenv("SQL_TABLE", "measurement")
+sql_schema = os.getenv("SQL_SCHEMA", "public.measurement")
 
 user_query = query_template.safe_substitute(
-    schema=sql_schema, 
-    table=sql_table
+    schema=sql_schema
 )
 ```
 
@@ -233,8 +231,7 @@ user_query = query_template.safe_substitute(
 The analysis engine now supports configurable database schemas through environment variables. Add these to your .env file:
 
 ```bash 
-SQL_SCHEMA=public 
-SQL_TABLE=measurement
+SQL_SCHEMA=public.measurement
 ```
 
 **Running the Analysis**
@@ -242,8 +239,7 @@ SQL_TABLE=measurement
 This assumes that the OMOP CDM is under the public schema. If it is under a different schema, you need to change the `public.measurement` to the actual schema name in the .env file. For example, if the schema name of OMOP CDM is `testing`, the .env variable should be:
 
 ```bash
-SQL_SCHEMA=testing
-SQL_TABLE=measurement
+SQL_SCHEMA=testing.measurement
 ```
 
 <Callout>
