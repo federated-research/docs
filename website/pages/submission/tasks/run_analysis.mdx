@@ -129,11 +129,11 @@ The example file has placeholders for all the relevant details which described i
 
 ```yaml filename="env.example" copy
 # Authentication
-TRE_FX_TOKEN=<AccessToken>
-TRE_FX_PROJECT=<ProjectName>
+5STES_TOKEN=<AccessToken>
+5STES_PROJECT=<ProjectName>
 
 # TRE Configuration
-TRE_FX_TRES=<ListOfTargetTREs>
+5STES_TRES=<ListOfTargetTREs>
 
 # TES (Task Execution Service) Configuration
 TES_BASE_URL=http://<SubmissionLayerAPIHost>:<SubmissionLayerAPIPort>/  # Host and Port of the Submission Layer API
@@ -159,14 +159,14 @@ Description of the variables:
   </thead>
   <tbody>
     <Tr>
-      <Td>`TRE_FX_TOKEN`</Td>
+      <Td>`5STES_TOKEN`</Td>
       <Td>
         The token to access the Submission Layer API. Can be obtained by this
         [guide](/submission/guides/get_token). This will expire after the `Expires` period which is shown under the title `Current Access Token`. 
       </Td>
     </Tr>
     <Tr>
-      <Td>`TRE_FX_PROJECT`</Td>
+      <Td>`5STES_PROJECT`</Td>
       <Td>
         The project name created in the Submission Layer and approved by the
         TRE. Follow this [guide](/submission/guides/createproject) to create a
@@ -175,7 +175,7 @@ Description of the variables:
       </Td>
     </Tr>
     <Tr>
-      <Td>`TRE_FX_TRES`</Td>
+      <Td>`5STES_TRES`</Td>
       <Td>
         The list of target TREs to run the analysis on, separated by commas.
       </Td>
