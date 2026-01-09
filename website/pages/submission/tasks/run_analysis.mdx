@@ -143,6 +143,9 @@ TES_DOCKER_IMAGE=harbor.ukserp.ac.uk/dare-trefx/control-tre-sqlpg:2.15.1
 MINIO_STS_ENDPOINT=http://<SubmissionLayerMinIOHost>:9000/sts
 MINIO_ENDPOINT=<SubmissionLayerMinIOHost>:9000
 MINIO_OUTPUT_BUCKET=<SubmissionLayerMinIOOutputBucketName>
+
+# SQL Query Configuration
+SQL_SCHEMA=public
 ```
 
 Description of the variables:
@@ -203,29 +206,24 @@ Description of the variables:
         bucket name in Minio Browser.
       </Td>
     </Tr>
+    <Tr>
+      <Td>`SQL_SCHEMA`</Td>
+      <Td>
+        The database schema name where the OMOP CDM is stored and the analysis will 
+        be running with the query (named as `user_query`) which is located in the 
+        end of the `analysis_engine.py`.
+
+        Default is `public` and  if the OMOP CDM under a different schema, you 
+        need to change the `public` to the actual schema name. For example, 
+        if the schema name of OMOP CDM is `testing`, the .env variable should be:
+        ```bash
+        SQL_SCHEMA=testing
+        ```
+      </Td>
+    </Tr>
 
   </tbody>
 </Table>
-
-#### Final steps
-
-- Rename the `env.example` to `.env` and save the file with all the required variables updated.
-- In this demo, the analysis is running with the query (named as `user_query`) which is located in the end of the `analysis_engine.py` file:
-
-```sql
-SELECT value_as_number FROM public.measurement
-WHERE measurement_concept_id = 21490742
-AND value_as_number IS NOT NULL
-```
-
-This assumes that the OMOP CDM is under the public schema. If it is under a different schema, you need to change the `public.measurement` to the actual schema name.
-For example, if the schema name of OMOP CDM is `testing`, the query should be:
-
-```sql
-SELECT value_as_number FROM testing.measurement
-WHERE measurement_concept_id = 21490742
-AND value_as_number IS NOT NULL
-```
 
 <Callout>
   There may be an error if there is no data in the TRE DB that matches the
