@@ -1,6 +1,6 @@
-import { Steps, Callout, Table, Td, Th, Tr } from "nextra/components";
+import { Steps, Callout } from "nextra/components";
 
-# Deploy a TRE Agent and Data Egress
+# Deploy a TRE Layer
 
 This page contains:
 
@@ -107,574 +107,120 @@ To use this sample as a starting point for a production deployment, some [genera
 
 The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
 
-<Callout>
-  If you are doing reverse proxy for MinIO, the `Websockets Support` should be
-  enabled for MinIO GUI Proxy host.
-</Callout>
+## Deployment steps
 
-## Get Started
-
-### Prerequisites
-
-- Docker and Docker Compose installed. For Linux/Ubuntu VMs, you can follow this [guide](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
-- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your machine.
-
-### Deployment Steps
-
-To deploy a TRE Agent and Data Egress:
+To deploy an instance of the TRE Agent and data Egress
 
 <Steps>
 
-#### Clone the repository
+### Go to the TRE Layer directory
 
-```bash copy
-git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
-```
-
-#### Go to the TRE Layer directory
-
-Within the 5S-TES-deployment directory, the TRE Layer docker-compose and configuration files are in the `TRE` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/TRE):
+Within the 5S-TES-deployment directory the TRE Layer docker-compose and configuration files are in the `TRE` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/TRE):
 
 ```bash copy
 cd TRE
 ```
 
-#### Configure the .env file
+### Configure the .env file
 
-Open the `.env` file in the `TRE` directory and configure the environment variables.
+Unless you are running it locally, change `localhost` to the machine's host.
 
-The descriptions of the environment variables and the guide to set them are as follows:
+```yaml filename=".env"
+# Set the following env vars to point to your machine's host:
+KeycloakHostName=http://localhost:8085
+MinioBrowser=http://localhost:9003
+EgressKeyCloakClientUIRedirectURL=https//localhost:8100/
+EgressKeyCloakTokenExpiredAddressUI=http://localhost:8100/Account/LoginAfterTokenExpired
 
-<Table>
-  <thead>
-    <Tr>
-      <Th>Environment Variable</Th>
-      <Th>Description</Th>
-    </Tr>
-  </thead>
-  <tbody>
-    <Tr>
-      <Td>`dareVer`</Td>
-      <Td>
-        The version of the TRE Agent app you are deploying. Find the version
-        [here](https://github.com/SwanseaUniversityMedical/DARE-Control/releases),
-        between `v` and `-containers`. For example, `2.15.1` is the version for
-        the release `v2.15.1-containers`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`PGLOGIN` and `PGPASSWORD`</Td>
-      <Td>
-        The admin credentials for the PostgreSQL database used by the TRE Agent.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>
-        `TRE_DATA_SERVER` `TRE_DATA_PORT` `TRE_DATA_DATABASE` `TRE_DATA_USER`
-        `TRE_DATA_PASSWORD`
-      </Td>
-      <Td>
-        The credentials for the PostgreSQL database used to hold the TRE data,
-        e.g., OMOP CDM data. Camunda will use these credentials to create the
-        ephemeral user accounts for the TES executing agent (e.g., Funnel) to
-        access the TRE data.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`DemoMode`</Td>
-      <Td>
-        Set to `true` if you'd like to simulate execution, otherwise default to
-        `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreName`</Td>
-      <Td>The name identifier for this TRE instance.</Td>
-    </Tr>
-    <Tr>
-      <Td>`KeyCloakDemoMode`</Td>
-      <Td>Allows Keycloak to not require https. Default is `true`.</Td>
-    </Tr>
-    <Tr>
-      <Td>`EphemeralCredentials`</Td>
-      <Td>
-        Enable ephemeral credentials functionality. Set to `true` to enable.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`KeycloakHostName`</Td>
-      <Td>
-        The hostname of the Keycloak server. For example,
-        `http://localhost:8085` or `https://my-keycloak.net`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`UseTESK`</Td>
-      <Td>Set to `true` to execute with a TES implementation.</Td>
-    </Tr>
-    <Tr>
-      <Td>`UseRabbit`</Td>
-      <Td>
-        Set to `true` to use RabbitMQ message broker, otherwise set to `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TesAPIUrl`</Td>
-      <Td>
-        Where TESK or Funnel API is hosted. For example,
-        `http://host.docker.internal:8000/v1/tasks` (when Funnel is hosted
-        locally) or `http://my-funnel.com/tasks`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TesOutputBucketPrefix`</Td>
-      <Td>
-        Output bucket prefix for the TES executing agent to write results to.
-        For example, `s3://`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioTreIdentityID`</Td>
-      <Td>Name of the TRE's Minio client, i.e., `Dare-TRE-Minio`.</Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioTreOpenidSecret`</Td>
-      <Td>
-        The OpenID secret for the Minio client of Dare-TRE realm. There is a
-        default value in the realm configuration, but you should regenerate it
-        for production deployments. Do this by navigating to `Dare-TRE` realm ->
-        `Clients` -> `Dare-TRE-Minio` -> `Credentials`. Then click `Regenerate`
-        and copy the new value into this environment variable.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioTreIdentityConfigURL`</Td>
-      <Td>
-        The OpenID configuration URL for the Dare-TRE realm. For example,
-        `http://keycloak:8080/realms/Dare-TRE/.well-known/openid-configuration`
-        (if Keycloak is running on the same Docker network) or
-        `https://my-keycloak.net/realms/Dare-TRE/.well-known/openid-configuration`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioRootUser`</Td>
-      <Td>The root user for the Submission Layer Minio server.</Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioRootPass`</Td>
-      <Td>The root password for the Submission Layer Minio server.</Td>
-    </Tr>
-    <Tr>
-      <Td>`TreMinioAdminUser`</Td>
-      <Td>The admin user for the TRE Minio server.</Td>
-    </Tr>
-    <Tr>
-      <Td>`TreMinioAdminPassword`</Td>
-      <Td>The admin password for the TRE Minio server.</Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioBrowserHost`</Td>
-      <Td>
-        This is useful if you are using a reverse proxy to access the Minio
-        server. Read more about this
-        [here](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/settings/console/#env-minio-browser-redirect-url).
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`submissionMinioUrl`</Td>
-      <Td>
-        Point to Submission Layer Minio server, used by TRE Agent. For example,
-        `http://host-of-submission-layer:9000`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`submissionMinioAdminConsole`</Td>
-      <Td>
-        The URL for the Submission Layer's Minio admin console. For example,
-        `http://host-of-submission-layer:9001`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreUiPublicUrl`</Td>
-      <Td>
-        The public URL for the TRE Agent GUI. For example,
-        `http://my-TRE-host:8989`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreApiPublicUrl`</Td>
-      <Td>
-        The public URL for the TRE Agent API. For example,
-        `http://my-TRE-host:8072`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`CAMUNDA_VERSION`</Td>
-      <Td>The version of Camunda to deploy.</Td>
-    </Tr>
-    <Tr>
-      <Td>`CAMUNDA_BUNDLE_VERSION`</Td>
-      <Td>The version of Camunda Bundle to deploy.</Td>
-    </Tr>
-    <Tr>
-      <Td>`ELASTIC_VERSION`</Td>
-      <Td>
-        The version of Elasticsearch to deploy for Camunda's local datastore.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`CredentialAPISettingsStartWebhookUrl`</Td>
-      <Td>
-        The webhook URL for starting credentials via Camunda connectors. For
-        example, `http://connectors:8080/inbound/StartCredentials`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`CredentialAPISettingsRevokeWebhookUrl`</Td>
-      <Td>
-        The webhook URL for revoking credentials via Camunda connectors. For
-        example, `http://connectors:8080/inbound/RevokeCredentials`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`syncSchedule`</Td>
-      <Td>
-        Sync Projects & Users between TRE & Submission Layer - default every 10
-        minutes (in minutes).
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`scanSchedule`</Td>
-      <Td>
-        Scan Submission Layer for available submissions - default every 1 minute
-        (in minutes).
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EnableExternalHangfire`</Td>
-      <Td>
-        Set to `true` to enable external Hangfire, otherwise set to `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressKeyCloakUseRedirect`</Td>
-      <Td>
-        If this is set to `true`, the Egress Layer will use redirects for
-        Keycloak authentication. Default is `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressKeyCloakBaseRealmAddress`</Td>
-      <Td>
-        This is the realm address for the Egress's Keycloak server. For example,
-        `http://keycloak:8080/realms/Data-Egress` or
-        `https://my-keycloak.net/realms/Data-Egress`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressKeyCloakAuthority`</Td>
-      <Td>
-        The OpenID authority URL for the Egress Keycloak realm. For example,
-        `http://keycloak:8080/realms/Data-Egress/.well-known/openid-configuration`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressKeyCloakMetadataAddress`</Td>
-      <Td>
-        The OpenID metadata address URL for the Egress Keycloak realm. For
-        example,
-        `http://keycloak:8080/realms/Data-Egress/.well-known/openid-configuration`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressValidAudiences`</Td>
-      <Td>
-        The valid audiences for the Egress Keycloak token. Default is
-        `Data-Egress-UI,Data-Egress-API`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressKeyCloakClientUIRedirectURL`</Td>
-      <Td>
-        The URL for the Egress Layer's Keycloak redirect URL. For example,
-        `https://localhost:8100/`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressKeyCloakTokenExpiredAddressUI`</Td>
-      <Td>
-        The URL for the Egress Layer's Keycloak token expired address. For
-        example, `http://localhost:8100/Account/LoginAfterTokenExpired`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressKeyCloakSecret`</Td>
-      <Td>
-        The OpenID secret for the Egress Keycloak client `Data-Egress-API`. Find
-        and regenerate this secret by navigating to `Data-Egress` realm ->
-        `Clients` -> `Data-Egress-API` -> `Credentials`. Then click `Regenerate`
-        and copy the new value into this environment variable.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`EgressKeyCloakClientID`</Td>
-      <Td>
-        The client ID for the Egress Keycloak client, i.e., `Data-Egress-API`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIAddressURL`</Td>
-      <Td>
-        The Submission API address URL. For example,
-        `http://host-of-submission-layer:5034`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakUseRedirect`</Td>
-      <Td>
-        If this is set to `true`, the Submission API will use redirects for
-        Keycloak authentication. Default is `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakClientUIRedirectURL`</Td>
-      <Td>
-        The URL for the Submission API's Keycloak redirect URL. For example,
-        `http://host-of-submission-layer:8989/`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakClientId`</Td>
-      <Td>
-        The client ID for the Submission API Keycloak client, i.e.,
-        `Dare-Control-API`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakBaseRealmAddress`</Td>
-      <Td>
-        This is the realm address for the Submission's Keycloak server. For
-        example, `http://keycloak:8080/realms/Dare-Control` (if Keycloak is
-        running on the same Docker network) or
-        `https://my-keycloak.net/realms/Dare-Control`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakAuthority`</Td>
-      <Td>
-        The OpenID authority URL for the Submission Keycloak realm. For example,
-        `http://keycloak:8080/realms/Dare-Control/.well-known/openid-configuration`
-        or
-        `https://my-keycloak.net/realms/Dare-Control/.well-known/openid-configuration`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakMetadataAddress`</Td>
-      <Td>
-        The OpenID metadata address URL for the Submission Keycloak realm. Same
-        as `SubmissionAPIKeyCloakAuthority`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIValidAudiences`</Td>
-      <Td>
-        The valid audiences for the Submission API Keycloak token. Default is
-        `Dare-Control-UI,Dare-Control-API,Dare-Control-Minio`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakTokenExpiredAddressUI`</Td>
-      <Td>
-        The URL for the Submission API's Keycloak token expired address. For
-        example,
-        `http://host-of-submission-layer:8989/Account/LoginAfterTokenExpired`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakSecret`</Td>
-      <Td>
-        The OpenID secret for the Submission API Keycloak client
-        `Dare-Control-API`. Find and regenerate this secret by navigating to
-        `Dare-Control` realm -> `Clients` -> `Dare-Control-API` ->
-        `Credentials`. Then click `Regenerate` and copy the new value into this
-        environment variable.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreKeyCloakUseRedirect`</Td>
-      <Td>
-        If this is set to `true`, the TRE UI will use redirects for Keycloak
-        authentication. Default is `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreKeyCloakClientUIRedirectURL`</Td>
-      <Td>
-        The URL for the TRE UI's Keycloak redirect URL. For example,
-        `http://host-of-tre:8989/`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreKeyCloakTokenExpiredAddressUI`</Td>
-      <Td>
-        The URL for the TRE UI's Keycloak token expired address. For example,
-        `http://host-of-tre:8989/Account/LoginAfterTokenExpired`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreKeyCloakSecret`</Td>
-      <Td>
-        The OpenID secret for the TRE UI Keycloak client `Dare-TRE-UI`. Find and
-        regenerate this secret by navigating to `Dare-TRE` realm -> `Clients` ->
-        `Dare-TRE-UI` -> `Credentials`. Then click `Regenerate` and copy the new
-        value into this environment variable.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreKeyCloakBaseRealmAddress`</Td>
-      <Td>
-        This is the realm address for the TRE's Keycloak server. For example,
-        `http://keycloak:8080/realms/Dare-TRE` or
-        `https://my-keycloak.net/realms/Dare-TRE`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreKeyCloakAuthority`</Td>
-      <Td>
-        The OpenID authority URL for the TRE Keycloak realm. For example,
-        `http://keycloak:8080/realms/Dare-TRE/.well-known/openid-configuration`
-        or
-        `https://my-keycloak.net/realms/Dare-TRE/.well-known/openid-configuration`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreKeyCloakClientId`</Td>
-      <Td>
-        The client ID for the TRE UI Keycloak client, i.e., `Dare-TRE-UI`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreKeyCloakMetadataAddress`</Td>
-      <Td>
-        The OpenID metadata address URL for the TRE Keycloak realm. Same as
-        `TreKeyCloakAuthority`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAccountManagementURLUI`</Td>
-      <Td>
-        The URL for the TRE UI's Keycloak account management. For example,
-        `http://localhost:8085/realms/Dare-TRE/account`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreValidAudiences`</Td>
-      <Td>
-        The valid audiences for the TRE Keycloak token. Default is
-        `Dare-TRE-API,Dare-TRE-UI`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIKeyCloakUseRedirect`</Td>
-      <Td>
-        If this is set to `true`, the TRE API will use redirects for Keycloak
-        authentication. Default is `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIKeyCloakClientUIRedirectURL`</Td>
-      <Td>
-        The URL for the TRE API's Keycloak redirect URL. For example,
-        `http://localhost:8989/`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIKeyCloakTokenExpiredAddressUI`</Td>
-      <Td>
-        The URL for the TRE API's Keycloak token expired address. For example,
-        `http://localhost:8989/Account/LoginAfterTokenExpired`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIKeyCloakSecret`</Td>
-      <Td>
-        The OpenID secret for the TRE API Keycloak client `Dare-TRE-API`. Find
-        and regenerate this secret by navigating to `Dare-TRE` realm ->
-        `Clients` -> `Dare-TRE-API` -> `Credentials`. Then click `Regenerate`
-        and copy the new value into this environment variable.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIKeyCloakBaseRealmAddress`</Td>
-      <Td>
-        This is the realm address for the TRE API's Keycloak server. For
-        example, `http://keycloak:8080/realms/Dare-TRE`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIKeyCloakAuthority`</Td>
-      <Td>
-        The OpenID authority URL for the TRE API Keycloak realm. For example,
-        `http://keycloak:8080/realms/Dare-TRE/.well-known/openid-configuration`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIKeyCloakClientId`</Td>
-      <Td>
-        The client ID for the TRE API Keycloak client, i.e., `Dare-TRE-API`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIKeyCloakMetadataAddress`</Td>
-      <Td>
-        The OpenID metadata address URL for the TRE API Keycloak realm. For
-        example,
-        `http://keycloak:8080/realms/Dare-TRE/.well-known/openid-configuration`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIAccountManagementURLUI`</Td>
-      <Td>
-        The URL for the TRE API's Keycloak account management. For example,
-        `http://localhost:8085/realms/Dare-TRE/account`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`TreAPIValidAudiences`</Td>
-      <Td>
-        The valid audiences for the TRE API Keycloak token. Default is
-        `Dare-TRE-API,Dare-TRE-UI`.
-      </Td>
-    </Tr>
-  </tbody>
-</Table>
+# For example if running on a VM then change the hostname:
+KeycloakHostName=http://<VMHost>:8085
+MinioBrowser=http://<VMHost>:9003
+EgressKeyCloakClientUIRedirectURL=https//<VMHost>:8100/
+EgressKeyCloakTokenExpiredAddressUI=http://<VMHost>:8100/Account/LoginAfterTokenExpired
 
-<Callout>
+# Set SubmissionAPIAddressURL to the URL where the Submission API is hosted
+# This is assuming you have deployed an instance of the Submission Layer, or that there is an existing Submission Layer you can connect the TRE Agent to.
+
+# If you are using the default docker compose then the port is 5034
+# So only the hostname needs to change
+SubmissionAPIAddressURL=http://localhost:5034
+
+# Set TesAPIUrl to the URL where the TES API executing agent is hosted. e.g Funnel or TES-K
+TesAPIUrl=http://localhost:8000/v1/tasks
+
+# Set output bucket prefix for the TES executing agent to write results to default is:
+TesOutputBucketPrefix=s3://
+
+# Optional: The TRE Agent syncs with the Submission Layer Projects every 10 minutes by default, adjust if needed:
+syncSchedule=10
+
+
+```
+
+<Callout type="info">
   Instructions on how to set up a Funnel TES API executing agent can be found
   [here](/five_safes_tes/reference_implementation/TES/install_funnel)
 </Callout>
-
-<Callout type="info">
-  You can find an example `.env` file
-  [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/TRE/.env).
-</Callout>
-
-#### Run docker compose
+### Run docker-compose
 
 ```bash copy
-docker compose up -d
+docker-compose up -d
 ```
 
-#### Check-in
+### TRE Agent
 
-After the containers are running, if you have configured the ports for the TRE Agent components for [user accessibility](#user-accessible-components),
-you can access the TRE Agent UI and Egress UI by navigating to `http://<hostname>:8989` and `http://<hostname>:8100`, respectively, in your browser.
+The TRE Agent UI is hosted on port `8989`
 
-#### Next steps
+<Steps>
+#### Enter Submission Credentials
+The TRE Agent UI will prompt you to provide the submission credentials in order to authenticate against the `Submission Layer API`.
+By default these are:
 
-- Add a new user in the `Dare-TRE` Keycloak realm with appropriate permissions, then use this user credentials to access the TRE Agent UI.
-- Add a new user in the `Data-Egress` Keycloak realm with appropriate permissions, then use this user credentials to access the Egress UI.
-- Connect the TRE Agent to the Submission Layer by following this [guide](/submission/guides/addtreagent).
-- Connect the TRE Agent to Egress by following this [guide](/tre_agent/guides/connecttoegress).
+```yaml copy
+Username: accessfromtretosubmission
+Password: password123
+```
+
+<Callout>
+  These are the TRE Agent user credentials, created in the Submission Layer
+  Keycloak realm.
+</Callout>
+
+#### Enter Egress Credentials
+
+Next, the TRE Agent UI will prompt you to provide the egress credentials in order to authenticate against the `Egress API`.
+By default these are:
+
+```yaml copy
+Username: accessfromtretoegress
+Password: password123
+```
+
+<Callout>
+  These are the TRE Agent user credentials, created in the Egress Layer Keycloak
+  realm.
+</Callout>
+
+</Steps>
+
+### Egress
+
+The Egress UI is hosted on port `8100`
+
+<Steps>
+  #### Enter TRE credentials 
+  The Egress UI will prompt you to provide the TRE credentials in order to authenticate against the `TRE API`. 
+  By default these are:
+
+```yaml copy
+Username: accessfromegresstotre
+Password: password123
+```
+
+  <Callout>
+    These are the Egress user credentials, created in the TRE Agent Keycloak
+    realm.{" "}
+  </Callout>
+</Steps>
 
 </Steps>

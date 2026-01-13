@@ -23,28 +23,4 @@ Five Safes TES enables secure cross-TRE federated analytics, where the data rema
 analysis code is sent to the data. It is specifically designed to meet the stringent technical and governance constraints
 of TREs by separating the logical stages of a federated project.
 
-## Five Safes TES Analysis Capability
-
-Five Safes TES supports isolated algorithms only.
-
-An algorithm to calculate a statistic is *isolated* if the algorithm can be broken into subproblems that can be calculated separately at each TRE. These results can be combined to achieve the same result as calculating them on a single, pooled data set.
-
-There are often several different algorithms that can be used to calculate the same statistic, but it is the algorithm, not the statistic which is of importance in determining how it can be federated. In considering several common statistics and algorithms in health informatics, we have produced a table which shows statistics that are known to be calculable in a federated manner using Five Safes TES. Note that this summary gives no regard to disclosure risks or checking of outputs, only the suitability of Five Safes TES for an implementation. This table is not comprehensive, and only encompasses some common analyses in health informatics. 
-
-| Statistic                              | Possible in Five Safes TES | Notes                                                                                |
-| -------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------ |
-| Minimum/maximum                        | ✅                          |                                                                                      |
-| Counts                                 | ✅                          | Includes prevalence, incidence                                                       |
-| Contingency tables                     | ✅                          | Includes comorbidity. Can be used for Chi-squared test, Fisher's exact test, etc.    |
-| Mean                                   | ✅                          |                                                                                      |
-| Variance                               | ✅                          | Can be used to calculate standard deviation                                          |
-| Covariance                             | ✅                          |                                                                                      |
-| Product-moment correlation coefficient | ✅                          | Also known as Pearson's correlation coefficient. Can be used to calculate Fisher's Z |
-| t-tests                                | ✅                          | Including one-sample and two-sample t-tests                                          |
-| Hotelling's T2                         | ✅                          |                                                                                      |
-| ANOVA                                  | ✅                          |                                                                                      |
-| t-digest                               | ✅                          | Used to estimate quartiles (median, interquartile ranges, etc.)                      |
-| Linear regression                      | ✅                          | Can fail on a case by case basis.                                                    |
-
-
 ## Reference Implementation
