@@ -35,7 +35,11 @@ It demonstrates running a basic statistical analysis (mean calculation) on measu
 - Deployed Five Safes TES [All-In-One Quickstart](five_safes_tes/reference_implementation/quickstart) or one [Submission Layer](/submission) and at least one [TRE Agent](/tre_agent) with [Funnel](/five_safes_tes/reference_implementation/TES/install_funnel) connected to the agent.
 - [OMOP CDM database](/standards#observational-medical-outcomes-partnership-omop) connected to each TRE. You can use [`omop-lite`](https://github.com/Health-Informatics-UoN/omop-lite) for a quickstart synthetic OMOP CDM.
 
-<Callout>Please make sure that OMOP CDM schema name is in lowercase.</Callout>
+<Callout type="info"> 
+- Should you want to host this OMOP CDM on the cloud Managed Instance, for example, Azure SQL DB Managed Instance or AWS RDS, please make sure to use the username (in `TRE_DATA_USER` below) and password (in `TRE_DATA_PASSWORD` below) of an user who has the `admin` role.
+- In case you could not be able to obtain user with `admin` role, you can host your OMOP CDM in the same `postgresql` database instance in TRE's Docker compose.
+- OMOP CDM's schema name should be in lowercase.
+</Callout>
 
 ### Information Prerequisites
 
