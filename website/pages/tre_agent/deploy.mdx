@@ -107,6 +107,19 @@ To use this sample as a starting point for a production deployment, some [genera
 
 The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
 
+### TRE Database
+
+TRE database is the data which the analysis query runs against.
+
+If TRE database is deployed in cloud managed instances (for example, AWS RDS, Azure SQL DB Managed Instance, etc.), this 5 Safes TES implementation requires that you give the TRE Agent `admin` credentials (by putting them into the environment variables `TRE_DATA_USER` and `TRE_DATA_PASSWORD`, more details [here](/submission/tasks/run_analysis#edit-the-env-file)) in order to create and revoke ephemeral credentials.
+
+<Callout type="info">
+- Should TRE decides to use PostgreSQL as the database, version 16 or later is required.
+- `admin` credentials are the ones TRE used while creating or setting up the DB instance.
+- Credentials for the role with `CREATEROLE` permission only can create ephemeral credentials but cannot revoke them.
+- In case TRE could not use `admin` credentials, TRE can host the database in the same `postgresql` database instance, which is used to keep the local state of TRE Agent, and use the superuser credentials of the database instance.
+</Callout>
+
 ## Deployment steps
 
 To deploy an instance of the TRE Agent and data Egress
