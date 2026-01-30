@@ -36,9 +36,7 @@ It demonstrates running a basic statistical analysis (mean calculation) on measu
 - [OMOP CDM database](/standards#observational-medical-outcomes-partnership-omop) connected to each TRE. You can use [`omop-lite`](https://github.com/Health-Informatics-UoN/omop-lite) for a quickstart synthetic OMOP CDM.
 
 <Callout type="info"> 
-- Should you want to host this OMOP CDM on the cloud Managed Instance, for example, Azure SQL DB Managed Instance or AWS RDS, please make sure to use the username (in `TRE_DATA_USER` below) and password (in `TRE_DATA_PASSWORD` below) of an user who has the `admin` role.
-- In case you could not be able to obtain user with `admin` role, you can host your OMOP CDM in the same `postgresql` database instance in TRE's Docker compose.
-- OMOP CDM's schema name should be in lowercase.
+While using `omop-lite` to create a synthetic OMOP CDM database, `OMOP CDM`'s schema name should be in lowercase as common naming convention.
 </Callout>
 
 ### Information Prerequisites
