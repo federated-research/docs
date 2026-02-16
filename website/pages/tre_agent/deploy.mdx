@@ -17,7 +17,7 @@ Here is a summary of the required components which make up the TRE Layer:
 | **KeyCloak**              | The TRE Agent and Egress apps each require a Keycloak realm containing users and clients authorised to access them                      |
 | **Minio**                 | An Amazon S3 compatible TRE Storage service                                                                                             |
 | **RabbitMQ**              | A message broker used for queueing                                                                                                      |
-| **PostgreSQL**            | A database for the Submission apps to keep local state                                                                                  |
+| **PostgreSQL**            | A database for the TRE Agent and Egress apps to keep local state                                                                                  |
 | **Hashicorp Vault**       | Used for accessing ephemeral credentials as secrets                                                                                     |
 | **OpenLDAP**              | Used to provide ephemeral credentials for Trino (if in use as a datasource)                                                             |
 | **Camunda Connectors**    | A REST API allowing other services (e.g. TRE Agent) to integrate with Camunda                                                           |
@@ -106,6 +106,19 @@ This sample also includes some additional components useful for diagnostic purpo
 To use this sample as a starting point for a production deployment, some [general recommendations](/five_safes_tes/reference_implementation/deploy_production) should be considered.
 
 The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
+
+### TRE Database
+
+TRE database is the data which the analysis query runs against.
+
+If TRE database is deployed in cloud managed instances (for example, AWS RDS, Azure SQL DB Managed Instance, etc.), this 5 Safes TES implementation requires that you give the TRE Agent `admin` credentials (by putting them into the environment variables `TRE_DATA_USER` and `TRE_DATA_PASSWORD`, more details [here](/submission/tasks/run_analysis#edit-the-env-file)) in order to create and revoke ephemeral credentials.
+
+<Callout type="info">
+- Should TRE decides to use PostgreSQL as the database, version 16 or later is required. Because in Postgres, to revoke a user/role, either `superuser` or `admin` (in PostgreSQL version 16+) privilege is required. More details [here](https://www.postgresql.org/docs/16/sql-droprole.html).
+- `admin` credentials are the ones TRE used while creating or setting up the DB instance.
+- Credentials for the role with `CREATEROLE` permission only can create ephemeral credentials but cannot revoke them.
+- In case TRE could not use `admin` credentials, TRE can host the database in the same `postgresql` database instance, which is used to keep the local state of TRE Agent, and use the superuser credentials of the database instance.
+</Callout>
 
 ## Deployment steps
 
