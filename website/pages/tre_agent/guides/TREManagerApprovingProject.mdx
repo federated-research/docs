@@ -11,6 +11,10 @@ To adjust how long between each sync change the `syncSchedule` [setting](/tre_ag
 ### Login
 Log in to the [TRE Agent](/five_safes_tes/reference_implementation/core_components/#tre-layer)
 
+- If you are using the AllInOne stack, the TRE Agent UI is available at `http://localhost:8989/` with the username `globaladminuser` and password `password123`.
+- If you are using a regular deployment, the TRE Agent UI is available at the port `8989` of the host machine of `TRE`.
+- For regular deployment, to access the TRE Agent UI, you may need to create a new TRE admin user in the `Dare-TRE` Keycloak realm, with the `dare-tre-admin` role and joined the `dare-tre-admin` group.
+
 ### Find Project
 
 Once the TRE Agent is in sync, the Project will appear in the TRE Agent UI.
