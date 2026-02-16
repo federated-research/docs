@@ -17,7 +17,7 @@ Here is a summary of the required components which make up the TRE Layer:
 | **KeyCloak**              | The TRE Agent and Egress apps each require a Keycloak realm containing users and clients authorised to access them                      |
 | **Minio**                 | An Amazon S3 compatible TRE Storage service                                                                                             |
 | **RabbitMQ**              | A message broker used for queueing                                                                                                      |
-| **PostgreSQL**            | A database for the Submission apps to keep local state                                                                                  |
+| **PostgreSQL**            | A database for the TRE Agent and Egress apps to keep local state                                                                                  |
 | **Hashicorp Vault**       | Used for accessing ephemeral credentials as secrets                                                                                     |
 | **OpenLDAP**              | Used to provide ephemeral credentials for Trino (if in use as a datasource)                                                             |
 | **Camunda Connectors**    | A REST API allowing other services (e.g. TRE Agent) to integrate with Camunda                                                           |
