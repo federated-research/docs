@@ -2,7 +2,8 @@ import { Steps, Cards, Callout } from "nextra/components";
 
 # Troubleshooting
 
-## [Keycloak console](http://localhost:8085) requires HTTPS
+## Keycloak
+### [Keycloak console](http://localhost:8085) requires HTTPS
 
 If you encounter issues where the Keycloak console requires HTTPS, you can resolve this by accessing the Docker container directly:
 
@@ -22,7 +23,7 @@ cd /opt/keycloak/bin
 
 3. Enter `admin` for the password when prompted.
 
-## `KeyCloakDemoMode = true` in `.env` but KeyCloak still requires HTTPS
+### `KeyCloakDemoMode = true` in `.env` but KeyCloak still requires HTTPS
 
 If you have set `KeyCloakDemoMode = true` in your `.env` file but KeyCloak still requires HTTPS when logging in locally into the Submission layer, for example, follow these steps:
 
@@ -38,11 +39,13 @@ Password: admin
 4. Choose `None` from the `Require SSL` dropdown.
 5. Click on the `Save` button.
 
-## Docker can't access the file directory to mount the `init.sql` file
+## Docker
+### Docker can't access the file directory to mount the `init.sql` file
 
 If you encounter issues where Docker can't access the file directory to mount the `init.sql` file, you can resolve this by adding the directory path to the shared paths from `Docker -> Preferences -> Resources -> File Sharing`.
 
-## Submission Layer API is unhealthy when starting the containers
+## Submission Layer
+### Submission Layer API is unhealthy when starting the containers
 
 You can try to increase the health check metrics for the Submission Layer API service by editing the `docker-compose.yml` file. If the issue persists, please raise an issue on the [GitHub repository](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/issues).
 
@@ -60,8 +63,27 @@ services:
       start_interval: 10s
 ```
 
+## Egress
 ### Getting error 500 when clicking "Complete and Close Request" to approve the Egress request
 
 When running All-In-One stack, you may encounter an error 500 when clicking "Complete and Close Request" to approve the Egress request.
 
 Try to prune the containers, images and volumes, and then restart the process. If the issue persists, please raise an issue on the [GitHub repository](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/issues).
+
+
+## TRE Layer
+### Couldn't deploy the DMN rules
+
+If there is an error when deploying the DMN rules, there may be some tasks which are stuck in the Camunda Orchestrator.
+The current solution is to stop the containers (`docker compose down`), prune the volumes `tre_elastic` and `tre_zeebe` (`docker volume rm tre_elastic tre_zeebe`), and then restart the process (`docker compose up -d`).
+
+### Couldn't login into TRE UI due to mismatching URL redirect rule
+After entering the login details, the TRE UI will redirect to the Admin dashboard. However, if you are stuck at the `signin-oidc` page, you can try to access the TRE UI directly from the browser by navigating to `http://tre-ui-host:8989/`.
+**More importantly**, please make sure that
+- The URL the *browser* uses to reach your app
+- The `RedirectUri` in your OIDC configs (in the `.env` file)
+- The `allowed redirect URIs` registered in Keycloak's client settings (in the Keycloak console, under `Dare-TRE-UI` client → Settings → Valid Redirect URIs)
+
+are the same.
+
+For example, if the URL the *browser* uses to reach your app is `http://tre-ui-host:8989/`, the `RedirectUri` in your OIDC configs should be `http://tre-ui-host:8989/` and the `allowed redirect URIs` registered in Keycloak's client settings should be `http://tre-ui-host:8989/*`.
