@@ -4,5 +4,6 @@ export default {
   quickstart: "Quickstart",
   TES: "Task Execution Service",
   deploy_production: "Deploying to Production",
+  developer_guide: "Developer Guide",
   troubleshooting: "Troubleshooting",
 };
