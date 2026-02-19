@@ -10,15 +10,15 @@ This guide provides a step-by-step overview for developers to set up and run the
     This project is split across two repositories:
 </Callout>
 
-- **DARE-Control:** This repository contains the **source code for the Five Safes TES Application** [GitHub](https://github.com/SwanseaUniversityMedical/DARE-Control).
+- **5S-TES:** This repository contains the **source code for the Five Safes TES Application** [GitHub](https://github.com/SwanseaUniversityMedical/5s-Tes).
     
 
 - **5S-TES-Deployment:** This repository contains the **Docker Compose stack** and deployment configurations used to run the platform locally or in production [GitHub](https://github.com/SwanseaUniversityMedical/5S-TES-deployment).
 
-When a pull request is approved and merged into the **main** branch of the DARE-Control repository, the **updated application code is automatically applied when running the project with Docker Compose through the 5S‑TES‑Deployment repository.**.
+When a pull request is approved and merged into the **main** branch of the 5S-TES repository, the **updated application code is automatically applied when running the project with Docker Compose through the 5S‑TES‑Deployment repository.**.
 
 <Callout type="warning">
-    To run the Five Safes TES stack for local development, you must have both the DARE-Control and 5S-TES-Deployment repositories cloned.
+    To run the Five Safes TES stack for local development, you must have both the 5S-TES and 5S-TES-Deployment repositories cloned.
 </Callout>
 
 
@@ -36,43 +36,39 @@ This project **requires .NET SDK versions 8.0** to be installed.
 
 ## Repository Structure
 
-This section provides a high level overview of the repository structure, along with the information you need to understand how the Dare-Control stack is organised and how it runs locally.
+This section provides a high level overview of the repository structure, along with the information you need to understand how the 5S-TES stack is organised and how it runs locally.
 
 ```
-swanseauniversitymedical-dare-control/
-├── Camunda-docker/
-├── charts/
-├── DARE-Control-Docker/
-...
-├── src/
-│   ...
-│   ├── DARE-API/
-│   ├── DARE-FrontEnd/
-│   ├── Data-Egress-API/
-│   ├── Data-Egress-UI/
-│   ├── TRE-API/
-│	├── TRE-UI/
-│   ├── Tre-Camunda/
-│   ...
+swanseauniversitymedical-5s-tes/
+
+├── Agent/
+│   ├── Agent.Api/
+│   ├── Agent.Web/
+│   ├── agent-web/
+├── Credentials/
+|   ├── Credentials.Camunda/
+|   ├── Credentials.Models/
+├── Shared/
+|   ├── FiveSafesTes.Core/
 ├── Submission/
-...
+|   ├── Submission.Api/
+|   ├── Submission.Web/
+|   
 ```
 
 **Application Structure**
 
 #### <u>Source Apps</u>
 
-**Source Apps are the components that you run locally** through your .NET IDE (JetBrains Rider on macOS or Visual Studio on Windows) using the **DARE-Control Repository**.
+**Source Apps are the components that you run locally** through your .NET IDE (JetBrains Rider on macOS or Visual Studio on Windows) using the **5S-TES Repository**.
 
 **The Source Apps are mentioned below:** 
 
-- DARE-API
-- Data-Egress-API
-- TRE-API
-- DARE-FrontEnd
-- DARE-Egress-UI
-- TRE-UI
-- Tre-Camunda
+- Submission.Api
+- Submission.Web
+- Agent.Api
+- Agent.Web
+- Credentials.Camunda
 
 #### <u>Supporting Apps</u>
 
@@ -80,7 +76,7 @@ Supporting Apps are the infrastructure services required for the Source Apps to 
 
 These services are started using **Docker Desktop** via the **docker-compose.yml** file found in the 5S-TES-Deployment repository.
 
-**The Source Apps are mentioned below:** 
+**The Supporting Apps are mentioned below:** 
 
 - vault
 - seq
@@ -95,6 +91,8 @@ These services are started using **Docker Desktop** via the **docker-compose.yml
 - minioTRE
 - minioSubmission
 - connectors
+- Data-Egress-API
+- DARE-Egress-UI
 
 <figure style={{ textAlign: 'center', paddingTop: '20px' }}>
   <img
@@ -165,9 +163,9 @@ Before running the real applications locally, **you must configure every Source 
 
 Repeat the following steps for all the mentioned Source Apps [See Source Apps](#source-apps).
 
-- Open the DARE-Control Reposiory in the IDE
-- Go to the **source code directory:** `src/`
-- `src/` → open the folder of the Source Apps (One by One).
+- Open the 5s-Tes Reposiory in the IDE
+- Go to the **source code directory for each project.**
+- Open the folder of the Source Apps (One by One).
 - Navigate to: **Properties** → **launchSettings.json**
 - Inside the `profiles` section, locate the `"ASPNETCORE_ENVIRONMENT"` variable under the `http` profile.
 - **Change the value from** `"ASPNETCORE_ENVIRONMENT": "Development"` **to** `"ASPNETCORE_ENVIRONMENT": "Development_Notts"`
@@ -238,12 +236,12 @@ You must update this value in the **launchSettings.json** file for **every Sourc
     marginTop: '20px'
   }}
 >
-  <strong>3. TRE Camunda (CredentialsConnection) Steps</strong>
+  <strong>3. Credentials.Camunda (CredentialsConnection) Steps</strong>
 </span>
 
-This step applies only to the TRE-Camunda application.
+This step applies only to the Credentials.Camunda application.
 
-- Navigate to: `src/ → Tre-Camunda → appsettings.json`
+- Navigate to: `Credentials/ → Credentials.Camunda → appsettings.json`
 - Locate the `"ConnectionStrings"` section.
 - Find the entry named `"CredentialsConnection"`.
 - Update the connection string values as follows:
@@ -266,12 +264,12 @@ This step applies only to the TRE-Camunda application.
     marginTop: '20px'
   }}
 >
-  <strong>4. TRE Camunda (CredentialsConnection) Steps</strong>
+  <strong>4. Credentials.Camunda (CredentialsConnection) Steps</strong>
 </span>
 
-This configuration upgrade is also applies only to the TRE-Camunda application.
+This configuration upgrade is also applies only to the Credentials.Camunda application.
 
-- Navigate to: `src/ → Tre-Camunda → appsettings.json`
+- Navigate to: `Credentials/ → Credentials.Camunda → appsettings.json`
 - Open the `"ConnectionStrings"` section.
 - Locate the entry named `TREPostgresConnection`.
 - Update the connection string values as follows:
@@ -300,15 +298,13 @@ Instead of running each Source App individually, you can create a **multi-launch
 - At the top-right, select the **Run/Debug Configurations** dropdown.
 - Click **Edit Configurations**.
 - Click the **+ (Add)** button and choose **Compound** (or “Multirun” if using the Multirun plugin).
-- Give the configuration a name (e.g., **Dare-Control Multi Start**).
+- Give the configuration a name (e.g., **5S-TES Multi Start**).
 - Add each Source App you want to start together:
-    - TRE-API
-    - DARE-API
-    - Data-Egress-API
-    - TRE-UI
-    - DARE-FrontEnd
-    - Data-Egress-UI
-    - Tre-Camunda
+    - Agent.Api
+    - Submission.Api
+    - Agent.Api
+    - Submission.Web
+    - Camunda.Credentials
 - Save the configuration.
 
 
@@ -350,7 +346,7 @@ Once all configurations are complete, you can start the entire development stack
 #### Run the Multi-Launch Configuration (Rider)
 
 - Open **JetBrains Rider**.
-- Select the **Multi-Launch** configuration you created earlier (e.g., *Dare-Control Multi Start*).
+- Select the **Multi-Launch** configuration you created earlier (e.g., *5S-TES Multi Start*).
 - Click **Run** (▶️)
 
 <Callout type="info">
