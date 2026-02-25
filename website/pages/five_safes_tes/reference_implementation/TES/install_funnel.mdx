@@ -109,7 +109,7 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
 </Tabs>
 
 <Callout>
-  For a production deployment, some [general recommendations](/five_safes_tes/deploy_production) should be considered.
+  For a production deployment, some [general recommendations](/five_safes_tes/reference_implementation/deploy_production) should be considered.
 
   The ports Funnel runs on can be configured in the next step, if needed for configuring a reverse proxy.
 
@@ -185,4 +185,10 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
+## Access to Funnel
+
+For All In One quickstart, by default, Funnel Web Dashboard can be accessed at [localhost:8000](http://localhost:8000).
+<Callout type="warning">
+**For regular deployments**, it is strongly recommended NOT to open public internet access to Funnel Dashboard and to limit the Funnel network access to specific IP addresses, e.g., IP of developer's machine for debugging purposes, only.
+</Callout>
 </Steps>
