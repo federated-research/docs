@@ -1,6 +1,6 @@
 import { Callout, Cards, Tabs, Steps } from "nextra/components";
 
-# Five Safes TES All-In-One Quickstart
+# Five Safes TES DemoStack Quickstart
 
 <Callout type="warning">
   This is not intended to be a production deployment. To run these applications in a deployed environment, see their respective deployment documentation
@@ -44,10 +44,10 @@ git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
 
 ### Change to directory containing Docker Compose configuration file
 
-Within the **5S-TES-deployment** directory, change to the `AllInOne` directory where the docker compose file of this stack is located:
+Within the **5S-TES-deployment** directory, change to the `DemoStack` directory where the docker compose file of this stack is located:
 
 ```
-cd AllInOne
+cd DemoStack
 ```
 
 ### Start the Docker Service with `DemoMode = true`
@@ -93,7 +93,7 @@ You should see **_Approved_** status for the TRE.
 
 ### Prepare to send the submission
 
-To send a real submission, some settings need to be adjusted in the `.env` file inside the `AllInOne` directory as follow.
+To send a real submission, some settings need to be adjusted in the `.env` file inside the `DemoStack` directory as follow.
 
 ```yaml copy filename=".env"
 // Turn off Demo mode to execute analysis:
@@ -121,7 +121,7 @@ If using a system-wide installation of `funnel` as the TES API executing agent t
 
 ### Send the Hello World submission using Swagger API
 
-The Hello World submission is a simple submission that will be used to demo the AllInOne stack.
+The Hello World submission is a simple submission that will be used to demo the DemoStack stack.
 
 To send this submission using Submission Layer Swagger API hosted at `http://localhost:5034/swagger`, follow these steps:
 
