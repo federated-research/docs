@@ -169,6 +169,13 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
+      <Td>`EncryptionSettingsKey` and `EncryptionSettingsBase`</Td>
+      <Td>
+        The encryption settings (in 16 bytes Base64 String format) for the TRE Agent. They must be set and can be generated using the `openssl` command: `openssl rand -base64 16` (MacOS/Linux) or 
+        `$key = New-Object byte[] 16;[System.Security.Cryptography.RandomNumberGenerator]::Fill($key);[Convert]::ToBase64String($key)` (Windows).
+      </Td>
+    </Tr>
+    <Tr>
       <Td>
         `TRE_DATA_SERVER` `TRE_DATA_PORT` `TRE_DATA_DATABASE` `TRE_DATA_USER`
         `TRE_DATA_PASSWORD`
