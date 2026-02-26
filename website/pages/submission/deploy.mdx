@@ -101,10 +101,11 @@ git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
 
 #### Go to the Submission Layer directory
 
-Within the 5S-TES-deployment directory, the Submission Layer docker compose and configuration files are in the `Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/Submission):
+Within the 5S-TES-deployment directory, the Submission Layer docker compose and configuration files are in
+ the `DeploymentStack/Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/DeploymentStack/Submission):
 
 ```bash copy
-cd Submission
+cd DeploymentStack/Submission
 ```
 
 #### Configure the .env file
@@ -350,12 +351,20 @@ The descriptions of the environment variables and the guide to set them are as f
         the Keycloak certificate. Default is `false`.
       </Td>
     </Tr>
+    <Tr>
+      <Td>`CONFIG_PATH`</Td>
+      <Td> 
+        The path for the to the shared configuration files (e.g., realm config,
+        init scripts) for the Submission Layer. Default is 
+        `../../../DeploymentStack/Submission/config`.
+      </Td>
+    </Tr>
   </tbody>
 </Table>
 
 <Callout type="info">
   You can find an example `.env` file
-  [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/Submission/.env).
+  [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/DeploymentStack/Submission/.env).
 </Callout>
 
 #### Run docker compose
