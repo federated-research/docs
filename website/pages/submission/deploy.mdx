@@ -102,7 +102,7 @@ git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
 #### Go to the Submission Layer directory
 
 Within the 5S-TES-deployment directory, the Submission Layer docker compose and configuration files are in
- the `DeploymentStack/Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/DeploymentStack/Submission):
+the `DeploymentStack/Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/DeploymentStack/Submission):
 
 ```bash copy
 cd DeploymentStack/Submission
@@ -123,7 +123,7 @@ The descriptions of the environment variables and the guide to set them are as f
   </thead>
   <tbody>
     <Tr>
-      <Td>`dareVer`</Td>
+      <Td>`DEPLOYMENT_VERSION`</Td>
       <Td>
         The version of the Submission Layer app you are deploying. Find the
         version
@@ -133,6 +133,123 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
+      <Td>`PGLOGIN` and `PGPASSWORD`</Td>
+      <Td>
+        The admin credentials for the PostgreSQL database used by the Submission
+        Layer.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeycloakHostName`</Td>
+      <Td>
+        The hostname of the Keycloak server. For example,
+        `https://my-keycloak.net`
+      </Td>
+    </Tr>
+        <Tr>
+      <Td>`KEYCLOAK_URL`</Td>
+      <Td>
+        The URL of the Keycloak server. For example,
+        `http://keycloak:8080` or `https://my-keycloak.net`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioOpenidSecret`</Td>
+      <Td>
+        The OpenID secret for the Minio client of Dare-Control realm. There is a
+        default value in the realm configuration, but you should regenerate it
+        for production deployments. Do this by navigating to `Dare-Control`
+        realm -> `Clients` -> `Dare-Control-Minio` -> `Credentials`. Then click
+        `Regenerate` and copy the new value into this environment variable.
+      </Td>
+    </Tr>   
+    <Tr>
+      <Td>`MinioRootUser`</Td>
+      <Td>The root user for the Minio server</Td>
+    </Tr>
+    <Tr>
+      <Td>`MinioRootPass`</Td>
+      <Td>The root password for the Minio server</Td>
+    </Tr>
+    <Tr>
+      <Td>`submissionMinioUrl`</Td>
+      <Td>
+        The URL for the Submission Layer's Minio server, for internal access within Docker network.
+        For example, `http://minioSubmission:9000`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`submissionMinioAdminConsole`</Td>
+      <Td>
+        The URL for the Submission Layer's Minio server's admin console. For example,
+        `http://localhost:9001`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionAPIKeyCloakSecret`</Td>
+      <Td>
+        Same as `MinioOpenidSecret`, but this one is for `Dare-Control-API`
+        client.{" "}
+      </Td>
+    </Tr>
+
+    <Tr>
+      <Td>`SubmissionUIClientSecret`</Td>
+      <Td>
+        {" "}
+        Same as `MinioOpenidSecret`, but this one is for `Dare-Control-UI` client.{" "}
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionKeyCloakClientUIRedirectURL`</Td>
+      <Td>
+        The URL for the Submission Layer's Keycloak redirect URI.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionKeyCloakServer`</Td>
+      <Td>
+        The URL for the Submission Layer's Keycloak server. For example,
+        `keycloak:8080` or `my-keycloak.net`
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionServerProtocol`</Td>
+      <Td>
+        The protocol for the Submission Layer's Keycloak server. Default is
+        `http`. If you are using HTTPS for Keycloak, set this to `https`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`URLSettingsFrontEndQueryImageSQL`</Td>
+      <Td>
+        The default SQL query image for the Submission Layer's UI.
+        It is used in the `Simple SQL Query` mode in the Wizard.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionTokenRefreshSeconds`</Td>
+      <Td>
+        The number of seconds to refresh the Submission Layer's Keycloak token.
+        Default is `3600`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`SubmissionAutoTrustKeycloakCert`</Td>
+      <Td>
+        If this is set to `true`, the Submission Layer will automatically trust
+        the Keycloak certificate. Default is `false`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`CONFIG_PATH`</Td>
+      <Td>
+        The path for the to the shared configuration files (e.g., realm config,
+        init scripts) for the Submission Layer. Default is
+        `../../../DeploymentStack/Submission/config`.
+      </Td>
+    </Tr>
+        <Tr>
       <Td>`DemoMode`</Td>
       <Td>
         Set to true if you'd like to simulate execution, otherwise default to
@@ -143,14 +260,7 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>`KeyCloakDemoMode`</Td>
       <Td>Allows Keycloak to not require https. Default is true.</Td>
     </Tr>
-    <Tr>
-      <Td>`PGLOGIN` and `PGPASSWORD`</Td>
-      <Td>
-        The admin credentials for the PostgreSQL database used by the Submission
-        Layer.
-      </Td>
-    </Tr>
-    <Tr>
+        <Tr>
       <Td>`sslcookies`</Td>
       <Td>
         If this is set to `true`, the Submission Layer will use secure SSL
@@ -165,200 +275,13 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`KeycloakHostName`</Td>
-      <Td>
-        The hostname of the Keycloak server. For example,
-        `https://my-keycloak.net`
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioOpenidSecret`</Td>
-      <Td>
-        The OpenID secret for the Minio client of Dare-Control realm. There is a
-        default value in the realm configuration, but you should regenerate it
-        for production deployments. Do this by navigating to `Dare-Control`
-        realm -> `Clients` -> `Dare-Control-Minio` -> `Credentials`. Then click
-        `Regenerate` and copy the new value into this environment variable.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioIdentityID`</Td>
-      <Td>Name of Dare-Control's Minio client, i.e., `Dare-Control-Minio`</Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioIdentityConfigURL`</Td>
-      <Td>
-        The OpenID configuration URL for the Dare-Control realm. For example,
-        `https://my-keycloak.net/realms/Dare-Control/.well-known/openid-configuration`
-        or
-        `http://keycloak:8080/realms/Dare-Control/.well-known/openid-configuration`
-        (if Keycloak is running on the same Docker network)
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioRootUser`</Td>
-      <Td>The root user for the Minio server</Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioRootPass`</Td>
-      <Td>The root password for the Minio server</Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioBrowserHost`</Td>
-      <Td>
-        This is useful if you are using a reverse proxy to access the Minio
-        server. Read more about this
-        [here](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/settings/console/#env-minio-browser-redirect-url)
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioSubmissionUrl`</Td>
-      <Td>
-        The URL for the Minio server, for internal access within Docker network.
-        For example, `http://minio:9000`
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioSubmissionAdminConsoleUrl`</Td>
-      <Td>
-        The URL for the Minio server's admin console. For example,
-        `http://minio:9001`
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakBaseRealmAddress`</Td>
-      <Td>
-        This is the realm address for the Submission's Keycloak server. For
-        example, `http://keycloak:8080/realms/Dare-Control` (if Keycloak is
-        running on the same Docker network) or
-        `https://my-keycloak.net/realms/Dare-Control`
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakAuthority`</Td>
-      <Td>Same as `MinioIdentityConfigURL`</Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakMetadataAddress`</Td>
-      <Td>Same as `MinioIdentityConfigURL`</Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIKeyCloakSecret`</Td>
-      <Td>
-        Same as `MinioOpenidSecret`, but this one is for `Dare-Control-API`
-        client.{" "}
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionUIAccountManagementURL`</Td>
-      <Td>
-        The URL for the Submission Layer's Keycloak server's account management.
-        For example, `http://keycloak:8080/realms/Dare-Control/account` or
-        `https://my-keycloak.net/realms/Dare-Control/account`
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionUIKeyCloakBaseUrl`</Td>
-      <Td>Same as `SubmissionAPIKeyCloakBaseRealmAddress`</Td>
-    </Tr>
-    <Tr>
-      <Td>`KeyCloakUseRedirect`</Td>
-      <Td>
-        If this is set to `true`, the Submission Layer will use redirects for
-        Keycloak authentication. Default is `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`KeyCloakClientUIRedirectURL`</Td>
-      <Td>
-        The URL for the Submission Layer's Keycloak redirect URL. For example,
-        `http://localhost:8888/`
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`KeyCloakTokenExpiredAddressUI`</Td>
-      <Td>
-        The URL for the Submission Layer's Keycloak token expired address.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionUIClientSecret`</Td>
-      <Td>
-        {" "}
-        Same as `MinioOpenidSecret`, but this one is for `Dare-Control-UI` client.{" "}
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionUIKeyCloakMetadataAddress`</Td>
-      <Td>Same as `MinioIdentityConfigURL`</Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionUIKeyCloakAuthority`</Td>
-      <Td>Same as `SubmissionAPIKeyCloakBaseRealmAddress`</Td>
-    </Tr>
-    <Tr>
       <Td>`SuppressAntiforgery`</Td>
       <Td>
         If this is set to `true`, the Submission Layer will suppress
         antiforgery. Default is `false`.
       </Td>
     </Tr>
-    <Tr>
-      <Td>`SubmissionSignedOutRedirectUri`</Td>
-      <Td>
-        The URL for the Submission Layer's Keycloak signed out redirect URI.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionTokenRefreshSeconds`</Td>
-      <Td>
-        The number of seconds to refresh the Submission Layer's Keycloak token.
-        Default is `3600`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionValidAudiences`</Td>
-      <Td>
-        The valid audiences for the Submission Layer's Keycloak token. Default
-        is `Dare-Control-UI,Dare-Control-API,Dare-Control-Minio`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionServer`</Td>
-      <Td>
-        The URL for the Submission Layer's Keycloak server. For example,
-        `keycloak:8080` or `my-keycloak.net`
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionServerProtocol`</Td>
-      <Td>
-        The protocol for the Submission Layer's Keycloak server. Default is
-        `http`. If you are using HTTPS for Keycloak, set this to `https`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionRealm`</Td>
-      <Td>
-        Realm name for the Submission Layer's Keycloak server, i.e.,
-        `Dare-Control`
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAutoTrustKeycloakCert`</Td>
-      <Td>
-        If this is set to `true`, the Submission Layer will automatically trust
-        the Keycloak certificate. Default is `false`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`CONFIG_PATH`</Td>
-      <Td> 
-        The path for the to the shared configuration files (e.g., realm config,
-        init scripts) for the Submission Layer. Default is 
-        `../../../DeploymentStack/Submission/config`.
-      </Td>
-    </Tr>
+
   </tbody>
 </Table>
 
