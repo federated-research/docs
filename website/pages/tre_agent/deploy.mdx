@@ -174,7 +174,7 @@ The compose manifests used in the TRE Agent and Data Egress are:
 
 Create a new `.env` file in the directory where you store the `docker-compose.yml` file, and configure the environment variables based on the `.env.example` file in the `DeploymentStack/TRE/` directory or [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/DeploymentStack/TRE/.env.example).
 
-The descriptions of the environment variables and the guide to set them are as follows:
+The descriptions of the essential environment variables and the guide to set them are as follows:
 
 <Table>
   <thead>
@@ -219,27 +219,14 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`DemoMode`</Td>
-      <Td>
-        Set to `true` if you'd like to simulate execution, otherwise default to
-        `false`.
-      </Td>
-    </Tr>
-    <Tr>
       <Td>`TreName`</Td>
       <Td>The name identifier for this TRE instance.</Td>
     </Tr>
     <Tr>
-      <Td>`EphemeralCredentials`</Td>
-      <Td>
-        Enable ephemeral credentials functionality. Set to `true` to enable.
-      </Td>
-    </Tr>
-    <Tr>
       <Td>`KeycloakHostName`</Td>
       <Td>
-        The hostname of the Keycloak server. For example,
-        `localhost` or `my-keycloak`.
+        The hostname of the Keycloak server, for example,`localhost` or `my-keycloak`. 
+        This is only used if you are using a local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file.
       </Td>
     </Tr>
     <Tr>
@@ -257,10 +244,6 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`KeyCloakDemoMode`</Td>
-      <Td>Allows Keycloak to not require https. Default is `true`.</Td>
-    </Tr>
-    <Tr>
       <Td>`TesAPIUrl`</Td>
       <Td>
         Where TESK or Funnel API is hosted. For example,
@@ -276,24 +259,6 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`UseTESK`</Td>
-      <Td>Set to `true` to execute with a TES implementation.</Td>
-    </Tr>
-    <Tr>
-      <Td>`UseRabbit`</Td>
-      <Td>
-        Set to `true` to use RabbitMQ message broker, otherwise set to `false`.
-      </Td>
-    </Tr>
-
-    <Tr>
-      <Td>`TesOutputBucketPrefix`</Td>
-      <Td>
-        Output bucket prefix for the TES executing agent to write results to.
-        For example, `s3://`.
-      </Td>
-    </Tr>
-    <Tr>
       <Td>`MinioTreOpenidSecret`</Td>
       <Td>
         The OpenID secret for the Minio client of Dare-TRE realm. There is a
@@ -304,14 +269,6 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`MinioRootUser`</Td>
-      <Td>The root user for the Submission Layer Minio server.</Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioRootPass`</Td>
-      <Td>The root password for the Submission Layer Minio server.</Td>
-    </Tr>
-    <Tr>
       <Td>`TreMinioAdminUser`</Td>
       <Td>The admin user for the TRE Minio server.</Td>
     </Tr>
@@ -320,18 +277,12 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>The admin password for the TRE Minio server.</Td>
     </Tr>
     <Tr>
-      <Td>`submissionMinioUrl`</Td>
-      <Td>
-        Point to Submission Layer Minio server, used by TRE Agent. For example,
-        `http://host-of-submission-layer:9000`.
-      </Td>
+      <Td>`MinioRootUser`</Td>
+      <Td>The root user for the Submission Layer Minio server.</Td>
     </Tr>
     <Tr>
-      <Td>`submissionMinioAdminConsole`</Td>
-      <Td>
-        The URL for the Submission Layer's Minio admin console. For example,
-        `http://host-of-submission-layer:9001`.
-      </Td>
+      <Td>`MinioRootPass`</Td>
+      <Td>The root password for the Submission Layer Minio server.</Td>
     </Tr>
     <Tr>
       <Td>`TreApiPublicUrl`</Td>
@@ -362,9 +313,17 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`EnableExternalHangfire`</Td>
+      <Td>`submissionMinioUrl`</Td>
       <Td>
-        Set to `true` to enable external Hangfire, otherwise set to `false`.
+        Point to Submission Layer Minio server, used by TRE Agent. For example,
+        `http://host-of-submission-layer:9000`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`submissionMinioAdminConsole`</Td>
+      <Td>
+        The URL for the Submission Layer's Minio admin console. For example,
+        `http://host-of-submission-layer:9001`.
       </Td>
     </Tr>
     <Tr>
@@ -432,7 +391,28 @@ The descriptions of the environment variables and the guide to set them are as f
         and copy the new value into this environment variable.
       </Td>
     </Tr>
-     <Tr>
+    <Tr>
+      <Td>`BETTER_AUTH_SECRET`</Td>
+      <Td>
+        Base-64 String for the secret key for the Better Auth service. Only required if you are using the NextJS Agent web app. Generated using the `openssl` command: `openssl rand -base64 32` (MacOS/Linux) or 
+        `$key = New-Object byte[] 32;[System.Security.Cryptography.RandomNumberGenerator]::Fill($key);[Convert]::ToBase64String($key)` (Windows).
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`BETTER_AUTH_URL`</Td>
+      <Td>
+        The URL for the Better Auth service. Typically, this is the URL of the Agent Web App. For example,
+        `http://localhost:3000/` or `http://my-agent-web-app.com/`. Only required if you are using the NextJS Agent web app.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`NEXT_PUBLIC_KEYCLOAK_URL`</Td>
+      <Td>
+        The URL of the Keycloak Client portal. For example,
+        `http://localhost:8085/`. Only required if you are using the NextJS Agent web app.
+      </Td>
+    </Tr>
+    <Tr>
       <Td>`CONFIG_PATH`</Td>
       <Td>
         The path for the to the shared configuration files (e.g., realm config,
@@ -459,7 +439,7 @@ docker compose up -d
 
 #### Check-in
 
-After the containers are running, if you have configured the ports for the TRE Agent components for [user accessibility](#user-accessible-components),
+After the containers are up and running (check with `docker ps`), if you have configured the ports for the TRE Agent components for [user accessibility](#user-accessible-components),
 you can access the TRE Agent UI and Egress UI by navigating to `http://<hostname>:8989` and `http://<hostname>:8100`, respectively, in your browser.
 
 #### Debugging
