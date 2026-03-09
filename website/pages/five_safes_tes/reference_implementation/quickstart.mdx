@@ -39,7 +39,7 @@ git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
 - [Funnel](https://github.com/ohsu-comp-bio/funnel) is chosen as the TES executor for the DemoStack quickstart. The DemoStack provides automated setup scripts that handle Funnel installation and configuration. 
 
   <Callout type="info">
-  However, If there are any issues with the automated setup, or if you prefer to set up Funnel manually, follow the instructions [here](/five_safes_tes/reference_implementation/TES/install_funnel).
+  However, If there are any issues with the funnel automated setup or funnel docker image or if you prefer to set up Funnel manually, follow the instructions [here](/five_safes_tes/reference_implementation/TES/install_funnel).
   </Callout>
 
 
@@ -47,47 +47,21 @@ git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
 
 <Steps>
 
-### Start the `starter.sh` automation scripts with `DemoStack`
+### Start the `docker compose` within the `DemoStack`
 
 - **Within the 5S-TES-deployment root directory**, change to the `DemoStack` directory:
   ```
   cd DemoStack
   ```
 
-
-- **Permission to execute the `starter.sh` script and run it** (Only requires if you run this for the first time):
-  ```bash copy
-  chmod +x starter.sh
+- **Start the Docker Compose stack** by running the following command in the terminal:
   ```
-- **Run the `starter.sh` script:**
-  ```bash copy
-  ./starter.sh
+  docker compose up -d
   ```
 
-<Callout type="info">
-  Wait until all the services are up and running and the `starter.sh` script finishes executing. 
-  You should see the following message in the terminal:
-</Callout>
-
-  ```bash
-  ...
-  Creating funnel-config.yml...
-  Starting Funnel...
-  server               Server listening
-  httpPort             8000
-  rpcAddress           :9090
-  time                 2026-02-25T12:47:16Z
-  ```
-
-The DemoStack includes a starter.sh script that automates the initial setup process. This script will:
-1. Start all Docker Compose services in `DemoMode = true`.
-2. Install and configure the MinIO client (mc).
-3. Create MinIO access keys for Funnel.
-4. Installs and setup the Funnel for executing the TES tasks.
-5. Generate the Funnel configuration file.
-6. Start the Funnel TES server.
-
-This will start the stack with the seeding of some demo data and instances. For example, Testing project will be created, TRE named DEMO will be deployed, and users credentials used to communicate between apps will be seeded.
+This will start the stack with the seeding of some demo data and instances. 
+For example, Testing project will be created, TRE named DEMO will be deployed, and users credentials used 
+to communicate between apps will be seeded.
 
 <Callout type="info">
   You can check the status of the services by running `docker stats` in the
