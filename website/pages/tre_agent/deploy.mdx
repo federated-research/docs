@@ -118,6 +118,11 @@ The ports specified above can be used for configuring a reverse proxy for access
 
 - Docker and Docker Compose installed. For Linux/Ubuntu VMs, you can follow this [guide](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your machine.
+- TES executing agent (e.g., Funnel) installed and running.
+  <Callout>
+    Instructions on how to install Funnel can be found
+    [here](/five_safes_tes/reference_implementation/TES/install_funnel)
+  </Callout>
 
 ### Deployment Steps
 
@@ -424,11 +429,6 @@ The descriptions of the essential environment variables and the guide to set the
   </tbody>
 </Table>
 
-<Callout>
-  Instructions on how to set up a Funnel TES API executing agent can be found
-  [here](/five_safes_tes/reference_implementation/TES/install_funnel)
-</Callout>
-
 #### Run docker compose
 
 At the directory where `docker-compose.yml` and `.env` files are located, run the following command to start the TRE Agent and Data Egress:
@@ -442,6 +442,78 @@ docker compose up -d
 After the containers are up and running (check with `docker ps`), if you have configured the ports for the TRE Agent components for [user accessibility](#user-accessible-components),
 you can access the TRE Agent UI and Egress UI by navigating to `http://<hostname>:8989` and `http://<hostname>:8100`, respectively, in your browser.
 
+<Callout type="info">
+If you are using the default Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, you can access the Keycloak Client portal by navigating to port `8085` of the host machine, and 
+Then, the default to access KeyCloak admin portal are username `admin` and `admin`; the default username and password for the TRE Agent and Egress are `globaladminuser` and `password123`.
+</Callout>
+
+<Callout>
+  If you encouter the error "Invalid parameter: redirect_uri" from Keycloak when
+  trying to login into TRE UI or Egress UI, please make sure the `redirectURL`
+  environment variables in the `.env` file, the URL you put on the browser's
+  address bar, and the `Valid redirect URIs` registered in Keycloak's client
+  settings are the same. For more details, please refer to the [troubleshooting
+  guide](/five_safes_tes/reference_implementation/troubleshooting#couldnt-login-into-tre-ui-due-to-mismatching-url-redirect-rule).
+</Callout>
+
+#### Connect TRE Agent to Submission Layer and Egress
+
+##### TRE and Submission Layer connection
+
+In production, you should have been given credentials of a user with the `dare-tre-admin` role and group in the `Dare-Control` Keycloak realm from the Submission Layer admin.
+
+Put these credentials in the page `Update Submission Credentials` in the TRE Agent UI.
+
+##### TRE and Egress connection
+
+At the page `Update Data Egress Credentials` in the TRE Agent UI (port `8989` of the host machine), put the credentials of a user with the `dare-tre-admin` role in the `Dare-Egress` Keycloak realm.
+
+<Callout>
+  If you are using the default local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, the user already exists and its credentials are:
+  ```yaml copy
+  Username: accessfromtretoegress
+  Password: password123
+  ```
+</Callout>
+
+
+At the page `Update TRE Credentials` in the Egress UI (port `8100` of the host machine), put the credentials of a user with the `dare-egress-admin` role in the `Dare-TRE` Keycloak realm.
+
+<Callout>
+  If you are using the default local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, the user already exists and its credentials are:
+  ```yaml copy
+  Username: accessfromegresstotre
+  Password: password123
+  ```
+</Callout>
+
+#### Update DMN rules
+
+At the page `DMN Rules` in the TRE Agent UI (port `8989` of the host machine), update and deploy the DMN rules to the correct values of the TRE DB credentials.
+
+| Output:tag       | Output:value                                     |
+| ---------------- | ------------------------------------------------ |
+| postgresDatabase | "change to the TREDBDatabase above"              |
+| postgresServer   | "change to the TREDBHost above"                  |
+| postgresPort     | "change to the TREDBPort above"                  |
+| postgresSchema   | "change to the schema of the OMOP CDM in TRE DB" |
+
+More details can be found in the [guide](/submission/tasks/run_analysis#update-the-dmn-rules).
+
+#### Approve projects and memberships
+
+After admin of Submission layer has created a project, added users to the project and added your TRE to the project, you need to approve the project and memberships from the TRE Agent UI (port `8989` of the host machine), at the page `Projects`.
+
+More details can be found in the [guide](/tre_agent/guides/TREManagerApprovingProject).
+
+
+#### Recommended next steps
+
+- Make sure TRE's containers, database and TES executing agent are running and accessible, then test the system by sending the Hello world submission or submission with basic analysis task from the Submission layer side.
+- Add a new user in the `Dare-TRE` Keycloak realm with appropriate permissions, then use this user credentials to access the TRE Agent UI.
+- Add a new user in the `Data-Egress` Keycloak realm with appropriate permissions, then use this user credentials to access the Egress UI.
+- Update passwords or secrets for the TRE Agent and Egress, including the Keycloak client secrets, Minio server credentials, etc.
+
 #### Debugging
 
 If you encounter any issues, you can check the logs of the containers by running the following command:
@@ -451,12 +523,5 @@ docker logs <container-name> -f
 ```
 
 Alternatively, you can check the logs of of the stack by accessing port `5341` ([Seq](https://datalust.co/seq) service) of the host machine.
-
-#### Next steps
-
-- Add a new user in the `Dare-TRE` Keycloak realm with appropriate permissions, then use this user credentials to access the TRE Agent UI.
-- Add a new user in the `Data-Egress` Keycloak realm with appropriate permissions, then use this user credentials to access the Egress UI.
-- Connect the TRE Agent to the Submission Layer by following this [guide](/submission/guides/addtreagent).
-- Connect the TRE Agent to Egress by following this [guide](/tre_agent/guides/connecttoegress).
 
 </Steps>
