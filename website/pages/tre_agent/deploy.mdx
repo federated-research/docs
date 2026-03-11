@@ -118,6 +118,11 @@ The ports specified above can be used for configuring a reverse proxy for access
 
 - Docker and Docker Compose installed. For Linux/Ubuntu VMs, you can follow this [guide](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your machine.
+- TES executing agent (e.g., Funnel) installed and running.
+  <Callout>
+    Instructions on how to install Funnel can be found
+    [here](/five_safes_tes/reference_implementation/TES/install_funnel)
+  </Callout>
 
 ### Deployment Steps
 
@@ -131,20 +136,50 @@ To deploy a TRE Agent and Data Egress:
 git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
 ```
 
-#### Go to the TRE Layer directory
+#### Prepare the necessary files
 
-Within the 5S-TES-deployment directory, the TRE Layer docker-compose and configuration files
-are in the `DeploymentStack/TRE` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/DeploymentStack/TRE):
+To deploy a TRE Agent and Data Egress, we need the following files and directories in `5S-TES-deployment` repository:
 
-```bash copy
-cd DeploymentStack/TRE
-```
+- `DeploymentStack/TRE/docker-compose.yml`
+- `DeploymentStack/TRE/config/`
+- `ServiceStack/`
+- `.env`, which needs to be configured with the appropriate environment variables based on the `DeploymentStack/TRE/.env.example` file.
 
-#### Configure the .env file
+The `docker-compose.yml` file in the `DeploymentStack/TRE/` directory includes the services for the TRE Agent and Data Egress using relative paths to the compose manifests in the `ServiceStack/` directory, where they are defined.
 
-Open the `.env` file in the `TRE` directory and configure the environment variables.
+<Callout type="info">
+  If you need to modify the compose manifests or the `docker-compose.yml` file,
+  we recommend to move these four components to a separate directory, e.g.,
+  `/srv/tre`, and update the relative paths in the `docker-compose.yml` file
+  accordingly. When in sync with the remote repository, the local
+  `5S-TES-deployment` repository will then only serve as a reference for your
+  own deployment, rather than the source of truth.
+</Callout>
 
-The descriptions of the environment variables and the guide to set them are as follows:
+The compose manifests used in the TRE Agent and Data Egress are:
+
+- `ServiceStack/compose-manifests/applications/tre-layer.yml` which defines the TRE Layer services, i.e., TRE Agent API, TRE Agent GUI.
+- `ServiceStack/compose-manifests/applications/egress-layer.yml` which defines the Data Egress Layer services, i.e., Data Egress API, Data Egress GUI.
+- `ServiceStack/compose-manifests/shared/platform.yml` which defines the platform services, i.e., PostgreSQL, Adminer, Serilog, RabbitMQ.
+- `ServiceStack/compose-manifests/shared/credentials.yml` which defines the services for ephemeral credentials, i.e., Camunda, Connectors, Vault, OpenLDAP, LDAP Init, phpLDAPadmin, Elastic Search.
+- `ServiceStack/compose-manifests/shared/auth.yml` which defines the authentication services, i.e., Keycloak. This is optional and only needed if you want to use Keycloak for authentication internally within the TRE Layer.
+  <Callout type="info">
+    Comment or remove the line
+    `../../ServiceStack/compose-manifests/shared/auth.yml` in the
+    `docker-compose.yml` file if you don't want to use it.
+  </Callout>
+- `ServiceStack/compose-manifests/shared/omop-lite.yml` which defines the [OMOP Lite](https://github.com/Health-Informatics-UoN/omop-lite) service, i.e., OMOP Lite. This is optional and only needed if you want to populate a synthetic OMOP CDM for the TRE data.
+  <Callout type="info">
+    Comment or remove the line
+    `../../ServiceStack/compose-manifests/shared/omop-lite.yml` in the
+    `docker-compose.yml` file if you don't want to use it.
+  </Callout>
+
+##### Configure the .env file
+
+Create a new `.env` file in the directory where you store the `docker-compose.yml` file, and configure the environment variables based on the `.env.example` file in the `DeploymentStack/TRE/` directory or [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/DeploymentStack/TRE/.env.example).
+
+The descriptions of the essential environment variables and the guide to set them are as follows:
 
 <Table>
   <thead>
@@ -189,27 +224,14 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`DemoMode`</Td>
-      <Td>
-        Set to `true` if you'd like to simulate execution, otherwise default to
-        `false`.
-      </Td>
-    </Tr>
-    <Tr>
       <Td>`TreName`</Td>
       <Td>The name identifier for this TRE instance.</Td>
     </Tr>
     <Tr>
-      <Td>`EphemeralCredentials`</Td>
-      <Td>
-        Enable ephemeral credentials functionality. Set to `true` to enable.
-      </Td>
-    </Tr>
-    <Tr>
       <Td>`KeycloakHostName`</Td>
       <Td>
-        The hostname of the Keycloak server. For example,
-        `localhost` or `my-keycloak`.
+        The hostname of the Keycloak server, for example,`localhost` or `my-keycloak`. 
+        This is only used if you are using a local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file.
       </Td>
     </Tr>
     <Tr>
@@ -227,10 +249,6 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`KeyCloakDemoMode`</Td>
-      <Td>Allows Keycloak to not require https. Default is `true`.</Td>
-    </Tr>
-    <Tr>
       <Td>`TesAPIUrl`</Td>
       <Td>
         Where TESK or Funnel API is hosted. For example,
@@ -246,24 +264,6 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`UseTESK`</Td>
-      <Td>Set to `true` to execute with a TES implementation.</Td>
-    </Tr>
-    <Tr>
-      <Td>`UseRabbit`</Td>
-      <Td>
-        Set to `true` to use RabbitMQ message broker, otherwise set to `false`.
-      </Td>
-    </Tr>
-
-    <Tr>
-      <Td>`TesOutputBucketPrefix`</Td>
-      <Td>
-        Output bucket prefix for the TES executing agent to write results to.
-        For example, `s3://`.
-      </Td>
-    </Tr>
-    <Tr>
       <Td>`MinioTreOpenidSecret`</Td>
       <Td>
         The OpenID secret for the Minio client of Dare-TRE realm. There is a
@@ -274,14 +274,6 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`MinioRootUser`</Td>
-      <Td>The root user for the Submission Layer Minio server.</Td>
-    </Tr>
-    <Tr>
-      <Td>`MinioRootPass`</Td>
-      <Td>The root password for the Submission Layer Minio server.</Td>
-    </Tr>
-    <Tr>
       <Td>`TreMinioAdminUser`</Td>
       <Td>The admin user for the TRE Minio server.</Td>
     </Tr>
@@ -290,18 +282,12 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>The admin password for the TRE Minio server.</Td>
     </Tr>
     <Tr>
-      <Td>`submissionMinioUrl`</Td>
-      <Td>
-        Point to Submission Layer Minio server, used by TRE Agent. For example,
-        `http://host-of-submission-layer:9000`.
-      </Td>
+      <Td>`MinioRootUser`</Td>
+      <Td>The root user for the Submission Layer Minio server.</Td>
     </Tr>
     <Tr>
-      <Td>`submissionMinioAdminConsole`</Td>
-      <Td>
-        The URL for the Submission Layer's Minio admin console. For example,
-        `http://host-of-submission-layer:9001`.
-      </Td>
+      <Td>`MinioRootPass`</Td>
+      <Td>The root password for the Submission Layer Minio server.</Td>
     </Tr>
     <Tr>
       <Td>`TreApiPublicUrl`</Td>
@@ -332,9 +318,17 @@ The descriptions of the environment variables and the guide to set them are as f
       </Td>
     </Tr>
     <Tr>
-      <Td>`EnableExternalHangfire`</Td>
+      <Td>`submissionMinioUrl`</Td>
       <Td>
-        Set to `true` to enable external Hangfire, otherwise set to `false`.
+        Point to Submission Layer Minio server, used by TRE Agent. For example,
+        `http://host-of-submission-layer:9000`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`submissionMinioAdminConsole`</Td>
+      <Td>
+        The URL for the Submission Layer's Minio admin console. For example,
+        `http://host-of-submission-layer:9001`.
       </Td>
     </Tr>
     <Tr>
@@ -402,7 +396,28 @@ The descriptions of the environment variables and the guide to set them are as f
         and copy the new value into this environment variable.
       </Td>
     </Tr>
-     <Tr>
+    <Tr>
+      <Td>`BETTER_AUTH_SECRET`</Td>
+      <Td>
+        Base-64 String for the secret key for the Better Auth service. Only required if you are using the NextJS Agent web app. Generated using the `openssl` command: `openssl rand -base64 32` (MacOS/Linux) or 
+        `$key = New-Object byte[] 32;[System.Security.Cryptography.RandomNumberGenerator]::Fill($key);[Convert]::ToBase64String($key)` (Windows).
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`BETTER_AUTH_URL`</Td>
+      <Td>
+        The URL for the Better Auth service. Typically, this is the URL of the Agent Web App. For example,
+        `http://localhost:3000/` or `http://my-agent-web-app.com/`. Only required if you are using the NextJS Agent web app.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`NEXT_PUBLIC_KEYCLOAK_URL`</Td>
+      <Td>
+        The URL of the Keycloak Client portal. For example,
+        `http://localhost:8085/`. Only required if you are using the NextJS Agent web app.
+      </Td>
+    </Tr>
+    <Tr>
       <Td>`CONFIG_PATH`</Td>
       <Td>
         The path for the to the shared configuration files (e.g., realm config,
@@ -414,17 +429,9 @@ The descriptions of the environment variables and the guide to set them are as f
   </tbody>
 </Table>
 
-<Callout>
-  Instructions on how to set up a Funnel TES API executing agent can be found
-  [here](/five_safes_tes/reference_implementation/TES/install_funnel)
-</Callout>
-
-<Callout type="info">
-  You can find an example `.env` file
-  [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/DeploymentStack/TRE/.env).
-</Callout>
-
 #### Run docker compose
+
+At the directory where `docker-compose.yml` and `.env` files are located, run the following command to start the TRE Agent and Data Egress:
 
 ```bash copy
 docker compose up -d
@@ -432,14 +439,91 @@ docker compose up -d
 
 #### Check-in
 
-After the containers are running, if you have configured the ports for the TRE Agent components for [user accessibility](#user-accessible-components),
+After the containers are up and running (check with `docker ps`), if you have configured the ports for the TRE Agent components for [user accessibility](#user-accessible-components),
 you can access the TRE Agent UI and Egress UI by navigating to `http://<hostname>:8989` and `http://<hostname>:8100`, respectively, in your browser.
 
-#### Next steps
+<Callout type="info">
+If you are using the default Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, you can access the Keycloak Client portal by navigating to port `8085` of the host machine, and 
+Then, the default to access KeyCloak admin portal are username `admin` and `admin`; the default username and password for the TRE Agent and Egress are `globaladminuser` and `password123`.
+</Callout>
 
+<Callout>
+  If you encouter the error "Invalid parameter: redirect_uri" from Keycloak when
+  trying to login into TRE UI or Egress UI, please make sure the `redirectURL`
+  environment variables in the `.env` file, the URL you put on the browser's
+  address bar, and the `Valid redirect URIs` registered in Keycloak's client
+  settings are the same. For more details, please refer to the [troubleshooting
+  guide](/five_safes_tes/reference_implementation/troubleshooting#couldnt-login-into-tre-ui-due-to-mismatching-url-redirect-rule).
+</Callout>
+
+#### Connect TRE Agent to Submission Layer and Egress
+
+##### TRE and Submission Layer connection
+
+The TRE Agent needs user credentials from the Submission Layer Keycloak to connect to the Submission Layer. This user should be created in the `Dare-Control` realm with the `dare-tre-admin` role and group assigned to it.
+
+If you are hosting your own Submission Layer create the user in the Submission Layer Keycloak. Otherwise, the TRE Admin user's credentials are typically provided by the Submission Layer admin.
+
+Given these credentials, put them in the page `Update Submission Credentials` in the TRE Agent UI.
+
+##### TRE and Egress connection
+
+At the page `Update Data Egress Credentials` in the TRE Agent UI (port `8989` of the host machine), put the credentials of a user with the `dare-tre-admin` role in the `Dare-Egress` Keycloak realm.
+
+<Callout>
+  If you are using the default local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, the user already exists and its credentials are:
+  ```yaml copy
+  Username: accessfromtretoegress
+  Password: password123
+  ```
+</Callout>
+
+
+At the page `Update TRE Credentials` in the Egress UI (port `8100` of the host machine), put the credentials of a user with the `dare-egress-admin` role in the `Dare-TRE` Keycloak realm.
+
+<Callout>
+  If you are using the default local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, the user already exists and its credentials are:
+  ```yaml copy
+  Username: accessfromegresstotre
+  Password: password123
+  ```
+</Callout>
+
+#### Update DMN rules
+
+At the page `DMN Rules` in the TRE Agent UI (port `8989` of the host machine), update and deploy the DMN rules to the correct values of the TRE DB credentials.
+
+| Output:tag       | Output:value                                     |
+| ---------------- | ------------------------------------------------ |
+| postgresDatabase | "change to the TREDBDatabase above"              |
+| postgresServer   | "change to the TREDBHost above"                  |
+| postgresPort     | "change to the TREDBPort above"                  |
+| postgresSchema   | "change to the schema of the OMOP CDM in TRE DB" |
+
+More details can be found in the [guide](/submission/tasks/run_analysis#update-the-dmn-rules).
+
+#### Approve projects and memberships
+
+Once a Submission layer Admin has created a Project, assigned Users to the Project and added your TRE to the Project, you need to approve the Project and User Memberships from the TRE Agent UI (port `8989` of the host machine), at the page `Projects`.
+
+More details can be found in the [guide](/tre_agent/guides/TREManagerApprovingProject).
+
+
+#### Recommended next steps
+
+- Make sure TRE's containers, database and TES executing agent are running and accessible, then test the system by sending the [Hello world submission](/submission/tasks/quickstart#send-task) or [submission with basic analysis task](/submission/tasks/run_analysis#researchers-side-setup) from the Submission layer side.
 - Add a new user in the `Dare-TRE` Keycloak realm with appropriate permissions, then use this user credentials to access the TRE Agent UI.
 - Add a new user in the `Data-Egress` Keycloak realm with appropriate permissions, then use this user credentials to access the Egress UI.
-- Connect the TRE Agent to the Submission Layer by following this [guide](/submission/guides/addtreagent).
-- Connect the TRE Agent to Egress by following this [guide](/tre_agent/guides/connecttoegress).
+- Update passwords or secrets for the TRE Agent and Egress, including the Keycloak client secrets, Minio server credentials, etc.
+
+#### Debugging
+
+If you encounter any issues, you can check the logs of the containers by running the following command:
+
+```bash copy
+docker logs <container-name> -f
+```
+
+Alternatively, you can check the logs of of the stack by accessing port `5341` ([Seq](https://datalust.co/seq) service) of the host machine.
 
 </Steps>
