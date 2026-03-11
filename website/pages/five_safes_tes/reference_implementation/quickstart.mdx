@@ -49,6 +49,18 @@ git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
 
 ### Start the `docker compose` within the `DemoStack`
 
+<Callout>
+  If you face any issues with the docker compose stack, we recommend removing 
+  all the existing containers and images and start with a clean slate. 
+  You can do this by running the following commands:
+
+  ```bash copy
+  docker compose down --volumes --remove-orphans
+  docker system prune -a --volumes
+  ```
+
+</Callout>
+
 - **Within the 5S-TES-deployment root directory**, change to the `DemoStack` directory:
   ```
   cd DemoStack
@@ -81,6 +93,12 @@ Password: password123
 
 
 ### Approve the Project access to the TRE
+
+<Callout type="info">
+  The DemoStack quickstart automatically creates **a project named Testing and a TRE named DEMO**.
+  Once the Docker Compose stack has started successfully, please allow approximately 5 minutes for 
+  the TRE Agent to complete the migration and initialization of the demo projects.
+</Callout>
 
 Follow this [guide](/tre_agent/guides/TREManagerApprovingProject) to approve the project access to the TRE.
 
