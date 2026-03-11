@@ -460,8 +460,9 @@ Then, the default to access KeyCloak admin portal are username `admin` and `admi
 
 ##### TRE and Submission Layer connection
 
-In production, the credentials of a user (who doesn't necessarily need to be a real researcher user) with the `dare-tre-admin` role and group, in the `Dare-Control` Keycloak realm, from the Submission Layer side, is needed to connect the TRE Agent to the Submission Layer.
-You can create this user if you own Submission Layer. Otherwise, these credentials are typically provided by the Submission Layer admin.
+The TRE Agent needs user credentials from the Submission Layer Keycloak to connect to the Submission Layer. This user should be created in the `Dare-Control` realm with the `dare-tre-admin` role and group assigned to it.
+
+If you are hosting your own Submission Layer create the user in the Submission Layer Keycloak. Otherwise, the TRE Admin user's credentials are typically provided by the Submission Layer admin.
 
 Given these credentials, put them in the page `Update Submission Credentials` in the TRE Agent UI.
 
