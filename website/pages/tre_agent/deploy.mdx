@@ -116,7 +116,7 @@ The ports specified above can be used for configuring a reverse proxy for access
 
 TRE database is the data which the analysis query runs against.
 
-If TRE database is deployed in cloud managed instances (for example, AWS RDS, Azure SQL DB Managed Instance, etc.), this 5 Safes TES implementation requires that you set the TRE Agent with the `admin` credentials of the TRE database, in order to create and revoke ephemeral credentials. 
+If a TRE database is deployed in cloud managed instances (for example, AWS RDS, Azure SQL DB Managed Instance, etc.), this 5 Safes TES implementation requires that you set the TRE Agent with the `admin` credentials of the TRE database, in order to create and revoke ephemeral credentials. 
 
 This can be done by setting the environment variables `TRE_DATA_USER` and `TRE_DATA_PASSWORD` with the credentials of the user, more details [here](/submission/tasks/run_analysis#edit-the-env-file) .
 
