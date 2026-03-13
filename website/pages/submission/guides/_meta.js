@@ -1,8 +1,7 @@
 export default {
-  submissionManagerAddingNewPerson: "Add a researcher to the Submission Layer",
-  submissionManagerAddingNewProject:
-    "Add a new project to the Submission Layer",
-  addtreagent: "Connect TRE Agent to Submission Layer",
+  submissionManagerAddingNewPerson: "Add a new researcher",
+  submissionManagerAddingNewProject: "Add a new project",
+  addtreagent: "Connect a TRE Agent",
   keycloakAdminAddingNewUser: "Add a new user to KeyCloak",
   get_token: "Get an Access Token",
 };
