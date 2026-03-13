@@ -99,20 +99,44 @@ To deploy a Submission Layer:
 git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
 ```
 
-#### Go to the Submission Layer directory
+#### Prepare the necessary files
 
-Within the 5S-TES-deployment directory, the Submission Layer docker compose and configuration files are in
-the `DeploymentStack/Submission` [directory](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/tree/main/DeploymentStack/Submission):
+To deploy a Submission Layer, we need the following files and directories in `5S-TES-deployment` repository:
 
-```bash copy
-cd DeploymentStack/Submission
-```
+- `DeploymentStack/Submission/docker-compose.yml`
+- `DeploymentStack/Submission/config/`
+- `ServiceStack/`
+- `.env`, which needs to be configured with the appropriate environment variables based on the `DeploymentStack/Submission/.env.example` file.
 
-#### Configure the .env file
+The `docker-compose.yml` file in the `DeploymentStack/Submission/` directory includes the services for the Submission Layer using relative paths to the compose manifests in the `ServiceStack/` directory, where they are defined.
 
-Open the `.env` file in the `Submission` directory and configure the environment variables.
+<Callout type="info">
+  If you need to modify the compose manifests or the `docker-compose.yml` file,
+  we recommend to move these four components to a separate directory, e.g.,
+  `/srv/submission`, and update the relative paths in the `docker-compose.yml`
+  file and `CONFIG_PATH` in the `.env` file accordingly. When in sync with the
+  remote repository, the local `5S-TES-deployment` repository will then only
+  serve as a reference for your own deployment, rather than the source of truth.
+</Callout>
 
-The descriptions of the environment variables and the guide to set them are as follows:
+The compose manifests used in the Submission Layer are:
+
+- `ServiceStack/compose-manifests/applications/submission-layer.yml` which defines the Submission Layer services, i.e., Submission API, Submission GUI.
+- `ServiceStack/compose-manifests/shared/platform.yml` which defines the platform services, i.e., PostgreSQL, Adminer, Serilog, RabbitMQ.
+- `ServiceStack/compose-manifests/shared/auth.yml` which defines the authentication services, i.e., Keycloak. This is optional and only needed if you want to use Keycloak for authentication internally within the Submission Layer.
+- `ServiceStack/compose-manifests/storage/minio-submission.yml` which defines the Submission Layer's Minio server.
+
+  <Callout>
+    Comment or remove the line
+    `../../ServiceStack/compose-manifests/shared/auth.yml` in the
+    `docker-compose.yml` file if you don't want to use it.
+  </Callout>
+
+##### Configure the .env file
+
+Create a new `.env` file in the directory where you store the `docker-compose.yml` file, and configure the environment variables based on the `.env.example` file in the `DeploymentStack/Submission/` directory or [here](https://github.com/SwanseaUniversityMedical/5S-TES-deployment/blob/main/DeploymentStack/Submission/.env.example).
+
+The descriptions of the essential environment variables and the guide to set them are as follows:
 
 <Table>
   <thead>
@@ -143,7 +167,7 @@ The descriptions of the environment variables and the guide to set them are as f
       <Td>`KeycloakHostName`</Td>
       <Td>
         The hostname of the Keycloak server. For example,
-        `my-keycloak`
+        `my-keycloak`. This is only used if you are using a local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file.
       </Td>
     </Tr>
     <Tr>
@@ -292,20 +316,50 @@ The descriptions of the environment variables and the guide to set them are as f
 
 #### Run docker compose
 
+At the directory where `docker-compose.yml` and `.env` files are located, run the following command to start the Submission Layer:
+
 ```bash copy
 docker compose up -d
 ```
 
 #### Check-in
 
-After the containers are running, if you have configured the ports for the Submission layer components for [user accessibility](#user-accessible-components),
+After the containers are up and running (check with `docker ps`), if you have configured the ports for the Submission layer components for [user accessibility](#user-accessible-components),
 you can access the Submission Layer UI by navigating to `http://<hostname>:7220` in your browser.
 
-#### Next steps
+<Callout type="info">
+  If you are using the default Keycloak service defined in the
+  `ServiceStack/compose-manifests/shared/auth.yml` file, you can access the
+  Keycloak Client portal by navigating to port `8085` of the host machine, and
+  Then, the default to access KeyCloak admin portal are username `admin` and
+  `admin`; the default username and password for the Submission Layer are
+  `globaladminuser` and `password123`.
+</Callout>
 
-- Add a new user in the `Dare-Control` Keycloak realm with appropriate permissions, then use this user credentials to access the Submission Layer UI.
+<Callout>
+  If you encouter the error "Invalid parameter: redirect_uri" from Keycloak when
+  trying to login into Submission Layer UI, please make sure the `redirectURL`
+  environment variables in the `.env` file, the URL you put on the browser's
+  address bar, and the `Valid redirect URIs` registered in Keycloak's client
+  settings are the same.
+</Callout>
+
+#### Recommended next steps
+
 - Once the TRE Agent is deployed, connect it to the Submission Layer by following this [guide](/submission/guides/addtreagent).
 - Submit a Hello World submission to the Submission Layer by following this [guide](/submission/tasks/quickstart).
 - Submit a simple analysis submission to the Submission Layer by following this [guide](/submission/tasks/run_analysis).
+- Add a new user in the `Dare-Control` Keycloak realm with appropriate permissions, then use this user credentials to access the Submission Layer UI.
+- Update passwords or secrets for the Submission Layer, including the Keycloak client secrets, Minio server credentials, etc.
+
+#### Debugging
+
+If you encounter any issues, you can check the logs of the containers by running the following command:
+
+```bash copy
+docker logs <container-name> -f
+```
+
+Alternatively, you can check the logs of of the stack by accessing port `5341` ([Seq](https://datalust.co/seq) service) of the host machine.
 
 </Steps>
