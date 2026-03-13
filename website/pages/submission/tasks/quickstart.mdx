@@ -25,13 +25,17 @@ Guide is [here](/submission/guides/get_token).
 
 ### Send task
 
-You can make the request from the Submission Layer Swagger API hosted at `http://localhost:5034/swagger`. Do this by the following steps:
+1. Login to the Submission Layer
 
-1. Authorise the request with the Access Token obtained in the previous step with the **_Authorise_** button on the top right.
+2. Go to the `Projects` page.
 
-2. Click on the `POST /v1/tasks` endpoint, under the `TaskServiceApi` section. Then click on the `Try it out` button.
+3. From the list of projects select the `Testing` project.
 
-3. Enter the following payload, then click on the `Execute` button:
+4. Once in the `Testing` project go to `Submissions` -> `Create Submission` -> `TES Wizard`.
+
+5. On the `TES Wizard` page select `Submission Mode -> Raw JSON`
+
+6. Enter the following payload, then click `Submit TES Task`:
 
 ```json copy
 {
