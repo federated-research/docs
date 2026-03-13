@@ -121,7 +121,7 @@ If TRE database is deployed in cloud managed instances (for example, AWS RDS, Az
 This can be done by setting the environment variables `TRE_DATA_USER` and `TRE_DATA_PASSWORD` with the credentials of the user, more details [here](/submission/tasks/run_analysis#edit-the-env-file) .
 
 <Callout type="info">
-- `admin` credentials are the ones TRE used while creating or setting up the DB instance.
+- `admin` credentials are the ones used when creating or setting up the TRE DB instance.
 - If the TRE decides to use PostgreSQL as the database, version 16 or later is required. Because in Postgres, to revoke a user/role, either `superuser` or `admin` (in PostgreSQL version 16+) privilege is required. More details [here](https://www.postgresql.org/docs/16/sql-droprole.html).
 - A user created with the `CREATEROLE` permission can create ephemeral credentials but cannot revoke them.
 - In the case where a TRE cannot not use `admin` credentials, the TRE database can be hosted in the same `postgresql` database instance, which keeps the local state of TRE Agent, and superuser credentials of the `postgresql` can be used in the environment variables `TRE_DATA_USER` and `TRE_DATA_PASSWORD`.
