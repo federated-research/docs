@@ -1,11 +1,8 @@
 export default {
-    project_setup: 'Project Setup',
-    get_token: 'Get an Access Token',
-    addresearchertoplatform: 'Add a researcher to the platform',
-    keycloakAdminAddingNewUser: "Adding a new user",
-    submissionManagerAddingNewPerson: "Adding person to Submission layer",
-    submissionManagerAddingNewProject: "Adding new project to Submission layer",
-    createproject: 'Create a new project',
-    addresearchertoproject: 'Add a researcher to a project',
-    addtreagent: 'Connect TRE Agent to Submission Layer'
-}
+  submissionManagerAddingNewPerson: "Add a researcher to the Submission Layer",
+  submissionManagerAddingNewProject:
+    "Add a new project to the Submission Layer",
+  addtreagent: "Connect TRE Agent to Submission Layer",
+  keycloakAdminAddingNewUser: "Add a new user to KeyCloak",
+  get_token: "Get an Access Token",
+};
