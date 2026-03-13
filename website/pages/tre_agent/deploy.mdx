@@ -179,13 +179,13 @@ The compose manifests used in the TRE Agent and Data Egress are:
 - `ServiceStack/compose-manifests/shared/platform.yml` which defines the platform services, i.e., PostgreSQL, Adminer, Serilog, RabbitMQ.
 - `ServiceStack/compose-manifests/shared/credentials.yml` which defines the services for ephemeral credentials, i.e., Camunda, Connectors, Vault, OpenLDAP, LDAP Init, phpLDAPadmin, Elastic Search.
 - `ServiceStack/compose-manifests/shared/auth.yml` which defines the authentication services, i.e., Keycloak. This is optional and only needed if you want to use Keycloak for authentication internally within the TRE Layer.
-  <Callout type="info">
+  <Callout>
     Comment or remove the line
     `../../ServiceStack/compose-manifests/shared/auth.yml` in the
     `docker-compose.yml` file if you don't want to use it.
   </Callout>
 - `ServiceStack/compose-manifests/shared/omop-lite.yml` which defines the [OMOP Lite](https://github.com/Health-Informatics-UoN/omop-lite) service, i.e., OMOP Lite. This is optional and only needed if you want to populate a synthetic OMOP CDM for the TRE data.
-  <Callout type="info">
+  <Callout>
     Comment or remove the line
     `../../ServiceStack/compose-manifests/shared/omop-lite.yml` in the
     `docker-compose.yml` file if you don't want to use it.
