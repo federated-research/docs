@@ -2,30 +2,14 @@ import { Steps, Callout } from "nextra/components";
 
 # Adding a New Researcher to the Submission Layer
 
-To fully add a researcher to the platform, 
-they need to be given an user account in the Keycloak user management system (at `Dare-Control` realm),
-and to be added to the people records in the Submission Layer.
-Their records across these are implicitly associated by their `username`.
-
-## Prerequisites
-
-Required information:
-
-- Full Name
-- Email
-- Username
-
-<Callout>
-  The username **must** match the username entered into Keycloak for the same
-  user which was created in the
-  [Adding a new user to KeyCloak](/submission/guides/keycloakAdminAddingNewUser)
-  guide. This has to be checked manually.
-</Callout>
-
-## Process
 
 <Steps>
-### Submission Manager logs onto the [Submission Layer UI](/five_safes_tes/reference_implementation/core_components#submission-ui)
+
+### Create a user in Keycloak
+
+- Follow this [guide](/submission/guides/keycloakAdminAddingNewUser) to create a user in Keycloak. Use the username of this user for steps below
+
+### Login to the [Submission Layer UI](/five_safes_tes/reference_implementation/core_components#submission-ui)
 
 ### Open the 'People' page.
 
@@ -50,8 +34,8 @@ Enter the user details:
 3. Email (mandatory)
 
 <Callout>
-  Make sure that the username matches the username entered into Keycloak for the
-  same user.
+  The username **must** match the username entered into Keycloak for the same
+  user which was created in step 1 of this guide.
 </Callout>
 
 ### Submit information.

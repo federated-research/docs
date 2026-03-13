@@ -15,7 +15,18 @@ Required information:
 ## Process
 
 <Steps>
-### Keycloak admin logs onto the [Keycloak server](/five_safes_tes/quickstart/stackinfo#keycloak-server).
+### Login to Keycloak
+Login to Keycloak server of Submission Layer as an admin user.
+
+<Callout type="info">
+If you are using the DemoStack or the default local Keycloak server, the admin user credentials are:
+```yaml copy
+Username: admin
+Password: admin
+```
+and the URL of the Keycloak server is: [http://localhost:8085](http://localhost:8085)
+
+</Callout>
 
 ### Select the `Dare-Control` 'User' page.
 1. Open the `Dare-Control` home page.
@@ -42,6 +53,14 @@ to open the 'Create user' dialog.
 Select the required groups (as noted in the prerequisites).
 <img src="/images/KeyCloak_DareControlCreateUserSelectGroups.png" width="500"></img>
 6. Finally, click the blue 'Create' button at the bottom of the screen.
+
+<Callout type="info">
+  To be able to add/remove people to/from a project, users need to have
+  `dare-control-admin` role (Role Mapping tab) and joined `dare-control-admin`
+  group (Groups tab) on KeyCloak.
+  <img src="/images/AddPeopleSubmissionLayerNote.png" width="500"></img>
+</Callout>
+
 
 ### Apply any Required Extra Configurations
 
