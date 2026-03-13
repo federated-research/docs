@@ -35,8 +35,9 @@ It demonstrates running a basic statistical analysis (mean calculation) on measu
 - Deployed Five Safes TES [DemoStack Quickstart](five_safes_tes/reference_implementation/quickstart) or one [Submission Layer](/submission) and at least one [TRE Agent](/tre_agent) with [Funnel](/five_safes_tes/reference_implementation/TES/install_funnel) connected to the agent.
 - [OMOP CDM database](/standards#observational-medical-outcomes-partnership-omop) connected to each TRE. You can use [`omop-lite`](https://github.com/Health-Informatics-UoN/omop-lite) for a quickstart synthetic OMOP CDM.
 
-<Callout type="info"> 
-While using `omop-lite` to create a synthetic OMOP CDM database, `OMOP CDM`'s schema name should be in lowercase as common naming convention.
+<Callout type="info">
+  While using `omop-lite` to create a synthetic OMOP CDM database, `OMOP CDM`'s
+  schema name should be in lowercase as common naming convention.
 </Callout>
 
 ### Information Prerequisites
@@ -171,7 +172,7 @@ Description of the variables:
       <Td>`5STES_PROJECT`</Td>
       <Td>
         The project name created in the Submission Layer and approved by the
-        TRE. Follow this [guide](/submission/guides/createproject) to create a
+        TRE. Follow this [guide](/submission/guides/submissionManagerAddingNewProject) to create a
         project, and this [guide](/tre_agent/guides/TREManagerApprovingProject)
         to approve the project.
       </Td>
@@ -215,8 +216,8 @@ Description of the variables:
         be running with the query (named as `user_query`) which is located in the 
         end of the `analysis_engine.py`.
 
-        Default is `public` and  if the OMOP CDM under a different schema, you 
-        need to change the `public` to the actual schema name. For example, 
+        Default is `public` and  if the OMOP CDM under a different schema, you
+        need to change the `public` to the actual schema name. For example,
         if the schema name of OMOP CDM is `testing`, the .env variable should be:
         ```bash
         SQL_SCHEMA=testing
