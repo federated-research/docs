@@ -167,15 +167,21 @@ This script will automatically update the following .env vars:
   ```
 </Callout>
 
-### Send the Hello World submission using Swagger API
+### Send a Hello World submission
 
-The Hello World submission is a **simple submission that will be used to demo the DemoStack**.
+The Hello World TES task is a **simple submission that is used to demo the DemoStack**.
 
-To send this submission using Submission Layer Swagger API hosted at `http://localhost:5034/swagger`, follow these steps:
+1. Login to the Submission Layer
 
-1. Authorise the request with the Access Token with the Authorise button on the top right. The access token is obtained by this [guide](/submission/guides/get_token).
-2. Click on the `POST /v1/tasks` endpoint, under the `TaskServiceApi` section. Then click on the `Try it out` button.
-3. Enter the following payload, then click on the `Execute` button:
+2. Go to the `Projects` page.
+
+3. From the list of projects select the `Testing` project.
+
+4. Once in the `Testing` project go to `Submissions` -> `Create Submission` -> `TES Wizard`.
+
+5. On the `TES Wizard` page select `Submission Mode -> Raw JSON`
+
+6. Enter the following payload, then click `Submit TES Task`:
 
 ```json copy
 {
@@ -211,9 +217,9 @@ To send this submission using Submission Layer Swagger API hosted at `http://loc
 
 ### Tracking and approving the submission results
 
-Navigate back to [Submission Layer UI](http://localhost:7220), and click onto the submission you just sent.
+You will be redirected to the list of Submissions, click onto the submission you just sent.
 
-You should be able to see the status of the submission. Once the submission has been processed, the status will be set to: `Requested Egress`.
+You should be able to see the status of the submission. Once it has been processed, the status will be set to: `Requested Egress`.
 This means that the results are waiting for egress approval. Follow this [guide](/egress/guides/EgressManagerApprovingRelease) to approve the submission results.
 
 ### View the submission results

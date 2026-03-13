@@ -7,5 +7,6 @@ export default {
     submissionManagerAddingNewProject: "Adding new project to Submission layer",
     createproject: 'Create a new project',
     addresearchertoproject: 'Add a researcher to a project',
-    addtreagent: 'Connect TRE Agent to Submission Layer'
+    addtreagent: 'Connect TRE Agent to Submission Layer',
+    teswizard: 'Submit a TES task with the TES Wizard',
 }
