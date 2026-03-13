@@ -1,6 +1,6 @@
 import { Steps, Callout } from "nextra/components";
 
-# Adding a New Project to the Submission Layer
+# Setup a New Project in the Submission Layer
 
 ## Prerequisites and Notes
 
@@ -8,18 +8,11 @@ Required information:
 
 - Project Name
 - Start and End dates
-- Project embargo status
-- Researcher usernames to be associated with project
-
-Optional (for this system) information:
-
-- Project Owner, and contact
-- Project Description
 
 ## Process
 
 <Steps>
-### Submission Manager logs onto the [Submission Layer](/five_safes_tes/quickstart/stackinfo#submission-layer)
+### Submission Manager logs onto the [Submission Layer UI](/five_safes_tes/reference_implementation/core_components#submission-ui)
 
 ### Open Projects page, and select Create Project
 
@@ -57,7 +50,7 @@ and click the blue '+ Add User' button.
 
 <img src="/images/TREFX_ProjectAddUser.png" width="500"></img>
 
-This opens a menu containing the available users.
+This opens a menu containing the available users, who have been added to the Submission Layer by this [guide](/submission/guides/submissionManagerAddingNewPerson).
 Select those that you wish to add to the project,
 and then click the blue 'Add' button.
 
@@ -72,7 +65,7 @@ and then click the blue 'Add' button.
 
 Select the 'TREs' tab within the project page,
 and click the blue '+ Add TRE' button.
-This opens a menu containing the available TREs.
+This opens a menu containing the available TREs, which have been added to the Submission Layer by this [guide](/submission/guides/addtreagent#create-a-tre).
 
 Select those that you wish to add to the project,
 and then click the blue 'Add' button.
@@ -86,16 +79,12 @@ the project status with the TRE is 'Undecided'.
 
 <img src="/images/TREFX_ProjectAddTRE-Undecided.png" width="500"></img>
 
-[Approval for the project](/tre_agent/guides/TREManagerApprovingProject)
-should be requested from the TRE Manager.
-
-<Callout>
-  The process for requesting approval is out of scope of this document.
-</Callout>
+A request for approval for the project should be made to the TRE Admins,
+who can then approve the project using the [TRE Manager Approving Project guide](/tre_agent/guides/TREManagerApprovingProject).
 
 ### Approval Received from TRE
 
-Once the TRE Manager has approved the project
+Once a TRE Admin has approved the project
 then the TRE status will change to 'Approved'.
 
 <img src="/images/TREFX_ProjectAddTRE-Approved.png" width="500"></img>
