@@ -484,7 +484,7 @@ Given these credentials, put them in the page `Update Submission Credentials` in
 
 At the page `Update Data Egress Credentials` in the TRE Agent UI (port `8989` of the host machine), put the credentials of a user with the `dare-tre-admin` role in the `Dare-Egress` Keycloak realm.
 
-<Callout>
+<Callout type="info">
   If you are using the default local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, the user already exists and its credentials are:
   ```yaml copy
   Username: accessfromtretoegress
@@ -495,7 +495,7 @@ At the page `Update Data Egress Credentials` in the TRE Agent UI (port `8989` of
 
 At the page `Update TRE Credentials` in the Egress UI (port `8100` of the host machine), put the credentials of a user with the `dare-egress-admin` role in the `Dare-TRE` Keycloak realm.
 
-<Callout>
+<Callout type="info">
   If you are using the default local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, the user already exists and its credentials are:
   ```yaml copy
   Username: accessfromegresstotre
