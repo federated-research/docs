@@ -150,15 +150,9 @@ Before running the real applications locally, **you must configure every Source 
 </callout>
 
 
-<span
-  style={{
-    backgroundColor: '#fdeceb',
-    display: 'inline-block',
-    marginTop: '20px'
-  }}
->
-  <strong>1. Environment Change Steps</strong>
-</span>
+<br/>
+<b><u>1. Environment Change Steps </u></b>
+
 
 
 Repeat the following steps for all the mentioned Source Apps [See Source Apps](#source-apps).
@@ -170,16 +164,8 @@ Repeat the following steps for all the mentioned Source Apps [See Source Apps](#
 - Inside the `profiles` section, locate the `"ASPNETCORE_ENVIRONMENT"` variable under the `http` profile.
 - **Change the value from** `"ASPNETCORE_ENVIRONMENT": "Development"` **to** `"ASPNETCORE_ENVIRONMENT": "Development_Notts"`
 
-
-<span
-  style={{
-    backgroundColor: '#fdeceb',
-    display: 'inline-block',
-    marginTop: '20px'
-  }}
->
-  <strong>2. Application URL Steps</strong>
-</span>
+<br/>
+<b><u>2. Application URL Steps </u></b>
 
 Each Source App must also use the correct **applicationUrl** for local Notts development.
 
@@ -229,15 +215,8 @@ You must update this value in the **launchSettings.json** file for **every Sourc
     Make sure you apply both the **Environment Change Steps and the Application URL Steps to every app listed under the Source Apps**.
 </Callout>
 
-<span
-  style={{
-    backgroundColor: '#fdeceb',
-    display: 'inline-block',
-    marginTop: '20px'
-  }}
->
-  <strong>3. Credentials.Camunda (CredentialsConnection) Steps</strong>
-</span>
+<br/>
+<b><u>3. Credentials.Camunda (CredentialsConnection) Steps </u></b>
 
 This step applies only to the Credentials.Camunda application.
 
@@ -256,16 +235,8 @@ This step applies only to the Credentials.Camunda application.
     },
     ```
 
-
-<span
-  style={{
-    backgroundColor: '#fdeceb',
-    display: 'inline-block',
-    marginTop: '20px'
-  }}
->
-  <strong>4. Credentials.Camunda (CredentialsConnection) Steps</strong>
-</span>
+<br/>
+<b><u>4. Credentials.Camunda (CredentialsConnection) Steps </u></b>
 
 This configuration upgrade is also applies only to the Credentials.Camunda application.
 
@@ -282,15 +253,8 @@ This configuration upgrade is also applies only to the Credentials.Camunda appli
     },
     ```
 
-<span
-  style={{
-    backgroundColor: '#fdeceb',
-    display: 'inline-block',
-    marginTop: '20px'
-  }}
->
-  <strong>5. Create Multi Step Launch</strong>
-</span>
+<br/>
+<b><u>5. Create Multi Step Launch</u></b>
 
 Instead of running each Source App individually, you can create a **multi-launch configuration** in JetBrains Rider. This allows you to start multiple apps with a **single click**, greatly improving the development workflow (follow the steps below):
 
