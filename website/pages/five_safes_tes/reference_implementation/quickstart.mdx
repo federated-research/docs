@@ -3,7 +3,8 @@ import { Callout, Cards, Tabs, Steps } from "nextra/components";
 # 5S-TES DemoStack Quickstart
 
 <Callout type="warning">
-  This is not intended to be a production deployment. To run these applications in a deployed environment, see their respective deployment documentation
+  This is not intended to be a production deployment. To run these applications
+  in a deployed environment, see their respective deployment documentation
 </Callout>
 
 **DemoStack is a demonstration instance of the complete Five Safes TES Weave (intended to be run locally)**.
@@ -36,37 +37,64 @@ git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
   on your machine.
 </Callout>
 
+- [Funnel](https://github.com/ohsu-comp-bio/funnel) is chosen as the TES executor for the DemoStack quickstart. The DemoStack provides automated setup scripts that handle Funnel installation and configuration.
+
+<Callout type="info">
+  If there are any issues with the automated setup scripts, or if you prefer
+  to set up Funnel manually, follow the instructions
+  [here](/five_safes_tes/reference_implementation/TES/install_funnel).
+</Callout>
 
 ## Sending Hello World submission
 
 <Steps>
 
-### Start the `docker compose` within the `DemoStack`
+### Start the `starter.sh` automation scripts
 
-<Callout>
-  If you face any issues with the docker compose stack, we recommend removing 
-  all the existing containers and images and start with a clean slate. 
-  You can do this by running the following commands:
+The DemoStack includes a `starter.sh` automation script that automates the initial setup process. This script will:
 
-  ```bash copy
-  docker compose down --volumes --remove-orphans
-  docker system prune -a --volumes
-  ```
+1. Start all Docker Compose services in `DemoMode = true` to seed the demo data and instances.
+2. Install and configure the MinIO client (mc).
+3. Fetch MinIO access keys for Funnel.
+4. Installs and setup the Funnel for executing the TES tasks.
+5. Generate the Funnel configuration file.
+6. Start the Funnel TES server.
 
-</Callout>
+Follow these steps to run the `starter.sh` automation script:
 
 - **Within the 5S-TES-deployment root directory**, change to the `DemoStack` directory:
   ```
   cd DemoStack
   ```
-
-- **Start the Docker Compose stack** by running the following command in the terminal:
+- **Give permission to execute the `starter.sh` automation script**:
+  ```bash copy
+  chmod +x scripts/starter.sh
   ```
-  docker compose up -d
+  <Callout type="info">
+    The command above only requires if you run this for the first time.
+  </Callout>
+- **Run the `starter.sh` automation script:**
+  ```bash copy
+  ./scripts/starter.sh
   ```
 
-This will start the stack with the seeding of some demo data and instances. 
-For example, Testing project will be created, TRE named DEMO will be deployed, and users credentials used 
+<Callout type="info">
+  Wait until all the services are up and running and the `starter.sh` script
+  finishes executing. You should see the following message in the terminal:
+</Callout>
+
+```bash
+...
+Creating funnel-config.yml...
+Starting Funnel...
+server               Server listening
+httpPort             8000
+rpcAddress           :9090
+time                 2026-02-25T12:47:16Z
+```
+
+This will start the stack with the seeding of some demo data and instances.
+For example, Testing project will be created, TRE named DEMO will be deployed, and users credentials used
 to communicate between apps will be seeded.
 
 <Callout type="info">
@@ -76,7 +104,7 @@ to communicate between apps will be seeded.
 
 <Callout>
 Once the `keycloak` service has started, the configuration files for three realms `DARE-Control`, `DARE-TRE` and `Data-Egress` will be imported and applied automatically. 
-  As a result, the admin user `globaladminuser` will be created in each realm.
+  As a result, the admin user `globaladminuser` to access Submission Layer, TRE Agent and Egress Layer will be created in each realm.
 
 ```yaml copy
 Username: globaladminuser
@@ -85,13 +113,14 @@ Password: password123
 
   </Callout>
 
-
 ### Approve the Project access to the TRE
 
 <Callout type="info">
-  Since the "DemoMode" is true for the first run, a project named **Testing** and a TRE named **DEMO** are automatically seeded in the Submission layer.
-  Once the Docker Compose stack has started successfully, if the seeded project and TRE do not appear yet, please allow approximately 2 minutes for the
-  TRE Agent to complete the migration of the demo projects and sync. 
+  Since the "DemoMode" is true for the first run, a project named **Testing**
+  and a TRE named **DEMO** are automatically seeded in the Submission layer.
+  Once the Docker Compose stack has started successfully, if the seeded project
+  and TRE do not appear yet, please allow approximately 2 minutes for the TRE
+  Agent to complete the migration of the demo projects and sync.
 </Callout>
 
 Follow this [guide](/tre_agent/guides/TREManagerApprovingProject) to approve the project access to the TRE.
@@ -101,56 +130,47 @@ You should see **_Approved_** status for the TRE.
 
 <img src="/images/ProjectApproved.png" width="400"></img>
 
-### Prepare to send the submission using `real-sub-setup.sh` script
+### Prepare to send the first submission
 
-- **Within the 5S-TES-deployment root directory**, change to the `DemoStack/scripts` directory:
-  ```
+To send the first submission, you need to disable simulation mode in DemoStack by doing the following:
+
+- Set `DemoMode` to `false`
+- Set `UseTESK` to `true`
+
+This can be done manually by editing the `.env` file and restarting the Docker Compose services or by running the `submission_ready.sh` automation script.
+
+Follow these steps to run the `submission_ready.sh` automation script:
+
+1. Open a new terminal window and navigate to the DemoStack directory:
+  ```bash copy
   cd DemoStack
-  cd scripts
   ```
-
-- **Permission to execute the `real-sub-setup.sh`** (Only requires if you run this for the first time):
+2. Give permission to execute the `submission_ready.sh` automation script:
   ```bash copy
-  chmod +x real-sub-setup.sh
+  chmod +x scripts/submission_ready.sh
   ```
-- **Run the `real-sub-setup.sh` script:**
+  <Callout type="info">
+    The command above only requires if you run this for the first time.
+  </Callout>
+3. Run the `submission_ready.sh` automation script:
   ```bash copy
-  ./real-sub-setup.sh
+  ./scripts/submission_ready.sh
   ```
 
-<Callout type="info">
-  Wait for the `starter.sh` script to finish executing. 
-  Once all services are up and running, you should see the following message in the terminal:
-</Callout>
+This script will automatically do the following steps:
 
-  ```bash
-  ...
-   ✔ Container TRE-Camunda            Started            30.9s 
-   ✔ Container connectors             Started            16.9s 
-   ✔ Container DataEgressUI           Started            31.3s 
-   ✔ Container submissionUI           Started            31.4s 
-   ✔ Container treUI                  Started            31.4s 
-  Docker Compose completed successfully.
-    All containers are now started...
+1. Set `DemoMode` to `false`
+2. Set `UseTESK` to `true`
+3. Restart all Docker Compose services with the updated configuration.
+
+<Callout >
+ Tip: You can always start or restart the Docker Compose services (e.g.,after editing the `.env` file) by running the following command:
+
+ ```bash copy
+  ./scripts/submission_ready.sh
   ```
 
-This script will automatically update the following .env vars: 
-1. Set DemoMode to false
-2. Set KeyCloakDemoMode to true
-3. Set UseTESK to true
-4. Restart all Docker Compose services with the updated configuration.
-
-<Callout type="info">
-  If using a system-wide installation of `funnel` as the TES API executing agent 
-  then the `HostName` should be `host.docker.internal`.
-
-  You may still need to manually update the `TesAPIUrl` in the `.env` file if your TES API is not
-  running on the default Funnel address. By default, it is configured to use:
-
-  ```env copy
-  // Set TesAPIUrl to the URL where the TES API executing agent is hosted. e.g Funnel or TES-K:
-  TesAPIUrl=http://<HostName>:8000/v1/tasks
-  ```
+  This will help keep the stack in the state that ready for you to send the submission.
 </Callout>
 
 ### Send the Hello World submission using Swagger API
