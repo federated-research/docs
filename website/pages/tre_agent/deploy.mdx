@@ -166,7 +166,7 @@ The `docker-compose.yml` file in the `DeploymentStack/TRE/` directory includes t
 <Callout type="info">
   If you need to modify the compose manifests or the `docker-compose.yml` file,
   we recommend to move these four components to a separate directory, e.g.,
-  `/srv/tre`, and update the relative paths in the `docker-compose.yml` file
+  `/srv/tre`, and update the relative paths in the `docker-compose.yml` and `CONFIG_PATH` in the `.env` file accordingly
   accordingly. When in sync with the remote repository, the local
   `5S-TES-deployment` repository will then only serve as a reference for your
   own deployment, rather than the source of truth.
@@ -179,13 +179,13 @@ The compose manifests used in the TRE Agent and Data Egress are:
 - `ServiceStack/compose-manifests/shared/platform.yml` which defines the platform services, i.e., PostgreSQL, Adminer, Serilog, RabbitMQ.
 - `ServiceStack/compose-manifests/shared/credentials.yml` which defines the services for ephemeral credentials, i.e., Camunda, Connectors, Vault, OpenLDAP, LDAP Init, phpLDAPadmin, Elastic Search.
 - `ServiceStack/compose-manifests/shared/auth.yml` which defines the authentication services, i.e., Keycloak. This is optional and only needed if you want to use Keycloak for authentication internally within the TRE Layer.
-  <Callout type="info">
+  <Callout>
     Comment or remove the line
     `../../ServiceStack/compose-manifests/shared/auth.yml` in the
     `docker-compose.yml` file if you don't want to use it.
   </Callout>
 - `ServiceStack/compose-manifests/shared/omop-lite.yml` which defines the [OMOP Lite](https://github.com/Health-Informatics-UoN/omop-lite) service, i.e., OMOP Lite. This is optional and only needed if you want to populate a synthetic OMOP CDM for the TRE data.
-  <Callout type="info">
+  <Callout>
     Comment or remove the line
     `../../ServiceStack/compose-manifests/shared/omop-lite.yml` in the
     `docker-compose.yml` file if you don't want to use it.
@@ -265,6 +265,13 @@ The descriptions of the essential environment variables and the guide to set the
       </Td>
     </Tr>
     <Tr>
+      <Td>`SubmissionAPIAddressURL`</Td>
+      <Td>
+        The Submission API address URL. For example,
+        `http://host-of-submission-layer:5034`.
+      </Td>
+    </Tr>
+    <Tr>
       <Td>`TesAPIUrl`</Td>
       <Td>
         Where TESK or Funnel API is hosted. For example,
@@ -306,6 +313,20 @@ The descriptions of the essential environment variables and the guide to set the
       <Td>The root password for the Submission Layer Minio server.</Td>
     </Tr>
     <Tr>
+      <Td>`submissionMinioUrl`</Td>
+      <Td>
+        Point to Submission Layer Minio server, used by TRE Agent. For example,
+        `http://host-of-submission-layer:9000`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`submissionMinioAdminConsole`</Td>
+      <Td>
+        The URL for the Submission Layer's Minio admin console. For example,
+        `http://host-of-submission-layer:9001`.
+      </Td>
+    </Tr>
+    <Tr>
       <Td>`TreApiPublicUrl`</Td>
       <Td>
         The public URL for the TRE Agent API. For example,
@@ -324,27 +345,6 @@ The descriptions of the essential environment variables and the guide to set the
       <Td>
         Scan Submission Layer for available submissions - default every 1 minute
         (in minutes).
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`SubmissionAPIAddressURL`</Td>
-      <Td>
-        The Submission API address URL. For example,
-        `http://host-of-submission-layer:5034`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`submissionMinioUrl`</Td>
-      <Td>
-        Point to Submission Layer Minio server, used by TRE Agent. For example,
-        `http://host-of-submission-layer:9000`.
-      </Td>
-    </Tr>
-    <Tr>
-      <Td>`submissionMinioAdminConsole`</Td>
-      <Td>
-        The URL for the Submission Layer's Minio admin console. For example,
-        `http://host-of-submission-layer:9001`.
       </Td>
     </Tr>
     <Tr>
@@ -464,7 +464,7 @@ Then, the default to access KeyCloak admin portal are username `admin` and `admi
 </Callout>
 
 <Callout>
-  If you encouter the error "Invalid parameter: redirect_uri" from Keycloak when
+  If you encounter the error "Invalid parameter: redirect_uri" from Keycloak when
   trying to login into TRE UI or Egress UI, please make sure the `redirectURL`
   environment variables in the `.env` file, the URL you put on the browser's
   address bar, and the `Valid redirect URIs` registered in Keycloak's client
@@ -486,7 +486,7 @@ Given these credentials, put them in the page `Update Submission Credentials` in
 
 At the page `Update Data Egress Credentials` in the TRE Agent UI (port `8989` of the host machine), put the credentials of a user with the `dare-tre-admin` role in the `Dare-Egress` Keycloak realm.
 
-<Callout>
+<Callout type="info">
   If you are using the default local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, the user already exists and its credentials are:
   ```yaml copy
   Username: accessfromtretoegress
@@ -497,7 +497,7 @@ At the page `Update Data Egress Credentials` in the TRE Agent UI (port `8989` of
 
 At the page `Update TRE Credentials` in the Egress UI (port `8100` of the host machine), put the credentials of a user with the `dare-egress-admin` role in the `Dare-TRE` Keycloak realm.
 
-<Callout>
+<Callout type="info">
   If you are using the default local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file, the user already exists and its credentials are:
   ```yaml copy
   Username: accessfromegresstotre
@@ -540,6 +540,6 @@ If you encounter any issues, you can check the logs of the containers by running
 docker logs <container-name> -f
 ```
 
-Alternatively, you can check the logs of of the stack by accessing port `5341` ([Seq](https://datalust.co/seq) service) of the host machine.
+Alternatively, you can check the logs of the stack by accessing port `5341` ([Seq](https://datalust.co/seq) service) of the host machine.
 
 </Steps>
