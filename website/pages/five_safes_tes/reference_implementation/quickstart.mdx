@@ -137,24 +137,24 @@ To send the first submission, you need to disable simulation mode in DemoStack b
 - Set `DemoMode` to `false`
 - Set `UseTESK` to `true`
 
-This can be done manually by editing the `.env` file and restarting the Docker Compose services or by running the `submission_ready.sh` automation script.
+This can be done manually by editing the `.env` file and restarting the Docker Compose services or by running the `submission-ready.sh` automation script.
 
-Follow these steps to run the `submission_ready.sh` automation script:
+Follow these steps to run the `submission-ready.sh` automation script:
 
 1. Open a new terminal window and navigate to the DemoStack directory:
   ```bash copy
   cd DemoStack
   ```
-2. Give permission to execute the `submission_ready.sh` automation script:
+2. Give permission to execute the `submission-ready.sh` automation script:
   ```bash copy
-  chmod +x scripts/submission_ready.sh
+  chmod +x scripts/submission-ready.sh
   ```
   <Callout type="info">
     The command above only requires if you run this for the first time.
   </Callout>
-3. Run the `submission_ready.sh` automation script:
+3. Run the `submission-ready.sh` automation script:
   ```bash copy
-  ./scripts/submission_ready.sh
+  ./scripts/submission-ready.sh
   ```
 
 This script will automatically do the following steps:
@@ -164,12 +164,17 @@ This script will automatically do the following steps:
 3. Restart all Docker Compose services with the updated configuration.
 
 <Callout >
- Tip: You can always start or restart the Docker Compose services (e.g.,after editing the `.env` file) by running the following command:
+ Tips: 
+ - Before sending submission, make sure you have Funnel running in a separate terminal window. You can start Funnel by running the following command at the `DemoStack` directory:
 
  ```bash copy
-  ./scripts/submission_ready.sh
+  ./scripts/funnel.sh
   ```
+ - You can always start or restart the Docker Compose services (e.g.,after editing the `.env` file) by running the following command:
 
+ ```bash copy
+  ./scripts/submission-ready.sh
+  ```
   This will help keep the stack in the state that ready for you to send the submission.
 </Callout>
 
