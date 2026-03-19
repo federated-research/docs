@@ -11,7 +11,9 @@ For the purposes of the All In One stack we will be configuring the TRE Agent to
 ## Set up MinIO Access key
 
 <Callout>
-This guidance refers to the preset credentials for the All In One quickstart. If you are setting up Funnel for a regular deployment, you'll need to use your TRE Agent realm credentials.
+  This guidance refers to the preset credentials for the All In One quickstart.
+  If you are setting up Funnel for a regular deployment, you'll need to use your
+  TRE Agent realm credentials.
 </Callout>
 
 Navigate to the MinIO instance of the TRE Layer (hosted at: [localhost:9002](http://localhost:9002)).
@@ -37,13 +39,15 @@ To create the access keys, in the MinIO console navigate to **_Access Keys -> Cr
 
 Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.github.io/funnel/download/)
 
-<Callout type="info">Funnel is currently only available on linux and macOS.</Callout>
+<Callout type="info">
+  Funnel is currently only available on linux and macOS.
+</Callout>
 
 <Tabs items={['Install Script', 'Homebrew', 'Manual Binary Install', 'Build from Source']}>
  <Tabs.Tab>
-   This installs the latest release candidate at the time of writing `v0.11.7-rc.12`. 
+   This installs the latest release candidate at the time of writing `v0.11.7`. 
     ```bash copy
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohsu-comp-bio/funnel/refs/heads/develop/install.sh)" -- v0.11.7-rc.12
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohsu-comp-bio/funnel/refs/heads/develop/install.sh)" -- v0.11.7
     ```
  </Tabs.Tab>
 
@@ -96,24 +100,21 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
    </Tabs>
  </Tabs.Tab>
 
- <Tabs.Tab>
-   In order to build the latest development code, run:
-   ```bash copy
-   git clone https://github.com/ohsu-comp-bio/funnel.git
-   cd funnel
-   make
-   ```
-   This requires Go 1.21+ to be installed. 
- </Tabs.Tab>
+<Tabs.Tab>
+  In order to build the latest development code, run: ```bash copy git clone
+  https://github.com/ohsu-comp-bio/funnel.git cd funnel make ``` This requires
+  Go 1.21+ to be installed.
+</Tabs.Tab>
 
 </Tabs>
 
 <Callout>
   For a production deployment, some [general recommendations](/five_safes_tes/reference_implementation/deploy_production) should be considered.
 
-  The ports Funnel runs on can be configured in the next step, if needed for configuring a reverse proxy.
+The ports Funnel runs on can be configured in the next step, if needed for configuring a reverse proxy.
 
-  Funnel's own [deployment documentation](https://ohsu-comp-bio.github.io/funnel/docs/compute/deployment/) also offers suggested approaches to deployment.
+Funnel's own [deployment documentation](https://ohsu-comp-bio.github.io/funnel/docs/compute/deployment/) also offers suggested approaches to deployment.
+
 </Callout>
 
 ## Check if funnel has been successfully installed
@@ -157,13 +158,11 @@ Run the funnel server using the config created above.
 funnel server run -c config.yml
 ```
 
-
 <Callout type="info">
-  You can decide the location of the config file, but the command above will need to be changed to point to the correct config file location.
-  For example, if the config file is located in `/etc/funnel/`:
-  ```bash copy
-  funnel server run -c /etc/funnel/config.yml
-  ```
+  You can decide the location of the config file, but the command above will
+  need to be changed to point to the correct config file location. For example,
+  if the config file is located in `/etc/funnel/`: ```bash copy funnel server
+  run -c /etc/funnel/config.yml ```
 </Callout>
 
 Optionally, to run Funnel in the background on a typical linux server, you may wish to setup a systemd service.
@@ -188,6 +187,7 @@ WantedBy=multi-user.target
 ## Access to Funnel
 
 For DemoStack quickstart, by default, Funnel Web Dashboard can be accessed at [localhost:8000](http://localhost:8000).
+
 <Callout type="warning">
 **For regular deployments**, it is strongly recommended NOT to open public internet access to Funnel Dashboard and to limit the Funnel network access to specific IP addresses, e.g., IP of developer's machine for debugging purposes, only.
 </Callout>
