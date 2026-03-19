@@ -53,7 +53,11 @@ The Custom Image TES Wizard guides you through the construction of a Custom TES 
 - TREs to submit to
 - Data Input *(optional)*
 - Data Output
-- Executors
+- Executors:
+  - Image: Name of the container image.
+  - Commands: A sequence of program arguments to execute.
+  - Working Directory: The working directory that the command will be executed in. If not defined, the system will default to the directory set by the container image.
+  - Environment Variables: Enviromental variables to set within the container.
 
 #### Example Submission:
 <br />
