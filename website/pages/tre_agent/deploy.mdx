@@ -221,6 +221,12 @@ The descriptions of the essential environment variables and the guide to set the
       </Td>
     </Tr>
     <Tr>
+      <Td>`SerilogLevel`</Td>
+      <Td>
+        The Serilog logging level for the TRE Agent. Default is `Information`. Change this depending on the logging level you want to set for the TRE Agent. More details [here](https://github.com/serilog/serilog/wiki/Configuration-Basics#minimum-level).
+      </Td>
+    </Tr>
+    <Tr>
       <Td>`EncryptionSettingsKey`</Td>
       <Td>
         The encryption settings (in 16 bytes Base64 String format) for the TRE Agent. They must be set and can be generated using the `openssl` command: `openssl rand -base64 16` (MacOS/Linux) or 
