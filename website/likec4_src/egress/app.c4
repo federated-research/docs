@@ -1,0 +1,27 @@
+model {
+  extend egress.egress_app {
+    egress_ui = component {
+      title 'Egress UI'
+      description 'UI for approving or rejecting data exfiltration'
+      icon https://docs.federated-analytics.ac.uk/_next/static/media/fedres_primary.4b79cf09.png
+
+      -> egress_api 
+      -> tre.tre_api 'Send approve / reject signal'
+    }
+
+    egress_api = component {
+      title 'Egress API'
+      description 'Backend for managing egress, handles movement of data and notification of relevant users'
+      icon https://docs.federated-analytics.ac.uk/_next/static/media/fedres_primary.4b79cf09.png
+
+      -> egress_ui ''
+    }
+  }
+}
+
+views {
+  view egress_app of egress.egress_app {
+    title 'TRE App'
+    include *
+  }
+}

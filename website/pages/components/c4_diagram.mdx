@@ -1,0 +1,33 @@
+import { useState } from "react";
+import { LikeC4View } from "../../likec4_react/likec4.generated";
+
+export default function Diagram() {
+  const [interactive, setInteractive] = useState(false);
+
+if (!interactive) {
+return (
+
+<div style={{ width: "100%", height: "500px" }}>
+<img
+src="/images/likec4_index.png"
+alt="Architecture diagram"
+style={{ width: "100%", cursor: "pointer" }}
+onClick={() => setInteractive(true)}
+/>
+  <figcaption style={{ fontStyle: 'italic', fontSize: '0.7em', marginTop: '8px' }}>
+        Figure 0: Context diagram for 5S-TES. Click for interactive mode. Click again to open.
+  </figcaption>
+</div>
+);
+}
+
+return (
+
+<div style={{ width: "100%", height: "500px" }}>
+<LikeC4View viewId="index" />
+  <figcaption style={{ fontStyle: 'italic', fontSize: '0.7em', marginTop: '8px' }}>
+        Figure 0: Context diagram for 5S-TES. Click for interactive mode. Click again to open.
+  </figcaption>
+</div>
+);
+}
