@@ -13,7 +13,7 @@ model {
 }
 
 views {
-  view of execution {
+  view execution of execution {
     title 'Execution Service'
     include *
   }

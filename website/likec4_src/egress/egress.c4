@@ -14,7 +14,7 @@ model {
 }
 
 views {
-  view of egress {
+  view egress of egress {
     title 'Egress Service'
     include *
   }

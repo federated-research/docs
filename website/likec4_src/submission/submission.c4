@@ -32,7 +32,7 @@ model {
 }
 
 views {
-  view of submission {
+  view submission of submission {
     title 'Submission Service'
     include *
   }

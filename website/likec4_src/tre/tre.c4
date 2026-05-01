@@ -46,7 +46,7 @@ model {
 }
 
 views {
-  view of tre {
+  view tre of tre {
     title 'TRE Service'
     include *
   }

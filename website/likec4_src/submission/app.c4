@@ -23,7 +23,7 @@ model {
 }
 
 views {
-  view of submission.submission_app {
+  view submission_app of submission.submission_app {
     title 'Submission App'
     include *
   }
