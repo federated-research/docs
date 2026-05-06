@@ -1,10 +1,6 @@
 name: Build C4 React Object and Export PNG Views
 
 on:
-  # TODO: Remove temporary trigger
-  push:
-    branches:
-      - 172-c4-gh-build-system
   workflow_dispatch:
 
 permissions:
