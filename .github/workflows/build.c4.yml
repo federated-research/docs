@@ -23,12 +23,18 @@ jobs:
         with:
           codegen: react
           path: ./website/likec4_src
-          output: likec4_react/likec4.generated.js
+          output: c4/likec4_react/likec4.generated.js
+
+      - name: PNG export
+        uses: likec4/actions@v1
+        with:
+          export: png
+          path: ./website/likec4_src
+          output: c4/likec4_png
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: C4
-          path: |
-            likec4_react/
+          path: c4/
           include-hidden-files: true
