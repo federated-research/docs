@@ -1,0 +1,34 @@
+name: Build C4 React Object and Export PNG Views
+
+on:
+  # TODO: Remove temporary trigger
+  push:
+    branches:
+      - 172-c4-gh-build-system
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Code generation
+        uses: likec4/actions@v1
+        with:
+          codegen: react
+          path: ./website/likec4_src
+          output: likec4_react/likec4.generated.js
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: C4
+          path: |
+            likec4_react/
+          include-hidden-files: true
