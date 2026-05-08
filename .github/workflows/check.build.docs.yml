@@ -36,7 +36,7 @@ jobs:
         with:
           export: png
           path: website/likec4_src
-          output: website/likec4_png
+          output: website/public/images/likec4
 
       - name: Detect package manager
         id: detect-package-manager
