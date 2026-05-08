@@ -21,7 +21,7 @@ model {
 
 views {
   view egress_app of egress.egress_app {
-    title 'TRE App'
+    title 'Egress App'
     include *
   }
 }
