@@ -20,7 +20,6 @@ model {
 
       minio -> submission.minio 'Transfers result'
       minio -> data_owner 'Notifies'
-      minio -> researcher 'Downloads result'
     }
 
     keycloak = component {

@@ -27,6 +27,8 @@ model {
       title 'Minio'
       description 'S3 Object Store'
       icon https://dl.min.io/logo/Minio_logo_light/Minio_logo_light.png
+
+      minio -> researcher 'Downloads result'
     }
   }
 }
