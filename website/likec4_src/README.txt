@@ -1,7 +1,7 @@
 
 ## Build commands
 
-`npx likec4 codegen react --no-use-dot -o ../c4like_react`
+`npx likec4 codegen react --no-use-dot -o ../likec4_react/likec4.generated.js`
 
 Note that `--no-use-dot` is needed for general containers which aren't the likec4 dedicated container.
 
