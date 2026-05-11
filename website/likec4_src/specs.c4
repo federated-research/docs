@@ -41,4 +41,10 @@ specification {
       color component-colour
     }
   }
+
+  deploymentNode environment
+
+  deploymentNode vm {
+    notation 'Virtual Machine'
+  }
 }
