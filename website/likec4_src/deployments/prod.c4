@@ -1,5 +1,5 @@
 model {
-    submission -> tre 'Reuest job'
+    submission -> tre 'Request job'
 
     egress_admin = internal_actor {
         title 'Egress Admin'
