@@ -8,7 +8,7 @@ model {
 
     -> submission.sub_ui 'Views in browser'
   }
-  
+
   data_owner = internal_actor {
     title 'Data Owner'
     description 'Responsible party who can approve / reject data leaving the TRE'
@@ -25,7 +25,7 @@ model {
 
   // ----------------------------------------------------------------------------
   // Systems
-  
+
   submission = system {
     title 'Submission Layer'
     description 'User interaction layer, job submission'
@@ -36,13 +36,13 @@ model {
     title 'Execution Layer'
     description 'Stack responsible for job execution'
   }
-  
+
   tre = system {
     title 'TRE'
     description 'Secure environment with access to restricted data'
     technology '[Docker Compose]'
   }
-  
+
   egress = system {
     title 'Egress'
     description 'Allow approval / rejection of results before they leave the TRE'
@@ -51,7 +51,7 @@ model {
 
   // ----------------------------------------------------------------------------
   // External Systems
-  
+
   protected_data = database {
     title 'Restricted Data'
     description 'The protected data being queried, directly readable only during tool execution, inside the protected environment'
@@ -63,5 +63,6 @@ views {
     title '5Safes-TES - Context'
     description 'Top level diagram'
     include *
+    exclude revproxy, harbor, funnel, egress_admin, submission_admin
   }
 }
