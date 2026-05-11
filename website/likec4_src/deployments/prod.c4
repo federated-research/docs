@@ -1,0 +1,59 @@
+model {
+    submission -> tre 'Reuest job'
+
+    egress_admin = internal_actor {
+        title 'Egress Admin'
+        description 'Superuser responsible for validating the results of a job run on the TRE layer'
+    }
+
+    submission_admin = internal_actor {
+        title 'Submission Admin'
+        description 'Superuser responsible for submitting a job'
+    }
+
+}
+
+deployment {
+    environment prod {
+
+        vm1 = vm {
+            title 'External VM'
+        }
+
+        vm2 = vm {
+            title 'Internal VM'
+        }
+
+        instanceOf researcher {
+            -> vm1.revproxy 'Specify job'
+        }
+
+        instanceOf submission_admin {
+            -> vm1 'Administers'
+        }
+
+        instanceOf egress_admin {
+            -> vm2.egress 'Administers'
+        }
+
+        instanceOf tre_admin {
+            -> vm2.tre 'Administers'
+        }
+
+        vm1.harbor -> vm2.tre 'Pull image'
+
+        vm1.harbor -> vm2.egress 'Pull image'
+
+    }
+}
+
+
+views {
+    deployment view prod {
+        title 'Production Deployment'
+        link https://likec4.dev
+
+        include prod.**
+        // ...
+    }
+}
