@@ -1,0 +1,27 @@
+model {
+    revproxy = component {
+        title 'Reverse Proxy'
+    }
+    harbor = system {
+        title 'Harbor'
+    }
+}
+
+deployment {
+    extend prod.vm1 {
+        instanceOf harbor {
+            -> submission 'Pull images'
+        }
+        instanceOf submission
+        instanceOf revproxy {
+            -> submission
+        }
+    }
+}
+
+views {
+    deployment view VM1 {
+        title 'External VM'
+        include prod.vm1.**
+    }
+}

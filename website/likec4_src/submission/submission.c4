@@ -1,0 +1,41 @@
+model {
+  extend submission {
+    submission_app = service {
+      title 'Submission Application'
+      description 'Application providing access to job submission queue and viewing of results'
+    }
+
+    postgres = component {
+      title 'Postgres'
+      description 'Stores projects, submissions, registered TREs, users'
+      icon tech:postgresql
+    }
+
+    rabbitmq = component {
+      title 'RabbitMQ'
+      description 'MQTT message broker'
+      icon tech:rabbitmq
+    }
+
+    sub_keycloak = component {
+      title 'Submission Keycloak'
+      description 'Authenticates requests througout the layer'
+      icon https://upload.wikimedia.org/wikipedia/commons/2/29/Keycloak_Logo.png
+    }
+    
+    minio = component {
+      title 'Minio'
+      description 'S3 Object Store'
+      icon https://dl.min.io/logo/Minio_logo_light/Minio_logo_light.png
+
+      minio -> researcher 'Downloads result'
+    }
+  }
+}
+
+views {
+  view submission of submission {
+    title 'Submission Service'
+    include *
+  }
+}

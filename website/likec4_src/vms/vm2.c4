@@ -1,0 +1,24 @@
+model {
+    funnel = component {
+        title 'Funnel'
+    }
+}
+
+deployment {
+    extend prod.vm2 {
+        instanceOf tre {
+            -> funnel 'Submit Job'
+        }
+        instanceOf egress
+        instanceOf funnel {
+            -> tre 'Return job result'
+        }
+    }
+}
+
+views {
+    deployment view VM2 {
+        title 'Internal VM'
+        include prod.vm2.**
+    }
+}
