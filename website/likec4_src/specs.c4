@@ -47,9 +47,12 @@ specification {
     }
   }
 
-  deploymentNode environment
-
-  deploymentNode vm {
-    notation 'Virtual Machine'
+  deploymentNode deploy_component {
+    notation 'Application from outside the 5S-TES'
+    style {
+      color orange
+    }
   }
+  deploymentNode environment
+  deploymentNode virtual_machine
 }
