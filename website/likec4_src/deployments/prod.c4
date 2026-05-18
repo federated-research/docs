@@ -15,11 +15,8 @@ deployment {
 
 
 views {
-    deployment view prod {
-        title 'Production Deployment'
-        link https://likec4.dev
-
-        include prod.**
-        // ...
-    }
+  deployment view prod {
+    title 'Production Deployment'
+    include prod.**
+  }
 }
