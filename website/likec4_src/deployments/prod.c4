@@ -6,6 +6,11 @@ deployment {
   environment prod {
     vm1 = virtual_machine 'External VM'
     vm2 = virtual_machine 'Internal VM'
+    environment external_data {
+      title 'External data store'
+      instanceOf protected_data
+    }
+  }
 }
 
 
