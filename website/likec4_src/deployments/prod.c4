@@ -12,11 +12,6 @@ deployment {
         vm2 = vm {
             title 'Internal VM'
         }
-
-        vm1.harbor -> vm2.tre 'Pull image'
-
-        vm1.harbor -> vm2.egress 'Pull image'
-
     }
 }
 
