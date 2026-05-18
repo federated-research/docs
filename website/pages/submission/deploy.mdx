@@ -170,6 +170,27 @@ The descriptions of the essential environment variables and the guide to set the
       </Td>
     </Tr>
     <Tr>
+      <Td>`KeycloakBootstrapAdminPassword`</Td>
+      <Td>
+        The bootstrap admin password for the Keycloak server used by the Submission Layer. This is used to bootstrap the Keycloak server with the admin user.
+        Default Keycloak bootstrap admin username is set to `admin`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeycloakStartupCommand`</Td>
+      <Td>
+        The command to start the Keycloak server. In dev mode (or Demostack), this is `start-dev`.
+        In production, if you have HTTPS configured for Keycloak, this should be set to `start`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`RabbitMQDefaultPassword`</Td>
+      <Td>
+        The default password for the RabbitMQ server used by the Submission Layer. Change this from the default value in production. 
+        Default RabbitMQ username is set to `rabbitmq`, and default RabbitMQ host is set to `rabbitmq`.
+      </Td>
+    </Tr>
+    <Tr>
       <Td>`SerilogLevel`</Td>
       <Td>
         The Serilog logging level for the Submission Layer. Default is `Information`. Change this depending on the logging level you want to set for the Submission Layer. More details [here](https://github.com/serilog/serilog/wiki/Configuration-Basics#minimum-level).

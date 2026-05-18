@@ -223,7 +223,54 @@ The descriptions of the essential environment variables and the guide to set the
     <Tr>
       <Td>`PGLOGIN` and `PGPASSWORD`</Td>
       <Td>
-        The admin credentials for the PostgreSQL database used by the TRE Agent.
+        The admin credentials for the PostgreSQL database used by the TRE Agent. These are recommended to be changed from the default values.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`LDAPAdminPassword` and `LDAPConfigPassword`</Td>
+      <Td>
+        The credentials for the OpenLDAP server used by the TRE Agent. These are recommended to be changed from the default values.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`CamundaUsername` and `CamundaPassword`</Td>
+      <Td>
+        The credentials for the Camunda server used by the TRE Agent. These are recommended to be changed from the default values.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`VaultStartupCommand`</Td>
+      <Td>
+        The command to start the Vault server. This is used to store and retrieve the ephemeral user credentials for the credential management process.
+        In production, this should be set to `vault server -config=/vault/config/config.json` to start the Vault server in the production mode. 
+        Setting up Vault server in production mode is required a few more steps detailed [here](/five_safes_tes/reference_implementation/core_components#vault).
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`VaultRootToken`</Td>
+      <Td>
+       In dev mode (or Demostack), this is pre-filled with a default value. 
+       In production, to generate a new root token, do the steps detailed [here](/five_safes_tes/reference_implementation/core_components#vault).
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeycloakBootstrapAdminPassword`</Td>
+      <Td>
+        The bootstrap admin password for the Keycloak server used by the TRE Agent. This is used to bootstrap the Keycloak server with the admin user.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeycloakStartupCommand`</Td>
+      <Td>
+        The command to start the Keycloak server. In dev mode (or Demostack), this is `start-dev`.
+        In production, if you have HTTPS configured for Keycloak, this should be set to `start`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`RabbitMQDefaultPassword`</Td>
+      <Td>
+        The default password for the RabbitMQ server used by the TRE Agent. Change this from the default value in production. 
+        Default RabbitMQ username is set to `rabbitmq` and default RabbitMQ host is set to `rabbitmq`.
       </Td>
     </Tr>
     <Tr>
