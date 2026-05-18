@@ -1,16 +1,5 @@
 model {
-    submission -> tre 'Request job'
-
-    egress_admin = internal_actor {
-        title 'Egress Admin'
-        description 'Superuser responsible for validating the results of a job run on the TRE layer'
-    }
-
-    submission_admin = internal_actor {
-        title 'Submission Admin'
-        description 'Superuser responsible for submitting a job'
-    }
-
+  submission -> tre 'Request job'
 }
 
 deployment {
