@@ -82,7 +82,27 @@ There are three main components to operate with Camunda:
 ### Vault
 
 Vault is used to store and track the ephemeral user credentials for the credential management process.
-In short, Camunda will create the ephemeral user credentials and store them in Vault. Then, the TRE-Agent will retrieve the credentials from Vault to access the TRE's database.
+In short, Camunda will create the ephemeral user credentials and store them in Vault. Then, the TRE-Agent will retrieve the credentials from Vault, pass them to the Executor to access the TRE's database.
+
+In production, you need to setup Vault and generate a root token. Run the following commands one by one in the terminal to setup Vault using Docker interaction mode:
+
+```bash
+     docker compose up -d vault   # start only the Vault server
+     docker exec -it vault vault operator init -key-shares=1 -key-threshold=1  # this generates and shows on the console the unseal key and the initial root token
+     docker exec -it vault vault operator unseal <UNSEAL_KEY>  # unseal the vault
+     docker exec -it vault vault login <INITIAL_ROOT_TOKEN> # login to the vault
+     docker exec -it vault vault secrets enable -path=secret kv-v2 # enable the secret engine
+```
+
+Copy the generated root token and paste it into the `VaultRootToken` environment variable. Also, save the unseal key in a safe place to unseal the vault in the production mode.
+
+Then run `docker compose up -d` to start all the services.
+
+<Callout type="info">
+  After you restart the services using `docker compose up -d`, you may see the `vault` service keeps waiting. This is because the vault is not unsealed. 
+  To unseal the vault: On another terminal, run the following command: `docker exec -it vault vault operator unseal <UNSEAL_KEY>`.
+  After a few seconds, the `vault` service should start and other services will start as well.
+</Callout>
 
 ### LDAP (`openldap` and `phpldapadmin`)
 
@@ -147,4 +167,8 @@ TRE Agent MinIO, stores any inputs copied over from the Submission layer, and th
 ```yaml
 Username: minio
 Password: minio123
+```
+
+```
+
 ```
