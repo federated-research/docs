@@ -62,6 +62,14 @@ views {
   view index {
     title '5Safes-TES - Context'
     description 'Top level diagram'
+
+    group '5S-TES' {
+      include submission
+      include tre
+      include egress
+      include execution
+    }
+
     include *
   }
 }
