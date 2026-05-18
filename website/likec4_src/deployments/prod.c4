@@ -13,22 +13,6 @@ deployment {
             title 'Internal VM'
         }
 
-        instanceOf researcher {
-            -> vm1.revproxy 'Specify job'
-        }
-
-        instanceOf submission_admin {
-            -> vm1 'Administers'
-        }
-
-        instanceOf egress_admin {
-            -> vm2.egress 'Administers'
-        }
-
-        instanceOf tre_admin {
-            -> vm2.tre 'Administers'
-        }
-
         vm1.harbor -> vm2.tre 'Pull image'
 
         vm1.harbor -> vm2.egress 'Pull image'
