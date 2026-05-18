@@ -3,16 +3,9 @@ model {
 }
 
 deployment {
-    environment prod {
-
-        vm1 = vm {
-            title 'External VM'
-        }
-
-        vm2 = vm {
-            title 'Internal VM'
-        }
-    }
+  environment prod {
+    vm1 = virtual_machine 'External VM'
+    vm2 = virtual_machine 'Internal VM'
 }
 
 
