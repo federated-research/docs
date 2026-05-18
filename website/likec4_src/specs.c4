@@ -1,11 +1,13 @@
 specification {
   element external_actor {
+    notation 'An external user of the system, no special priviledges'
     style {
       shape person
       color red
     }
   }
   element internal_actor {
+    notation 'A priviledged user with access to sustem internals'
     style {
       shape person
       color green
@@ -14,6 +16,7 @@ specification {
 
   color orange rgba(255, 153, 0, 100%)
   element database {
+    notation 'Data storage application'
     style {
       shape storage
       color orange
@@ -23,6 +26,7 @@ specification {
 
   color system-colour rgba(35, 67, 99, 100%)
   element system {
+    notation 'A group of applications arranged in a stack'
     style {
       color system-colour
     }
@@ -30,15 +34,16 @@ specification {
 
   color service-colour rgba(0, 100, 150, 100%)
   element service {
+    notation 'Complex applications with multiple components'
     style {
       color service-colour
     }
   }
 
-  color component-colour rgba(0, 0, 0, 100%)
   element component {
+    notation 'Individual applications'
     style {
-      color component-colour
+      color muted
     }
   }
 
