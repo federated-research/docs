@@ -309,23 +309,23 @@ The descriptions of the essential environment variables and the guide to set the
       </Td>
     </Tr>
     <Tr>
-      <Td>`KeycloakHostName`</Td>
+      <Td>`KeycloakFullURL`</Td>
       <Td>
-        The hostname of the Keycloak server, for example,`localhost` or `my-keycloak`. 
-        This is only used if you are using a local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file.
+        The full hostname URL of the Keycloak server, for example,`http://localhost:8085` or `https://my-keycloak.net`. 
+        This is only used if you are using a local/internal Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file.
       </Td>
     </Tr>
     <Tr>
       <Td>`TRE_KEYCLOAK_URL`</Td>
       <Td>
-        The URL of the TRE Layer's Keycloak server. For example,
+        The URL of the TRE Layer's Keycloak server, for example,
         `http://keycloak:8080` (for default local Keycloak server) or `https://tre-keycloak.net` (for a remote Keycloak server).
       </Td>
     </Tr>
     <Tr>
       <Td>`SUBMISSION_KEYCLOAK_URL`</Td>
       <Td>
-        The URL of the Submission Layer's Keycloak server. For example,
+        The URL of the Submission Layer's Keycloak server, for example,
         `http://keycloak:8080` (for default local Keycloak server) or `https://submission-keycloak.net` (for a production Submission Layer Keycloak server).
       </Td>
     </Tr>
@@ -503,7 +503,8 @@ The descriptions of the essential environment variables and the guide to set the
       <Td>
         The path for the to the shared configuration files (e.g., realm config,
         ldap, vault, init scripts) for the TRE Layer. Default is
-        `../../../DeploymentStack/TRE/config`.
+        `../../../DeploymentStack/TRE/config`. 
+        Change this if you are using a different path for the configuration files in your own deployment.
       </Td>
     </Tr>
 
