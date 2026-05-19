@@ -591,6 +591,10 @@ Once a Submission layer Admin has created a Project, assigned Users to the Proje
 More details can be found in the [guide](/tre_agent/guides/TREManagerApprovingProject).
 
 
+#### Set up MinIO access key for TES Backend
+
+TES Backend (e.g., Funnel or TES-K) will need the access to TRE's Minio, so you would need to create a new access key in the Minio server (e.g., `<hostname>:9003`) and configure the TES Backend to use this access key. If you are using Funnel, you can follow this [guide](/five_safes_tes/reference_implementation/TES/install_funnel#set-up-minio-access-key) to set up the access key.
+
 #### Recommended next steps
 
 - Make sure TRE's containers, database and TES executing agent are running and accessible, then test the system by sending the [Hello world submission](/submission/tasks/quickstart#send-task) or [submission with basic analysis task](/submission/tasks/run_analysis#researchers-side-setup) from the Submission layer side.
