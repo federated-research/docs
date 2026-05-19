@@ -18,19 +18,16 @@ For the purposes of the All In One stack we will be configuring the TRE Agent to
 
 Navigate to the MinIO instance of the TRE Layer (in DemoStack, it is hosted at: [localhost:9003](http://localhost:9003). If you are using a production deployment, the MinIO instance is hosted at: `<hostname>:9003`).
 
-You can login with `Login with KeyCloak` option using the following credentials, if you are using DemoStack:
+You can login with `Login with KeyCloak` option using the following credentials using your TRE admin credentials.
+
+If you are using DemoStack, the TRE admin credentials are:
 
 ```yaml copy
 Username: globaladminuser
 Password: password123
 ```
 
-You can also login to Minio with root credentials using the option `Use Credentials` under `Other Authentication methods`:
-
-```yaml copy
-Username: minio
-Password: minio123
-```
+You can also logig with Minio root credentials (set up in the environment variables) using the option `Use Credentials` under `Other Authentication methods`.
 
 To create the access keys, in the MinIO console navigate to **_Access Keys -> Create access key_**
 
