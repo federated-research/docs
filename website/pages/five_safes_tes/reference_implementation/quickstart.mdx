@@ -106,7 +106,7 @@ to communicate between apps will be seeded.
 
 <Callout>
 Once the `keycloak` service has started, the configuration files for three [realms](https://www.keycloak.org/docs/latest/server_admin/index.html#_configuring-realms) `DARE-Control`, `DARE-TRE` and `Data-Egress` will be imported and applied automatically. 
-  These realms control access to the Submission Layer, TRE Agent, and Egress Layer respectively. As a result, the admin user `globaladminuser` will be created in each realm.
+  These realms control access to the Submission Layer, TRE Agent, and Egress Layer respectively. In the DemoStack configuration, the admin user `globaladminuser` will be created in each realm.
 
 ```yaml copy
 Username: globaladminuser
@@ -127,10 +127,9 @@ Password: password123
 
 Follow this [guide](/tre_agent/guides/TREManagerApprovingProject) to approve the project access to the TRE.
 
-To make sure that the project has been approved and [Submission Layer](/five_safes_tes/reference_implementation/core_components#submission-layer) is in sync with [TRE Agent](/five_safes_tes/reference_implementation/core_components#tre-api), choose the project in Submission layer and navigate to the **_TREs_** section.
-You should see **_Approved_** status for the TRE.
+To make sure that the project has been approved and [Submission Layer](/five_safes_tes/reference_implementation/core_components#submission-layer) is in sync with [TRE Agent](/five_safes_tes/reference_implementation/core_components#tre-api), log into the Submission Layer at [localhost:7220](http://localhost:7220), using the same credentials as you used for the TRE Agent. Select the project, and navigate to the **_TREs_** section. You should see **_Approved_** status for the TRE.
 
-<img src="/images/ProjectApproved.png" width="400"></img>
+<img src="/images/ProjectApproved.png" width="80%"></img>
 
 ### Prepare to send the first submission
 
