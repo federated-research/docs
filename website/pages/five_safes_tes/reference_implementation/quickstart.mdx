@@ -127,7 +127,7 @@ Password: password123
 
 Follow this [guide](/tre_agent/guides/TREManagerApprovingProject) to approve the project access to the TRE.
 
-To make sure that the project has been approved and [Submission Layer](/five_safes_tes/reference_implementation/core_components#submission-layer) is in sync with [TRE Agent](/five_safes_tes/reference_implementation/core_components#tre-api), log into the Submission Layer at [localhost:7220](http://localhost:7220), using the same credentials as you used for the TRE Agent. Select the project, and navigate to the **_TREs_** section. You should see **_Approved_** status for the TRE.
+To make sure that the project has been approved and [Submission Layer](/five_safes_tes/reference_implementation/core_components#submission-layer) is in sync with [TRE Agent](/five_safes_tes/reference_implementation/core_components#tre-api), log into the Submission Layer at [localhost:7220](http://localhost:7220), using the Keycloak credentials above. Select the project, and navigate to the **_TREs_** section. You should see **_Approved_** status for the TRE.
 
 <img src="/images/ProjectApproved.png" width="80%"></img>
 
@@ -183,7 +183,7 @@ This script will automatically do the following steps:
 
 The Hello World TES task is a **simple submission that is used to demo the DemoStack**.
 
-1. Login to the Submission Layer
+1. Login to the Submission Layer at [localhost:7220](http://localhost:7220) using the Keycloak credentials above (if you didn't already)
 
 2. Go to the `Projects` page.
 
@@ -226,6 +226,10 @@ The Hello World TES task is a **simple submission that is used to demo the DemoS
   "creation_time": null
 }
 ```
+
+This submits a simple task that:
+* launches an `ubuntu` container and executes `echo Hello World` ("executors" section)
+* captures the container output in a file and saves it to the `/outputs` bucket in MinIO ("outputs" section)
 
 <Callout type="info">
   More information around submitting different TES Tasks can be found in the [TES Wizard  
