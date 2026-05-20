@@ -19,8 +19,6 @@ or as part of a development pathway.
 
 ## Prerequisites
 
-- Before running the quickstart, we recommend reading the [Overview](/five_safes_tes/reference_implementation/overview) and [Core Components](/five_safes_tes/reference_implementation/core_components) pages to gain a basic understanding of the stack.
-
 - To run the quickstart, you will need [Docker](https://www.docker.com/),
   which can be installed and running on your machine, following these [instructions](https://uomresearchit.github.io/docker-introduction/index.html#installation-of-docker).
   Any issues can be raised [here](https://github.com/federated-research/docs/issues).
@@ -46,6 +44,8 @@ git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
   to set up Funnel manually, follow the instructions
   [here](/five_safes_tes/reference_implementation/TES/install_funnel).
 </Callout>
+
+- Before running the quickstart, we recommend reading the [Overview](/five_safes_tes/reference_implementation/overview) and [Core Components](/five_safes_tes/reference_implementation/core_components) pages to gain a basic understanding of the stack.
 
 ## Sending Hello World submission
 
@@ -105,8 +105,8 @@ to communicate between apps will be seeded.
 </Callout>
 
 <Callout>
-Once the `keycloak` service has started, the configuration files for three realms `DARE-Control`, `DARE-TRE` and `Data-Egress` will be imported and applied automatically. 
-  As a result, the admin user `globaladminuser` to access Submission Layer, TRE Agent and Egress Layer will be created in each realm.
+Once the `keycloak` service has started, the configuration files for three [realms](https://www.keycloak.org/docs/latest/server_admin/index.html#_configuring-realms) `DARE-Control`, `DARE-TRE` and `Data-Egress` will be imported and applied automatically. 
+  These realms control access to the Submission Layer, TRE Agent, and Egress Layer respectively. As a result, the admin user `globaladminuser` will be created in each realm.
 
 ```yaml copy
 Username: globaladminuser
