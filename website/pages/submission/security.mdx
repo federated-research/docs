@@ -1,6 +1,6 @@
 # Security Model
 
-This document outlines the security considerations, infrastructure requirements, and trust model for deploying and running Submission layer.
+This document outlines the security considerations for deploying and running Submission layer.
 
 ## Container Security
 
@@ -25,7 +25,7 @@ This document outlines the security considerations, infrastructure requirements,
 
 ## Infrastructure Security
 
-- In Nottingham, Submission layer is deployed in a Virtual Machine with secure Networking inbound rules and a NGINX Reverse Proxy. The access or requests to Submission layer, therefore, can be tracked, allowed or blocked.
+- Submission layer is encouraged to be deployed in a Virtual Machine with secure Networking inbound rules and a Reverse Proxy (e.g., NGINX, Caddy, etc.). The access or requests to Submission layer, therefore, can be tracked, allowed or blocked.
 - Submission layer doesn't send requests, data or outgoing connections to TRE or its Agent.
 - The incoming requests, analysis or queries to Submission layer have to be authenticated and authorised by Keycloak.
 - Access to the Submission layer's pages with sensitive data or potential disclosure of information is restricted to the users who are registered, vetted and approved by the Submission layer administrator.
