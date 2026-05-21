@@ -1,5 +1,6 @@
 export default {
-    requirements: 'Requirements',
-    deploy: 'Deploy',
-    guides: 'User Guides',
-}
+  requirements: "Requirements",
+  security: "Security",
+  deploy: "Deploy",
+  guides: "User Guides",
+};
