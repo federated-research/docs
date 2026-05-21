@@ -134,11 +134,6 @@ This can be done by setting the environment variables `TRE_DATA_USER` and `TRE_D
 
 - Docker and Docker Compose installed. For Linux/Ubuntu VMs, you can follow this [guide](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your machine.
-- TES executing agent (e.g., Funnel) installed and running.
-  <Callout>
-    Instructions on how to install Funnel can be found
-    [here](/five_safes_tes/reference_implementation/TES/install_funnel)
-  </Callout>
 
 ### Deployment Steps
 
@@ -223,7 +218,54 @@ The descriptions of the essential environment variables and the guide to set the
     <Tr>
       <Td>`PGLOGIN` and `PGPASSWORD`</Td>
       <Td>
-        The admin credentials for the PostgreSQL database used by the TRE Agent.
+        The admin credentials for the PostgreSQL database used by the TRE Agent. These are recommended to be changed from the default values.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`LDAPAdminPassword` and `LDAPConfigPassword`</Td>
+      <Td>
+        The credentials for the OpenLDAP server used by the TRE Agent. These are recommended to be changed from the default values.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`CamundaUsername` and `CamundaPassword`</Td>
+      <Td>
+        The credentials for the Camunda server used by the TRE Agent. These are recommended to be changed from the default values.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`VaultStartupCommand`</Td>
+      <Td>
+        The command to start the Vault server. This is used to store and retrieve the ephemeral user credentials for the credential management process.
+        In production, this should be set to `vault server -config=/vault/config/config.json` to start the Vault server in the production mode. 
+        Setting up Vault server in production mode is required a few more steps detailed [here](/five_safes_tes/reference_implementation/core_components#vault).
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`VaultRootToken`</Td>
+      <Td>
+       In dev mode (or Demostack), this is pre-filled with a default value. 
+       In production, to generate a new root token, do the steps detailed [here](/five_safes_tes/reference_implementation/core_components#vault).
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeycloakBootstrapAdminPassword`</Td>
+      <Td>
+        The bootstrap admin password for the Keycloak server used by the TRE Agent. This is used to bootstrap the Keycloak server with the admin user.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`KeycloakStartupCommand`</Td>
+      <Td>
+        The command to start the Keycloak server. In dev mode (or Demostack), this is `start-dev`.
+        In production, if you have HTTPS configured for Keycloak, this should be set to `start`.
+      </Td>
+    </Tr>
+    <Tr>
+      <Td>`RabbitMQDefaultPassword`</Td>
+      <Td>
+        The default password for the RabbitMQ server used by the TRE Agent. Change this from the default value in production. 
+        Default RabbitMQ username is set to `rabbitmq` and default RabbitMQ host is set to `rabbitmq`.
       </Td>
     </Tr>
     <Tr>
@@ -262,23 +304,23 @@ The descriptions of the essential environment variables and the guide to set the
       </Td>
     </Tr>
     <Tr>
-      <Td>`KeycloakHostName`</Td>
+      <Td>`KeycloakFullURL`</Td>
       <Td>
-        The hostname of the Keycloak server, for example,`localhost` or `my-keycloak`. 
-        This is only used if you are using a local Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file.
+        The full hostname URL of the Keycloak server, for example,`http://localhost:8085` or `https://my-keycloak.net`. 
+        This is only used if you are using a local/internal Keycloak service defined in the `ServiceStack/compose-manifests/shared/auth.yml` file.
       </Td>
     </Tr>
     <Tr>
       <Td>`TRE_KEYCLOAK_URL`</Td>
       <Td>
-        The URL of the TRE Layer's Keycloak server. For example,
+        The URL of the TRE Layer's Keycloak server, for example,
         `http://keycloak:8080` (for default local Keycloak server) or `https://tre-keycloak.net` (for a remote Keycloak server).
       </Td>
     </Tr>
     <Tr>
       <Td>`SUBMISSION_KEYCLOAK_URL`</Td>
       <Td>
-        The URL of the Submission Layer's Keycloak server. For example,
+        The URL of the Submission Layer's Keycloak server, for example,
         `http://keycloak:8080` (for default local Keycloak server) or `https://submission-keycloak.net` (for a production Submission Layer Keycloak server).
       </Td>
     </Tr>
@@ -294,7 +336,7 @@ The descriptions of the essential environment variables and the guide to set the
       <Td>
         Where TESK or Funnel API is hosted. For example,
         `http://host.docker.internal:8000/v1/tasks` (when Funnel is hosted
-        locally) or `http://my-funnel.com/tasks`.
+        locally) or `http://my-funnel.com/tasks`. This can be filled in with the URL of the TES executing agent (e.g., Funnel) after step 8 of this guide.
       </Td>
     </Tr>
     <Tr>
@@ -456,7 +498,8 @@ The descriptions of the essential environment variables and the guide to set the
       <Td>
         The path for the to the shared configuration files (e.g., realm config,
         ldap, vault, init scripts) for the TRE Layer. Default is
-        `../../../DeploymentStack/TRE/config`.
+        `../../../DeploymentStack/TRE/config`. 
+        Change this if you are using a different path for the configuration files in your own deployment.
       </Td>
     </Tr>
 
@@ -542,6 +585,15 @@ Once a Submission layer Admin has created a Project, assigned Users to the Proje
 
 More details can be found in the [guide](/tre_agent/guides/TREManagerApprovingProject).
 
+
+#### Set up TES Backend and configure MinIO access key
+
+- Install and run the TES executing agent (e.g., Funnel).
+<Callout type="info">
+  Instructions on how to install Funnel can be found
+  [here](/five_safes_tes/reference_implementation/TES/install_funnel)
+</Callout>
+- TES Backend (e.g., Funnel or TES-K) will need the access to TRE's Minio, so you would need to create a new access key in the Minio server (e.g., `<hostname>:9003`) and configure the TES Backend to use this access key. If you are using Funnel, you can follow this [guide](/five_safes_tes/reference_implementation/TES/install_funnel#set-up-minio-access-key) to set up the access key.
 
 #### Recommended next steps
 
