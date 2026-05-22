@@ -35,9 +35,9 @@ or as part of a development pathway.
 
 The DemoStack includes a `starter.sh` automation script that automates the initial setup process. This script will:
 
-1. Start all Docker Compose services in `DemoMode = true` to seed the demo data and instances.
+1. Start all Docker Compose services in `DemoMode = true` (simulation mode) to seed the demo data and instances.
 2. Install and configure the MinIO client (mc).
-3. Fetch MinIO access keys for Funnel.
+3. Fetch MinIO access keys for [Funnel](https://github.com/ohsu-comp-bio/funnel), which is chosen as the TES executor for the DemoStack quickstart.
 4. Installs and setup the Funnel for executing the TES tasks.
 5. Generate the Funnel configuration file.
 6. Start the Funnel TES server.
@@ -59,11 +59,10 @@ Follow these steps to run the `starter.sh` automation script:
   ```bash copy
   ./scripts/starter.sh
   ```
+This will start the stack with the seeding of some demo data and instances.
 
-<Callout type="info">
-  Wait until all the services are up and running and the `starter.sh` script
-  shows the following message in the terminal:
-</Callout>
+Wait until all the services are up and running and the `starter.sh` script
+  shows the following message in the terminal. The status of the services can be checked by running `docker stats` in a new terminal window.
 
 ```bash
 ...
@@ -75,16 +74,8 @@ rpcAddress           :9090
 time                 2026-02-25T12:47:16Z
 ```
 
-This will start the stack with the seeding of some demo data and instances.
-For example, Testing project will be created, TRE named DEMO will be deployed, and users credentials used
-to communicate between apps will be seeded.
 
 <Callout type="info">
-  You can check the status of the services by running `docker stats` in a new
-  terminal.
-</Callout>
-
-<Callout>
 Once the `keycloak` service has started, the configuration files for three [realms](https://www.keycloak.org/docs/latest/server_admin/index.html#_configuring-realms) `DARE-Control`, `DARE-TRE` and `Data-Egress` will be imported and applied automatically. 
   These realms control access to the Submission Layer, TRE Agent, and Egress Layer respectively. In the DemoStack configuration, the admin user `globaladminuser` will be created in each realm.
 
@@ -97,7 +88,7 @@ Password: password123
 
 ### Approve the Project access to the TRE
 
-<Callout type="info">
+<Callout>
   Since the "DemoMode" is true for the first run, a project named **Testing**
   and a TRE named **DEMO** are automatically seeded in the Submission layer.
   Once the Docker Compose stack has started successfully, if the seeded project
@@ -138,33 +129,11 @@ Follow these steps to run the `submission-ready.sh` automation script:
   ./scripts/submission-ready.sh
   ```
 
-This script will automatically do the following steps:
+This script will automatically do the required configuration changes, make the stack ready for submission and restart the Docker Compose services.
 
-1. Set `DemoMode` to `false`
-2. Set `UseTESK` to `true`
-3. Restart all Docker Compose services with the updated configuration.
-
-- [Funnel](https://github.com/ohsu-comp-bio/funnel) is chosen as the TES executor for the DemoStack quickstart. The DemoStack provides automated setup scripts that handle Funnel installation and configuration.
-
-<Callout type="info">
-  If there are any issues with the automated setup scripts, or if you prefer
-  to set up Funnel manually, follow the instructions
-  [here](/five_safes_tes/reference_implementation/TES/install_funnel).
-</Callout>
-
-<Callout >
- Tips: 
- - Before sending submission, make sure you have Funnel running in a separate terminal window. You can start Funnel by running the following command at the `DemoStack` directory:
-
- ```bash copy
-  ./scripts/funnel.sh
-  ```
- - You can always start or restart the Docker Compose services (e.g.,after editing the `.env` file) by running the following command:
-
- ```bash copy
-  ./scripts/submission-ready.sh
-  ```
-  This will help keep the stack in the state that ready for you to send the submission.
+<Callout>
+ Tips: You can always start or restart the Docker Compose services (e.g.,after editing the `.env` file) by running the command `./scripts/submission-ready.sh`.
+ This will keep the stack in the state that is ready for you to send the submission.
 </Callout>
 
 ### Send a Hello World submission
@@ -260,6 +229,11 @@ To start the containers again and submit submissions in the future:
   ```bash copy
   ./scripts/funnel.sh
   ```
+<Callout type="info">
+  If there are any issues with the automated setup script for Funnel, or if you prefer
+  to set up Funnel manually, follow the instructions
+  [here](/five_safes_tes/reference_implementation/TES/install_funnel).
+</Callout>
 
 ## Next steps
 
