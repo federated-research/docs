@@ -12,7 +12,7 @@ This document outlines the security considerations for deploying and running Sub
 
 ### Container Registry
 
-- Every Submission layer image is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/). The published containers are publically accessible. However, the GUI of Harbor requires authentication to access and manage the containers.
+- Every Submission layer image is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/). The published containers are publically accessible. However, the GUI of Harbor requires Keycloak OpenID authentication to access and manage the containers.
 - The SBOM (Software Bill of Materials) snapshot for each container is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/), and downloadable from there.
 - Images are pinned to specific workflow commit hashes, which prevents unauthorized modifications and ensures that only verified builds are used.
 - This pinning mechanism helps maintain security by ensuring that the exact version of the code that was reviewed and tested is the one being deployed.
