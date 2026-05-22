@@ -19,31 +19,11 @@ or as part of a development pathway.
 
 ## Prerequisites
 
-- To run the quickstart, you will need [Docker](https://www.docker.com/),
-  which can be installed and running on your machine, following these [instructions](https://uomresearchit.github.io/docker-introduction/index.html#installation-of-docker).
-  Any issues can be raised [here](https://github.com/federated-research/docs/issues).
-
-- The Docker Compose files of Five Safes TES Weave need to be downloaded or cloned from the [GitHub](https://www.github.com) repository. You can do this by running the following command:
-
-```bash copy
-git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
-```
-
-<Callout type="info">
-  You do not need a GitHub account to access these, but you may wish to create
-  one in order to keep your configuration script in version control. If you do
-  this or wish to clone the repository, you will also need
-  [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed
-  on your machine.
-</Callout>
-
-- [Funnel](https://github.com/ohsu-comp-bio/funnel) is chosen as the TES executor for the DemoStack quickstart. The DemoStack provides automated setup scripts that handle Funnel installation and configuration.
-
-<Callout type="info">
-  If there are any issues with the automated setup scripts, or if you prefer
-  to set up Funnel manually, follow the instructions
-  [here](/five_safes_tes/reference_implementation/TES/install_funnel).
-</Callout>
+- [Docker](https://www.docker.com/) installed and running on your machine. Instructions can be found [here](https://uomresearchit.github.io/docker-introduction/index.html#installation-of-docker).
+- The Docker Compose files of Five Safes TES Weave need to be downloaded or cloned from the [GitHub repository](https://github.com/SwanseaUniversityMedical/5S-TES-deployment). If you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed, you can do clone the repository by running the following command:
+  ```bash copy
+  git clone https://github.com/SwanseaUniversityMedical/5S-TES-deployment.git
+  ```
 
 - Before running the quickstart, we recommend reading the [Overview](/five_safes_tes/reference_implementation/overview) and [Core Components](/five_safes_tes/reference_implementation/core_components) pages to gain a basic understanding of the stack.
 
@@ -164,6 +144,14 @@ This script will automatically do the following steps:
 2. Set `UseTESK` to `true`
 3. Restart all Docker Compose services with the updated configuration.
 
+- [Funnel](https://github.com/ohsu-comp-bio/funnel) is chosen as the TES executor for the DemoStack quickstart. The DemoStack provides automated setup scripts that handle Funnel installation and configuration.
+
+<Callout type="info">
+  If there are any issues with the automated setup scripts, or if you prefer
+  to set up Funnel manually, follow the instructions
+  [here](/five_safes_tes/reference_implementation/TES/install_funnel).
+</Callout>
+
 <Callout >
  Tips: 
  - Before sending submission, make sure you have Funnel running in a separate terminal window. You can start Funnel by running the following command at the `DemoStack` directory:
@@ -253,6 +241,28 @@ The final successful process should be like this:
 
 </Steps>
 
+### Stop the containers
+
+To stop the containers, run the following command:
+
+```bash copy
+docker compose down
+```
+
+To start the containers again and submit submissions in the future:
+
+- Make sure you are in the `DemoStack` directory.
+- Run the following command to run the stack not in the simulation mode:
+  ```bash copy
+  ./scripts/submission-ready.sh
+  ```
+- Then start Funnel by running the following command:
+  ```bash copy
+  ./scripts/funnel.sh
+  ```
+
 ## Next steps
 
-Now you have sent your first submission, you can try to send a different submission with a different project and TRE using this [guide](/submission/tasks/run_analysis).
+Now you have sent your first submission, you can try to send a different type of submission, such as a SQL query or a custom image, with a different project and TRE using this [guide](/submission/tasks/run_analysis) or the [TES Wizard](/submission/guides/teswizard).
+
+If you encounter any issues, please raise an issue [here](https://github.com/federated-research/docs/issues).
