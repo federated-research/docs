@@ -12,7 +12,7 @@ This document outlines the security considerations for deploying and running TRE
 
 ### Container Registry
 
-- Every TRE Agent image is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/). The published containers are publically accessible. However, the GUI of Harbor requires authentication to access and manage the containers.
+- Every TRE Agent image is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/). The published containers are publically accessible. However, the GUI of Harbor requires Keycloak OpenID authentication to access and manage the containers.
 - The SBOM (Software Bill of Materials) snapshot for each container is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/), and downloadable from there.
 - Images are pinned to specific workflow commit hashes, which prevents unauthorized modifications and ensures that only verified builds are used.
 - This pinning mechanism helps maintain security by ensuring that the exact version of the code that was reviewed and tested is the one being deployed.
@@ -30,8 +30,9 @@ This document outlines the security considerations for deploying and running TRE
 - TRE Admin UI is protected by Keycloak OpenID authentication. TRE Admin can then login to the TRE Agent UI to manage the approval/rejection of projects and memberships from Submission layer, and its configurations (e.g., DMN rules, Credentials to connect to Egress and Submission Layer, etc.).
 - TRE Agent makes only outgoing connections to a designated Submission Layer.
 - TES Backend (e.g., Funnel or TES-K) requires access to TRE's Database to execute the analysis queries using the [TES schema from GA4GH](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask).
-- When accessing the TRE's Database, TES Backend uses the ephemeral credentials. These are created by Camunda, stored in Vault and injected into the environment variables of the TES message by TRE Agent to connect to the Database.
-  These credentials are valid for a limited time and are revoked by TRE Agent's Camunda when the analysis is completed or failed.
+- When accessing the TRE's Database, TES Backend uses the ephemeral credentials. These credentials are created using DMN through Camunda design decision models, which are used for automation of the decision-making processes through Camunda BPMN Workflow.
+  This allows TRE to set rules to create ephemeral credentials specific to the TRE database and Schema.
+- The ephemeral credentials are stored in [Vault](https://developer.hashicorp.com/vault). These credentials are valid for a limited time and are revoked by TRE Agent when the analysis is completed or failed.
 - The containers which are used/executed for the analysis against the TRE's Database are approved by the TRE Agent administrator.
 - The outputs of the analysis queries are stored in a Minio bucket which is protected by Keycloak OpenID authentication.
 - Before the outputs are released to the researchers (at Submission layer), they are reviewed by a designated human reviewer who is authenticated and authorised by Keycloak. This is the Egress process.
