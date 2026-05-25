@@ -1,0 +1,25 @@
+deployment {
+  environment parl {
+    vm1 = virtual_machine 'Five Safes TES'
+    vm2 = virtual_machine 'TRE Agent'
+    vm3 = virtual_machine 'TRE Agent'
+    vm4 = virtual_machine 'TRE Agent'
+    instanceOf researcher
+  }
+  extend parl {
+    parl.researcher -> parl.vm1.submission 'Send Analysis' #parallel_deploy
+    parl.vm1.submission -> parl.vm2.tre #parallel_deploy
+    parl.vm1.submission -> parl.vm3.tre #parallel_deploy
+    parl.vm1.submission -> parl.vm4.tre #parallel_deploy
+  }  
+}
+
+
+views {
+  deployment view parl {
+    title 'Parallel Deployment'
+    include parl.**
+    exclude parl.** <-> parl.** where tag is not #parallel_deploy
+    autoLayout TopBottom
+  }
+}

@@ -1,0 +1,12 @@
+deployment {
+    extend parl.vm2 {
+        instanceOf tre
+    }
+    extend parl.vm3 {
+        instanceOf tre
+    }
+    extend parl.vm4 {
+        instanceOf tre
+    }
+}
+

@@ -55,4 +55,6 @@ specification {
   }
   deploymentNode environment
   deploymentNode virtual_machine
+
+  tag parallel_deploy
 }

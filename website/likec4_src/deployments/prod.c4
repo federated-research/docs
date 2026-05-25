@@ -1,7 +1,3 @@
-model {
-  researcher -> submission 'Submit job'
-}
-
 deployment {
   environment prod {
     vm1 = virtual_machine 'External VM'
