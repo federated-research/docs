@@ -1,9 +1,13 @@
 model {
     revproxy = component {
         title 'Reverse Proxy'
+        description 'Reverse proxy for routing traffic to internal services'
+        icon tech:nginx
     }
     harbor = system {
         title 'Harbor'
+        description 'Trusted container registry'
+        icon https://goharbor.io/img/logos/harbor-icon-color.png
     }
 }
 
@@ -14,7 +18,7 @@ deployment {
         }
         instanceOf submission
         instanceOf revproxy {
-            -> submission
+            -> submission 'Route web traffic'
         }
     }
 }

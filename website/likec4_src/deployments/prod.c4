@@ -1,15 +1,15 @@
 model {
-  submission -> tre 'Request job'
+  researcher -> submission 'Submit job'
 }
 
 deployment {
   environment prod {
     vm1 = virtual_machine 'External VM'
     vm2 = virtual_machine 'Internal VM'
-    environment external_data {
-      title 'External data store'
-      instanceOf protected_data
-    }
+  }
+  extend prod.vm1 {
+    harbor -> prod.vm2 'Pull images'
+    revproxy -> submission 'Route web traffic'
   }
 }
 

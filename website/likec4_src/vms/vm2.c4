@@ -12,7 +12,9 @@ deployment {
         instanceOf egress
         instanceOf funnel {
             -> tre 'Return job result'
+            -> protected_data 'Queries protected data'
         }
+        instanceOf protected_data
     }
 }
 
