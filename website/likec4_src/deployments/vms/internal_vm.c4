@@ -1,7 +1,0 @@
-deployment {
-  extend prod.vm2 {
-    instanceOf tre { style { multiple: true } }
-    instanceOf egress
-    instanceOf execution
-  }
-}
