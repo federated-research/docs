@@ -71,5 +71,6 @@ views {
     }
 
     include *
+    exclude funnel, harbor, revproxy
   }
 }
