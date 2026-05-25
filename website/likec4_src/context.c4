@@ -6,7 +6,7 @@ model {
     title 'Researcher'
     description 'Researcher who wishes to perform analyses on protected data'
 
-    -> submission.sub_ui 'Views in browser'
+    -> submission.sub_ui 'Interacts via browser'
   }
 
   data_owner = internal_actor {
