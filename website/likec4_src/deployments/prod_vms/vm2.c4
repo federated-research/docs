@@ -17,10 +17,3 @@ deployment {
         instanceOf protected_data
     }
 }
-
-views {
-    deployment view VM2 {
-        title 'Internal VM'
-        include prod.vm2.**
-    }
-}

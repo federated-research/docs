@@ -22,10 +22,3 @@ deployment {
         }
     }
 }
-
-views {
-    deployment view VM1 {
-        title 'External VM'
-        include prod.vm1.**
-    }
-}
