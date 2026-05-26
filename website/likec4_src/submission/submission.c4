@@ -35,7 +35,7 @@ model {
 
 views {
   view submission of submission {
-    title 'Submission Service'
+    title 'Submission / Submission Service'
     include *
   }
 }

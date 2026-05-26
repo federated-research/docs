@@ -12,7 +12,7 @@ deployment {
 
 views {
   deployment view prod {
-    title 'Production Deployment'
+    title 'Deployment / Production'
     include prod.**
   }
 }

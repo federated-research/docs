@@ -17,9 +17,9 @@ deployment {
 
 views {
   deployment view parl {
-    title 'Parallel Deployment'
+    title 'Deployment / Parallel'
     include parl.**
-    exclude parl.** <-> parl.** where tag is not #parallel_deploy
-    autoLayout TopBottom
+    exclude parl.** <-> parl.** where tag is #parallel_deploy
+    autoLayout BottomTop
   }
 }

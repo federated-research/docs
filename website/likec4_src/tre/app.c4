@@ -30,7 +30,7 @@ model {
 
 views {
   view tre_app of tre.tre_app {
-    title 'TRE App'
+    title 'TRE / TRE App'
     include *
   }
 }

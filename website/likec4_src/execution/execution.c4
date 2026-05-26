@@ -14,7 +14,7 @@ model {
 
 views {
   view execution of execution {
-    title 'Execution Service'
+    title 'TRE / Execution Service'
     include *
   }
 }
