@@ -6,7 +6,7 @@ views {
     // Submit job
     researcher -> submission.submission_app 'Submits job request'
                -> submission.rabbitmq 'Job added to queue'
-               -> tre.tre_app 'Transfer job'
+    submission.rabbitmq -> tre.tre_app 'Fetch job'
 
     // Get credentials
     tre.tre_app <- tre.vault 'Fetch credentials'
