@@ -14,7 +14,7 @@ model {
       description 'Backend for managing egress, handles movement of data and notification of relevant users'
       icon https://docs.federated-analytics.ac.uk/_next/static/media/fedres_primary.4b79cf09.png
 
-      -> egress_ui ''
+      -> egress_ui
     }
   }
 }

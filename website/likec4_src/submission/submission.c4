@@ -19,7 +19,7 @@ model {
 
     sub_keycloak = component {
       title 'Submission Keycloak'
-      description 'Authenticates requests througout the layer'
+      description 'Authenticates requests throughout the layer'
       icon https://upload.wikimedia.org/wikipedia/commons/2/29/Keycloak_Logo.png
     }
     

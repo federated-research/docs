@@ -1,13 +1,13 @@
 specification {
   element external_actor {
-    notation 'An external user of the system, no special priviledges'
+    notation 'An external user of the system, no special privileges'
     style {
       shape person
       color red
     }
   }
   element internal_actor {
-    notation 'A priviledged user with access to sustem internals'
+    notation 'A privileged user with access to sustem internals'
     style {
       shape person
       color green
