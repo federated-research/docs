@@ -12,12 +12,25 @@ if (!interactive) {
 return (
 
 <div style={{ width: "100%" }}>
+ <button
+ type="button"
+ onClick={() => setInteractive(true)}
+ style={{
+ border: "none",
+ padding: 0,
+ background: "none",
+ width: "100%",
+ display: "block",
+ cursor: "pointer",
+ }}
+ aria-label={alt_text}
+ >
 <img
 src={alt_image}
 alt={alt_text}
-style={{ width: "100%", cursor: "pointer" }}
-onClick={() => setInteractive(true)}
+style={{ width: "100%", display: "block" }}
 />
+</button>
 </div>
 );
 }
