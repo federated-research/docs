@@ -5,16 +5,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "@likec4/core": "^1.55.1",
-    "@likec4/diagram": "^1.55.1",
-    "@likec4/icons": "^1.46.4",
+    "@likec4/core": "1.55.1",
+    "@likec4/diagram": "1.55.1",
+    "@likec4/icons": "1.46.4",
     "next": "^15.5.14",
-    "nextra": "^3.2.4",
-    "nextra-theme-docs": "^3.2.4",
+    "nextra": "^3.3.1",
+    "nextra-theme-docs": "^3.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "likec4": "^1.55.1"
+    "likec4": "1.55.1"
   }
 }
