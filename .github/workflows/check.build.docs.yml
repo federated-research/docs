@@ -24,14 +24,14 @@ jobs:
         uses: actions/checkout@v5
 
       - name: LikeC4 code generation
-        uses: likec4/actions@d36a6b8 # v1.89.0
+        uses: likec4/actions@d36a6b8c87c1d540a3737302808755db435183b0 # v1.89.0
         with:
           codegen: react
           path: website/likec4_src
           output: website/likec4_react/likec4.generated.js
 
       - name: LikeC4 PNG export
-        uses: likec4/actions@d36a6b8 # v1.89.0
+        uses: likec4/actions@d36a6b8c87c1d540a3737302808755db435183b0 # v1.89.0
         with:
           export: png
           path: website/likec4_src
