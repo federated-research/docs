@@ -42,7 +42,6 @@ This document outlines the security considerations for deploying and running TRE
 - When accessing the TRE's Database, TES Backend uses the ephemeral credentials. These credentials are created using DMN through Camunda design decision models, which are used for automation of the decision-making processes through Camunda BPMN Workflow.
   This allows TRE to set rules to create ephemeral credentials specific to the TRE database and Schema.
 - The ephemeral credentials are stored in [Vault](https://developer.hashicorp.com/vault). These credentials are valid for a limited time and are revoked by TRE Agent when the analysis is completed or failed.
-- The containers which are used/executed for the analysis against the TRE's Database are approved by the TRE Agent administrator.
 - The outputs of the analysis queries are stored in a Minio bucket which is protected by Keycloak OpenID authentication.
 - Before the outputs are released to the researchers (at Submission layer), they are reviewed by a designated human reviewer who is authenticated and authorised by Keycloak. This is the Egress process.
 - Internal services in the TRE Agent's stack (e.g., Camunda, LDAP, Vault) are not exposed to the internet.
