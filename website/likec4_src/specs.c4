@@ -7,7 +7,7 @@ specification {
     }
   }
   element internal_actor {
-    notation 'A privileged user with access to sustem internals'
+    notation 'A privileged user with access to system internals'
     style {
       shape person
       color green
