@@ -37,8 +37,7 @@ model {
     vault = component {
       title 'Vault'
       description 'Secret Manager'
-      icon tech:vault
-
+      icon https://raw.githubusercontent.com/hashicorp/web-unified-docs/refs/heads/main/content/vault/v1.21.x/img/logo-text.svg
       -> tre.tre_api 'Sends credentials'
     }
   }
