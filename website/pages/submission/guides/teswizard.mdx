@@ -11,23 +11,23 @@ To submit a TES task using the TES Wizard:
 
 The TES Wizard has three different modes:
 
-<Cards> 
+<Cards>
 
-<Cards.Card 
+<Cards.Card
   title="Simple SQL Query"
-  href='/submission/guides/teswizard#simple-sql-query'
+  href="/submission/guides/teswizard#simple-sql-query"
   arrow
 />
 
-<Cards.Card 
+<Cards.Card
   title="Custom Image"
-  href='/submission/guides/teswizard#custom-image'
+  href="/submission/guides/teswizard#custom-image"
   arrow
 />
 
-<Cards.Card 
+<Cards.Card
   title="Raw JSON"
-  href='/submission/guides/teswizard#raw-json'
+  href="/submission/guides/teswizard#raw-json"
   arrow
 />
 
@@ -36,22 +36,37 @@ The TES Wizard has three different modes:
 ## Simple SQL Query
 
 The Simple SQL Query TES Wizard mode creates a TES task that executes a [Postgres SQL Runner](https://github.com/SwanseaUniversityMedical/5S-TES-analysis-tools/tree/main/SQLRunnerPostgres) container image. To submit a SQL query TES Task you need to set:
+
 - Name
-- Description *(optional)*
+- Description _(optional)_
 - TREs to submit to
 - A SQL Query
 
+<Callout type="info">
+  An example for a SQL query to get the number of records and the total value of the measurement values for the concept "Airway resistance --during inspiration" in the TRE OMOP CDM DB is:
+  ``` copy
+  WITH user_query AS (
+  SELECT value_as_number FROM public.measurement WHERE
+    measurement_concept_id = 21490742 
+    AND value_as_number IS NOT NULL
+    ) 
+  SELECT COUNT(*) AS n, SUM(value_as_number) AS total FROM user_query;
+  ```
+</Callout>
+
 #### Example Submission:
+
 <br />
-<img src="/images/wizard_sqlmode.png" width="600"></img>
+<img src="/images/wizard_sqlmode.png" width="80%"></img>
 
 ## Custom Image
 
 The Custom Image TES Wizard guides you through the construction of a Custom TES Task. Details on what a TES Task looks like can be found in the [GA4GH TES API documentation](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask). Enter the following information about the TES Task:
+
 - Name
-- Description *(optional)*
+- Description _(optional)_
 - TREs to submit to
-- Data Input *(optional)*
+- Data Input _(optional)_
   - Path
   - Type
 - Data Output:
@@ -65,24 +80,27 @@ The Custom Image TES Wizard guides you through the construction of a Custom TES 
   - Environment Variables: Enviromental variables to set within the container.
 
 #### Example Submission:
+
 <br />
-<img src="/images/wizard_customimage.png" width="600"/>
+<img src="/images/wizard_customimage.png" width="80%" />
 
 ## Raw JSON
 
 The Raw JSON Tes Wizard mode allows you to submit a TES message as a JSON payload.
 
 #### Example Submission:
+
 <br />
-<img src="/images/wizard_json.png" width="600"/>
-<Callout type="info" > 
+<img src="/images/wizard_json.png" width="80%"/>
+<Callout type="info" >
 
 Specify the Project name and TRE you want to submit to in the "tags". To submit to more than one TRE separate the TRE Names using `|`
-``` json
+
+```json
 "tags": {
     "project": "Testing",
     "tres": "DEMO 01" // or "DEMO TRE 01|DEMO TRE 02"
 }
 ```
-</Callout>
 
+</Callout>
