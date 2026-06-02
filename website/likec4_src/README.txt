@@ -27,10 +27,17 @@ Note that `--no-use-dot` is needed for general containers which aren't the likec
 ## Index image generation
 
 This uses a headless browser session, so the dependencies for playwright have to be installed first
-`npx playwright install`
-`npx playwright install-deps`
+```
+npx playwright install
+npx playwright install-deps
+```
 
 Then run the export command
 `npx likec4 export png --no-use-dot`
-Copy the index figure into the public images directory
-`cp index.png ../public/images/likec4_index.png`
+
+Finally, link to the likec4_src directory from the images directory. This only has to be done once.
+It will replicate the file structure that the GH CI build system creates.
+```
+cd ../public/images/
+ln -s ../../likec4_src likec4
+```
