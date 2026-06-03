@@ -1,0 +1,50 @@
+import { Callout } from "nextra/components";
+
+# Security Model
+
+This document outlines the security considerations for deploying and running TRE Agent.
+
+## Container Security
+
+### Image Build Process
+
+- TRE Agent images are built using GitHub Actions, using a repeatable and transparent build process. The workflows are defined in the [.github/workflows](https://github.com/SwanseaUniversityMedical/workflows/tree/main/.github/workflows) directory.
+- Each release from the build process is pinned to a git hash and a version number following the [Semantic Versioning](https://semver.org/) format.
+- This automation helps ensure that each build is consistent and can be traced back to its source code and build instructions.
+
+### Container Registry
+
+- Every TRE Agent image is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/). The published containers are publically accessible. However, the GUI of Harbor requires Keycloak OpenID authentication to access and manage the containers.
+- The SBOM (Software Bill of Materials) snapshot for each container is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/), and downloadable from there.
+- Images are pinned to specific workflow commit hashes, which prevents unauthorized modifications and ensures that only verified builds are used.
+- This pinning mechanism helps maintain security by ensuring that the exact version of the code that was reviewed and tested is the one being deployed.
+
+### Code Security & Review
+
+- All code contributions must pass the [SonarQube Quality Gate](https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-gates/introduction-to-quality-gates) and scan.
+- Contributions are reviewed by the University of Nottingham Centre for Health Informatics and Swansea University Medical School developer team, before they are approved and merged into the codebase.
+- TRE Agent uses [RenovateBot](https://github.com/renovatebot/renovate) to automatically scan and update dependencies, ensuring security vulnerabilities are identified and patched promptly.
+
+## Infrastructure and System Security
+
+- TRE Agent is deployed in a secure environment by a TRE administrator. This environment is isolated from the internet and only accessible by the TRE administrator(s).
+  <Callout>
+    It is highly recommended for TRE owner/administrator to deploy the TRE Agent
+    in a secure environment to mitigate cybersecurity risks. For example, TRE
+    should apply some security measures in the environment where TRE Agent is
+    deployed to make sure that TES Backend only executes containers that are
+    reviewed and approved before by TRE administrators.
+  </Callout>
+- TRE Agent is encouraged to be deployed in a Virtual Machine with secure Networking inbound rules and a Reverse Proxy (e.g., NGINX, Caddy, etc.). The access or requests to TRE Agent, therefore, can be tracked, allowed or blocked.
+- TRE Admin UI is protected by Keycloak OpenID authentication. TRE Admin can then login to the TRE Agent UI to manage the approval/rejection of projects and memberships from Submission layer, and its configurations (e.g., DMN rules, Credentials to connect to Egress and Submission Layer, etc.).
+- TRE Agent makes only outgoing connections to a designated Submission Layer.
+- TES Backend (e.g., Funnel or TES-K) requires access to TRE's Database to execute the analysis queries using the [TES schema from GA4GH](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask).
+- When accessing the TRE's Database, TES Backend uses the ephemeral credentials. These credentials are created using DMN through Camunda design decision models, which are used for automation of the decision-making processes through Camunda BPMN Workflow.
+  This allows TRE to set rules to create ephemeral credentials specific to the TRE database and Schema.
+- The ephemeral credentials are stored in [Vault](https://developer.hashicorp.com/vault). These credentials are valid for a limited time and are revoked by TRE Agent when the analysis is completed or failed.
+- The outputs of the analysis queries are stored in a Minio bucket which is protected by Keycloak OpenID authentication.
+- Before the outputs are released to the researchers (at Submission layer), they are reviewed by a designated human reviewer who is authenticated and authorised by Keycloak. This is the Egress process.
+- Internal services in the TRE Agent's stack (e.g., Camunda, LDAP, Vault) are not exposed to the internet.
+- Vault is used to store the ephemeral credentials for the TRE's Database access. In production, Vault is configured to be in the production mode and is unsealed using the unseal key. Guide to setup Vault in production mode is available [here](/five_safes_tes/reference_implementation/core_components#vault).
+- Users who are deploying the TRE Agent are encouraged to configure the password/credentials for the TRE Agent services to be strong and unique through the `.env` file.
+- Before an TRE agent is up and running, TRE Admin is required to generate a strong base64 encoded encryption key for the TRE Agent (`EncryptionSettingsKey`). This key is used to encrypt the credentials stored in the database.

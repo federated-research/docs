@@ -1,0 +1,33 @@
+# Security Model
+
+This document outlines the security considerations for deploying and running the Submission layer.
+
+## Container Security
+
+### Image Build Process
+
+- Submission layer images are built using GitHub Actions, using a repeatable and transparent build process. The workflows are defined in the [.github/workflows](https://github.com/SwanseaUniversityMedical/workflows/tree/main/.github/workflows) directory.
+- Each release from the build process is pinned to a git hash and a version number following the [Semantic Versioning](https://semver.org/) format.
+- This automation helps ensure that each build is consistent and can be traced back to its source code and build instructions.
+
+### Container Registry
+
+- Every Submission layer image is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/). The published containers are publically accessible. However, the GUI of Harbor requires Keycloak OpenID authentication to access and manage the containers.
+- The SBOM (Software Bill of Materials) snapshot for each container is published to the [Harbor container registry](https://harbor.federated-analytics.ac.uk/), and downloadable from there.
+- Images are pinned to specific workflow commit hashes, which prevents unauthorized modifications and ensures that only verified builds are used.
+- This pinning mechanism helps maintain security by ensuring that the exact version of the code that was reviewed and tested is the one being deployed.
+
+### Code Security & Review
+
+- All code contributions must pass the [SonarQube Quality Gate](https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-gates/introduction-to-quality-gates) and scan.
+- Contributions are reviewed by the University of Nottingham Centre for Health Informatics and Swansea University Medical School developer team, before they are approved and merged into the codebase.
+- Submission layer uses [RenovateBot](https://github.com/renovatebot/renovate) to automatically scan and update dependencies, ensuring security vulnerabilities are identified and patched promptly.
+
+## Infrastructure Security
+
+- Submission layer is encouraged to be deployed in a Virtual Machine with secure Networking inbound rules and a Reverse Proxy (e.g., NGINX, Caddy, etc.). The access or requests to Submission layer, therefore, can be tracked, allowed or blocked.
+- Submission layer doesn't send requests, data or outgoing connections to TRE or its Agent.
+- The incoming requests, analysis or queries to Submission layer have to be authenticated and authorised by Keycloak.
+- Access to the Submission layer's pages with sensitive data or potential disclosure of information is restricted to the users who are registered, vetted and approved by the Submission layer administrator.
+- Minio bucket for Submission layer is protected by Keycloak OpenID authentication.
+- Users who are deploying the Submission layer are encouraged to configure the password/credentials for the Submission layer services to be strong and unique through the `.env` file.
