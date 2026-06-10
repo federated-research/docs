@@ -143,32 +143,28 @@ Activity logs for the stack.
 
 **Hosted at**: [localhost:5341](http://localhost:5341)
 
-### MinIO
+### S3 storage
 
-These are the object stores for the stack.
+These are the Amazon S3 compatible object stores for the stack.
 
-#### Submission Minio
+#### Submission S3
 
-Submission Layer MinIO stores any inputs and after execution, stores the results for a submission.
+Submission Layer S3 stores any inputs and after execution, stores the results for a submission.
 
-**Hosted at**: [localhost:9000](http://localhost:9000)
-
-```yaml
-Username: minio
-Password: minio123
-```
-
-#### TRE Minio
-
-TRE Agent MinIO, stores any inputs copied over from the Submission layer, and the results of the analysis.
-
-**Hosted at**: [localhost:9002](http://localhost:9002)
+When using Demostack Quickstart, the Submission's S3 UI is hosted at: [localhost:9000](http://localhost:9000)
 
 ```yaml
-Username: minio
-Password: minio123
+Root Username: s3-submission
+Root Password: s3-submission-pass
 ```
 
-```
+#### TRE S3
 
+TRE Agent S3, stores any inputs copied over from the Submission layer, and the results of the analysis.
+
+When using Demostack Quickstart, the TRE's S3 UI is hosted at: [localhost:9002](http://localhost:9002)
+
+```yaml
+Root Username: s3-tre
+Root Password: s3-tre-pass
 ```
