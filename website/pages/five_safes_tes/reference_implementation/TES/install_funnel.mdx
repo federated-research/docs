@@ -4,34 +4,39 @@ import { Steps, Callout, Tabs } from "nextra/components";
 
 [Funnel](https://github.com/ohsu-comp-bio/funnel) is an implementation of the GA4GH Task Execution Schemas. It provides an API server,
 multiple storage backends, multiple compute backends and a web UI.
-For the purposes of the All In One stack we will be configuring the TRE Agent to use Funnel as the TES compatible execution backend and any outputs from the execution will be stored in the TRE Layer MinIO instance.
+For the purposes of the DemoStack quickstart we will be configuring the TRE Agent to use Funnel as the TES compatible execution backend and any outputs from the execution will be first stored in the TRE Layer S3 instance and then copied over to the Submission Layer S3 instance.
 
 <Steps>
 
-## Set up MinIO Access key
+## Set up S3 Access key
 
 <Callout>
-  This guidance refers to the preset credentials for the All In One quickstart.
+  This guidance refers to the preset credentials for the DemoStack quickstart.
   If you are setting up Funnel for a regular deployment, you'll need to use your
   TRE Agent realm credentials.
 </Callout>
 
-Navigate to the MinIO instance of the TRE Layer. If you are using our deployment compose files as a starting point, it will be on the same host as the TRE Agent, at port 9003. If you've configured it to be different, you'll need to use the correct port.
+- Navigate to the S3 instance of the TRE Layer. If you are using Demostack Quickstart, it will be on the same host as the TRE Agent, at port 9002. If you've configured it to be different, you'll need to use the correct port.
 
-You can login with `Login with KeyCloak` option using the following credentials using your TRE admin credentials.
+- Login with S3 TRE root credentials (which are set up in the environment variables in the `.env` file).
 
-If you are using DemoStack, the TRE admin credentials are:
+<Callout type="info">
+  If you are using Demostack Quickstart, the S3 TRE root credentials are:
+  ```yaml copy
+  Username: s3-tre
+  Password: s3-tre-pass
+  ```
+</Callout>
 
-```yaml copy
-Username: globaladminuser
-Password: password123
-```
+- To create the access keys, in the S3 (currently RustFS) console navigate to **_Access Keys -> Add Access Key_**
 
-You can also login with Minio root credentials (which are set up in the environment variables in the `.env` file) using the option `Use Credentials` under `Other Authentication methods`.
+<Callout>
+  While you can log in with your KeyCloak credentials, using the option `Log in with KeyCloak`, to create access keys with efficient privileges, you need to log in with S3 root credentials.
+</Callout>
 
-To create the access keys, in the MinIO console navigate to **_Access Keys -> Create access key_**
+![RustFS](/images/S3-RustFS.png)
 
-![MinIO](/images/MinioAccessKey.png)
+
 
 ## Install Funnel
 
@@ -43,10 +48,16 @@ Instructions on how to install Funnel can be found [here](https://ohsu-comp-bio.
 
 <Tabs items={['Install Script', 'Homebrew', 'Manual Binary Install', 'Build from Source']}>
  <Tabs.Tab>
-   This installs the latest release candidate at the time of writing `v0.11.7`. 
+   This installs the latest release candidate at the time of writing `v0.11.12`. 
     ```bash copy
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohsu-comp-bio/funnel/refs/heads/develop/install.sh)" -- v0.11.7
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/calypr/funnel/develop/install.sh)" -- "v0.11.12"
     ```
+    <Callout type="info">
+      You can add the destination of Funnel by adding it in the end of the command. For example, to install Funnel to `/opt/funnel`:
+      ```bash copy
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/calypr/funnel/develop/install.sh)" -- "v0.11.12" "/opt/funnel"
+      ```
+    </Callout>
  </Tabs.Tab>
 
  <Tabs.Tab>
@@ -123,15 +134,15 @@ funnel --help
 
 ## Funnel config file
 
-Funnel will need access to the TRE layer MinIO. Once funnel is installed, create a `config.yml` file.
+Funnel will need access to the TRE layer S3 storage. Once funnel is installed, create a `config.yml` file.
 
-- `Endpoint` is where the instance of MinIO in the TRE Layer is hosted.
-- `Access key` & `Secret` are created in the [previous step](#set-up-minio-access-key).
+- `Endpoint` is where the instance of S3 in the TRE Layer is hosted.
+- `Access key` & `Secret` are created in the [previous step](#set-up-s3-access-key).
 
 ```yaml filename="config.yml" copy
 GenericS3:
   - Disabled: false
-    Endpoint: "localhost:9002" # URL to MinIO. Change to match your environment. `9002` is the default port in our deployment samples.
+    Endpoint: "localhost:9002" # URL to S3 API. Change to match your environment. `9002` is the default port in our deployment samples.
     Key: "<access key>"
     Secret: "<secret>"
 ```
