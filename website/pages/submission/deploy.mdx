@@ -134,9 +134,9 @@ The compose manifests used in the Submission Layer are:
 
 - `ServiceStack/compose-manifests/storage/s3-submission.yml` which defines the Submission Layer's S3 server.
   <Callout type="info">
-    If the option `Login with KeyCloak` couldn't be shown in the login protal of
-    RustFS, check health of the KeyCloak server and try restarting the RustFS
-    container by the command `docker compose restart rustfs_submission`.
+    If the `Login with KeyCloak` option is not available in the RustFS login portal,
+    check the health of the KeyCloak server and restart the RustFS
+    container using the following command: `docker compose restart rustfs_submission`.
   </Callout>
 
 ##### Configure the .env file
