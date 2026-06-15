@@ -1,0 +1,53 @@
+import { Steps, Callout, Tabs } from "nextra/components";
+
+Task Execution Service (or [TES](https://www.ga4gh.org/product/task-execution-service-tes/)) is a GA4GH standard for executing tasks. More details about TES schema can be found [here](https://ga4gh.github.io/task-execution-schemas/docs/#tag/TaskService/operation/CreateTask).
+
+There are a few implementations of the TES standard, including:
+
+- [TES-K](https://github.com/elixir-cloud-aai/TESK)
+- [Funnel](https://github.com/calypr/funnel)
+
+## TES-K
+
+TES-K is a Kubernetes-native TES implementation where each job runs as a Kubernetes pod. This makes it straightforward to enforce pod-level security policies via Kubernetes admission controllers - in contrast to Funnel's default Docker model.
+
+The downside of TESK is the operational overhead of running a Kubernetes cluster. The [director-wfs](https://github.com/SwanseaUniversityMedical/director-wfs) from Swansea University Medical School is an opinionated full-stack deployment of TESK on [KIND (Kubernetes IN Docker)](https://kind.sigs.k8s.io/), with hardening enforced by [Gatekeeper](https://open-policy-agent.github.io/gatekeeper/website/) admission control, runtime detection via [Falco](https://falco.org/), network policies, monitoring, and ingress management all active by default. A single bootstrap script stands up the whole cluster on macOS or Ubuntu.
+
+## Funnel TES
+
+Funnel is a Go implementation of TES that translates task messages directly into `docker run` commands. It comprises a server, worker, and a collection of compute, storage, and database backends, making it a TES compatible execution backend.
+
+Funnel will locate a worker to carry out the task, download inputs, launch a number of (Docker) containers, upload outputs, record logs, and monitor the entire process given a task description.
+
+## Comparison between TES-K and Funnel
+
+| Category                                | Funnel (Docker backend)                                                         | TESK via director-wfs                                                                                                            |
+| --------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Implementation language**             | Go                                                                              | Java (tesk-api) + Python (tesk-core)                                                                                             |
+| **TES compliance**                      | Partial — treats `command` as args to `ENTRYPOINT`, diverging from spec         | Strict — `command[0]` is the program, per the TES/argv spec                                                                      |
+| **Underlying runtime**                  | Docker (direct `docker run`)                                                    | Kubernetes pods (via KIND on a single host)                                                                                      |
+| **Deployment complexity**               | Low — single binary, runs anywhere Docker is available                          | Higher — full KIND cluster, but bootstrapped via a [single script](<(https://github.com/SwanseaUniversityMedical/director-wfs)>) |
+| **Horizontal scalability**              | Yes (also supports K8s backend)                                                 | No — director-wfs targets single-server deployments only                                                                         |
+| **Host OS support**                     | Any Docker host                                                                 | macOS or Ubuntu (per director-wfs bootstrap)                                                                                     |
+| **Container root filesystem**           | Read-only, with a writable `/tmp` provided by Funnel                            | Read-only, enforced by Gatekeeper admission control                                                                              |
+| **`/tmp` writability**                  | Writable (Funnel mounts a host dir)                                             | Read-only — can break runtimes that write to `/tmp` at startup                                                                   |
+| **Container user**                      | Whatever the image specifies (usually root)                                     | Non-root by default, enforced by Gatekeeper                                                                                      |
+| **Linux capabilities**                  | Docker's full default set granted                                               | All dropped by default, enforced by Gatekeeper                                                                                   |
+| **Privileged containers**               | Possible if worker config permits                                               | Rejected by Gatekeeper before they run                                                                                           |
+| **Host filesystem access**              | Whatever volumes the worker is configured to mount                              | Restricted to a single storage path, enforced by Gatekeeper                                                                      |
+| **Host Docker socket exposure**         | Required by the Funnel worker (root-equivalent reach on host)                   | Not used                                                                                                                         |
+| **Security enforcement model**          | Relies entirely on correct operator configuration                               | Enforced at cluster level — insecure pod specs are rejected                                                                      |
+| **Hardening defaults**                  | None — `--user`, `--cap-drop`, `--security-opt`, userns flags absent by default | Hardened by default via Gatekeeper policies                                                                                      |
+| **Runtime threat monitoring**           | None by default                                                                 | Falco watches container activity at runtime                                                                                      |
+| **Network policies**                    | None built-in                                                                   | Active by default                                                                                                                |
+| **Admission control**                   | None                                                                            | Gatekeeper (OPA)                                                                                                                 |
+| **Container ENTRYPOINT behaviour**      | Honoured — command passed as args to image ENTRYPOINT                           | Ignored — `command[0]` is exec'd directly; full command must be in payload                                                       |
+| **Migration impact**                    | Tolerant of images that rely on ENTRYPOINT                                      | Requires TES payloads to include program name as `command[0]`                                                                    |
+| **Known .NET runtime issue**            | No issue — writable `/tmp` means diagnostic socket creates fine                 | CoreCLR fails with misleading OOM (`0x8007000E`) unless `DOTNET_EnableDiagnostics=0` is set                                      |
+| **Fix for .NET issue**                  | N/A                                                                             | Set `DOTNET_EnableDiagnostics=0` in env, or bake into Dockerfile                                                                 |
+| **Logging**                             | All logs in one place (simple)                                                  | Per-pod/job logs via kubectl                                                                                                     |
+| **Ingress / TLS**                       | Operator-managed                                                                | Managed by director-wfs; SSL can be disabled for private networks                                                                |
+| **Storage backend (tested)**            | Operator-defined                                                                | MinIO (S3-compatible), configured at install time                                                                                |
+| **Validated workloads**                 | (per document, same workloads tested on both)                                   | Hello World, SQL Runner, Python Analysis, Bunny                                                                                  |
+| **Operator burden**                     | High — all hardening must be configured deliberately per deployment             | Low — secure defaults enforced; operator configures exceptions, not rules                                                        |
+| **Recommended for production TRE use?** | Only with significant deliberate hardening                                      | Yes, if comfortable with bootstrapped script — secure by default, aligns with TRE threat model                                   |
