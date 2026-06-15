@@ -181,8 +181,8 @@ The compose manifests used in the TRE Agent and Data Egress are:
   </Callout>
 - `ServiceStack/compose-manifests/storage/s3-tre.yml` which defines the TRE Layer's S3 server.
   <Callout type="info">
-    If the option `Login with KeyCloak` couldn't be shown in the login protal of
-    RustFS, check health of the KeyCloak server and try restarting the RustFS container by the command `docker compose
+    If the `Login with KeyCloak` option is not available in the RustFS login portal,
+   check the health of the KeyCloak server and restart the RustFS container using the following command: `docker compose
     restart rustfs_TRE`.
   </Callout>
 - `ServiceStack/compose-manifests/shared/omop-lite.yml` which defines the [OMOP Lite](https://github.com/Health-Informatics-UoN/omop-lite) service, i.e., OMOP Lite. This is optional and only needed if you want to populate a synthetic OMOP CDM for the TRE data.
