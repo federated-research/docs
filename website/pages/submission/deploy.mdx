@@ -12,18 +12,18 @@ This page contains:
 
 Here is a summary of the required components which make up the Submission Layer:
 
-| Component          | Notes                                                                                               |
-| ------------------ | :-------------------------------------------------------------------------------------------------- |
-| **KeyCloak**       | The Submission apps require a Keycloak realm containing users and clients authorised to access them |
-| **Minio**          | An Amazon S3 compatible Submission Storage service                                                  |
-| **RabbitMQ**       | A message broker for queueing submissions for target TREs                                           |
-| **PostgreSQL**     | A database for the Submission apps to keep local state                                              |
-| **Submission API** | A REST API for Submission Layer functionality, including the GA4GH TES API                          |
-| **Submission GUI** | A Web Frontend for users to log into and interact with the Submission Layer                         |
+| Component                | Notes                                                                                               |
+| ------------------------ | :-------------------------------------------------------------------------------------------------- |
+| **KeyCloak**             | The Submission apps require a Keycloak realm containing users and clients authorised to access them |
+| **S3 (MinIO or RustFS)** | An Amazon S3 compatible Submission Storage service                                                  |
+| **RabbitMQ**             | A message broker for queueing submissions for target TREs                                           |
+| **PostgreSQL**           | A database for the Submission apps to keep local state                                              |
+| **Submission API**       | A REST API for Submission Layer functionality, including the GA4GH TES API                          |
+| **Submission GUI**       | A Web Frontend for users to log into and interact with the Submission Layer                         |
 
 You may choose how to distribute your own deployment of these components, as long as they are able to communicate with each other over the network.
 
-For some components, such as KeyCloak or MinIO, you may wish to use your own existing deployments.
+For some components, such as KeyCloak or S3 (MinIO or RustFS), you may wish to use your own existing deployments.
 
 {/* TODO: Keycloak realm setup guide */}
 
@@ -31,12 +31,12 @@ For some components, such as KeyCloak or MinIO, you may wish to use your own exi
 
 A subset of the components will need to be accessible by users, outside of the host environent:
 
-| Component          | Reason                                                                                   |
-| ------------------ | :--------------------------------------------------------------------------------------- |
-| **KeyCloak**       | So that users can authenticate and admins can manage the Submission KeyCloak Realm       |
-| **Minio**          | So that Researchers and TREs can upload and download Submission data (inputs or outputs) |
-| **Submission GUI** | So that users can log into and interact with the Submission Layer                        |
-| **Submission API** | So that Researchers and TREs can interact with the Submission Layer via a REST API       |
+| Component                | Reason                                                                                   |
+| ------------------------ | :--------------------------------------------------------------------------------------- |
+| **KeyCloak**             | So that users can authenticate and admins can manage the Submission KeyCloak Realm       |
+| **S3 (MinIO or RustFS)** | So that Researchers and TREs can upload and download Submission data (inputs or outputs) |
+| **Submission GUI**       | So that users can log into and interact with the Submission Layer                        |
+| **Submission API**       | So that Researchers and TREs can interact with the Submission Layer via a REST API       |
 
 ## Sample Deployment Guide
 
@@ -55,12 +55,12 @@ It also automatically configures the KeyCloak realm, ready for following our oth
 
 Components which may need to be accessed from outside the host are forwarded to the host on specific ports
 
-| Component          | Ports                              |
-| ------------------ | :--------------------------------- |
-| **KeyCloak**       | HTTP: `8085`                       |
-| **MinIO**          | API HTTP: `9000`, GUI HTTP: `9001` |
-| **Submission GUI** | HTTP: `7220`                       |
-| **Submission API** | HTTP: `5034`                       |
+| Component                | Ports                              |
+| ------------------------ | :--------------------------------- |
+| **KeyCloak**             | HTTP: `8085`                       |
+| **S3 (MinIO or RustFS)** | API HTTP: `9000`, GUI HTTP: `9001` |
+| **Submission GUI**       | HTTP: `7220`                       |
+| **Submission API**       | HTTP: `5034`                       |
 
 This sample also includes some additional components useful for diagnostic purposes:
 
@@ -76,8 +76,8 @@ To use this sample as a starting point for a production deployment, some [genera
 The ports specified above can be used for configuring a reverse proxy for access to the necessary components.
 
 <Callout>
-  If you are doing reverse proxy for MinIO, the `Websockets Support` should be
-  enabled for MinIO GUI Proxy host.
+  If you are doing reverse proxy for S3 (MinIO or RustFS), the `Websockets
+  Support` should be enabled for S3 GUI Proxy host.
 </Callout>
 
 ## Get Started
@@ -124,12 +124,19 @@ The compose manifests used in the Submission Layer are:
 - `ServiceStack/compose-manifests/applications/submission-layer.yml` which defines the Submission Layer services, i.e., Submission API, Submission GUI.
 - `ServiceStack/compose-manifests/shared/platform.yml` which defines the platform services, i.e., PostgreSQL, Adminer, Serilog, RabbitMQ.
 - `ServiceStack/compose-manifests/shared/auth.yml` which defines the authentication services, i.e., Keycloak. This is optional and only needed if you want to use Keycloak for authentication internally within the Submission Layer.
-- `ServiceStack/compose-manifests/storage/minio-submission.yml` which defines the Submission Layer's Minio server.
 
   <Callout>
-    Comment or remove the line
+    If you don't want to use a built-in Keycloak service, remove the line
     `../../ServiceStack/compose-manifests/shared/auth.yml` in the
-    `docker-compose.yml` file if you don't want to use it.
+    `docker-compose.yml` file and remove the `keycloak` dependency in the
+    `s3-submission.yml` file.
+  </Callout>
+
+- `ServiceStack/compose-manifests/storage/s3-submission.yml` which defines the Submission Layer's S3 server.
+  <Callout type="info">
+    If the `Login with KeyCloak` option is not available in the RustFS login portal,
+    check the health of the KeyCloak server and restart the RustFS
+    container using the following command: `docker compose restart rustfs_submission`.
   </Callout>
 
 ##### Configure the .env file
@@ -211,41 +218,41 @@ The descriptions of the essential environment variables and the guide to set the
       </Td>
     </Tr>
     <Tr>
-      <Td>`MinioOpenidSecret`</Td>
+      <Td>`SubmissionS3OpenidSecret`</Td>
       <Td>
-        The OpenID secret for the Minio client of Dare-Control realm. There is a
+        The OpenID secret for the S3 client of Dare-Control realm. There is a
         default value in the realm configuration, but you should regenerate it
         for production deployments. Do this by navigating to `Dare-Control`
-        realm -> `Clients` -> `Dare-Control-Minio` -> `Credentials`. Then click
+        realm -> `Clients` -> `Dare-Control-S3` -> `Credentials`. Then click
         `Regenerate` and copy the new value into this environment variable.
       </Td>
     </Tr>   
     <Tr>
-      <Td>`MinioRootUser`</Td>
-      <Td>The root user for the Minio server</Td>
+      <Td>`SubmissionS3RootUser`</Td>
+      <Td>The root user for the S3 server</Td>
     </Tr>
     <Tr>
-      <Td>`MinioRootPass`</Td>
-      <Td>The root password for the Minio server</Td>
+      <Td>`SubmissionS3RootPass`</Td>
+      <Td>The root password for the S3 server</Td>
     </Tr>
     <Tr>
-      <Td>`submissionMinioUrl`</Td>
+      <Td>`SubmissionS3ApiUrl`</Td>
       <Td>
-        The URL for the Submission Layer's Minio server, for internal access within Docker network.
-        For example, `http://minioSubmission:9000`
+        The URL for the Submission Layer's S3 server, for internal access within Docker network.
+        For example, `http://s3Submission:9000`
       </Td>
     </Tr>
     <Tr>
-      <Td>`submissionMinioAdminConsole`</Td>
+      <Td>`SubmissionS3ConsoleUrl`</Td>
       <Td>
-        The URL for the Submission Layer's Minio server's admin console. For example,
+        The URL for the Submission Layer's S3 server's admin console. For example,
         `http://localhost:9001`
       </Td>
     </Tr>
     <Tr>
       <Td>`SubmissionAPIKeyCloakSecret`</Td>
       <Td>
-        Same as `MinioOpenidSecret`, but this one is for `Dare-Control-API`
+        Same as `SubmissionS3OpenidSecret`, but this one is for `Dare-Control-API`
         client.{" "}
       </Td>
     </Tr>
@@ -254,7 +261,7 @@ The descriptions of the essential environment variables and the guide to set the
       <Td>`SubmissionUIClientSecret`</Td>
       <Td>
         {" "}
-        Same as `MinioOpenidSecret`, but this one is for `Dare-Control-UI` client.{" "}
+        Same as `SubmissionS3OpenidSecret`, but this one is for `Dare-Control-UI` client.{" "}
       </Td>
     </Tr>
     <Tr>
@@ -384,7 +391,7 @@ you can access the Submission Layer UI by navigating to `http://<hostname>:7220`
 - Submit a Hello World submission to the Submission Layer by following this [guide](/submission/tasks/quickstart).
 - Submit a simple analysis submission to the Submission Layer by following this [guide](/submission/tasks/run_analysis).
 - Add a new user in the `Dare-Control` Keycloak realm with appropriate permissions, then use this user credentials to access the Submission Layer UI.
-- Update passwords or secrets for the Submission Layer, including the Keycloak client secrets, Minio server credentials, etc.
+- Update passwords or secrets for the Submission Layer, including the Keycloak client secrets, S3 server credentials, etc.
 
 #### Debugging
 
