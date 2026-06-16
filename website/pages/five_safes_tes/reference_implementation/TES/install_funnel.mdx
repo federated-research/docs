@@ -151,7 +151,7 @@ You may also wish to configure other elements of the Funnel installation, e.g.:
 
 ```yaml filename="config.yml" copy
 Server:
-  HTTPPort: 8080 # Control which port Funnel binds on
+  HTTPPort: "80" # Control which port Funnel binds on, default is 8000
 Worker:
   WorkDir: "/var/opt/funnel" # explicitly specify Funnel's working directory
 # ...
