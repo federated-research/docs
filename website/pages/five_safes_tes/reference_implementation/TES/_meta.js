@@ -1,4 +1,4 @@
 export default {
-  tesk_and_funnel: "TES-K and Funnel",
+  tes_implementations: "TES Implementations",
   install_funnel: "Install Funnel TES",
 };
