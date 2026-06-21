@@ -6,10 +6,12 @@ views {
     // Submit job
     researcher -> submission.submission_app 'Submits job request'
                -> submission.rabbitmq 'Job added to queue'
-    submission.rabbitmq -> tre.tre_app 'Fetch job'
+    submission.rabbitmq <- tre.tre_app 'Fetch job'
 
     // Get credentials
-    tre.tre_app <- tre.vault 'Fetch credentials'
+    tre.tre_app -> tre.camunda 'Request ephemeral credentials'
+    tre.camunda -> tre.vault 'Store ephemeral credentials'
+    tre.tre_app -> tre.vault 'Fetch ephemeral credentials'
 
 
     // Execute job
@@ -22,7 +24,7 @@ views {
     // Present data for egress review
     tre.tre_app -> egress.egress_ui 'Transfer result details'
                 -> data_owner 'Notify results available'
-                -> egress.egress_ui 'Approve results'
+                -> egress.egress_ui 'Approve/Reject results'
 
     // Egress
     egress.egress_ui -> tre.minio 'Trigger transfer'
