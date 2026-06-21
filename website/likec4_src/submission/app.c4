@@ -15,8 +15,8 @@ model {
 
       -> sub_ui
 
-      -> submission.postgres 'Stores metadata'
-      -> submission.minio 'Stores objects'
+      -> submission.postgres 'Stores / retrieves data'
+      -> submission.minio 'S3 Object Store for inputs and approved results'
       -> submission.rabbitmq 'Sends job message'
     }
   }
