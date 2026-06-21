@@ -71,7 +71,6 @@ views {
     }
 
     include *
-    exclude funnel, harbor, revproxy
     autoLayout BottomTop
 
   }
