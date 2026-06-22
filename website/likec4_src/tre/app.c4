@@ -22,8 +22,9 @@ model {
         -> execution 'Send configured job'
 
         // Result returns
+        -> tre.s3 'Store results needing review'
         -> egress 'Notifies results available'
-        -> tre.minio 'Trigger file transfer'
+        -> tre.s3 'Trigger file transfer'
       }
   }
 }

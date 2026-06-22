@@ -7,7 +7,7 @@ model {
       icon https://avatars.githubusercontent.com/u/6921777?v=4
 
       -> protected_data 'Queries protected data'
-      -> tre.minio 'Stores job result'
+      -> tre.s3 'Stores job result'
     }
   }
 }

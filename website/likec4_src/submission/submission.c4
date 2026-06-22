@@ -23,12 +23,12 @@ model {
       icon https://upload.wikimedia.org/wikipedia/commons/2/29/Keycloak_Logo.png
     }
     
-    minio = component {
-      title 'Minio'
-      description 'S3 Object Store'
-      icon https://dl.min.io/logo/Minio_logo_light/Minio_logo_light.png
+    s3 = component {
+      title 'RustFS'
+      description 'S3 Object Store for inputs and approved results'
+      icon https://raw.githubusercontent.com/rustfs/docs.rustfs.com/refs/heads/main/docs/trademark/images/logo-white-bg.svg
 
-      minio -> researcher 'Downloads result'
+      s3 -> researcher 'Downloads result'
     }
   }
 }

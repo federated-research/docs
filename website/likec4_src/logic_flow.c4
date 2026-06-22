@@ -18,7 +18,7 @@ views {
                 -> protected_data 'Execute queries'
                 -> execution.funnel 'Return requested data'
                 -> execution.funnel 'Process data'
-                -> tre.minio 'Output results'
+                -> tre.s3 'Output results'
 
     // Present data for egress review
     tre.tre_app -> egress.egress_ui 'Transfer result details'
@@ -26,8 +26,8 @@ views {
                 -> egress.egress_ui 'Approve/Reject results'
 
     // Egress
-    egress.egress_ui -> tre.minio 'Trigger transfer'
-                     -> submission.minio 'Transfers results'
+    egress.egress_ui -> tre.s3 'Trigger transfer'
+                     -> submission.s3 'Transfers results'
                      -> researcher 'View results'
 
     // Add stack boundaries

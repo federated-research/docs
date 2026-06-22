@@ -13,13 +13,13 @@ model {
       -> tre.vault 'Send credentials'
     }
 
-    minio = component {
-      title 'Minio'
-      description 'S3 Object Store'
-      icon https://dl.min.io/logo/Minio_logo_light/Minio_logo_light.png
+    s3 = component {
+      title 'RustFS'
+      description 'S3 Object Store for inputs and results awaiting approval'
+      icon https://raw.githubusercontent.com/rustfs/docs.rustfs.com/refs/heads/main/docs/trademark/images/logo-white-bg.svg
 
-      minio -> submission.minio 'Transfers result'
-      minio -> data_owner 'Notifies'
+      s3 -> submission.s3 'Transfers result'
+      s3 -> data_owner 'Notifies'
     }
 
     keycloak = component {
