@@ -1,7 +1,6 @@
 views {
   dynamic view logic {
     title 'Data flow through the 5S-TES'
-    description 'High-level overview; details intentionally omitted'
 
     // Submit job
     researcher -> submission.submission_app 'Submits job request'
@@ -17,8 +16,8 @@ views {
     // Execute job
     tre.tre_app -> execution.funnel 'Submit job'
                 -> protected_data 'Execute queries'
-                -> execution.funnel 'Return results'
-                -> execution.funnel 'Process results'
+                -> execution.funnel 'Return requested data'
+                -> execution.funnel 'Process data'
                 -> tre.minio 'Output results'
 
     // Present data for egress review
