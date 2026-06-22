@@ -1,5 +1,4 @@
 import { Steps, Callout } from "nextra/components";
-import Diagram from "../../components/c4_diagram.mdx";
 
 # Production Deployment Recommendations
 
@@ -97,19 +96,3 @@ It's beyond the scope of this documentation to recommend how to acquire and regi
 - You can use a single certificate for any subdomains of a domain using wildcards (e.g. `*.contoso.com`)
 
 It may be possible to get free certificates from a provider such as Let's Encrypt, and to have them automatically renew by configuring the host environment appropriately.
-
-## Example Deployment Configuration
-
-<figure>
-  <Diagram
-    alt_image="/images/likec4/deployments/prod.png"
-    alt_text="Example production deployment configuration for a multi-component service using a reverse proxy."
-    viewId="prod"
-  />
-  <figcaption
-    style={{ fontStyle: "italic", fontSize: "0.7em", marginTop: "8px" }}
-  >
-    Figure 1: Example production deployment configuration. Click for
-    interactive mode.
-  </figcaption>
-</figure>
