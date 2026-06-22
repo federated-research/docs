@@ -43,8 +43,3 @@ Below is a comparison between TES-K and Funnel. The purpose of this comparison i
 | **Ingress / TLS**                  | Operator-managed                                                                                                                                                                                   | Managed by director-wfs; SSL can be disabled for private networks                                                                                 |
 | **Storage backend (tested)**       | Operator-defined                                                                                                                                                                                   | MinIO (S3-compatible), configured at install time                                                                                                 |
 | **Operator burden**                | High — all hardening must be configured deliberately per deployment                                                                                                                                | Low — secure defaults enforced; operator configures exceptions, not rules                                                                         |
-
-Based on the above comparison, TRE operators can choose TES implementation that best fits their needs/context. For example:
-
-- If TRE's priority is about minimising operational overhead, then Funnel with deliberate security hardening could suit their purposes.
-- If TRE needs enforceable security, and they are comfortable with a bootstrapped script to stand up a Kubernetes cluster, then TESK wrapped in `director-wfs` could be a good fit.
