@@ -10,7 +10,7 @@ model {
       description 'Credential Handler'
       icon https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/2025_Logo_Camunda_Black.png/960px-2025_Logo_Camunda_Black.png
 
-      -> tre.vault 'Send credentials'
+      -> tre.vault 'Send ephemeral credentials'
     }
 
     s3 = component {
@@ -38,7 +38,7 @@ model {
       title 'Vault'
       description 'Secret Manager'
       icon https://raw.githubusercontent.com/hashicorp/web-unified-docs/refs/heads/main/content/vault/v1.21.x/img/logo-text.svg
-      -> tre.tre_api 'Sends credentials'
+
     }
   }
 }

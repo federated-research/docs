@@ -18,6 +18,7 @@ model {
         // Job dispatch
         -> submission.rabbitmq 'Queries for jobs'
         -> tre.camunda 'Requests credentials'
+        -> tre.vault 'Retrieves ephemeral credentials'
         -> tre.postgres 'Stores / retrieves data'
         -> execution 'Send configured job'
 
