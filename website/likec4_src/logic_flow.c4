@@ -23,11 +23,13 @@ views {
     // Present data for egress review
     tre.tre_app -> egress.egress_ui 'Transfer result details'
                 -> data_owner 'Notify results available'
-                -> egress.egress_ui 'Approve/Reject results'
+    egress.egress_ui -> tre.s3 'Access results'
+    data_owner -> egress.egress_ui 'Approve/Reject results'
 
     // Egress
-    egress.egress_ui -> tre.s3 'Trigger transfer'
-                     -> submission.s3 'Transfers results'
+    egress.egress_ui -> tre.tre_app 'Send Approval results'
+    tre.tre_app -> tre.s3 'Collect results'
+    tre.tre_app -> submission.s3 'Transfers results'
                      -> researcher 'View results'
 
     // Add stack boundaries
