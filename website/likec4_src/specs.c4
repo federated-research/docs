@@ -1,0 +1,60 @@
+specification {
+  element external_actor {
+    notation 'An external user of the system, no special privileges'
+    style {
+      shape person
+      color red
+    }
+  }
+  element internal_actor {
+    notation 'A privileged user with access to system internals'
+    style {
+      shape person
+      color green
+    }
+  }
+
+  color orange rgba(255, 153, 0, 100%)
+  element database {
+    notation 'Data storage application'
+    style {
+      shape storage
+      color orange
+      multiple true
+    }
+  }
+
+  color system-colour rgba(35, 67, 99, 100%)
+  element system {
+    notation 'A group of applications arranged in a stack'
+    style {
+      color system-colour
+    }
+  }
+
+  color service-colour rgba(0, 100, 150, 100%)
+  element service {
+    notation 'Complex applications with multiple components'
+    style {
+      color service-colour
+    }
+  }
+
+  element component {
+    notation 'Individual applications'
+    style {
+      color muted
+    }
+  }
+
+  deploymentNode deploy_component {
+    notation 'Application from outside the 5S-TES'
+    style {
+      color orange
+    }
+  }
+  deploymentNode environment
+  deploymentNode virtual_machine
+
+  tag parallel_deploy
+}

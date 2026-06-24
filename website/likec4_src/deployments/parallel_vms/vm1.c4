@@ -1,0 +1,5 @@
+deployment {
+    extend parl.vm1 {
+        instanceOf submission
+    }
+}
