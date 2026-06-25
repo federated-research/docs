@@ -1,4 +1,5 @@
 export default {
-    patterns: 'Patterns framework',
+    patterns: 'Computational Patterns',
+    platforms: 'Platform Patterns',
     weaves: 'Developing a Weave',
 }
