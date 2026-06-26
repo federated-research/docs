@@ -1,24 +1,24 @@
+# Platform Patterns
+There are dozens of federated platforms that could be used by the researcher to perform their federated analytics or federated learning projects. 
 
-The other aspects are the key definitions of the federated platforms. 
+Whilst there may be a few diferent patterns for the types of federation, our expectation is that there wont be many patterns between our the various platforms have decided to implement their approaches. 
 
-| Pattern theme    | Description                                                                                | Component                                       |
-|-----------------------|--------------------------------------------------------------------------------------------|-------------------------------------------------|
-| **Metadata**          | Data that assists the researcher to construct analyses to run with the weave | Metadata specification                                             |
-| **Initiate**        | The components that are functionally required to enable federation.                        | API Specification               |
-| **Process**        | The components that are functionally required to enable federation.                        | API Specification                 |
-
-
-From these patterns of the federated analytics and learning it is possible to then specify the likely impact these approaches will have on disclosure control processes.
-
+## Disclosure Control
+On aspect that is likely to have a pattern are the various methods in which the federated platorms allow (or not) for disclosure control checking to occur at the level of the individual TRE. 
 - None – where the egress being requested is essentially set to auto-approve, there can be no manual or automated egress check in place, or no process to mitigate disclosure risks. 
 - Manual - where at least one person checks the results by eye and approves the release of the data
 - Semi-automated – where at least one person checks the results, aided by a risk tool
 - Automated – where a computational approach has been taken to check contents or mitigate disclosure risks, and make the decision with no human involvement. 
 
-
 ### Initiate
-- API specification for the receiving of the analysis to run across the network
+A federated analysis or federated learning project usually will start with some command to initiate the project. At this 
+stage we are collecting information from platform providers to understand if they are using an API specification that captures how a federated project is initiated.  
+
+- Therefore, at this stage, we will list the API specification for the receiving of the analysis to run across the network
 
 ### Process
-- API specification for the processing of the analysis with a TRE.
+Each TRE will be asked to process some local job, and that local processing can equally be initiated by an API. We have seperated out the API specification that initiates
+a federated project and the API specification that is used to initiate a local processing incase these are different.
+
+- Therefore, at this stage, we will list the API specification for API that is to request the processing of the analysis with a TRE.
 
