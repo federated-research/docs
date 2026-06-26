@@ -1,24 +1,28 @@
 # Platform Patterns
 There are dozens of federated platforms that could be used by the researcher to perform their federated analytics or federated learning projects. 
 
-Whilst there may be a few diferent patterns for the types of federation, our expectation is that there wont be many patterns between our the various platforms have decided to implement their approaches. 
+Whilst there may be a few different patterns for the types of federation, our expectation is that there wont be many patterns between our the various platforms have decided to implement their approaches. 
 
-## Disclosure Control
-On aspect that is likely to have a pattern are the various methods in which the federated platorms allow (or not) for disclosure control checking to occur at the level of the individual TRE. 
-- None – where the egress being requested is essentially set to auto-approve, there can be no manual or automated egress check in place, or no process to mitigate disclosure risks. 
-- Manual - where at least one person checks the results by eye and approves the release of the data
-- Semi-automated – where at least one person checks the results, aided by a risk tool
-- Automated – where a computational approach has been taken to check contents or mitigate disclosure risks, and make the decision with no human involvement. 
-
-### Initiate
+## Initiate
 A federated analysis or federated learning project usually will start with some command to initiate the project. At this 
 stage we are collecting information from platform providers to understand if they are using an API specification that captures how a federated project is initiated.  
 
-- Therefore, at this stage, we will list the API specification for the receiving of the analysis to run across the network
+Therefore, at this stage, we will list the API specification for the receiving of the analysis to run across the network
 
-### Process
+## Process
 Each TRE will be asked to process some local job, and that local processing can equally be initiated by an API. We have seperated out the API specification that initiates
 a federated project and the API specification that is used to initiate a local processing incase these are different.
 
-- Therefore, at this stage, we will list the API specification for API that is to request the processing of the analysis with a TRE.
+Therefore, at this stage, we will list the API specification for API that is to request the processing of the analysis with a TRE.
 
+## Metadata
+todo
+
+## Current Patterns 
+| Platform Name  | Initiate | Process | Metadata |
+|-|-|-|-|
+| Aridhia DRE | [Aridhia API docs](https://aridhia-open-source.github.io/PHEMS_federated_node/) | [Aridhia API docs](https://aridhia-open-source.github.io/PHEMS_federated_node/) | |
+| Apheris | [Apheris API docs](https://www.apheris.com/docs/gateway/latest/general/custom-models.html) | NA| |
+| Bitfount | [Bitfound API docs](https://docs.bitfount.com/guides/for-data-scientists/writing-tasks/task-components) | [Bitfound API docs](https://docs.bitfount.com/guides/for-data-scientists/writing-tasks/task-components) | |
+| Five Safes TES | [Five Safes TES](/submission/guides/teswizard) |[TES Docoumentation](https://www.ga4gh.org/product/task-execution-service-tes/)   | |
+| Vantage6 | [Vantage 6 API docs](https://github.com/vantage6/vantage6/blob/main/vantage6-server/vantage6/server/resource/task.py) | NA | |
