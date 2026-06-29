@@ -11,7 +11,7 @@ export default {
     }
   },
   standards: "Standards",
-  federated_research_patterns: "Federated Research Patterns",
+  federated_research_patterns: "Federated Patterns",
   weaves: {
     title: "Implementations",
     type: "separator"
