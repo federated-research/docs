@@ -1,0 +1,31 @@
+# Traditional Pattern
+**Analytical:** Isolated <br/>
+**Data Movement**: Summary <br/>
+**Required Trust between TREs**: Low <br/>
+
+The most common method to undertake federated analytics is for the analyses to be performed in each location individually, summary results are gathered centrally and further meta-style analyses are performed. This pattern requires the lowest trust between TREs, as each result is undertaken independently and a meta or two stage analysis is performed over the results. 
+
+The limitation of this approach is that data cannot be linked and certain analyses cannot be undertaken via this method. Therefore, the most traditional approach, but the least powerful for a researcher.
+
+Examples of this approach are.....
+![Alt Text](/assets/gif/Isolated%20Analytics.gif)
+
+## Analyses 
+An algorithm to calculate a statistic is *isolated* if the algorithm can be broken into subproblems that can be calculated separately at each TRE. These results can be combined to achieve the same result as calculating them on a single, pooled data set.
+
+There are often several different algorithms that can be used to calculate the same statistic, but it is the algorithm, not the statistic which is of importance in determining how it can be federated. In considering several common statistics and algorithms in health informatics, we have produced a table which shows statistics that are known to be calculable in a federated manner using Five Safes TES. Note that this summary gives no regard to disclosure risks or checking of outputs, only the suitability of Five Safes TES for an implementation. This table is not comprehensive, and only encompasses some common analyses in health informatics. 
+
+| Statistic                              | Possible in Five Safes TES | Notes                                                                                |
+| -------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------ |
+| Minimum/maximum                        | ✅                          |                                                                                      |
+| Counts                                 | ✅                          | Includes prevalence, incidence                                                       |
+| Contingency tables                     | ✅                          | Includes comorbidity. Can be used for Chi-squared test, Fisher's exact test, etc.    |
+| Mean                                   | ✅                          |                                                                                      |
+| Variance                               | ✅                          | Can be used to calculate standard deviation                                          |
+| Covariance                             | ✅                          |                                                                                      |
+| Product-moment correlation coefficient | ✅                          | Also known as Pearson's correlation coefficient. Can be used to calculate Fisher's Z |
+| t-tests                                | ✅                          | Including one-sample and two-sample t-tests                                          |
+| Hotelling's T2                         | ✅                          |                                                                                      |
+| ANOVA                                  | ✅                          |                                                                                      |
+| t-digest                               | ✅                          | Used to estimate quartiles (median, interquartile ranges, etc.)                      |
+| Linear regression                      | ✅                          | Can fail on a case by case basis.                                                    |

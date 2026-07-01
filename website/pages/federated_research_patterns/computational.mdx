@@ -18,37 +18,5 @@ The patterns we have identified to date indicate that the type of analysis to be
 | **Connected** | Model Parameters| 
 | **Centralised**| Row level data only| 
 
-## Common Patterns
 
 
-### Traditional Pattern
-**Analytical:** Isolated <br/>
-**Data Movement**: Summary <br/>
-**Required Trust between TREs**: Low <br/>
-
-The most common method to undertake federated analytics is for the analyses to be performed in each location individually, summary results are gathered centrally and further meta-style analyses are performed. This pattern requires the lowest trust between TREs, as each result is undertaken independently and a meta or two stage analysis is performed over the results. 
-
-The limitation of this approach is that data cannot be linked and certain analyses cannot be undertaken via this method. Therefore, the most traditional approach, but the least powerful for a researcher.
-
-Examples of this approach are.....
-![Alt Text](/assets/gif/Isolated%20Analytics.gif)
-
-
-### Learning Pattern
-**Analytical:** Connected <br/>
-**Data Movement**: Model Parameters <br/>
-**Required Trust between TREs**: High <br/>
-
-The most commons method to undertake federated learning is for the model parameters to be passed via a central node, or directly between the TREs. The key difference for a TRE is that results are combined and shared between other TREs, therefore there is a higher trust required between the TREs, as they must trust the sharing of model parameters with the researcher and the TREs. 
-![Alt Text](/assets/gif/Connected%20Analytics.gif)
-
-
-### Dynamic Pooling Pattern
-**Analytical:** Centralised <br/>
-**Data Movement**: Row level data <br/>
-**Required Trust between TREs**: Very High <br/>
-
-An emerging pattern from the DARE UK TREvolution programme is that a project specific network is created between the TREs, to either move or provide the researcher with a view of the data that makes it appear as if the data is all in one location. This approach is by far the most powerful for a user and the analyses and learning are almost unlimited.
-
-This approach does require a very high level of trust between TREs as it would require effective row level sharing of data between TREs. Disclosure control would still be applied before the data left the TRE network. 
-![Alt Text](/assets/gif/Dynamics.gif)

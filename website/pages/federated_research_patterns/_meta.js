@@ -1,6 +1,5 @@
 export default {
-    patterns: 'Computational Patterns',
+    computational: 'Computational',
     platforms: 'Platform Patterns',
     egress: 'Egress Patterns',
-    weaves: 'Weaves',
 }
