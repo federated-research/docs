@@ -14,16 +14,22 @@ On aspect that is likely to have a pattern are the various methods in which the 
 Egress-control local: Manual <br/>
 Egress-control central: Any  <br/>
 
-This e-gress patterns is most likely affiliated to the Traditional Federation pattern as it mirrors current process as much as possible.All data to move out from the boundary of the individual TRE has a manual disclosure control check, regardless if any disclosure control is preformed on the federated network
+This e-gress patterns is most likely affiliated to the Traditional Federation pattern as it mirrors current process as much as possible.All data to move out from the boundary of the individual TRE has a manual disclosure control check, regardless if any disclosure control is preformed on the federated network.
 
 ### Semi-automated
 Egress-control local: Semi-automated <br/>
 Egress-control central: Any  <br/>
 
+There are emerging tools (such as SACRO) that can allow for the semi-automated checking of results for a disclosure risk. The decision to release a result is still manual and undertaken by the TRE, with the aim this semi-automation can first warn the researcher ahead of time that a result may be disclosive and therefore accelerate any disclosure control assessments undertake at the time of egress from the TRE. 
+
 ### Fully automated
 Egress-control local: Automated <br/>
 Egress-control central: Any  <br/>
 
+There are federated platforms and tools that will automate the checks and assure that data which is moving is not disclosive before it leaves the boundary of the TRE. These checks are fully automated and therefore there is no human in the loop to check the results, instead, the software/algorithm is valdiated to give the assurance to the TRE that the correct checks and balances are applied to the data before it moves. 
+
 ### Full central control
 Egress-control local: None 
-Egress-control central: Manual 
+Egress-control central: Any 
+
+There are certain analyses that can only be performed when all the data is in a single location. Therefore data pooling must occur and data that normally would not be allowed via egress does indeed move. The key concept of this pattern though is that the data is moving to another TRE/SDE and that before the results leaves the boundary of the federation of TREs, the normal egress check is performed. At this stage it could be any of the disclosure control components that are used, but would be agreed by the federation of TREs/SDEs. 
