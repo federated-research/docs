@@ -2,7 +2,7 @@ import { Steps, Callout, Tabs } from "nextra/components";
 
 # Funnel TES
 
-[Funnel](https://github.com/ohsu-comp-bio/funnel) is an implementation of the GA4GH Task Execution Schemas. It provides an API server,
+[Funnel](https://github.com/calypr/funnel) is an implementation of the GA4GH Task Execution Schemas. It provides an API server,
 multiple storage backends, multiple compute backends and a web UI.
 For the purposes of the DemoStack quickstart we will be configuring the TRE Agent to use Funnel as the TES compatible execution backend and any outputs from the execution will be first stored in the TRE Layer S3 instance and then copied over to the Submission Layer S3 instance.
 
@@ -151,7 +151,7 @@ You may also wish to configure other elements of the Funnel installation, e.g.:
 
 ```yaml filename="config.yml" copy
 Server:
-  HTTPPort: 8080 # Control which port Funnel binds on
+  HTTPPort: "80" # Control which port Funnel binds on, default is 8000
 Worker:
   WorkDir: "/var/opt/funnel" # explicitly specify Funnel's working directory
 # ...

@@ -26,6 +26,11 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
+# Compiled likec4 images and binaries
+website/public/images/likec4
+website/likec4_src/**/*png
+website/likec4_react
+
 # Dependency directories
 node_modules
 jspm_packages

@@ -1,3 +1,5 @@
+import Diagram from "./components/c4_diagram.mdx";
+
 # TRE Agent
 
 The TRE Agent handles the communication between the [Submission Layer](/software/submission) and a Trusted Research Environment.
@@ -5,6 +7,20 @@ The TRE Agent polls out to the Submission Layer, gets a task, then sends the tas
 Once the task is finished executing the TRE Agent sends the results to [Egress](/software/egress).
 
 The code for TRE Agent is open source, and can be found on [Github](https://github.com/SwanseaUniversityMedical/5s-Tes).
+
+<figure>
+  <Diagram
+    alt_image="/images/likec4/tre/tre_app.png"
+    alt_text="TRE Agent architecture diagram"
+    viewId="tre_app"
+  />
+  <figcaption
+    style={{ fontStyle: "italic", fontSize: "0.7em", marginTop: "8px" }}
+  >
+    Figure 1: TRE Agent components. Click for
+    interactive mode.
+  </figcaption>
+</figure>
 
 ## Core Functionality
 

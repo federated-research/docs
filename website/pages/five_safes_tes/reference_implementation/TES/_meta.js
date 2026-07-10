@@ -1,3 +1,4 @@
 export default {
-    install_funnel:'Install Funnel TES'
-}
+  tes_implementations: "TES Implementations",
+  install_funnel: "Install Funnel TES",
+};
