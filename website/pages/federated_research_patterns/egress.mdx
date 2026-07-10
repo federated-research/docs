@@ -1,8 +1,7 @@
-# Data E-gress Patterns
-There are a few mechanisim in which e-gress can occur at the boundary of the TRE and/or at the boundary of the federated network. 
+# Data Egress Patterns
+There are a few mechanisms in which egress can occur at the boundary of the TRE and/or at the boundary of the federated network. 
 
 ## Disclosure Control Components
-On aspect that is likely to have a pattern are the various methods in which the federated platorms allow (or not) for disclosure control checking to occur at the level of the individual TRE. 
 - **None** – where the egress being requested is essentially set to auto-approve, there can be no manual or automated egress check in place, or no process to mitigate disclosure risks. 
 - **Manual** - where at least one person checks the results by eye and approves the release of the data
 - **Semi-automated** – where at least one person checks the results, aided by a risk tool
@@ -14,13 +13,13 @@ On aspect that is likely to have a pattern are the various methods in which the 
 Egress-control local: Manual <br/>
 Egress-control central: Any  <br/>
 
-This e-gress patterns is most likely affiliated to the Traditional Federation pattern as it mirrors current process as much as possible.All data to move out from the boundary of the individual TRE has a manual disclosure control check, regardless if any disclosure control is preformed on the federated network.
+This egress patterns is most likely affiliated to the Traditional Federation pattern as it mirrors current process as much as possible.All data to move out from the boundary of the individual TRE has a manual disclosure control check, regardless if any disclosure control is preformed on the federated network.
 
 ### Semi-automated
 Egress-control local: Semi-automated <br/>
 Egress-control central: Any  <br/>
 
-There are emerging tools (such as SACRO) that can allow for the semi-automated checking of results for a disclosure risk. The decision to release a result is still manual and undertaken by the TRE, with the aim this semi-automation can first warn the researcher ahead of time that a result may be disclosive and therefore accelerate any disclosure control assessments undertake at the time of egress from the TRE. 
+There are emerging tools (such as [SACRO](https://github.com/AI-SDC)) that can allow for the semi-automated checking of results for a disclosure risk. The decision to release a result is still manual and undertaken by the TRE, with the aim this semi-automation can first warn the researcher ahead of time that a result may be disclosive and therefore accelerate any disclosure control assessments undertake at the time of egress from the TRE. 
 
 ### Fully automated
 Egress-control local: Automated <br/>
