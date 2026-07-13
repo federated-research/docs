@@ -3,9 +3,9 @@
 **Data Movement**: Summary <br/>
 **Required Trust between TREs**: Low <br/>
 
-The most common method to undertake federated analytics is for the analyses to be performed in each location individually, summary results are gathered centrally and further meta-style analyses are performed. This pattern requires the lowest trust between TREs, as each result is undertaken independently and a meta or two stage analysis is performed over the results. 
+The most common method of federated analytics carries out a local computation in each location separately to generate summary results which are combined centrally. This pattern requires the lowest trust between TREs, as each result is undertaken independently. 
 
-The limitation of this approach is that data cannot be linked and certain analyses cannot be undertaken via this method. Therefore, the most traditional approach, but the least powerful for a researcher of the three patterns. 
+One limitation of this approach is that data cannot be linked, as no row-level attributes are shared. Certain analyses cannot be undertaken via this method. Though this is the most traditional approach, it is the least powerful of the three patterns for a researcher. 
 
 The analyses that can be run within the boundary of the TRE are almost unlimited and constrained by the compute and permissions from the TRE. The key concept is that manual disclosure control is applied and therefore the results that can then be analysed together are limited. 
 
