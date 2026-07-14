@@ -1,7 +1,13 @@
 # Shared Pattern
-**Analytical:** Connected  
-**Data Movement**: Model Parameters  
-**Required Trust between TREs**: High  
+|||
+|-|-|
+| [Analytical](../computational#analytical-patterns) | Connected  
+| [Data Movement](../computational#data-movement-patterns) | Model parameters or summary 
+| Required Trust between TREs | High  
 
-The most common method to undertake federated learning is for the model parameters to be passed via a central node, or directly between the TREs. The key difference for a TRE is that results are combined and shared between other TREs, therefore there is a higher trust required between the TREs, as they must trust the sharing of model parameters with the researcher and the TREs. 
+This is the most common method for federated learning, but can also be used for analytics that cannot be isolated, for example finding the median by binary search.
+In a Shared pattern, some computation is carried out in each TRE and model parameters or a summary is sent back to the central node, which redistributes some of this information back to the TREs.
+Higher trust is required between the TREs as results are combined and shared between other TREs whom they must trust with this information.
+
 ![Alt Text](/assets/gif/Connected%20Analytics.gif)
+
