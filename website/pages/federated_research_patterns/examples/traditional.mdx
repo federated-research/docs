@@ -1,7 +1,10 @@
 # Traditional Pattern
-**Analytical:** Isolated  
-**Data Movement**: Summary  
-**Required Trust between TREs**: Low  
+|||
+|-|-|
+| [Analytical](../computational#analytical-patterns) |Isolated  
+| [Data Movement](../computational#data-movement-patterns) | Summary  
+| [Egress](../egress) | [Manual](../egress#full-local-control)
+| Required Trust between TREs | Low  
 
 The most common method of federated analytics carries out a local computation in each location separately to generate summary results which are combined centrally. This pattern requires the lowest trust between TREs, as each result is undertaken independently. 
 
@@ -17,8 +20,8 @@ An algorithm to calculate a statistic is *isolated* if the algorithm can be brok
 There are often several different algorithms that can be used to calculate the same statistic, but it is the algorithm, not the statistic which is of importance in determining how it can be federated. In considering several common statistics and algorithms in health informatics, we have produced a table which shows statistics that are known to be calculable in a federated manner using Five Safes TES. Note that this summary gives no regard to disclosure risks or checking of outputs, only the suitability of Five Safes TES for an implementation. This table is not comprehensive, and only encompasses some common analyses in health informatics. 
 
 | Statistic                              | Notes                                                                                |
-| -------------------------------------- |  ------------------------------------------------------------------------------------ |
-| Minimum/maximum                         |                                                                                      |
+| -------------------------------------- |  ----------------------------------------------------------------------------------- |
+| Minimum/maximum                        |                                                                                      |
 | Counts                                 | Includes prevalence, incidence                                                       |
 | Contingency tables                     | Includes comorbidity. Can be used for Chi-squared test, Fisher's exact test, etc.    |
 | Mean                                   |                                                                                      |
@@ -29,4 +32,4 @@ There are often several different algorithms that can be used to calculate the s
 | Hotelling's T2                         |                                                                                      |
 | ANOVA                                  |                                                                                      |
 | t-digest                               | Used to estimate quartiles (median, interquartile ranges, etc.)                      |
-| Linear regression                     |                                                  |
+| Linear regression                      |                                                                                      |

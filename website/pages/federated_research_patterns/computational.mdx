@@ -14,7 +14,7 @@ There are three key concepts that summarise the vast number of analytics and lea
 | Connected          | Analyses that require multiple rounds of local calculation and aggregation, requiring the TREs to receive results from other TREs to be included in the local calculations. |
 | Centralised        | Analyses require data to be pooled, even temporarily, for the analyses to be performed. |
 
-## Data Movement
+## Data Movement patterns
 As determined by the algorithm type, this is how data is required to move in and out of a TRE and how it is executed.
 
 | Data Movement pattern | Description |
@@ -27,7 +27,7 @@ As determined by the algorithm type, this is how data is required to move in and
 ## Connections
 The patterns we have identified to date indicate that the type of analysis to be run dictates the type of data to move.
 It is important to state that these classifications of the data movement do not indicate the disclosive data of a specific result.
-Summary results are inherently less likely to be disclosive than row-level data but outputs must be assessed based on each TRE's statistical disclosure control procedures.
+Summary results are inherently less likely to be disclosive than row-level data but outputs must be assessed based on each TRE's [egress](./egress) procedures.
 
 | Analytical | Data Movement | 
 |-|-|
