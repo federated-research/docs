@@ -1,13 +1,52 @@
 # Computational Patterns
 There are dozens of ways to undertake federated analysis or federated learning and there are benefits and limitations of those processes.
 
-Our work has shown that despite the significant number of federated tools, algprithms and platforms, when you examine 
-the patterns for how these analyses are undertaken they can be simply grouped based on two criteria, 
+Our work has shown that despite the significant number of federated tools, algorithms and platforms, when you examine 
+the patterns for how these analyses are undertaken they can be simply grouped based on two criteria: 
 
-| Component         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Analytical**    | There are three key concepts that summarise the vast number of analytics and learning that are possible when data is spread across multiple TREs:   **Isolated** – these are analyses that are replicated individually within each TRE. <br/><br/>**Connected** – these are analyses that require multiple rounds of local calculation and aggregation, requiring the TREs to receive results from other TREs to be included in the local calculations. <br/><br/>**Centralised** – these analyses require data to be pooled, even temporarily, for the analyses to be performed.                                               |
-| **Data Movement** | As determined by the algorithm type, this is how data is required to move in and out of a TRE and how it is executed.  **Summary:** where a statistical result is shared back that does not relate to any individual but is a calculation based on the confidential data. It is the summary result that moves from the TRE. <br/><br/>**Model Parameters:** where a machine learning algorithm has been run on the data and the weights are moved from the TRE. <br/><br/>**Row level data**: where row level data is moving, whether that is anonymised (or not), but each data element is at the level of an individual. |
+<br/><br/>
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th colspan="2">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="4">**Analytical**</td>
+      <td colspan="2"><br/>There are three key concepts that summarise the vast number of analytics and learning that are possible when data is spread across multiple TREs:<br/></td>
+    </tr>
+    <tr>
+      <td>**Isolated**</td>
+      <td>these are analyses that are replicated individually within each TRE.</td>
+    </tr>
+    <tr>
+      <td>**Connected**</td>
+      <td>these are analyses that require multiple rounds of local calculation and aggregation, requiring the TREs to receive results from other TREs to be included in the local calculations.</td>
+    </tr>
+    <tr>
+      <td>**Centralised**</td>
+      <td>these analyses require data to be pooled, even temporarily, for the analyses to be performed.</td>
+    </tr>
+    <tr>
+      <td rowspan="4">**Data Movement**</td>
+      <td colspan="2"><br/>As determined by the algorithm type, this is how data is required to move in and out of a TRE and how it is executed.<br/></td>
+    </tr>
+    <tr>
+      <td>**Summary:**</td>
+      <td>where a statistical result is shared back that does not relate to any individual but is a calculation based on the confidential data. It is the summary result that moves from the TRE.</td>
+    </tr>
+    <tr>
+      <td>**Model Parameters:**</td>
+      <td>where a machine learning algorithm has been run on the data and the weights are moved from the TRE.</td>
+    </tr>
+    <tr>
+      <td>**Row level data**:</td>
+      <td>where row level data is moving, whether that is anonymised (or not), but each data element is at the level of an individual.</td>
+    </tr>
+  </tbody>
+</table>
 
 
 ## Connections
@@ -17,6 +56,4 @@ The patterns we have identified to date indicate that the type of analysis to be
 | **Isolated** | Summary only| 
 | **Connected** | Model Parameters| 
 | **Centralised**| Row level data only| 
-
-
 
