@@ -1,8 +1,10 @@
 # Data Egress Patterns
-There are a few mechanisms in which egress can occur at the boundary of the TRE (Local disclosure control) and/or at the boundary of the federated network (Central disclosure control). 
+Within a federated project there is always an interaction that occurs at each location, and then at the central level where results are either combined, compared or analysed. Therefore, whilst in a more traditional setup not involving federation, the only area where egress would be considered is at the boundary of each TRE, within a federated model, there are two options for egress to occur.  
+
+The first as at the boundary of the individual TRE where data is held and being made available to the federated project. The purpose of the egress check is to ensure only the data that has been approved to move is indeed what is moving. In most TREs this check is to ensure the data leaving does not contain anything disclosive and is safe to leave the secure boundary of the TRE.We have identified four methods in which egress can occur.
 
 
-| Component         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 
+| Method         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **None**   | The egress being requested is approved by default, there can be no manual or automated egress check in place, or no process to mitigate disclosure risks.                                            |
 | **Manual** | At least one person checks the results and approves the release of the data |
@@ -12,26 +14,26 @@ There are a few mechanisms in which egress can occur at the boundary of the TRE 
 # Current Patterns
 
 ## Full local control
-Local Disclosure Control Component: Manual  
-Central Disclosure Control Component: Any  
+Local egress method: Manual  
+Central egress method: Any  
 
 This egress pattern is most likely with the [Traditional Federation Pattern](/federated_research_patterns/computational/traditional), mirroring the current process. All data leaving an individual TRE has a manual disclosure control check, regardless of whether any disclosure control is performed on the federated network.
 
 ## Semi-automated
-Local Disclosure Control Component: Semi-automated  
-Central Disclosure Control Component: Any  
+Local egress method: Semi-automated  
+Central egress method: Any  
 
 Emerging tools (such as [SACRO](https://github.com/AI-SDC)) allow for the semi-automated checking of results for a disclosure risk. The decision to release a result is still made by a human being and undertaken by the TRE, with the aim that this semi-automation can first warn researchers and output checkers ahead of time that a result may be disclosive and therefore accelerate any disclosure control assessments undertaken at the time of egress from the TRE. 
 
 ## Fully automated
-Local Disclosure Control Component: Automated  
-Central Disclosure Control Component: Any  
+Local egress method: Automated  
+Central egress method: Any  
 
 There are federated platforms and tools that will automate the checks and ensure that data which is moving is not disclosive before it leaves the boundary of the TRE. These checks are fully automated and there is no human in the loop to check the results; instead, the software/algorithm is validated to give assurance to the TRE that the correct checks and balances are applied to the data before it moves. 
 
 ### Full central control
-Local Disclosure Control Component: None  
-Central Disclosure Control Component: Any   
+Local egress method: None  
+Central egress method: Any   
   
 There are certain analyses that can only be performed when all the data is in a single location. For these analyses, data is pooled, moving data that would not be allowed to move under normal egress policies. The key concept of this pattern is that the data is moving to another TRE/SDE and that before the results leave the boundary of the federation of TREs, normal egress checks are performed.
 At this stage, any of the disclosure control components could be used, as agreed upon by the federation of TREs/SDEs.

@@ -25,12 +25,13 @@ As determined by the algorithm type, this is how data is required to move in and
 
 
 ## Connections
+
 The patterns we have identified to date indicate that the type of analysis to be run dictates the type of data to move.
 It is important to state that these classifications of the data movement do not indicate the disclosive data of a specific result.
 Summary results are inherently less likely to be disclosive than row-level data but outputs must be assessed based on each TRE's [egress](./egress) procedures.
 
-| Analytical | Data Movement | 
-|-|-|
-| **Isolated** | Summary only | 
-| **Connected** | Model Parameters | 
-| **Centralised**| Row level data only |
+| Analytical | Data Movement | Associated Pattern|
+|-|-|-|
+| Isolated | Summary only | [Traditional Pattern](/federated_research_patterns/computational/traditional)|
+| Connected| Model Parameters | [Shared Pattern](/federated_research_patterns/computational/shared)|
+| Centralised| Row level data only | [Pooled Pattern](/federated_research_patterns/computational/pooled)|
