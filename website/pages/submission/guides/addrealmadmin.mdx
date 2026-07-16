@@ -1,0 +1,91 @@
+import { Steps, Callout } from "nextra/components";
+
+
+# Creating a Realm Admin User in Keycloak
+
+This guide describes how to create a dedicated administrative user that can manage clients and create service accounts within the **Dare-Control** realm.
+
+## Prerequisites
+
+- Access to the Keycloak Admin Console.
+- A user with Realm Administrator privileges.
+<Steps>
+
+## Log in to the Admin Console
+
+1. Open the Keycloak Admin Console.
+2. Sign in using an administrator account.
+3. Select the **Dare-Control** realm.
+
+<Callout type="warning">
+Create the user in the **Dare-Control** realm, **not** the **master** realm.
+</Callout>
+
+## Create the User
+
+1. Navigate to **Users**.
+2. Select **Add user**.
+3. Enter the following details:
+
+| Field | Value |
+| ----- | ----- |
+| Username | `dare-control-realm-admin` |
+| Enabled | ✅ Enabled |
+| Email verified | Optional |
+
+4. Select **Create**.
+
+## Set a Password
+
+1. Open the **Credentials** tab.
+2. Select **Set password**.
+3. Enter the desired password.
+4. Disable **Temporary**.
+5. Save the password.
+
+## Assign Realm Management Roles
+
+1. Open the **Role mapping** tab.
+2. Select **Assign role**.
+3. Change **Filter by clients** to **realm-management**.
+4. Assign the following client roles:
+
+| Role | Purpose |
+| ----- | ------- |
+| `create-client` | Allows the creation of new clients within the realm. |
+| `manage-clients` | Create and manage clients. |
+| `manage-users` | Modify user role mappings when assigning roles to service accounts. |
+| `view-clients` | View client configuration. |
+| `query-clients` | Query clients through the Admin API. |
+| `map-roles` | Assign roles to service accounts. |
+| `view-users` | View service account users. |
+| `query-users` | Query service account users. |
+
+<Callout type="info">
+After creating the user and setting the password, configure the
+same credentials in the Submission Layer using the following
+environment variables:
+
+- `KeycloakAdmin__Username`
+- `KeycloakAdmin__Password`
+
+These values must match the username and password configured for this user.
+</Callout>
+
+## Verify the Configuration
+
+The user should now be able to:
+
+- Create confidential clients.
+- Enable **Service Accounts**.
+- Retrieve the generated service account user.
+- Assign realm roles to the service account.
+- Update the service account's role mappings.
+</Steps>
+
+<Callout type="info">
+- Create this user in the **Dare-Control** realm.
+- This user does **not** need full Realm Administrator privileges.
+- The roles above provide the minimum permissions required by the Submission API to create clients, enable service accounts, and assign roles to those service accounts.
+</Callout>
+
