@@ -1,0 +1,79 @@
+import {Steps, Callout} from "nextra/components";
+
+## TRE Agent Setup
+This guide describes how to connect a TRE Agent to the Submission Layer using the **TRE onboarding configuration**. During onboarding, the Submission Layer automatically provisions a dedicated Keycloak service account for the TRE and generates a configuration file that the TRE Agent can import.
+### Prerequisites
+
+- Deploy at least one [TRE Agent](/tre_agent).
+- Connect the TRE Agent to [Funnel](/five_safes_tes/TES/install_funnel).
+- Obtain TRE administrator login credentials from the Submission Layer administrator to sign in to the Submission Layer and download the TRE onboarding configuration.
+
+<Steps>
+
+### Download the TRE Onboarding Configuration
+
+1. Sign in to the Submission Layer as the assigned TRE administrator.
+2. Open the TRE.
+3. Download the **Agent Onboarding Configuration** JSON file.
+
+The downloaded configuration contains:
+
+- One-time onboarding JWT
+- Submission API URL
+- Submission Keycloak realm metadata URL
+- TRE ID
+- TRE Name
+### Upload the Onboarding Configuration
+
+1. Open the TRE Agent UI.
+2. Navigate to **Deployment Admin**.
+3. Upload the onboarding JSON downloaded from the Submission Layer.
+
+The TRE Agent will automatically:
+
+- Store the onboarding configuration in Vault.
+- Retrieve the TRE service account credentials using the one-time JWT.
+- Store the service account credentials securely in Vault.
+- Begin synchronising with the Submission Layer.
+
+### Verify the Connection
+
+Once onboarding has completed successfully:
+
+- The TRE Agent will begin synchronising automatically.
+- Button in the top-right corner of the **Deployment Admin** page will display `Sync Active`
+- The TRE will appear **Online** in the Submission Layer.
+- Future synchronisation will use the generated service account credentials.
+
+<Callout type="warning">
+If the button in the top-right corner of the Deployment Admin page displays `Enable Sync`, the TRE Agent is not currently synchronising with the Submission Layer. First, verify that all health checks show Connected. If they do, select Enable Sync to manually start synchronisation.
+
+</Callout>
+</Steps>
+
+<Callout type="info">
+The **Submission Credentials** page is still available as an alternative onboarding method. When credentials are entered manually, the TRE Agent authenticates using a Keycloak username and password instead of a generated service account. JSON-based onboarding is the recommended approach for new deployments.
+</Callout>
+
+## Synchronisation
+
+The TRE Agent synchronises with the Submission Layer every **10 minutes** by default.
+
+To change the synchronisation interval, update the `syncSchedule` setting in the TRE Agent configuration.
+
+## Health Checks
+
+The TRE Agent performs health checks every **10 minutes** by default to verify that its connection to the Submission Layer and supporting services remains valid.
+To change the health check interval, update the `healthCheckSchedule` setting in the TRE Agent configuration. 
+
+During each health check, the TRE Agent verifies that:
+
+* The Submission Layer endpoint is reachable.
+* The Egress endpoint is valid and reachable.
+* The configured TES endpoint is valid and reachable.
+
+If any of these checks fail, the TRE Agent automatically stops the **Sync** and **Scan** jobs to prevent synchronisation attempts with an invalid configuration.
+
+The current health status is displayed in the **Deployment Admin** page under the **Health Check Status** tab, where each check indicates whether it is healthy and, if not, provides the reason for the failure.
+
+Once any configuration or connectivity issues have been resolved, the Synchronisation can be restarted from the **Deployment Admin** page by selecting **Enable Sync**.

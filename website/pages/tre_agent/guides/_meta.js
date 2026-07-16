@@ -1,5 +1,7 @@
 export default {
   set_tesapi: "Set TES API",
-  TREManagerApprovingProject: "Approve a project",
   connecttoegress: "Connect to Egress",
+  connecttosubmission: "Connect to Submission Layer",
+  TREManagerApprovingProject: "Approve a project",
+
 };
