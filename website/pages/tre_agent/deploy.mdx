@@ -171,8 +171,8 @@ The compose manifests used in the TRE Agent and Data Egress are:
 
 - `ServiceStack/compose-manifests/applications/tre-layer.yml` which defines the TRE Layer services, i.e., TRE Agent API, TRE Agent GUI.
 - `ServiceStack/compose-manifests/applications/egress-layer.yml` which defines the Data Egress Layer services, i.e., Data Egress API, Data Egress GUI.
-- `ServiceStack/compose-manifests/shared/platform.yml` which defines the platform services, i.e., PostgreSQL, Adminer, Serilog, RabbitMQ.
-- `ServiceStack/compose-manifests/shared/credentials.yml` which defines the services for ephemeral credentials, i.e., Camunda, Connectors, Vault, OpenLDAP, LDAP Init, phpLDAPadmin, Elastic Search.
+- `ServiceStack/compose-manifests/shared/platform.yml` which defines the platform services, i.e., PostgreSQL, Adminer, Serilog, RabbitMQ, Vault.
+- `ServiceStack/compose-manifests/shared/credentials.yml` which defines the services for ephemeral credentials, i.e., Camunda, Connectors, OpenLDAP, LDAP Init, phpLDAPadmin, Elastic Search.
 - `ServiceStack/compose-manifests/shared/auth.yml` which defines the authentication services, i.e., Keycloak. This is optional and only needed if you want to use Keycloak for authentication internally within the TRE Layer.
   <Callout>
     If you don't want to use a built-in Keycloak service, remove the line

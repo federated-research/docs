@@ -12,14 +12,15 @@ This page contains:
 
 Here is a summary of the required components which make up the Submission Layer:
 
-| Component                | Notes                                                                                               |
-| ------------------------ | :-------------------------------------------------------------------------------------------------- |
-| **KeyCloak**             | The Submission apps require a Keycloak realm containing users and clients authorised to access them |
-| **S3 (MinIO or RustFS)** | An Amazon S3 compatible Submission Storage service                                                  |
-| **RabbitMQ**             | A message broker for queueing submissions for target TREs                                           |
-| **PostgreSQL**           | A database for the Submission apps to keep local state                                              |
-| **Submission API**       | A REST API for Submission Layer functionality, including the GA4GH TES API                          |
-| **Submission GUI**       | A Web Frontend for users to log into and interact with the Submission Layer                         |
+| Component                | Notes                                                                                                   |
+| ------------------------ | :-------------------------------------------------------------------------------------------------------|
+| **KeyCloak**             | The Submission apps require a Keycloak realm containing users and clients authorised to access them     |
+| **S3 (MinIO or RustFS)** | An Amazon S3 compatible Submission Storage service                                                      |
+| **RabbitMQ**             | A message broker for queueing submissions for target TREs                                               |
+| **PostgreSQL**           | A database for the Submission apps to keep local state                                                  |
+| **Submission API**       | A REST API for Submission Layer functionality, including the GA4GH TES API                              |
+| **Submission GUI**       | A Web Frontend for users to log into and interact with the Submission Layer                             |
+| **Hashicorp Vault**      | Identity-based secrets and encryption management system used for storing TRE service account credentials|
 
 You may choose how to distribute your own deployment of these components, as long as they are able to communicate with each other over the network.
 
@@ -305,15 +306,6 @@ The descriptions of the essential environment variables and the guide to set the
       </Td>
     </Tr>
     <Tr>
-      <Td>`CONFIG_PATH`</Td>
-      <Td>
-        The path for the to the shared configuration files (e.g., realm config,
-        init scripts) for the Submission Layer. Default is
-        `../../../DeploymentStack/Submission/config`.
-        Change this if you are using a different path for the configuration files in your own deployment.
-      </Td>
-    </Tr>
-        <Tr>
       <Td>`SeedDemoData`</Td>
       <Td>
         Set to true if you'd like to seed demo data, otherwise default to
@@ -366,6 +358,15 @@ The descriptions of the essential environment variables and the guide to set the
     <Td>
       The public URL of the Submission API. This URL is embedded in TRE
       onboarding configuration and must be reachable from the TRE or Agent host.
+    </Td>
+  </Tr>
+  <Tr>
+    <Td>`CONFIG_PATH`</Td>
+      <Td>
+        The path for the to the shared configuration files (e.g., realm config,
+        init scripts) for the Submission Layer. Default is
+        `../../../DeploymentStack/Submission/config`.
+        Change this if you are using a different path for the configuration files in your own deployment.
     </Td>
   </Tr>
   </tbody>
