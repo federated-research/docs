@@ -1,14 +1,14 @@
 # Data Egress Patterns
 Within a federated project there is always an interaction that occurs at each location, and then at the central level where results are either combined, compared or analysed. Therefore, whilst in a more traditional setup not involving federation, the only area where egress would be considered is at the boundary of each TRE, within a federated model, there are two options for egress to occur.  
 
-The first as at the boundary of the individual TRE where data is held and being made available to the federated project. The purpose of the egress check is to ensure only the data that has been approved to move is indeed what is moving. In most TREs this check is to ensure the data leaving does not contain anything disclosive and is safe to leave the secure boundary of the TRE.We have identified four methods in which egress can occur.
+The first is at the boundary of the individual TRE where data is held and being made available to the federated project. The purpose of the egress check is to ensure only the data that has been approved to move is indeed what is moving. In most TREs this check is to ensure the data leaving does not contain anything disclosive and is safe to leave the secure boundary of the TRE.We have identified four methods in which egress can occur.
 
 
 | Method         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **None**   | The egress being requested is set to auto-approve, there can be no manual or automated egress check in place, or no process to mitigate disclosure risks.                                            |
-| **Manual** | At least one person checks the results by eye and approves the release of the data |
-| **Semi-automated** | At least one person checks the results, aided by a risk tool |
+| **Manual** | At least one person checks the results by eye and approves the release of the data. |
+| **Semi-automated** | At least one person checks the results, aided by a risk tool. |
 | **Automated** | A computational approach has been taken to check contents or mitigate disclosure risks, and make the decision with no human involvement.  |
 
 # Current Patterns
@@ -35,4 +35,4 @@ There are federated platforms and tools that will automate the checks and ensure
 Local egress method: None  
 Central egress method: Any   
   
-There are certain analyses that can only be performed when all the data is in a single location. Therefore, data pooling must occur, and data that normally would not be allowed via egress does indeed move. The key concept of this pattern, is that the data is moving to another TRE/SDE and that before the results leave the boundary of the federation of TREs, the normal egress check is performed. At this stage, it could be any of the disclosure control components that are used, but would be agreed upon by the federation of TREs/SDEs. 
+There are certain analyses that can only be performed when all the data is in a single location. Therefore, data pooling must occur, and data that normally would not be allowed via egress does indeed move. The key concept of this pattern, is that the data is moving to another TRE/SDE and that before the results leave the boundary of the federation of TREs, the normal egress check is performed. At this stage, it could be any of the disclosure control components that are used, but would be agreed upon by the federation of TREs/SDEs.
