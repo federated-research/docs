@@ -256,7 +256,6 @@ The descriptions of the essential environment variables and the guide to set the
         client.{" "}
       </Td>
     </Tr>
-
     <Tr>
       <Td>`SubmissionUIClientSecret`</Td>
       <Td>
@@ -346,7 +345,29 @@ The descriptions of the essential environment variables and the guide to set the
         antiforgery. Default is `false`.
       </Td>
     </Tr>
-
+    <Tr>
+      <Td>`VaultRootToken`</Td>
+      <Td>
+        The root token for the Vault server. Generate a secure token for production
+        deployments as described [here](/five_safes_tes/reference_implementation/core_components#vault).
+      </Td>
+    </Tr>
+  <Tr>
+    <Td>`KeycloakAdmin__Username` and `KeycloakAdmin__Password`</Td>
+    <Td>
+    The Keycloak realm administrator credentials used by the Submission Layer
+      to create and manage service accounts. Follow the
+      [Add Realm Admin guide](/submission/guides/addrealmadmin)
+      to create these credentials.
+    </Td>
+  </Tr>
+  <Tr>
+    <Td>`SubmissionApiUrl`</Td>
+    <Td>
+      The public URL of the Submission API. This URL is embedded in TRE
+      onboarding configuration and must be reachable from the TRE or Agent host.
+    </Td>
+  </Tr>
   </tbody>
 </Table>
 
