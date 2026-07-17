@@ -2,7 +2,7 @@
 
 ## Core Functionality
 
-**Five Safes TES** is a Weave for the secure, remote execution of [GA4GH TES analyses](/standards#global-alliance-for-genomics-and-health-ga4gh) in Trusted Research Environments (TREs).
+**Five Safes TES** implements the HDR UK Federation Weave for the secure, remote execution of [GA4GH TES analyses](/standards#global-alliance-for-genomics-and-health-ga4gh) in Trusted Research Environments (TREs).
 
 - TRE managers can register environments, create projects, and manage authorised access.
 - Researchers can submit GA4GH TES analyses for secure execution within participating TREs.
@@ -10,12 +10,6 @@
 Built on international [open standards](/standards) from GA4GH and ELIXIR, **Five Safes TES** uses an enhanced GA4GH Task Execution Service
 to receive federated analysis requests. This approach supports the essential disclosure control processes within TREs, ensuring outputs are reviewed
 to prevent disclosive data from leaving secure environments. 
-
-## Weave Identity
-
-| Analytical   | Data Movement | Data Egress | Initiate                                               | Process |
-|--------------|---------------|-------------|----------------------------------------------------------|----------|
-| Isolated | Summary       | Manual      | Five Safes TES| [TES](https://www.ga4gh.org/product/task-execution-service-tes/)|
 
 ## Use in Federated Research
 
@@ -44,7 +38,7 @@ There are often several different algorithms that can be used to calculate the s
 | Hotelling's T2                         | ✅                          |                                                                                      |
 | ANOVA                                  | ✅                          |                                                                                      |
 | t-digest                               | ✅                          | Used to estimate quartiles (median, interquartile ranges, etc.)                      |
-| Linear regression                      | ✅                          | Can fail on a case by case basis.                                                    |
+| Linear regression                      | ✅                          |                                                     |
 
 
 ## Reference Implementation

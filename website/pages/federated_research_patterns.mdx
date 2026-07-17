@@ -6,15 +6,24 @@ import { Steps,Callout } from "nextra/components"
     These concepts are still emerging, so get [in touch](mailto:healthinformatics@nottingham.ac.uk) if you have feedback.
 </Callout>
 
-Across research data infrastructure there is no shared understanding on what is achievable and required to enable sustainable federation. Beyond a definition, there is a gap in translating the technologically possible and what is operationally necessary.
+There are numerous ways to undertake federated analytics and federated learning. There are also many ways to formally describe the types of analyses
+that are to be performed especially via formal mathematical definitions. 
 
-To address these challenges, the Federated Research Patterns framework was created to:
-- consistently describe paths towards different models of federation
-- define what is required to operationalise federation for TREs
-- acknowledge the limitations of models of federation
+We frame the domain of federated analytics and federated learning via three concepts. 
 
-The key to the framework is the representation of needs of stakeholders involved in deploying and using federated research data infrastructe:
-- **Researchers**: What analysis is possible?
-- **Data organisations**: Does the solution adhere to organisation policy and procedures?
-- **TREs**: What controls are there over the data? 
-- **Information Governance**: Does is adhere to data standards and best-practice?
+## Possible 
+The domain focuses on what analyses are possible to be performed under different federated scenarios and therefore is a more technical representation of the various platforms and algorithms. This concept captures a rapidly developing technology ecosystem.
+
+## Acceptable 
+Our focus of work is in the use of the possible platforms within and between trusted research environments, analysing data that is considered to be sensitive. These environments tend to be heavily controlled and locked down. This concept focuses on the areas to understand what possible federated methods are likely to be acceptable, and based on what criteria would a secure environment make those decisions. Therefore, not every federated approach that is possible is acceptable to these highly secure environments. 
+
+## Useful 
+The other concept is to understand the utility of the approaches for the researcher. This is to help clarify what analyses are possible when utilising a possible platform that is acceptable. Not every technology approach provides utility to researchers, but there is also a risk in adjusting the possible to make it more acceptable we lose the usefulness to the research community.  
+
+## Patterns and Weaves
+The aim of this work in creating patterns, is to have a neutral language that simplifies the technical and governance complexities into patterns, so that similar possible approaches can be grouped together. 
+
+The state of the possible is captured via the [Platform](federated_research_patterns/platforms) Patterns.  
+The state of acceptability is captured between the [Computational](federated_research_patterns/computational) and [Egress](federated_research_patterns/egress) patterns 
+
+A Weave is then used to bring together the three patterns into a single entity to help assess the usefulness of the combination of the Platform, Computational and Egress pattern.
