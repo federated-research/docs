@@ -1,0 +1,31 @@
+# Traditional Pattern
+**Analytical:** Isolated  
+**Data Movement**: Summary  
+
+The most common method of federated analytics carries out a local computation in each location separately to generate summary results which are combined centrally. This pattern requires the lowest trust between TREs, as each result is undertaken independently. 
+
+One limitation of this approach is that data cannot be linked, as no row-level attributes are shared. Certain analyses cannot be undertaken via this method. Though this is the most traditional approach, it is the least powerful of the three patterns for a researcher. 
+
+The analyses that can be run within the boundary of the TRE are almost unlimited and constrained only by the compute and permissions from the TRE. Egress can be applied which will limit the results that can analysed together. 
+
+![Alt Text](/assets/gif/Isolated%20Analytics.gif)
+
+## Analyses 
+An algorithm to calculate a statistic is *isolated* if the algorithm can be broken into subproblems that can be calculated separately at each TRE. These results can be combined, compared, analysed in the middle based on the data that has been allowed out from the egress process. 
+
+In some scenarios, it is desirable to achieve the same result when the data is federated as calculating them on a single, pooled data set, but not all analytics can be performed in this way. This table is not comprehensive, and only encompasses some common analyses that can be achieved by the traditional pattern that would perform the same as if the data were all in one location. 
+
+| Statistic                              | Notes                                                                                |
+| -------------------------------------- |  ------------------------------------------------------------------------------------ |
+| Minimum/maximum                         |                                                                                      |
+| Counts                                 | Includes prevalence, incidence                                                       |
+| Contingency tables                     | Includes comorbidity. Can be used for Chi-squared test, Fisher's exact test, etc.    |
+| Mean                                   |                                                                                      |
+| Variance                               | Can be used to calculate standard deviation                                          |
+| Covariance                             |                                                                                      |
+| Product-moment correlation coefficient | Also known as Pearson's correlation coefficient. Can be used to calculate Fisher's Z |
+| t-tests                                | Including one-sample and two-sample t-tests                                          |
+| Hotelling's T2                         |                                                                                      |
+| ANOVA                                  |                                                                                      |
+| t-digest                               | Used to estimate quartiles (median, interquartile ranges, etc.)                      |
+| Linear regression                     |                                                  |

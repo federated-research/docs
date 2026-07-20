@@ -11,9 +11,10 @@ export default {
     }
   },
   standards: "Standards",
-  federated_research_patterns: "Federated Research Patterns",
-  weaves: {
-    title: "Weaves",
+  federated_research_patterns: "Federated Patterns",
+  weaves: "Weaves",
+  implementation: {
+    title: "Implementations",
     type: "separator"
   },
   five_safes_tes: "Five Safes TES",
