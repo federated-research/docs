@@ -1,12 +1,12 @@
 import { Steps, Callout } from "nextra/components"
 
-# Connect a TRE Agent to the Submission Layer
+# Create a TRE
 
-This guide describes how to connect a TRE Agent to the Submission Layer using the **TRE onboarding configuration**. During onboarding, the Submission Layer automatically creates a dedicated Keycloak service account for the TRE and generates a configuration file that the TRE Agent can import.
 
 ## Prerequisites
 
-Before creating a TRE, ensure the Submission Layer has been configured with a Keycloak realm administrator by following the [Add Realm Admin guide](/submission/guides/addrealmadmin).
+- Ensure the Submission Layer has been configured with a Keycloak realm administrator by following the [Add Realm Admin guide](/submission/guides/addrealmadmin).
+- Create a TRE administrator user with the `dare-tre-admin` role following the [Add a New User to KeyCloak](/submission/guides/keycloakAdminAddingNewUser) guide.
 
 ## Submission Layer Setup
 
@@ -14,9 +14,9 @@ Before creating a TRE, ensure the Submission Layer has been configured with a Ke
 
 ### Create a TRE
 
-1. Navigate to **TRE → Create new TRE**.
+1. In the Submission Layer navigate to **TRE → Create new TRE**.
 2. Enter the name of the TRE.
-3. Assign a TRE administrator.
+3. Enter the username of the TRE administrator created in Keycloak with the `dare-tre-admin` role.
 4. Select **Submit**.
 
 During creation, the Submission Layer automatically:
@@ -28,6 +28,8 @@ During creation, the Submission Layer automatically:
 
 <img src="/images/createTre.png" width="80%" />
 
+### Pass the TRE credentials to the TRE administrator
+In order for them to sign in to the Submission Layer and download the TRE onboarding configuration.
 ### Create a Project
 
 Create a project, assign the TRE and users by following the [Project Setup guide](/submission/guides/submissionManagerSetupNewProject).
