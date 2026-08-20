@@ -20,13 +20,6 @@ export default {
   five_safes_tes: "Five Safes TES",
   discovery: "Discovery",
   beacon: "Beacon",
-  our_software: {
-    title: "Software",
-    type: "separator"
-  },
-  submission: "Submission Layer",
-  tre_agent: "TRE Agent",
-  egress: "Egress",
 
   branding_sep: {
     title: "Branding",
