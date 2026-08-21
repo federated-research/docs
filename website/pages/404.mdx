@@ -1,0 +1,32 @@
+---
+title: Page not found
+description: The page you are looking for does not exist, or it may have been moved or renamed.
+---
+
+import { Cards, Callout } from "nextra/components";
+
+<div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "4rem", textAlign: "center" }}>
+
+# Page not found
+
+The page you are looking for does not exist, or it may have been moved or renamed.
+
+</div>
+
+<div style={{ maxWidth: "48rem", margin: "2rem auto 0" }}>
+<Callout type="info">
+  Documentation for the Five Safes TES Reference Implementation has been
+  moved to the [new site](https://docs.federated-analytics.ac.uk/).
+</Callout>
+<Cards>
+  <Cards.Card title="Home" href="/" arrow />
+  <Cards.Card title="Standards" href="/standards" arrow />
+  <Cards.Card
+    title="Federated Patterns"
+    href="/federated_research_patterns"
+    arrow
+  />
+  <Cards.Card title="Weaves" href="/weaves" arrow />
+</Cards>
+
+</div>
