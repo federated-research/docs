@@ -26,4 +26,17 @@ export default {
     type: "separator"
   },
   branding: "Branding",
+
+  "404": {
+    title: "Page not found",
+    display: "hidden",
+    theme: {
+      breadcrumb: false,
+      layout: "full",
+      timestamp: false,
+      pagination: false,
+      sidebar: false,
+      toc: false,
+    },
+  },
 }
