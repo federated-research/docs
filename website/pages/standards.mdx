@@ -41,6 +41,12 @@ The Federated Analytics programme in HDR UK and the TREvolution programme in DAR
 
 ## Research Object Crate (RO-Crate)
 
+[RO-Crate](https://www.researchobject.org/ro-crate/) is an international standard for packaging research information.
+
+An RO-Crate combines data or digital resources with structured metadata that describes what those resources are, how they relate to one another, and where they came from. This allows research information to be exchanged between organisations and understood by different software tools.
+
+You can think of an RO-Crate as a digital package with a machine-readable inventory:
+
 - A collaborative approach to use Web standards for packaging data with structured metadata
 - Rich support for describing provenance (e.g. attribution, workflow executions)
 - Support FAIR principles with programmatic consumption/generation of metadata and content
@@ -48,20 +54,88 @@ The Federated Analytics programme in HDR UK and the TREvolution programme in DAR
 - Extensible with domain-specific metadata profiles
 - Used and supported by a large range of international research projects, open source tools and data repositories
 
-We are using (and further developing) RO-Crate in HDR UK and DARE UK to achieve:
+We are using (and further developing) RO-Crate in DARE UK TREvolution, FEDS UK, EOSC-ENTRUST and ELIXIR, to achieve:
 - Transparency of internal TRE processes (e.g. evidence of disclosure control)
 - Records of TRE use as part of Information Governance, e.g. to populate data usage registry or aggregate into a TRE dashboard 
 - Reproducibility of computational analysis, if captured as an embedded workflow
 - Interoperability across disparate existing systems, in particular as a common format between different TRE implementations
 
-In particular, we have developed the [Five Safes RO-Crate](https://w3id.org/5s-crate/) profile as a FAIR approach to document and support Five Safes principles, initially in the context of computational workflows. We are working further, in collaboration with our FAIR engagement work, to expand this profile to evidence any computational execution and data extract, as well as a new profile (TRE Crate) to document TRE datasets (e.g. linking to OMOP specifications of variables, and populating the [HDR Gateway](https://healthdatagateway.org/)).
 
-Related publications:
+
+### What is Five Safes RO-Crate?
+
+[Five Safes RO-Crate](https://w3id.org/5s-crate/) extends RO-Crate for Trusted Research Environments.
+
+Instead of describing only research outputs, it can describe the wider process of governed research, including access requests, approvals, analyses, data transfers, output reviews and releases.
+
+The result is a portable record of how research was proposed, governed, performed and shared.
+
+#### Assets, Processes and Contexts
+
+Five Safes RO-Crate is built around three simple concepts:
+
+| Type | Description | Examples |
+|--------|--------|--------|
+| **Assets** | Things that are acted on | Datasets, outputs, software, models, protocols, agreements |
+| **Processes** | Things that happen | Requests, approvals, analyses, output checking, data transfers |
+| **Contexts** | Things that act, or things under which activity happens | People, organisations, TREs, credentials, policies |
+
+Together these provide a flexible way to describe almost any activity that occurs within a TRE.
+
+For example, a dataset is an asset, analysing it is a process, and the researcher, TRE and agreements involved provide the context.
+
+#### The TRE Activity Record
+
+A Five Safes RO-Crate represents a **TRE Activity Record**.
+
+An Activity Record captures one piece of governed work within a TRE or federation. This could be a single cohort-discovery query, an access request, or a research study lasting several years.
+
+Rather than prescribing what a "project" is, the Activity Record provides a flexible way for organisations to record and exchange the information that matters about controlled research activity.
+
+### Why is Five Safes RO-Crate needed?
+
+Sensitive-data research depends on trust.
+
+Researchers, TREs, auditors and the public need confidence that research was conducted appropriately, under the correct governance arrangements and with suitable controls.
+
+Five Safes RO-Crate helps by creating a consistent record of research activity. It supports:
+
+- Transparency and accountability.
+- Auditing and assurance.
+- Reproducibility and research integrity.
+- Interoperability between organisations and systems.
+- Collaboration across federated TREs.
+
+Five Safes RO-Crate provides a common format for exchanging and preserving information across TRE platforms, computational services and repositories.
+
+
+### Development of Five Safes RO-Crate
+
+The initial versions of the Five Safes RO-Crate profile were initiated by the DARE funded [TRE-FX](https://trefx.uk/) project and the HDR Federated Analytics programme, and focused on execution of computational workflows in TREs using what was called the TRE-FX stack. This stack evolved to [5S-TES](https://docs.federated-research.com/five_safes_tes) which do not require a workflow system -- the Five Safes RO-Crate profile is correspondingly evolving to document any computational execution in TREs, independent of platform.
+
+### Related specifications
+
+- [RO-Crate Metadata specification 1.3](https://w3id.org/ro/crate/1.3)
+- [Five Safes RO-Crate](https://github.com/eScienceLab/Five-Safes-RO-Crate) (working draft)
+- [TRE-FX Five Safes RO-Crate profile](https://w3id.org/5s-crate/)
+- [Federated Learning RO-Crate profile](https://esciencelab.org.uk/federated-learning-ro-crate-profile/)
+
+### Related Five Safes RO-Crate tools
+
+- [RO-Crate validator service](https://esciencelab.org.uk/RO-Crate-Validation-Service/) ([source code](https://github.com/eScienceLab/RO-Crate-Validation-Service))
+- [HDR-RO-Crate-Tookits](https://github.com/eScienceLab/HDR-RO-Crate-Toolkits) 
+- [flwrCrate](https://github.com/eScienceLab/flwrCrate) -- Capture a Flower federated learning run and emit an RO-Crate describing it — a machine-readable, FAIR provenance record of who ran what, with which software, configuration, and data flow, and what came out.
+
+See also the broader list of [RO-Crate tools](https://www.researchobject.org/ro-crate/tools).
+
+### Related publications
+
 - [The Five Safes RO-Crate](https://doi.org/10.52825/ocp.v5i.1419)
+- [CR8TOR: Research Object Crates for provisioning reproducible infrastructure in Kubernetes-native federated Trusted Research Environments](https://doi.org/10.23889/ijpds.v11i5.3743)
 - [Recording provenance of workflow runs with RO-Crate](https://doi.org/10.1371/journal.pone.0309210)
 - [Packaging research artefacts with RO-Crate](https://doi.org/10.3233/DS-210053)
 
-[Read more about RO-Crate](https://www.researchobject.org/ro-crate/). 
+[Read more about RO-Crate](https://www.researchobject.org/ro-crate/) and [RO-Crate outreach](https://www.researchobject.org/ro-crate/outreach).
 
 ## Observational Medical Outcomes Partnership (OMOP)
 - A standard that describes how health data should be grouped together in a set of common tables (a common data model)
