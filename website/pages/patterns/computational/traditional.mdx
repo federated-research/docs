@@ -8,7 +8,7 @@ One limitation of this approach is that data cannot be linked, as no row-level a
 
 The analyses that can be run within the boundary of the TRE are almost unlimited and constrained only by the compute and permissions from the TRE. Egress can be applied which will limit the results that can analysed together. 
 
-![Alt Text](/assets/gif/Isolated%20Analytics.gif)
+![Animated diagram of the Traditional pattern: each TRE running analysis independently and returning summary results to a central location](/assets/gif/Isolated%20Analytics.gif)
 
 ## Analyses 
 An algorithm to calculate a statistic is *isolated* if the algorithm can be broken into subproblems that can be calculated separately at each TRE. These results can be combined, compared, analysed in the middle based on the data that has been allowed out from the egress process. 

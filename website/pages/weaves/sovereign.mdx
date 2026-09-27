@@ -1,11 +1,8 @@
-# Five Safes TES
+# Traditional and Control
 
 ## Core Functionality
 
-**Five Safes TES** implements the HDR UK Federation Weave for the secure, remote execution of [GA4GH TES analyses](/standards#global-alliance-for-genomics-and-health-ga4gh) in Trusted Research Environments (TREs).
-
-- TRE managers can register environments, create projects, and manage authorised access.
-- Researchers can submit GA4GH TES analyses for secure execution within participating TREs.
+The Sovereign Weave represents the secure, remote execution of [GA4GH TES analyses](/standards#global-alliance-for-genomics-and-health-ga4gh) in Trusted Research Environments (TREs).
 
 Built on international [open standards](/standards) from GA4GH and ELIXIR, **Five Safes TES** uses an enhanced GA4GH Task Execution Service
 to receive federated analysis requests. This approach supports the essential disclosure control processes within TREs, ensuring outputs are reviewed
@@ -17,9 +14,9 @@ Five Safes TES enables secure cross-TRE federated analytics, where the data rema
 analysis code is sent to the data. It is specifically designed to meet the stringent technical and governance constraints
 of TREs by separating the logical stages of a federated project.
 
-## Five Safes TES Analysis Capability
+## Analysis Capability
 
-Five Safes TES supports isolated algorithms only.
+This supports [Isolated](/patterns/computational) only.
 
 An algorithm to calculate a statistic is *isolated* if the algorithm can be broken into subproblems that can be calculated separately at each TRE. These results can be combined to achieve the same result as calculating them on a single, pooled data set.
 
