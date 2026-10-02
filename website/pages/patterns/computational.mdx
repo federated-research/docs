@@ -4,16 +4,26 @@ There are many ways to undertake federated analysis or federated learning and th
 Our work has shown that despite the significant number of federated tools, algorithms and platforms, when you examine 
 the patterns for how these analyses are undertaken they can be simply grouped based on two components: 
 
-| Component         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Analytical**    | There are three key concepts that summarise the vast number of analytics and learning that are possible when data is spread across multiple TREs:<br/><br/>**Isolated** – these are analyses that are replicated individually within each TRE. <br/><br/>**Connected** – these are analyses that require multiple rounds of local calculation and aggregation, requiring the TREs to receive results from other TREs to be included in the local calculations. <br/><br/>**Centralised** – these analyses require data to be pooled, even temporarily, for the analyses to be performed.                                               |
-| **Data Movement** | As determined by the algorithm type, this is how data is required to move in and out of a TRE and how it is executed.<br/><br/>**Summary:** where a statistical result is shared back that does not relate to any individual but is a calculation based on the confidential data. It is the summary result that moves from the TRE. <br/><br/>**Model Parameters:** where a machine learning algorithm has been run on the data and the weights are moved from the TRE. <br/><br/>**Row level data**: where row level data is moving, whether or not the data is anonymised, but each data element is at the level of an individual. |
+## Components
 
+### Analytical
+There are three key concepts that summarise the vast number of analytics and learning that are possible when data is spread across multiple TREs:
+
+- **Isolated:** analyses that are carried out separately within each TRE. The results are combined centrally, and nothing calculated from one TRE's data enters another TRE.
+- **Connected:** analyses where TREs receive results calculated from other TREs' data and include them in their local calculations, usually over multiple rounds of local calculation and aggregation.
+- **Centralised:** analyses that require data to be pooled, even temporarily, for the analyses to be performed.
+
+### Data Movement
+As determined by the algorithm type, this is how data is required to move in and out of a TRE and how it is executed.
+
+- **Summary:** an aggregate result calculated across individuals in the confidential data, rather than data about any one individual. The summary result moves out of the TRE to a central location, and nothing derived from it is sent into other TREs. This includes each site's model estimates in a two-stage analysis, such as coefficients and standard errors.
+- **Model Parameters:** a model is fitted across TREs, and its parameters or updates to them (such as weights, gradients or intermediate totals) move between TREs, usually via a central location. What distinguishes this from Summary is the direction: parameters derived from one TRE's data are sent into other TREs and used in their calculations. This covers statistical models as well as machine learning.
+- **Row level data:** row level data is moving, whether or not it has been anonymised, pseudonymised or encrypted, as each data element is at the level of an individual.
 
 ## Connections
-The patterns we have identified to date indicate that the type of analysis to be run dictates the type of data to move. It is important to state that these classifications of the data movement do not indicate the disclosive data of a specific result. Clearly, summary results are less likely to be disclosive than row-level data; however, we are not stating any safety element to the data movement. 
+The patterns we have identified to date indicate that the method used to carry out an analysis dictates what data has to move, and in which direction. The same analysis can fall in more than one pattern depending on the method used (see [When an analysis becomes Shared](/patterns/computational/traditional#when-an-analysis-becomes-shared)). These classifications of data movement do not indicate how disclosive a specific result is (see [Disclosure control](/patterns/egress#disclosure-control)). 
 | Analytical | Data Movement | Associated Pattern|
 |-|-|-|
-| Isolated | Summary only | [Traditional Pattern](/federated_research_patterns/computational/traditional)|
-| Connected| Model Parameters | [Shared Pattern](/federated_research_patterns/computational/shared)|
-| Centralised| Row level data only | [Pooled Pattern](/federated_research_patterns/computational/pooled)|
+| Isolated | Summary | [Traditional Pattern](/patterns/computational/traditional)|
+| Connected| Model Parameters | [Shared Pattern](/patterns/computational/shared)|
+| Centralised| Row level data | [Pooled Pattern](/patterns/computational/pooled)|

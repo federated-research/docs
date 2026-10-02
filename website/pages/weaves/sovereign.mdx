@@ -1,39 +1,39 @@
-# Traditional and Control
+# Sovereign
 
 ## Core Functionality
 
-The Sovereign Weave represents the secure, remote execution of [GA4GH TES analyses](/standards#global-alliance-for-genomics-and-health-ga4gh) in Trusted Research Environments (TREs).
+The Sovereign Weave represents the secure, remote execution of [GA4GH TES analyses](/standards#task-execution-service-tes) within Trusted Research Environments (TREs).
 
-Built on international [open standards](/standards) from GA4GH and ELIXIR, **Five Safes TES** uses an enhanced GA4GH Task Execution Service
+The functionality represented in the Weave is the closest to current day activity of TREs and offers the maximum control and isolation, 
+requiring no TRE-TRE connectivity. 
+
+Built on international [open standards](/standards) from GA4GH, it uses an enhanced GA4GH Task Execution Service
 to receive federated analysis requests. This approach supports the essential disclosure control processes within TREs, ensuring outputs are reviewed
-to prevent disclosive data from leaving secure environments. 
+to prevent disclosive data from leaving secure environments.
 
-## Use in Federated Research
+## Usefulness
 
-Five Safes TES enables secure cross-TRE federated analytics, where the data remains in place and only the researchers’
-analysis code is sent to the data. It is specifically designed to meet the stringent technical and governance constraints
-of TREs by separating the logical stages of a federated project.
+### Patterns
+| Component | Used in this Weave |
+|-|-|
+| Interface | [Five Safes TES](/patterns/interface#current-platforms), via the [Five Safes TES](https://docs.federated-analytics.ac.uk) open source software stack |
+| Computational Pattern | [Traditional Pattern](/patterns/computational/traditional) |
+| Egress Inspection Pattern | [Full local control](/patterns/egress#full-local-control): all results are checked and authorised at each TRE before being released |
 
-## Analysis Capability
+### What a researcher can do
+The researcher submits their own analysis code as a TES task, which is run at each TRE. This supports any analysis in the Traditional Pattern:
 
-This supports [Isolated](/patterns/computational) only.
+- [one-stage analyses](/patterns/computational/traditional#one-stage-analysis-with-federation), where each TRE's results combine to give the same result as the pooled data, or a close estimate
+- [two-stage analyses](/patterns/computational/traditional#two-stage-analysis-with-federation), where the full analysis is run at each TRE and the results are compared centrally
 
-An algorithm to calculate a statistic is *isolated* if the algorithm can be broken into subproblems that can be calculated separately at each TRE. These results can be combined to achieve the same result as calculating them on a single, pooled data set.
+### Effect on results
+Exact analyses stay exact, provided the egress check releases each TRE's results unchanged. If the check rounds or suppresses results, for example small cells in a table, the totals no longer combine exactly, and a TRE whose results are withheld drops out of the analysis.
 
-There are often several different algorithms that can be used to calculate the same statistic, but it is the algorithm, not the statistic which is of importance in determining how it can be federated. In considering several common statistics and algorithms in health informatics, we have produced a table which shows statistics that are known to be calculable in a federated manner using Five Safes TES. Note that this summary gives no regard to disclosure risks or checking of outputs, only the suitability of Five Safes TES for an implementation. This table is not comprehensive, and only encompasses some common analyses in health informatics. 
+### What it can't do
+- **Shared Pattern analyses.** Each round of an iterative analysis would need a manual check at every TRE, so iterative model fitting is not practical. One-stage alternatives (such as piecewise-exponential models in place of Cox regression) or two-stage analyses can often be used instead.
+- **Pooled Pattern analyses.** Row-level data does not leave the TRE, so records cannot be linked across TREs, and individuals present in more than one TRE may be counted more than once.
 
-| Statistic                              | Possible in Five Safes TES | Notes                                                                                |
-| -------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------ |
-| Minimum/maximum                        | ✅                          |                                                                                      |
-| Counts                                 | ✅                          | Includes prevalence, incidence                                                       |
-| Contingency tables                     | ✅                          | Includes comorbidity. Can be used for Chi-squared test, Fisher's exact test, etc.    |
-| Mean                                   | ✅                          |                                                                                      |
-| Variance                               | ✅                          | Can be used to calculate standard deviation                                          |
-| Covariance                             | ✅                          |                                                                                      |
-| Product-moment correlation coefficient | ✅                          | Also known as Pearson's correlation coefficient. Can be used to calculate Fisher's Z |
-| t-tests                                | ✅                          | Including one-sample and two-sample t-tests                                          |
-| Hotelling's T2                         | ✅                          |                                                                                      |
-| ANOVA                                  | ✅                          |                                                                                      |
-| t-digest                               | ✅                          | Used to estimate quartiles (median, interquartile ranges, etc.)                      |
-| Linear regression                      | ✅                          |                                                     |
-
+### Practical constraints
+- Each result waits for a person to check it at every TRE, so turnaround is set by the slowest review.
+- Settings such as time grids, histogram bins and output formats need to be agreed in advance, so that each TRE produces results that can be combined and checked.
+- The same analysis code runs at every TRE, so variables need to be defined in the same way at each one.

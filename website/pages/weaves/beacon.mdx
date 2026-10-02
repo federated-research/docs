@@ -19,6 +19,34 @@ The open-source, reference implementation is **Relay**, which provides a contain
 
 To support data governance, Beacon applies configurable obfuscation techniques such as suppression or rounding, ensuring sensitive counts are protected. It is designed for resilience, returning aggregated results even if one or more nodes are unavailable.
 
+## Usefulness
+
+### Patterns
+| Component | Used in this Weave |
+|-|-|
+| Interface | [GA4GH Beacon v2 API](https://www.ga4gh.org/product/beacon-api/), via Relay |
+| Computational Pattern | [Traditional Pattern](/patterns/computational/traditional) |
+| Egress Inspection Pattern | [Fully automated](/patterns/egress#fully-automated): suppression or rounding is applied to counts before they are returned |
+
+### What a researcher can do
+- Send a single query to many subnodes, and receive one aggregated answer.
+- Find out whether, and how many, individuals across the network match a set of criteria.
+- Use any client that supports the GA4GH Beacon v2 standard.
+
+### Effect on results
+Results are estimates, not exact counts, for the same reasons as in the [Discovery Weave](/weaves/discovery#effect-on-results): rounded counts do not add up to the true total, and suppressed counts are missing. In addition, if one or more subnodes are unavailable, the aggregated result is returned without them, so a total can be lower than the true value.
+
+### What it can't do
+- Run the researcher's own code, or any analysis beyond the queries supported by the Beacon v2 standard.
+- Link records or remove duplicates across subnodes, so individuals present in more than one subnode may be counted more than once.
+
+### Practical constraints
+- Results are returned without waiting for a manual check.
+- Each subnode must run a compatible cohort discovery system.
+- Relay is deployed centrally, so the federation needs to agree who operates it.
+
+{/* To confirm with the Beacon team: whether obfuscation is applied at each subnode, centrally by Relay, or both (if only centrally, unobfuscated counts leave each subnode and the Egress Inspection Pattern may differ); and whether responses indicate which subnodes were unavailable. */}
+
 # Branding
 
 We love seeing Beacon being used in talks, proposals, and accreditations, so feel free to use our logos. 
@@ -35,7 +63,7 @@ All our work is covered by the MIT License.
 
 ![Beacon Black Logo](/logos/beacon/beacon_secondary.png)
 
-## White Tranparent
+## White Transparent
 
 ![Beacon White Logo](/logos/beacon/beacon_white.png)
 

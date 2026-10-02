@@ -19,6 +19,7 @@ export default {
   },
   branding: "Branding",
 
+
   "404": {
     title: "Page not found",
     display: "hidden",

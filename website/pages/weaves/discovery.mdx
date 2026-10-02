@@ -2,7 +2,7 @@
 
 ## Core Functionality
 
-**Discovery** is a Weave for cohort discovery against OMOP CDM databases. This Weave process two main types of queries:
+**Discovery** is a Weave for cohort discovery against OMOP CDM databases. This Weave processes two main types of queries:
 
 - **Availability**: Answers the question _“how many patients meet certain criteria?”_ without revealing individual-level data.
 - **Distribution**: Returns de-identified aggregate statistics (e.g. age, sex, diagnosis counts) for a cohort of interest.
@@ -18,6 +18,34 @@ This model allows institutions to collaborate on large-scale health research wit
 ## Reference Implementation
 
 Bunny is open-source, lightweight, and security-conscious, enabling scalable health research without compromising data control at the institutional level. [Bunny](https://hutch.health/bunny) is an application developed by the University of Nottingham that enables **privacy-preserving cohort discovery** across federated health data networks. It is designed to work with **OMOP Common Data Model (CDM)** databases and is deployed at partner institutions as a secure, read-only query agent.
+
+## Usefulness
+
+### Patterns
+| Component | Used in this Weave |
+|-|-|
+| Interface | Bunny, a query agent deployed at each site |
+| Computational Pattern | [Traditional Pattern](/patterns/computational/traditional) |
+| Egress Inspection Pattern | [Fully automated](/patterns/egress#fully-automated): rounding and low-count suppression are applied at each site before results leave |
+
+### What a researcher can do
+- Count the individuals meeting a set of criteria at each site, and across the network.
+- Get aggregate distributions (such as age and sex) for a cohort of interest.
+
+This is mainly useful for assessing whether a study is feasible, and which sites hold suitable data, before applying for access.
+
+### Effect on results
+Results are estimates, not exact counts. Rounded counts from several sites do not add up to the true total, and suppressed counts are missing, so a small cohort can appear as zero. The precision can also differ between sites, as the rounding and suppression settings are configured at each site.
+
+### What it can't do
+- Run the researcher's own code, or any analysis beyond the defined query types, such as statistical tests or modelling.
+- Link records or remove duplicates across sites, so individuals present at more than one site may be counted more than once.
+
+### Practical constraints
+- Results are returned without waiting for a manual check.
+- Each site must run Bunny against data in the OMOP Common Data Model, so query criteria are limited to what is captured in OMOP.
+
+{/* To confirm with the Discovery team: where rounding/suppression is applied (each site, centrally or both), and default settings. */}
 
 # Branding
 

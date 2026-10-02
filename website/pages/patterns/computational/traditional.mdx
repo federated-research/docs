@@ -1,31 +1,74 @@
 # Traditional Pattern
-**Analytical:** Isolated  
-**Data Movement**: Summary  
+**[Analytical](/patterns/computational#analytical):** Isolated  
+**[Data Movement](/patterns/computational#data-movement):** Summary  
 
-The most common method of federated analytics carries out a local computation in each location separately to generate summary results which are combined centrally. This pattern requires the lowest trust between TREs, as each result is undertaken independently. 
+The most common method of federated analytics carries out a local computation in each location separately to generate summary results which are combined centrally. This pattern requires the lowest trust between TREs, as each analysis is undertaken independently and no TRE receives results from another. 
 
 One limitation of this approach is that data cannot be linked, as no row-level attributes are shared. Certain analyses cannot be undertaken via this method. Though this is the most traditional approach, it is the least powerful of the three patterns for a researcher. 
 
-The analyses that can be run within the boundary of the TRE are almost unlimited and constrained only by the compute and permissions from the TRE. Egress can be applied which will limit the results that can analysed together. 
+The analyses that can be run within the boundary of the TRE are almost unlimited and constrained only by the compute and permissions from the TRE. Egress can be applied which will limit the results that can be analysed together. 
 
 ![Animated diagram of the Traditional pattern: each TRE running analysis independently and returning summary results to a central location](/assets/gif/Isolated%20Analytics.gif)
 
 ## Analyses 
-An algorithm to calculate a statistic is *isolated* if the algorithm can be broken into subproblems that can be calculated separately at each TRE. These results can be combined, compared, analysed in the middle based on the data that has been allowed out from the egress process. 
+In the Traditional Pattern each analysis is *isolated*: it is carried out separately within each TRE, and the results are combined, compared or analysed centrally, based on what has been allowed out through the egress process. Some analyses can be broken into parts whose results combine to give the same answer as the pooled data (one-stage analysis). Others are run in full at each TRE, and the results are compared centrally (two-stage analysis). 
 
-In some scenarios, it is desirable to achieve the same result when the data is federated as calculating them on a single, pooled data set, but not all analytics can be performed in this way. This table is not comprehensive, and only encompasses some common analyses that can be achieved by the traditional pattern that would perform the same as if the data were all in one location. 
+### One stage analysis with federation 
 
-| Statistic                              | Notes                                                                                |
-| -------------------------------------- |  ------------------------------------------------------------------------------------ |
-| Minimum/maximum                         |                                                                                      |
-| Counts                                 | Includes prevalence, incidence                                                       |
-| Contingency tables                     | Includes comorbidity. Can be used for Chi-squared test, Fisher's exact test, etc.    |
-| Mean                                   |                                                                                      |
-| Variance                               | Can be used to calculate standard deviation                                          |
-| Covariance                             |                                                                                      |
-| Product-moment correlation coefficient | Also known as Pearson's correlation coefficient. Can be used to calculate Fisher's Z |
-| t-tests                                | Including one-sample and two-sample t-tests                                          |
-| Hotelling's T2                         |                                                                                      |
-| ANOVA                                  |                                                                                      |
-| t-digest                               | Used to estimate quartiles (median, interquartile ranges, etc.)                      |
-| Linear regression                     |                                                  |
+In some scenarios, it is desirable to achieve the same result when the data is federated as calculating them on a single, pooled data set, but not all analytics can be performed in this way. These tables are not comprehensive, and only encompass some common analyses that can be achieved by the traditional pattern. 
+
+This is not strictly one-stage analysis, as the data does not all reside in one location. Instead, the analyses are broken down, partially performed in each TRE and completed centrally, giving the same result, or a close estimate, as if the data were all in one location. Whether each TRE allows its results to leave is still decided by its egress inspection (see [Disclosure control](/patterns/egress#disclosure-control)).
+
+The analyses below assume each TRE sends its results in a single pass, using settings (such as time grids, histogram bins or starting values) agreed before the analysis starts. If anything calculated from one TRE's data is sent into another TRE, the analysis becomes the [Shared Pattern](/patterns/computational/shared) (see [When an analysis becomes Shared](#when-an-analysis-becomes-shared)).
+
+#### Exact
+
+These analyses give the same result as if the data were all in one location.
+
+| Statistic | What each TRE sends | Why the combined result is exact |
+|-|-|-|
+| Min/max | Its own min/max | The min of the mins is the overall min |
+| Counts | Its counts | Counts simply add up. Includes frequencies and proportions |
+| Contingency tables (chi-squared, Fisher's exact test) | Its cell counts | The tables add cell by cell, then the test runs on the summed table |
+| Mean | n, Σx | Overall mean = ΣΣx / Σn |
+| Variance and covariance | n, Σx, Σx², Σxy (or n, mean and sum of squared deviations) | Exact. The pooled variance is **not** the average of each TRE's variance, so these totals must be sent |
+| Pearson's correlation and Fisher's z | The same totals as covariance | Built from the exact variances and covariance |
+| t-tests (one-sample, two-sample, Welch's) | n, mean and variance for each group | Built from exact values |
+| Hotelling's T² | n, mean vector and covariance matrix | Exact, the multivariate version of the same idea |
+| ANOVA | n, Σx and Σx² for each group | One-way is exact. Multi-way ANOVA is a linear model, so it's exact the same way regression is |
+| Linear regression (OLS) | XᵀX, Xᵀy, yᵀy, n | The coefficients, residual sum of squares and standard errors all come from these, in one round |
+| Survival curves and log-rank test (Kaplan–Meier, Nelson–Aalen) | Number at risk and number of events at each event time, per group | These add across TREs at each time point, so the pooled curve and test follow exactly. All TREs must use the same time grid. If event times are grouped (e.g. by week or month) to reduce disclosure risk, the result is exact for the grouped times |
+| Logistic and other generalised linear models (categorical covariates) | Event and non-event counts for each covariate combination | The tables add, and the model is fitted centrally on the summed table, giving the same fit as the pooled data. With continuous covariates, an exact fit needs the [Shared Pattern](/patterns/computational/shared), or can be run as a two-stage analysis |
+| Ridge regression | XᵀX, Xᵀy, n | Ridge has a closed-form solution, (XᵀX + λI)⁻¹Xᵀy, built from the same totals as linear regression |
+| Linear mixed models with site-level random effects | XᵀX, Xᵀy, yᵀy, Σy, column sums of X and n | Each TRE's totals are enough to fit the model centrally. Random effects below the site level (e.g. groups or organisations within a TRE) need the [Shared Pattern](/patterns/computational/shared) |
+| Principal component analysis (PCA) | n, Σx and the cross-product matrix Σxxᵀ | The pooled covariance matrix is exact, and the principal components are calculated from it centrally |
+| Poisson and piecewise-exponential survival models (categorical covariates) | Event counts and person-time for each time interval and covariate combination | The tables add, and the model is fitted centrally on the summed table, giving the same fit as the pooled data |
+
+#### Estimated
+
+Some statistics cannot be rebuilt exactly from simple totals sent once by each TRE, but can be estimated closely. The combined result is an approximation of what would be obtained if the data were all in one location, and may differ slightly from it.
+
+| Statistic | What each TRE sends | Why the combined result is an estimate |
+|-|-|-|
+| Quantiles via t-digest (median, quartiles, IQR, percentiles) | A t-digest: a compact summary of the distribution as weighted centroids | Digests merge into one approximate digest. Accuracy is highest near the extremes (e.g. 1st or 99th percentile) and lower near the median. Exact quantiles need several rounds of communication (the [Shared Pattern](/patterns/computational/shared)) |
+| Quantiles via histograms | Counts in agreed bins | The binned counts add exactly, but quantiles can only be located within a bin, so precision depends on the bin width |
+| Distinct counts via HyperLogLog | A HyperLogLog sketch of hashed identifiers | Sketches merge to estimate the number of distinct individuals across TREs, allowing for people present in more than one TRE. Typical error is around 1–2% |
+| Cox regression via piecewise-exponential models | Event counts and person-time for each fine time interval and covariate combination | A piecewise-exponential model with fine time intervals closely approximates the Cox model. An exact Cox model needs repeated exchanges between TREs (the [Shared Pattern](/patterns/computational/shared)), or can be run as a two-stage analysis |
+| k-means clustering via merged local clusters | Cluster centres and sizes from clustering run locally | The local centres are combined centrally. The result is usually close to, but not the same as, k-means on the pooled data |
+
+### Two stage analysis with federation 
+Two stage analyses are the default and most common way in which researchers would undertake a project involving multiple TREs. A traditional two stage meta analysis would involve the data analysis being undertaken at each TRE, the results only shared, and a comparison of those results performed in the central location. 
+
+In that sense the analyses to be performed via a two stage analysis method are almost endless and are only constrained by what the TRE is likely to allow to leave. 
+
+### When an analysis becomes Shared
+
+What separates this pattern from the [Shared Pattern](/patterns/computational/shared) is not the analysis itself, but whether anything calculated from one TRE's data enters another TRE. In the Traditional Pattern, results flow out of each TRE to the central location and stop there; the only thing going into a TRE is the analysis code and the settings agreed in advance. The same analysis can fall in either pattern depending on how it is carried out.
+
+| Analysis | Stays Traditional if… | Becomes Shared if… |
+|-|-|-|
+| Variance and standard deviation | Each TRE sends n, Σx and Σx² in one pass | The pooled mean is sent back so TREs can compute deviations from it |
+| Kaplan–Meier and the time grid | The time grid is fixed in advance | The grid is derived from pooled event times and sent back |
+| Histograms | The bins are agreed in advance | The bins are set from pooled data, such as pooled quantiles |
+| k-means clustering | Each TRE clusters independently | Merged centres are sent back for refinement |
+| Standardisation (z-scores) | Each TRE sends totals only | The pooled mean and standard deviation are sent back to standardise locally |
