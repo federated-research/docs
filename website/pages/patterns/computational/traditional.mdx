@@ -2,24 +2,31 @@
 **[Analytical](/patterns/computational#analytical):** Isolated  
 **[Data Movement](/patterns/computational#data-movement):** Summary  
 
-The most common method of federated analytics carries out a local computation in each location separately to generate summary results which are combined centrally. This pattern requires the lowest trust between TREs, as each analysis is undertaken independently and no TRE receives results from another. 
+The most common method of federated analytics carries out a local computation in each location separately to generate summary results. This pattern requires the lowest trust between TREs, as each analysis is undertaken independently and no TRE receives results from another. One limitation of this approach is that data cannot be linked, as no row-level attributes are shared.
 
-One limitation of this approach is that data cannot be linked, as no row-level attributes are shared. Certain analyses cannot be undertaken via this method. Though this is the most traditional approach, it is the least powerful of the three patterns for a researcher. 
+In the simplest case, a researcher carrying out this kind of analysis simply wants to know the result of the analysis for each location, in which case any analysis that can be run within the boundary of the TRE, constrained only by the compute and permissions from the TRE, is possible.
+In other cases, a researcher could carry out something like a two-stage meta-analysis, calculating a summary of the data in each location so they can use statistical methods to estimate some overall result from each location's summary.
+For a more limited set of results, discussed below, it is possible to use a Traditional pattern to calculate the result as if the data were in a single, pooled dataset.
+
+{/*One limitation of this approach is that data cannot be linked, as no row-level attributes are shared. Certain analyses cannot be undertaken via this method. Though this is the most traditional approach, it is the least powerful of the three patterns for a researcher. */}
 
 The analyses that can be run within the boundary of the TRE are almost unlimited and constrained only by the compute and permissions from the TRE. Egress can be applied which will limit the results that can be analysed together. 
 
 ![Animated diagram of the Traditional pattern: each TRE running analysis independently and returning summary results to a central location](/assets/gif/Isolated%20Analytics.gif)
 
 ## Analyses 
-In the Traditional Pattern each analysis is *isolated*: it is carried out separately within each TRE, and the results are combined, compared or analysed centrally, based on what has been allowed out through the egress process. Some analyses can be broken into parts whose results combine to give the same answer as the pooled data (one-stage analysis). Others are run in full at each TRE, and the results are compared centrally (two-stage analysis). 
+In the Traditional Pattern each analysis is *isolated*: it is carried out separately within each TRE, and the results are combined, compared or analysed centrally, based on what has been allowed out through the egress process. Some analyses can be broken into parts whose results combine to give the same answer as the pooled data. Others are run in full at each TRE, and the results are compared centrally.
 
-### One stage analysis with federation 
+{/*Two stage analyses are the default and most common way in which researchers would undertake a project involving multiple TREs. A traditional two stage meta analysis would involve the data analysis being undertaken at each TRE, the results only shared, and a comparison of those results performed in the central location. 
 
-In some scenarios, it is desirable to achieve the same result when the data is federated as calculating them on a single, pooled data set, but not all analytics can be performed in this way. These tables are not comprehensive, and only encompass some common analyses that can be achieved by the traditional pattern. 
+In that sense the analyses to be performed via a two stage analysis method are almost endless and are only constrained by what the TRE is likely to allow to leave. 
 
-This is not strictly one-stage analysis, as the data does not all reside in one location. Instead, the analyses are broken down, partially performed in each TRE and completed centrally, giving the same result, or a close estimate, as if the data were all in one location. Whether each TRE allows its results to leave is still decided by its egress inspection (see [Disclosure control](/patterns/egress#disclosure-control)).
+
+This is not strictly one-stage analysis, as the data does not all reside in one location. Instead, the analyses are broken down, partially performed in each TRE and completed centrally, giving the same result, or a close estimate, as if the data were all in one location. Whether each TRE allows its results to leave is still decided by its egress inspection (see [Disclosure control](/patterns/egress#disclosure-control)). */}
 
 The analyses below assume each TRE sends its results in a single pass, using settings (such as time grids, histogram bins or starting values) agreed before the analysis starts. If anything calculated from one TRE's data is sent into another TRE, the analysis becomes the [Shared Pattern](/patterns/computational/shared) (see [When an analysis becomes Shared](#when-an-analysis-becomes-shared)).
+
+These tables are not comprehensive, and describe common analyses that can be achieved with the traditional pattern. 
 
 #### Exact
 
@@ -31,10 +38,10 @@ These analyses give the same result as if the data were all in one location.
 | Counts | Its counts | Counts simply add up. Includes frequencies and proportions |
 | Contingency tables (chi-squared, Fisher's exact test) | Its cell counts | The tables add cell by cell, then the test runs on the summed table |
 | Mean | n, Σx | Overall mean = ΣΣx / Σn |
-| Variance and covariance | n, Σx, Σx², Σxy (or n, mean and sum of squared deviations) | Exact. The pooled variance is **not** the average of each TRE's variance, so these totals must be sent |
+| Variance and covariance | n, Σx, Σx², Σxy (or n, mean and sum of squared deviations) | The pooled variance is **not** the average of each TRE's variance, so these totals must be sent |
 | Pearson's correlation and Fisher's z | The same totals as covariance | Built from the exact variances and covariance |
 | t-tests (one-sample, two-sample, Welch's) | n, mean and variance for each group | Built from exact values |
-| Hotelling's T² | n, mean vector and covariance matrix | Exact, the multivariate version of the same idea |
+| Hotelling's T² | n, mean vector and covariance matrix | The multivariate version of the same ideas as a t-test |
 | ANOVA | n, Σx and Σx² for each group | One-way is exact. Multi-way ANOVA is a linear model, so it's exact the same way regression is |
 | Linear regression (OLS) | XᵀX, Xᵀy, yᵀy, n | The coefficients, residual sum of squares and standard errors all come from these, in one round |
 | Survival curves and log-rank test (Kaplan–Meier, Nelson–Aalen) | Number at risk and number of events at each event time, per group | These add across TREs at each time point, so the pooled curve and test follow exactly. All TREs must use the same time grid. If event times are grouped (e.g. by week or month) to reduce disclosure risk, the result is exact for the grouped times |
@@ -48,18 +55,14 @@ These analyses give the same result as if the data were all in one location.
 
 Some statistics cannot be rebuilt exactly from simple totals sent once by each TRE, but can be estimated closely. The combined result is an approximation of what would be obtained if the data were all in one location, and may differ slightly from it.
 
-| Statistic | What each TRE sends | Why the combined result is an estimate |
-|-|-|-|
-| Quantiles via t-digest (median, quartiles, IQR, percentiles) | A t-digest: a compact summary of the distribution as weighted centroids | Digests merge into one approximate digest. Accuracy is highest near the extremes (e.g. 1st or 99th percentile) and lower near the median. Exact quantiles need several rounds of communication (the [Shared Pattern](/patterns/computational/shared)) |
-| Quantiles via histograms | Counts in agreed bins | The binned counts add exactly, but quantiles can only be located within a bin, so precision depends on the bin width |
-| Distinct counts via HyperLogLog | A HyperLogLog sketch of hashed identifiers | Sketches merge to estimate the number of distinct individuals across TREs, allowing for people present in more than one TRE. Typical error is around 1–2% |
-| Cox regression via piecewise-exponential models | Event counts and person-time for each fine time interval and covariate combination | A piecewise-exponential model with fine time intervals closely approximates the Cox model. An exact Cox model needs repeated exchanges between TREs (the [Shared Pattern](/patterns/computational/shared)), or can be run as a two-stage analysis |
-| k-means clustering via merged local clusters | Cluster centres and sizes from clustering run locally | The local centres are combined centrally. The result is usually close to, but not the same as, k-means on the pooled data |
+| Exact Statistic | Approximation | What each TRE sends | Why the combined result is an estimate |
+|-|-|-|--|
+| Quantiles (median, quartiles, IQR, percentiles) | t-digest | A t-digest: a compact summary of the distribution as weighted centroids | Digests merge into one approximate digest. Accuracy is highest near the extremes (e.g. 1st or 99th percentile) and lower near the median. Exact quantiles need several rounds of communication (the [Shared Pattern](/patterns/computational/shared)) |
+| Quantiles | Histograms | Counts in agreed bins | The binned counts add exactly, but quantiles can only be located within a bin, so precision depends on the bin width |
+| Distinct counts | HyperLogLog | A HyperLogLog sketch of hashed identifiers | Sketches merge to estimate the number of distinct individuals across TREs, allowing for people present in more than one TRE. Typical error is around 1–2% |
+| Cox regression | Piecewise-exponential models | Event counts and person-time for each fine time interval and covariate combination | A piecewise-exponential model with fine time intervals closely approximates the Cox model. An exact Cox model needs repeated exchanges between TREs (the [Shared Pattern](/patterns/computational/shared)), or can be run as a two-stage analysis |
+| k-means clustering | Merged local clusters | Cluster centres and sizes from clustering run locally | The local centres are combined centrally. The result is usually close to, but not the same as, k-means on the pooled data |
 
-### Two stage analysis with federation 
-Two stage analyses are the default and most common way in which researchers would undertake a project involving multiple TREs. A traditional two stage meta analysis would involve the data analysis being undertaken at each TRE, the results only shared, and a comparison of those results performed in the central location. 
-
-In that sense the analyses to be performed via a two stage analysis method are almost endless and are only constrained by what the TRE is likely to allow to leave. 
 
 ### When an analysis becomes Shared
 

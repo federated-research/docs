@@ -4,7 +4,8 @@
 
 The defining feature of the Shared Pattern is that results calculated from one TRE's data are sent into another TRE and used in its calculations. This is the case whether results are passed via a central node or directly between the TREs: when a central node combines results and sends updated parameters back, each TRE receives information derived from the other TREs' data.
 
-The most common method to undertake federated learning is for the model parameters to be passed via a central node, or directly between the TREs. The key difference for a TRE is that results are combined and shared between other TREs, therefore there is a higher trust required between the TREs, as they must trust the sharing of model parameters with the researcher and the TREs. 
+The most common method to undertake federated learning is for the model parameters to be passed via a central node, though it is also possible to share directly between TREs.
+The key difference between this and the [traditional pattern](traditional) for a TRE is that results are combined and shared with other TREs, so there is a higher trust required between the TREs as they must trust the sharing of some information not only with the researcher but also other TREs. 
 ![Animated diagram of the Shared pattern: model parameters passing between a central location and two connected TREs](/assets/gif/Connected%20Analytics.gif)
 
 ## Trust and egress
@@ -24,14 +25,15 @@ These analyses converge to the same result as if the data were all in one locati
 | Analysis | What each TRE sends each round | Why the combined result is exact |
 |-|-|-|
 | Logistic, Poisson and other generalised linear models (any covariates) | Score vector and information matrix at the current coefficients | These add across TREs to give the pooled Newton–Raphson step, so the model converges to the pooled fit |
+| Generalised estimating equations (GEE) | Estimating equation contributions and their derivatives at the current estimates | The equations add across TREs, provided each cluster sits within one TRE |
 | Cox regression, stratified by site | Score and information from its own risk sets at the current coefficients | The stratified partial likelihood is a sum over sites, so the summed updates converge to the pooled stratified fit |
 | Parametric survival models (Weibull, accelerated failure time) | Score and information at the current parameters | The log-likelihood is a sum across TREs |
-| Generalised estimating equations (GEE) | Estimating equation contributions and their derivatives at the current estimates | The equations add across TREs, provided each cluster sits within one TRE |
 | Linear mixed models with random effects below the site level (e.g. groups or organisations within a TRE) | Likelihood contributions at the current parameters | The likelihood is a sum across TREs, provided each cluster sits within one TRE |
-| Exact quantiles and median | Count of values below the current candidate value | Bisection narrows the candidate until it lands on the exact pooled value |
+| Exact quantiles (e.g median) | Count of values below the current candidate value | Bisection narrows the candidate until it lands on the exact pooled value |
 | Lasso and elastic net regression | Gradient contributions, or local solutions under ADMM (an algorithm for splitting a model fit across sites) | Converges to the pooled penalised fit |
 | k-means clustering | Per-cluster sums and counts for the current centres | Each round reproduces a pooled k-means step, so the result matches pooled k-means given the same starting centres |
 | Gaussian mixture models (EM algorithm) | Per-component weighted sums and counts | Each EM step adds across TREs, so the result matches the pooled fit given the same starting values |
+| Standardisation (z-scores) | One round sharing mean and variance to pool, one round to send results after standardisation | Mean, variance, and standardised results can be calculated exactly |
 
 ### Estimated
 
