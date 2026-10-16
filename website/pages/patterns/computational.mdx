@@ -1,8 +1,7 @@
 # Computational Patterns
 There are many ways to undertake federated analysis or federated learning and there are benefits and limitations of those processes.
 
-Our work has shown that despite the significant number of federated tools, algorithms and platforms, when you examine 
-the patterns for how these analyses are undertaken they can be simply grouped based on two components: 
+Our work has shown that despite the significant number of federated tools, algorithms and platforms, when you examine the patterns for how these analyses are undertaken they can be simply grouped based on two components: 
 
 ## Components
 
@@ -17,7 +16,7 @@ There are three key concepts that summarise the vast number of analytics and lea
 As determined by the algorithm type, this is how data is required to move in and out of a TRE and how it is executed.
 
 - **Summary:** Aggregated statistical outputs not corresponding to individual records are transferred between TREs or to a coordinating node. Examples include counts, sums, averages, and other derived summary statistics. The exchanged information represents characteristics of the underlying dataset rather than individual participants.
-- **Itermediate Results:** Information is exchanged iteratively throughout execution rather than as a single output. The exchanged information depends on the computational approach and may include model parameters, gradients, transformed values or intermediate summary statistics. 
+- **Intermediate Results:** Information is exchanged iteratively throughout execution rather than as a single output. The exchanged information depends on the computational approach and may include model parameters, gradients, transformed values or intermediate summary statistics. 
 - **Row level data:** Individual records are transferred between environments, irrespective of whether they have been anonymised. This enables analyses that require access to the combined dataset. 
 
 ## Connections

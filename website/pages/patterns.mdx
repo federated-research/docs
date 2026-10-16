@@ -13,24 +13,26 @@ We frame the domain of federated analytics and federated learning via three conc
 ## Possible
 This concept captures what can be done technically: the platforms that run federated analyses, and the analyses that can be calculated across TREs. It is a rapidly developing technology ecosystem.
 
-The [Interface](/patterns/interface) page describes how platforms initiate a federated project, process the analysis within each TRE, and share metadata. Across all of these platforms, the analyses themselves fall into three [Computational Patterns](/patterns/computational), defined by what data has to move:
+The [Interface](/patterns/interface) page describes how platforms initiate a federated project, process the analysis within each TRE, and share metadata. 
+
+## Acceptable
+Across all of these platforms, the analyses themselves fall into three [Computational Patterns](/patterns/computational), defined by what data has to move:
 
 | Pattern | What moves | Example analyses |
 |-|-|-|
 | [Traditional](/patterns/computational/traditional) | Summary results leave each TRE for a central location. Nothing calculated from one TRE's data enters another TRE | Counts, means, contingency tables, linear regression, survival curves |
-| [Shared](/patterns/computational/shared) | Results calculated from one TRE's data, such as model parameters, are sent into other TREs and used in their calculations | Iterative model fitting, such as logistic regression and federated learning |
+| [Shared](/patterns/computational/shared) | Summary results, such as model parameters, leave each TRE for a central location. Derived values are sent into other TREs and used in their calculations | Iterative model fitting, such as logistic regression and federated learning |
 | [Pooled](/patterns/computational/pooled) | Row-level data about individuals leaves a TRE, persistently or temporarily | Record linkage, removing duplicate individuals, exploratory analysis |
 
-## Acceptable
 Our focus is on the use of these platforms within and between TREs, analysing data that is considered sensitive. These environments are heavily controlled, so not every approach that is possible is acceptable to them. Whether an approach is acceptable depends on two things:
 
 - **What moves, and in which direction.** Each Computational Pattern requires more trust between TREs than the last. In the Traditional Pattern, data only leaves a TRE as summary results. In the Shared Pattern, each exchange is also an ingress into other TREs, so a TRE takes in derived data about another TRE's individuals. In the Pooled Pattern, row-level data leaves the TRE.
 - **How it is checked before it moves.** The [Egress Inspection Patterns](/patterns/egress) describe whether the check is manual, semi-automated or automated, and whether it happens at the boundary of each TRE or at the boundary of the federation.
 
-The two are linked. An analysis that needs many rounds of exchange, as in the Shared Pattern, cannot practically be checked by hand at every round, so it relies on automated egress.
+The two are linked. An analysis that needs many rounds of exchange in the Shared Pattern cannot practically be checked by hand at every round, so it relies on automated egress.
 
 ## Useful
-This concept captures the utility of an approach for the researcher: which analyses they can carry out using a platform and pattern that is acceptable, and how good the results are. For each Computational Pattern we set out which analyses give the same result as if the data were all in one location, which give a close estimate, and which can only be run as a two-stage analysis.
+This concept captures the utility of an approach for the researcher: which analyses they can carry out using a platform and pattern that is acceptable, and how good the results are.
 
 The same analysis can often be carried out in more than one pattern, with different trade-offs. For example, quantiles can be estimated in the Traditional Pattern, or calculated exactly in the Shared Pattern at the cost of sending results back into the TREs. Not every technical approach provides utility to researchers, and there is also a risk that in adjusting the possible to make it more acceptable, we lose its usefulness to the research community.
 
