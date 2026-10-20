@@ -21,16 +21,17 @@ to prevent disclosive data from leaving secure environments.
 | Egress Inspection Pattern | [Full local control](/federated_research_patterns/egress#full-local-control): all results are checked and authorised at each TRE before being released |
 
 ### What a researcher can do
-The researcher submits their own analysis code as a TES task, which is run at each TRE. This supports any analysis in the Traditional Pattern:
+The researcher submits their own analysis code as a TES task, which is run at each TRE. This supports any [analysis in the Traditional Pattern](/federated_research_patterns/computational/traditional#analyses), where each TRE's results are:
 
-- [one-stage analyses](/federated_research_patterns/computational/traditional#analyses), where each TRE's results combine to give the same result as the pooled data, or a close estimate
-- [two-stage analyses](/federated_research_patterns/computational/traditional#analyses), where the full analysis is run at each TRE and the results are compared centrally
+- **compared:** any analysis that can run within a TRE gives a separate result for each location, and these can be compared centrally
+- **combined exactly:** results such as counts, means, contingency tables and linear regression combine to give the [same result as the pooled data](/federated_research_patterns/computational/traditional#exact)
+- **combined as an estimate:** results such as quantiles, distinct counts and Cox regression give a [close estimate](/federated_research_patterns/computational/traditional#estimated) of the pooled result, or each TRE's results are combined statistically, as in a meta-analysis
 
 ### Effect on results
 Exact analyses stay exact, provided the egress check releases each TRE's results unchanged. If the check rounds or suppresses results, for example small cells in a table, the totals no longer combine exactly, and a TRE whose results are withheld drops out of the analysis.
 
 ### What it can't do
-- **Shared Pattern analyses.** Each round of an iterative analysis would need a manual check at every TRE, so iterative model fitting is not practical. One-stage alternatives (such as piecewise-exponential models in place of Cox regression) or two-stage analyses can often be used instead.
+- **Shared Pattern analyses.** Each round of an iterative analysis would need a manual check at every TRE, so iterative model fitting is not practical. Analyses that need a single pass, such as piecewise-exponential models in place of Cox regression, or combining each TRE's results as in a meta-analysis, can often be used instead (see [When an analysis becomes Shared](/federated_research_patterns/computational/traditional#when-an-analysis-becomes-shared)).
 - **Pooled Pattern analyses.** Row-level data does not leave the TRE, so records cannot be linked across TREs, and individuals present in more than one TRE may be counted more than once.
 
 ### Practical constraints

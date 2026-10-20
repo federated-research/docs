@@ -6,7 +6,7 @@ The most common method of federated analytics carries out a local computation in
 
 In the simplest case, a researcher carrying out this kind of analysis wants to calculate a separate result of the analysis for each location, in which case any analysis that can be run within the boundary of the TRE, constrained only by the compute and permissions from the TRE, is possible. For some analyses, a statistical comparison of the results can be made.
 
-In other cases, a researcher wishes to estimate a result across locations, combining local results. For example, they could carry out something like a two-stage meta-analysis, calculating a summary of the data in each location so they can use statistical methods to estimate some overall result from each location's summary.
+In other cases, a researcher wishes to estimate a result across locations, combining local results. For example, they could carry out a meta-analysis, calculating a summary of the data in each location so they can use statistical methods to estimate some overall result from each location's summary.
 For a more limited set of results, discussed below, it is possible to use a Traditional pattern to calculate the result as if the data were in a single, pooled dataset.
 
 The analyses that can be run within the boundary of the TRE are almost unlimited and constrained only by the compute and permissions from the TRE. Egress can be applied which will limit the results that can be analysed together. 
@@ -16,7 +16,7 @@ The analyses that can be run within the boundary of the TRE are almost unlimited
 ## Analyses 
 In the Traditional Pattern each analysis is *isolated*: it is carried out separately within each TRE, and the results are combined, compared or analysed centrally, based on what has been allowed out through the egress process. Some analyses can be broken into parts whose results combine to give the same answer as the pooled data. Others are run in full at each TRE, and the results are compared centrally.
 
-In that sense the analyses to be performed via a two stage analysis method are almost endless and are only constrained by what the TRE is likely to allow to leave. 
+In that sense the analyses whose results can be compared, or combined in a meta-analysis, are almost endless and are only constrained by what the TRE is likely to allow to leave. 
 
 The analyses below assume each TRE sends its results in a single pass, using settings (such as time grids, histogram bins or starting values) agreed before the analysis starts. If anything calculated from one TRE's data is sent into another TRE, the analysis becomes the [Shared Pattern](/federated_research_patterns/computational/shared) (see [When an analysis becomes Shared](#when-an-analysis-becomes-shared)).
 
@@ -39,7 +39,7 @@ These analyses give the same result as if the data were all in one location.
 | ANOVA | n, Σx and Σx² for each group | One-way is exact. Multi-way ANOVA is a linear model, so it's exact the same way regression is |
 | Linear regression (OLS) | XᵀX, Xᵀy, yᵀy, n | The coefficients, residual sum of squares and standard errors all come from these, in one round |
 | Survival curves and log-rank test (Kaplan–Meier, Nelson–Aalen) | Number at risk and number of events at each event time, per group | These add across TREs at each time point, so the pooled curve and test follow exactly. All TREs must use the same time grid. If event times are grouped (e.g. by week or month) to reduce disclosure risk, the result is exact for the grouped times |
-| Logistic and other generalised linear models (categorical covariates) | Event and non-event counts for each covariate combination | The tables add, and the model is fitted centrally on the summed table, giving the same fit as the pooled data. With continuous covariates, an exact fit needs the [Shared Pattern](/federated_research_patterns/computational/shared), or can be run as a two-stage analysis |
+| Logistic and other generalised linear models (categorical covariates) | Event and non-event counts for each covariate combination | The tables add, and the model is fitted centrally on the summed table, giving the same fit as the pooled data. With continuous covariates, an exact fit needs the [Shared Pattern](/federated_research_patterns/computational/shared), or each TRE's results can be combined in a meta-analysis |
 | Ridge regression | XᵀX, Xᵀy, n | Ridge has a closed-form solution, (XᵀX + λI)⁻¹Xᵀy, built from the same totals as linear regression |
 | Linear mixed models with site-level random effects | XᵀX, Xᵀy, yᵀy, Σy, column sums of X and n | Each TRE's totals are enough to fit the model centrally. Random effects below the site level (e.g. groups or organisations within a TRE) need the [Shared Pattern](/federated_research_patterns/computational/shared) |
 | Principal component analysis (PCA) | n, Σx and the cross-product matrix Σxxᵀ | The pooled covariance matrix is exact, and the principal components are calculated from it centrally |
@@ -54,7 +54,7 @@ Some statistics cannot be rebuilt exactly from simple totals sent once by each T
 | Quantiles (median, quartiles, IQR, percentiles) | t-digest | A t-digest: a compact summary of the distribution as weighted centroids | Digests merge into one approximate digest. Accuracy is highest near the extremes (e.g. 1st or 99th percentile) and lower near the median. Exact quantiles need several rounds of communication (the [Shared Pattern](/federated_research_patterns/computational/shared)) |
 | Quantiles | Histograms | Counts in agreed bins | The binned counts add exactly, but quantiles can only be located within a bin, so precision depends on the bin width |
 | Distinct counts | HyperLogLog | A HyperLogLog sketch of hashed identifiers | Sketches merge to estimate the number of distinct individuals across TREs, allowing for people present in more than one TRE. Typical error is around 1–2% |
-| Cox regression | Piecewise-exponential models | Event counts and person-time for each fine time interval and covariate combination | A piecewise-exponential model with fine time intervals closely approximates the Cox model. An exact Cox model needs repeated exchanges between TREs (the [Shared Pattern](/federated_research_patterns/computational/shared)), or can be run as a two-stage analysis |
+| Cox regression | Piecewise-exponential models | Event counts and person-time for each fine time interval and covariate combination | A piecewise-exponential model with fine time intervals closely approximates the Cox model. An exact Cox model needs repeated exchanges between TREs (the [Shared Pattern](/federated_research_patterns/computational/shared)), or each TRE's results can be combined in a meta-analysis |
 | k-means clustering | Merged local clusters | Cluster centres and sizes from clustering run locally | The local centres are combined centrally. The result is usually close to, but not the same as, k-means on the pooled data |
 
 
