@@ -1,6 +1,6 @@
 # Pooled Pattern
-**[Analytical](/patterns/computational#analytical):** Centralised  
-**[Data Movement](/patterns/computational#data-movement):** Row level data  
+**[Analytical](/federated_research_patterns/computational#analytical):** Centralised  
+**[Data Movement](/federated_research_patterns/computational#data-movement):** Row level data  
 
 The defining feature of the Pooled Pattern is that row-level data leaves a TRE, whether persistently or temporarily, and whether or not it has been anonymised or pseudonymised. Outside of TREs this is the most common method, where researchers would be accustomed to having the data in one place where they can perform any analysis or learning. 
 
@@ -10,7 +10,7 @@ This approach requires a very high level of trust between TREs as it requires sh
 
 ## Analyses
 
-Because the analysis runs on the pooled data, every result is exact by definition: there is no estimated or two-stage version, as there can be in the [Traditional](/patterns/computational/traditional) and [Shared](/patterns/computational/shared) Patterns.
+Because the analysis runs on the pooled data, every result is exact by definition: there is no estimated or two-stage version, as there can be in the [Traditional](/federated_research_patterns/computational/traditional) and [Shared](/federated_research_patterns/computational/shared) Patterns.
 
 Most statistics and models can be calculated without pooling, using one of the other two patterns. The Pooled Pattern is needed when an analysis depends on having individuals' records together:
 
@@ -26,12 +26,12 @@ Most statistics and models can be calculated without pooling, using one of the o
 
 Some approaches move row-level data without it appearing in readable form. These are still the Pooled Pattern, because data about each individual leaves the TRE:
 
-- **Privacy-preserving record linkage:** sending hashed or encoded identifiers for each individual is row-level data moving. This differs from a sketch of hashed identifiers, such as the HyperLogLog sketch in the [Traditional Pattern](/patterns/computational/traditional), which summarises the identifiers rather than listing them.
+- **Privacy-preserving record linkage:** sending hashed or encoded identifiers for each individual is row-level data moving. This differs from a sketch of hashed identifiers, such as the HyperLogLog sketch in the [Traditional Pattern](/federated_research_patterns/computational/traditional), which summarises the identifiers rather than listing them.
 - **Secure multi-party computation and trusted execution environments:** row-level data moves, but in encrypted form, so no party sees another TRE's records. These are Pooled, but with a lower trust requirement than pooling readable data.
 
 ## Trust and egress
 
-This pattern is most likely associated with the [Full central control](/patterns/egress#full-central-control) Egress Inspection Pattern: data that would not normally be allowed to leave a TRE moves within the federation, and the normal egress check is performed before results leave the boundary of the federation of TREs.
+This pattern is most likely associated with the [Full central control](/federated_research_patterns/egress#full-central-control) Egress Inspection Pattern: data that would not normally be allowed to leave a TRE moves within the federation, and the normal egress check is performed before results leave the boundary of the federation of TREs.
 
 ## Variance in implementation
 An emerging implementation of the Pooled Pattern is from the DARE UK TREvolution programme. They are exploring a project-specific network being created between the TREs, to either move or provide the researcher with a view of the data that makes it appear as if the data is all in one location. 

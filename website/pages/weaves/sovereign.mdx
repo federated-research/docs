@@ -16,15 +16,15 @@ to prevent disclosive data from leaving secure environments.
 ### Patterns
 | Component | Used in this Weave |
 |-|-|
-| Interface | [Five Safes TES](/patterns/interface#current-platforms), via the [Five Safes TES](https://docs.federated-analytics.ac.uk) open source software stack |
-| Computational Pattern | [Traditional Pattern](/patterns/computational/traditional) |
-| Egress Inspection Pattern | [Full local control](/patterns/egress#full-local-control): all results are checked and authorised at each TRE before being released |
+| Interface | [Five Safes TES](/federated_research_patterns/interface#current-platforms), via the [Five Safes TES](https://docs.federated-analytics.ac.uk) open source software stack |
+| Computational Pattern | [Traditional Pattern](/federated_research_patterns/computational/traditional) |
+| Egress Inspection Pattern | [Full local control](/federated_research_patterns/egress#full-local-control): all results are checked and authorised at each TRE before being released |
 
 ### What a researcher can do
 The researcher submits their own analysis code as a TES task, which is run at each TRE. This supports any analysis in the Traditional Pattern:
 
-- [one-stage analyses](/patterns/computational/traditional#one-stage-analysis-with-federation), where each TRE's results combine to give the same result as the pooled data, or a close estimate
-- [two-stage analyses](/patterns/computational/traditional#two-stage-analysis-with-federation), where the full analysis is run at each TRE and the results are compared centrally
+- [one-stage analyses](/federated_research_patterns/computational/traditional#analyses), where each TRE's results combine to give the same result as the pooled data, or a close estimate
+- [two-stage analyses](/federated_research_patterns/computational/traditional#analyses), where the full analysis is run at each TRE and the results are compared centrally
 
 ### Effect on results
 Exact analyses stay exact, provided the egress check releases each TRE's results unchanged. If the check rounds or suppresses results, for example small cells in a table, the totals no longer combine exactly, and a TRE whose results are withheld drops out of the analysis.

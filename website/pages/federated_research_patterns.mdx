@@ -13,21 +13,21 @@ We frame the domain of federated analytics and federated learning via three conc
 ## Possible
 This concept captures what can be done technically: the platforms that run federated analyses, and the analyses that can be calculated across TREs. It is a rapidly developing technology ecosystem.
 
-The [Interface](/patterns/interface) page describes how platforms initiate a federated project, process the analysis within each TRE, and share metadata. 
+The [Interface](/federated_research_patterns/interface) page describes how platforms initiate a federated project, process the analysis within each TRE, and share metadata. 
 
 ## Acceptable
-Across all of these platforms, the analyses themselves fall into three [Computational Patterns](/patterns/computational), defined by what data has to move:
+Across all of these platforms, the analyses themselves fall into three [Computational Patterns](/federated_research_patterns/computational), defined by what data has to move:
 
 | Pattern | What moves | Example analyses |
 |-|-|-|
-| [Traditional](/patterns/computational/traditional) | Summary results leave each TRE for a central location. Nothing calculated from one TRE's data enters another TRE | Counts, means, contingency tables, linear regression, survival curves |
-| [Shared](/patterns/computational/shared) | Summary results, such as model parameters, leave each TRE for a central location. Derived values are sent into other TREs and used in their calculations | Iterative model fitting, such as logistic regression and federated learning |
-| [Pooled](/patterns/computational/pooled) | Row-level data about individuals leaves a TRE, persistently or temporarily | Record linkage, removing duplicate individuals, exploratory analysis |
+| [Traditional](/federated_research_patterns/computational/traditional) | Summary results leave each TRE for a central location. Nothing calculated from one TRE's data enters another TRE | Counts, means, contingency tables, linear regression, survival curves |
+| [Shared](/federated_research_patterns/computational/shared) | Summary results, such as model parameters, leave each TRE for a central location. Derived values are sent into other TREs and used in their calculations | Iterative model fitting, such as logistic regression and federated learning |
+| [Pooled](/federated_research_patterns/computational/pooled) | Row-level data about individuals leaves a TRE, persistently or temporarily | Record linkage, removing duplicate individuals, exploratory analysis |
 
 Our focus is on the use of these platforms within and between TREs, analysing data that is considered sensitive. These environments are heavily controlled, so not every approach that is possible is acceptable to them. Whether an approach is acceptable depends on two things:
 
 - **What moves, and in which direction.** Each Computational Pattern requires more trust between TREs than the last. In the Traditional Pattern, data only leaves a TRE as summary results. In the Shared Pattern, each exchange is also an ingress into other TREs, so a TRE takes in derived data about another TRE's individuals. In the Pooled Pattern, row-level data leaves the TRE.
-- **How it is checked before it moves.** The [Egress Inspection Patterns](/patterns/egress) describe whether the check is manual, semi-automated or automated, and whether it happens at the boundary of each TRE or at the boundary of the federation.
+- **How it is checked before it moves.** The [Egress Inspection Patterns](/federated_research_patterns/egress) describe whether the check is manual, semi-automated or automated, and whether it happens at the boundary of each TRE or at the boundary of the federation.
 
 The two are linked. An analysis that needs many rounds of exchange in the Shared Pattern cannot practically be checked by hand at every round, so it relies on automated egress.
 
@@ -39,6 +39,6 @@ The same analysis can often be carried out in more than one pattern, with differ
 ## Patterns and Weaves
 The aim of creating patterns is to have a neutral language that simplifies the technical and governance complexities, so that similar approaches can be grouped together and compared.
 
-- The state of the **possible** is captured by the [Interface](/patterns/interface), and by the analyses each [Computational Pattern](/patterns/computational) supports.
-- The state of the **acceptable** is captured by the [Computational](/patterns/computational) and [Egress Inspection](/patterns/egress) Patterns together: what moves, and how it is checked.
+- The state of the **possible** is captured by the [Interface](/federated_research_patterns/interface), and by the analyses each [Computational Pattern](/federated_research_patterns/computational) supports.
+- The state of the **acceptable** is captured by the [Computational](/federated_research_patterns/computational) and [Egress Inspection](/federated_research_patterns/egress) Patterns together: what moves, and how it is checked.
 - The **useful** is assessed through a [Weave](/weaves), which brings an Interface, a Computational Pattern and an Egress Inspection Pattern together into a single entity, so the usefulness of that combination can be judged as a whole.

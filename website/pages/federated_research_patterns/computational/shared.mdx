@@ -1,6 +1,6 @@
 # Shared Pattern
-**[Analytical](/patterns/computational#analytical):** Connected  
-**[Data Movement](/patterns/computational#data-movement):** Model Parameters  
+**[Analytical](/federated_research_patterns/computational#analytical):** Connected  
+**[Data Movement](/federated_research_patterns/computational#data-movement):** Model Parameters  
 
 The defining feature of the Shared Pattern is that results calculated from one TRE's data are sent into another TRE and used in its calculations. This is the case whether results are passed via a central node or directly between the TREs: when a central node combines results and sends updated parameters back, each TRE receives information derived from the other TREs' data.
 
@@ -12,7 +12,7 @@ The key difference between this and the [traditional pattern](traditional) for a
 
 Each exchange is both an egress from one TRE and an ingress into the others. Model parameters can carry information about the individuals they were fitted on, so a TRE receiving them is taking in derived data about another TRE's individuals, and its governance has to accept that.
 
-Most analyses in this pattern are iterative. A logistic regression might need 5–10 rounds, and training a neural network can take thousands. Checking every round by hand is impractical, so this pattern usually relies on the semi-automated or fully automated [Egress Inspection Patterns](/patterns/egress). Comparing updates across rounds can also reveal more about individuals than any single update, which is why techniques such as differential privacy and secure aggregation are often used.
+Most analyses in this pattern are iterative. A logistic regression might need 5–10 rounds, and training a neural network can take thousands. Checking every round by hand is impractical, so this pattern usually relies on the semi-automated or fully automated [Egress Inspection Patterns](/federated_research_patterns/egress). Comparing updates across rounds can also reveal more about individuals than any single update, which is why techniques such as differential privacy and secure aggregation are often used.
 
 ## Analyses
 
@@ -48,7 +48,7 @@ These analyses give results close to, but not the same as, those from the data i
 
 ### Overlap with the Traditional Pattern
 
-Several of these analyses can also be carried out in the [Traditional Pattern](/patterns/computational/traditional), where nothing is sent back into a TRE. The trade-off is fewer exchanges and simpler egress in the Traditional Pattern, against exact results for a wider range of models in the Shared Pattern.
+Several of these analyses can also be carried out in the [Traditional Pattern](/federated_research_patterns/computational/traditional), where nothing is sent back into a TRE. The trade-off is fewer exchanges and simpler egress in the Traditional Pattern, against exact results for a wider range of models in the Shared Pattern.
 
 | Analysis | In the Traditional Pattern | What the Shared Pattern adds |
 |-|-|-|
@@ -58,4 +58,4 @@ Several of these analyses can also be carried out in the [Traditional Pattern](/
 | Mixed models | Exact with site-level random effects | Random effects below the site level |
 | k-means clustering | Estimated by merging local clusters | An exact match to pooled k-means |
 
-An analysis that looks like it belongs in the Traditional Pattern also becomes Shared if a pooled value is sent back into the TREs, for example a pooled mean used to standardise data locally. See [When an analysis becomes Shared](/patterns/computational/traditional#when-an-analysis-becomes-shared).
+An analysis that looks like it belongs in the Traditional Pattern also becomes Shared if a pooled value is sent back into the TREs, for example a pooled mean used to standardise data locally. See [When an analysis becomes Shared](/federated_research_patterns/computational/traditional#when-an-analysis-becomes-shared).

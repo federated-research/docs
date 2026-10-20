@@ -17,7 +17,7 @@ The first is at the boundary of the individual TRE where data is held and being 
 Local egress method: Manual  
 Central egress method: Any  
 
-This Egress Inspection Pattern is most likely affiliated with the [Traditional Federation Pattern](/patterns/computational/traditional), as the considerations are similar to the case without federation. All data to move out from the boundary of the individual TRE has a manual disclosure control check, regardless of whether any disclosure control is performed on the federated network.
+This Egress Inspection Pattern is most likely affiliated with the [Traditional Federation Pattern](/federated_research_patterns/computational/traditional), as the considerations are similar to the case without federation. All data to move out from the boundary of the individual TRE has a manual disclosure control check, regardless of whether any disclosure control is performed on the federated network.
 
 ## Semi-automated
 Local egress method: Semi-automated  
@@ -41,6 +41,6 @@ There are certain analyses that can only be performed when all the data is in a 
 
 Disclosure control is the process of checking that results leaving a TRE cannot be used to identify individuals or reveal information about them. This framework does not treat disclosure risk as a pattern. The Egress Inspection Patterns describe the method of inspection: who or what checks the results, and at which boundary. They do not describe how risky those results are.
 
-No [Computational Pattern](/patterns/computational) is inherently safer from a disclosure control perspective. A summary result in the Traditional Pattern can be disclosive, for example a count of a small group or a table with small cells. Model parameters in the Shared Pattern can reveal information about the individuals they were fitted on. Row-level data in the Pooled Pattern can still be inspected and protected before results leave the federation. The risk depends on the specific result and its context, such as the size of the groups involved and what has already been released, not on the pattern used to produce it.
+No [Computational Pattern](/federated_research_patterns/computational) is inherently safer from a disclosure control perspective. A summary result in the Traditional Pattern can be disclosive, for example a count of a small group or a table with small cells. Model parameters in the Shared Pattern can reveal information about the individuals they were fitted on. Row-level data in the Pooled Pattern can still be inspected and protected before results leave the federation. The risk depends on the specific result and its context, such as the size of the groups involved and what has already been released, not on the pattern used to produce it.
 
 This is why the same Computational Pattern can be combined with different Egress Inspection Patterns in a [Weave](/weaves), and why the method of disclosure control needs to be agreed with each TRE whichever pattern is used.

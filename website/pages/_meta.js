@@ -11,7 +11,7 @@ export default {
     }
   },
   standards: "Standards",
-  patterns: "Patterns Framework",
+  federated_research_patterns: "Patterns Framework",
   weaves: "Weaves",
   branding_sep: {
     title: "Branding",
