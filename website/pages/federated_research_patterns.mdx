@@ -6,26 +6,24 @@ import { Steps,Callout } from "nextra/components"
     These concepts are still emerging, so get [in touch](mailto:healthinformatics@nottingham.ac.uk) if you have feedback.
 </Callout>
 
-There are numerous ways to undertake federated analytics and federated learning, and many tools, algorithms and platforms that implement them. Rather than describing each one, we group them by what matters to a Trusted Research Environment (TRE): what moves between TREs, and how it is checked before it moves.
+There are numerous ways to undertake federated analytics and federated learning, and many tools, algorithms and platforms that implement them. Rather than describing each one, we group them by what matters to a Trusted Research Environment (TRE): what data moves from the TREs, and how it is checked before it moves, and what are the interfaces for the software
 
 We frame the domain of federated analytics and federated learning via three concepts: what is **possible**, what is **acceptable**, and what is **useful**.
 
 ## Possible
-This concept captures what can be done technically: the platforms that run federated analyses, and the analyses that can be calculated across TREs. It is a rapidly developing technology ecosystem.
+This concept captures what can be done technically: the platforms that run federated analyses. 
 
 The [Interface](/federated_research_patterns/interface) page describes how platforms initiate a federated project, process the analysis within each TRE, and share metadata.
 
 ## Acceptable
-Our focus is on the use of these platforms within and between TREs, analysing data that is considered sensitive. These environments are heavily controlled, so not every approach that is possible is acceptable to them. Whether an approach is acceptable depends on how results are checked before they move, which is described by the [Egress Inspection Patterns](/federated_research_patterns/egress):
+Our focus is on the use of these platforms within and between TREs, analysing data that is considered sensitive. These environments are heavily controlled, so not every approach that is possible is acceptable to them. Whether an approach is acceptable depends in  part on how results are checked before they move, which is described by the [Egress Inspection Patterns](/federated_research_patterns/egress):
 
 | Pattern | Check at each TRE | Check at the federation |
 |-|-|-|
-| [Full local control](/federated_research_patterns/egress#full-local-control) | Manual | Any |
-| [Semi-automated](/federated_research_patterns/egress#semi-automated) | Semi-automated, a person aided by a risk tool | Any |
-| [Fully automated](/federated_research_patterns/egress#fully-automated) | Automated, with no person involved | Any |
-| [Full central control](/federated_research_patterns/egress#full-central-control) | None | Manual, semi-automated or automated, as agreed by the federation |
-
-Each step away from a manual check at every TRE asks the TRE to place more trust in software, or in the other members of the federation.
+| <span style={{whiteSpace: "nowrap"}}>[Full local control](/federated_research_patterns/egress#full-local-control)</span> | Manual | Any |
+| <span style={{whiteSpace: "nowrap"}}>[Semi-automated](/federated_research_patterns/egress#semi-automated)</span> | Semi-automated, a person aided by a risk tool | Any |
+| <span style={{whiteSpace: "nowrap"}}>[Fully automated](/federated_research_patterns/egress#fully-automated)</span> | Automated, with no person involved | Any |
+| <span style={{whiteSpace: "nowrap"}}>[Full central control](/federated_research_patterns/egress#full-central-control)</span> | None | Manual, semi-automated or automated, as agreed by the federation |
 
 ## Useful
 This concept captures the utility of an approach for the researcher: which analyses they can carry out, and how good the results are. The analyses fall into three [Computational Patterns](/federated_research_patterns/computational), defined by what data has to move:
