@@ -5,7 +5,7 @@
 The defining feature of the Shared Pattern is that results calculated from one TRE's data are sent into another TRE and used in its calculations. This is the case whether results are passed via a central node or directly between the TREs: when a central node combines results and sends updated parameters back, each TRE receives information derived from the other TREs' data.
 
 The most common method to undertake federated learning is for the model parameters to be passed via a central node, though it is also possible to share directly between TREs.
-The key difference between this and the [traditional pattern](traditional) for a TRE is that results are combined and shared with other TREs, so there is a higher trust required between the TREs as they must trust the sharing of some information not only with the researcher but also other TREs. 
+The key difference between this and the [traditional pattern](traditional) for a TRE is that results are combined and shared with other TREs. There is a higher level of trust required between the TREs as they must trust the sharing of some information, not only with the researcher, but also other TREs. 
 ![Animated diagram of the Shared pattern: model parameters passing between a central location and two connected TREs](/assets/gif/Connected%20Analytics.gif)
 
 ## Trust and egress
