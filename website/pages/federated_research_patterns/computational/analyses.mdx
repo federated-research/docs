@@ -23,7 +23,7 @@ These tables are not comprehensive. More detail on what each TRE sends is given 
 | Mean | Totals (n, Σx) added across TREs (exact) | Same as Traditional |
 | Variance, standard deviation and covariance | Totals (n, Σx, Σx², Σxy) added across TREs (exact) | Same as Traditional |
 | Median and quantiles | Merged t-digests, or histograms with agreed bins (estimated) | Bisection search on a candidate value (exact) |
-| Number of distinct individuals | Merged HyperLogLog sketches (estimated) | None listed |
+| Number of distinct individuals | Merged HyperLogLog sketches (estimated) | Same as Traditional |
 | Standardisation (z-scores) | Each TRE standardises with its own mean and standard deviation, which is not the same as the pooled values | Pooled mean and standard deviation sent back into each TRE (exact) |
 
 ## Statistical tests and correlation
