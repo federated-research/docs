@@ -4,7 +4,7 @@
 
 The most common method of federated analytics carries out a local computation in each location separately to generate summary results. This pattern requires the lowest trust between TREs, as each analysis is undertaken independently and no TRE receives results from another. One limitation of this approach is that data cannot be linked, as no row-level attributes are shared.
 
-In the simplest case, a researcher carrying out this kind of analysis wants to calculate a separate result of the analysis for each location, in which case any analysis that can be run within the boundary of the TRE, constrained only by the compute and permissions from the TRE, is possible. The results can then be compared side by side, tested for differences between locations, or combined in a meta-analysis (see [Compared](#compared)).
+In the simplest case, a researcher carrying out this kind of analysis wants to calculate a separate result of the analysis for each location. In this case, any analysis that can be run within the boundary of the TRE, constrained only by the compute and permissions from the TRE, is possible. The results can then be compared side by side, tested for differences between locations, or combined in a meta-analysis (see [Compared](#compared)).
 
 In other cases, a researcher wishes to estimate a result across locations, combining local results. For example, they could carry out a meta-analysis, calculating a summary of the data in each location so they can use statistical methods to estimate some overall result from each location's summary.
 For a more limited set of results, discussed below, it is possible to use a Traditional pattern to calculate the result as if the data were in a single, pooled dataset.
