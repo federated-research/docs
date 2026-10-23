@@ -1,0 +1,33 @@
+# Interface
+There are many [federated platforms](#current-platforms) that could be used by the researcher to perform their federated analytics or federated learning projects. 
+
+Whilst there may be only a few types of federation, the various platforms tend to differ in how they implement them.
+
+The purpose of this page is to understand how things move in a federated project: how an analysis is submitted to the network, how each TRE is asked to process it, and how metadata is shared. Interfaces here are the technical connection points between systems, usually APIs, rather than user interfaces.
+
+Linking to each platform's API specification allows it to be assessed for how that movement happens, for example:
+- whether work is pushed into a TRE, which requires the TRE to accept inbound connections, or pulled by an agent inside the TRE that only makes outbound connections
+- whether the parties connect directly, or through a central service or broker
+- what specifically is sent at each stage, such as analysis code, model parameters or results, and in what form
+- where results could be inspected before they leave a TRE
+
+## Initiate
+A federated analysis or federated learning project usually will start with some commands to initiate the project. At this 
+stage we are collecting information from platform providers to understand if they are using an API specification that captures how a federated project is initiated.  
+
+Therefore, at this stage, we will list the API specification for the receiving of the analysis to run across the network.
+
+## Process
+Each TRE will be asked to process some local job, and that local processing can equally be initiated by an API. We have separated out the API specification that initiates
+a federated project and the API specification that is used to initiate a local processing in case these are different.
+
+Therefore, at this stage, we will list the API specification for API that is to request the processing of the analysis within a TRE.
+
+## Metadata
+Many federated systems rely on the sharing of metadata in order to make the platform usable, to help researchers to design their studies, and to discover what data is available across the network. At this stage we are seeking to understand how common the metadata is between the various platforms, as this could aid egress and TRE onboarding if we can standardise.
+
+## Current Platforms
+| Platform Name  | Initiate | Process | Metadata |
+|-|-|-|-|
+| Aridhia DRE | [Aridhia API docs](https://aridhia-open-source.github.io/PHEMS_federated_node/) | [Aridhia API docs](https://aridhia-open-source.github.io/PHEMS_federated_node/) | |
+| Five Safes TES | [Five Safes TES docs](https://docs.federated-analytics.ac.uk/explanations/concepts/tes) | [GA4GH TES API specification](https://ga4gh.github.io/task-execution-schemas/docs/) | |

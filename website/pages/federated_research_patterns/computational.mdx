@@ -1,19 +1,28 @@
 # Computational Patterns
 There are many ways to undertake federated analysis or federated learning and there are benefits and limitations of those processes.
 
-Our work has shown that despite the significant number of federated tools, algorithms and platforms, when you examine 
-the patterns for how these analyses are undertaken they can be simply grouped based on two components: 
+Our work has shown that despite the significant number of federated tools, algorithms and platforms, when you examine the patterns for how these analyses are undertaken they can be simply grouped based on two components: 
 
-| Component         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Analytical**    | There are three key concepts that summarise the vast number of analytics and learning that are possible when data is spread across multiple TREs:<br/><br/>**Isolated** – these are analyses that are replicated individually within each TRE. <br/><br/>**Connected** – these are analyses that require multiple rounds of local calculation and aggregation, requiring the TREs to receive results from other TREs to be included in the local calculations. <br/><br/>**Centralised** – these analyses require data to be pooled, even temporarily, for the analyses to be performed.                                               |
-| **Data Movement** | As determined by the algorithm type, this is how data is required to move in and out of a TRE and how it is executed.<br/><br/>**Summary:** where a statistical result is shared back that does not relate to any individual but is a calculation based on the confidential data. It is the summary result that moves from the TRE. <br/><br/>**Model Parameters:** where a machine learning algorithm has been run on the data and the weights are moved from the TRE. <br/><br/>**Row level data**: where row level data is moving, whether or not the data is anonymised, but each data element is at the level of an individual. |
+## Components
 
+### Analytical
+There are three key concepts that summarise the vast number of analytics and learning that are possible when data is spread across multiple TREs:
+
+- **Isolated:** The analysis is realised independently within each TRE, requiring no communication between TREs or shared state during execution. Each TRE completes its local computation in isolation, before any results to a central location to be combined or compared. This approach is suitable for analyses that can be decomposed into independent local computations followed by aggregation or comparison of summary outputs. Examples could be counts, global averages, and sums – or comparison of averages between global populations.
+- **Connected:** The analysis is realised through multiple rounds of local computation interleaved with communication between TREs. Intermediate results produced by one TRE are incorporated into subsequent rounds of computation by other TREs, requiring state to be maintained throughout execution. This approach is characteristic of federated learning and other iterative distributed algorithms, such as a binary search.
+- **Centralised:** The analysis is realised by bringing data from multiple TREs together before computation can be performed. This approach is required where the analysis depends on properties of the combined dataset that cannot be derived from independent local computations, such as ordering observations to calculate quantiles or rank-based statistics.
+
+### Data Movement
+As determined by the algorithm type, this is how data is required to move in and out of a TRE and how it is executed.
+
+- **Summary:** Aggregated statistical outputs not corresponding to individual records are transferred between TREs or to a coordinating node. Examples include counts, sums, averages, and other derived summary statistics. The exchanged information represents characteristics of the underlying dataset rather than individual participants.
+- **Intermediate Results:** Information is exchanged iteratively throughout execution rather than as a single output. The exchanged information depends on the computational approach and may include model parameters, gradients, transformed values or intermediate summary statistics. 
+- **Row level data:** Individual records are transferred between environments, irrespective of whether they have been anonymised. This enables analyses that require access to the combined dataset. 
 
 ## Connections
-The patterns we have identified to date indicate that the type of analysis to be run dictates the type of data to move. It is important to state that these classifications of the data movement do not indicate the disclosive data of a specific result. Clearly, summary results are less likely to be disclosive than row-level data; however, we are not stating any safety element to the data movement. 
+The patterns we have identified to date indicate that the method used to carry out an analysis dictates what data has to move, and in which direction. The same analysis can fall in more than one pattern depending on the method used (see [When an analysis becomes Shared](/federated_research_patterns/computational/traditional#when-an-analysis-becomes-shared)). These classifications of data movement do not indicate how disclosive a specific result is (see [Disclosure control](/federated_research_patterns/egress#disclosure-control)). 
 | Analytical | Data Movement | Associated Pattern|
 |-|-|-|
-| Isolated | Summary only | [Traditional Pattern](/federated_research_patterns/computational/traditional)|
-| Connected| Model Parameters | [Shared Pattern](/federated_research_patterns/computational/shared)|
-| Centralised| Row level data only | [Pooled Pattern](/federated_research_patterns/computational/pooled)|
+| Isolated | Summary | [Traditional Pattern](/federated_research_patterns/computational/traditional)|
+| Connected| Intermediate results | [Shared Pattern](/federated_research_patterns/computational/shared)|
+| Centralised| Row level data | [Pooled Pattern](/federated_research_patterns/computational/pooled)|

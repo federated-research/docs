@@ -11,21 +11,14 @@ export default {
     }
   },
   standards: "Standards",
-  federated_research_patterns: "Federated Patterns",
+  federated_research_patterns: "Patterns Framework",
   weaves: "Weaves",
-  implementation: {
-    title: "Implementations",
-    type: "separator"
-  },
-  five_safes_tes: "Five Safes TES",
-  discovery: "Discovery",
-  beacon: "Beacon",
-
   branding_sep: {
     title: "Branding",
     type: "separator"
   },
   branding: "Branding",
+
 
   "404": {
     title: "Page not found",

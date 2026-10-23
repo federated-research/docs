@@ -1,0 +1,14 @@
+/* Give tables a consistent width and column layout so columns line up
+   from one table to the next as you scroll down a page. Small screens
+   keep Nextra's default horizontal scrolling. */
+@media (min-width: 768px) {
+  .nextra-content table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .nextra-content table th:first-child {
+    width: 25%;
+  }
+}

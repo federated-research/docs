@@ -1,0 +1,40 @@
+# Sovereign
+
+## Core Functionality
+
+The Sovereign Weave represents the secure, remote execution of [GA4GH TES analyses](/standards#task-execution-service-tes) within Trusted Research Environments (TREs).
+
+The functionality represented in the Weave is the closest to current day activity of TREs and offers the maximum control and isolation, 
+requiring no TRE-TRE connectivity. 
+
+Built on international [open standards](/standards) from GA4GH, it uses an enhanced GA4GH Task Execution Service
+to receive federated analysis requests. This approach supports the essential disclosure control processes within TREs, ensuring outputs are reviewed
+to prevent disclosive data from leaving secure environments.
+
+## Weave details
+
+### Patterns
+| Component | Used in this Weave |
+|-|-|
+| Interface | [Five Safes TES](/federated_research_patterns/interface#current-platforms), via the [Five Safes TES](https://docs.federated-analytics.ac.uk) open source software stack |
+| Computational Pattern | [Traditional Pattern](/federated_research_patterns/computational/traditional) |
+| Egress Inspection Pattern | [Full local control](/federated_research_patterns/egress#full-local-control): all results are checked and authorised at each TRE before being released |
+
+### What a researcher can do
+The researcher submits their own analysis code as a TES task, which is run at each TRE. This supports any [analysis in the Traditional Pattern](/federated_research_patterns/computational/traditional#analyses), where each TRE's results are:
+
+- **compared:** any analysis that can run within a TRE gives a separate result for each location, and these can be compared centrally
+- **combined exactly:** results such as counts, means, contingency tables and linear regression combine to give the [same result as the pooled data](/federated_research_patterns/computational/traditional#exact)
+- **combined as an estimate:** results such as quantiles, distinct counts and Cox regression give a [close estimate](/federated_research_patterns/computational/traditional#estimated) of the pooled result, or each TRE's results are combined statistically, as in a meta-analysis
+
+### Effect on results
+Exact analyses stay exact, provided the egress check releases each TRE's results unchanged. If the check rounds or suppresses results, for example small cells in a table, the totals no longer combine exactly, and a TRE whose results are withheld drops out of the analysis.
+
+### What it can't do
+- **Shared Pattern analyses.** Each round of an iterative analysis would need a manual check at every TRE, so iterative model fitting is not practical. Analyses that need a single pass, such as piecewise-exponential models in place of Cox regression, or combining each TRE's results as in a meta-analysis, can often be used instead (see [When an analysis becomes Shared](/federated_research_patterns/computational/traditional#when-an-analysis-becomes-shared)).
+- **Pooled Pattern analyses.** Row-level data does not leave the TRE, so records cannot be linked across TREs, and individuals present in more than one TRE may be counted more than once.
+
+### Practical constraints
+- Each result waits for a person to check it at every TRE, so turnaround is set by the slowest review.
+- Settings such as time grids, histogram bins and output formats need to be agreed in advance, so that each TRE produces results that can be combined and checked.
+- The same analysis code runs at every TRE, so variables need to be defined in the same way at each one.

@@ -1,15 +1,15 @@
 # Weaves
 
-A **Weave** is a combination of a platform and computational pattern, which are linked by what disclosure control is allowed for that Weave.
+A **Weave** brings together an [Interface](/federated_research_patterns/interface), a [Computational Pattern](/federated_research_patterns/computational) and an [Egress Inspection Pattern](/federated_research_patterns/egress) into a single entity. Each on its own describes one aspect of a federated approach: the Interface captures what is **possible**, the Egress Inspection Pattern captures what is **acceptable**, through how results are checked before they move, and the Computational Pattern captures what is **useful**, through which analyses a researcher can carry out. A Weave combines them so that an approach can be assessed across all three aspects together, rather than one at a time.
 
 ## Creating a Weave
 
-A Weave must contain a single [Platform Pattern](/federated_research_patterns/platforms) and a single [Computational Pattern](/federated_research_patterns/computational). A single platform may have multiple Weaves if it implements more than a single Computational Pattern.
+A Weave must contain a single Interface, a single Computational Pattern and a single Egress Inspection Pattern. A single platform may have multiple Weaves if it implements more than one Computational Pattern, or supports more than one Egress Inspection Pattern.
 
 ### Current Weaves
-| Weave Name | Computational Pattern  | Platform Pattern | Egress Pattern | 
+| Weave Name | Computational Pattern  | Interface | Egress Inspection Pattern | 
 |-|-|-|-|
-|HDR UK Federation | Traditional Pattern | Five Safes TES | Manual |
-|HDR UK Cohort Discovery| Traditional Pattern | Bunny | Automated |
+|Sovereign | Traditional Pattern | Five Safes TES | [Full local control](/federated_research_patterns/egress#full-local-control) |
+|Discovery | Traditional Pattern | Bunny | [Fully automated](/federated_research_patterns/egress#fully-automated) |
 |Aridhia - DC Off| Traditional Pattern | Aridhia DRE | Off |
-|Aridhia - DC Manual| Traditional Pattern | Aridhia DRE | Manual |
+|Aridhia - DC Manual| Traditional Pattern | Aridhia DRE | [Full local control](/federated_research_patterns/egress#full-local-control) |

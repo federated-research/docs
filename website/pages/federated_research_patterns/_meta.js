@@ -1,5 +1,5 @@
 export default {
     computational: 'Computational Patterns',
-    platforms: 'Platform Patterns',
-    egress: 'Egress Patterns',
+    interface: 'Interface',
+    egress: 'Egress Inspection Patterns',
 }

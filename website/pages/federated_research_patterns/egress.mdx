@@ -1,7 +1,7 @@
-# Data Egress Patterns
+# Egress Inspection Patterns
 Within a federated project there is always an interaction that occurs at each location, and then at the central level where results are either combined, compared or analysed. Therefore, whilst in a more traditional setup not involving federation, the only area where egress would be considered is at the boundary of each TRE, within a federated model, there are two options for egress to occur.  
 
-The first is at the boundary of the individual TRE where data is held and being made available to the federated project. The purpose of the egress check is to ensure only the data that has been approved to move is indeed what is moving. In most TREs this check is to ensure the data leaving does not contain anything disclosive and is safe to leave the secure boundary of the TRE.We have identified four methods in which egress can occur.
+The first is at the boundary of the individual TRE where data is held and being made available to the federated project. The purpose of the egress check is to ensure only the data that has been approved to move is indeed what is moving. In most TREs this check is to ensure the data leaving does not contain anything disclosive and is safe to leave the secure boundary of the TRE. We have identified four methods in which egress can occur.
 
 
 | Method         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 
@@ -17,7 +17,7 @@ The first is at the boundary of the individual TRE where data is held and being 
 Local egress method: Manual  
 Central egress method: Any  
 
-This egress pattern is most likely affiliated with the [Traditional Federation Pattern](/federated_research_patterns/computational/traditional), as it mirrors the current process as much as possible. All data to move out from the boundary of the individual TRE has a manual disclosure control check, regardless of whether any disclosure control is performed on the federated network.
+This Egress Inspection Pattern is most likely affiliated with the [Traditional Federation Pattern](/federated_research_patterns/computational/traditional), as the considerations are similar to the case without federation. All data to move out from the boundary of the individual TRE has a manual disclosure control check, regardless of whether any disclosure control is performed on the federated network.
 
 ## Semi-automated
 Local egress method: Semi-automated  
@@ -33,6 +33,14 @@ There are federated platforms and tools that will automate the checks and ensure
 
 ### Full central control
 Local egress method: None  
-Central egress method: Any   
+Central egress method: Manual, semi-automated or automated, as agreed by the federation   
   
 There are certain analyses that can only be performed when all the data is in a single location. Therefore, data pooling must occur, and data that normally would not be allowed via egress does indeed move. The key concept of this pattern, is that the data is moving to another TRE/SDE and that before the results leave the boundary of the federation of TREs, the normal egress check is performed. At this stage, it could be any of the disclosure control components that are used, but would be agreed upon by the federation of TREs/SDEs.
+
+## Disclosure control
+
+Disclosure control is the process of checking that results leaving a TRE cannot be used to identify individuals or reveal information about them. This framework does not treat disclosure risk as a pattern. The Egress Inspection Patterns describe the method of inspection: who or what checks the results, and at which boundary. They do not describe how risky those results are.
+
+No [Computational Pattern](/federated_research_patterns/computational) is inherently safer from a disclosure control perspective. A summary result in the Traditional Pattern can be disclosive, for example a count of a small group or a table with small cells. Model parameters in the Shared Pattern can reveal information about the individuals they were fitted on. Row-level data in the Pooled Pattern can still be inspected and protected before results leave the federation. The risk depends on the specific result and its context, such as the size of the groups involved and what has already been released, not on the pattern used to produce it.
+
+This is why the same Computational Pattern can be combined with different Egress Inspection Patterns in a [Weave](/weaves), and why the method of disclosure control needs to be agreed with each TRE whichever pattern is used.
