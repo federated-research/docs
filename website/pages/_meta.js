@@ -11,25 +11,25 @@ export default {
     }
   },
   standards: "Standards",
-  federated_research_patterns: "Federated Research Patterns",
-  weaves: {
-    title: "Weaves",
-    type: "separator"
-  },
-  five_safes_tes: "Five Safes TES",
-  discovery: "Discovery",
-  beacon: "Beacon",
-  our_software: {
-    title: "Software",
-    type: "separator"
-  },
-  submission: "Submission Layer",
-  tre_agent: "TRE Agent",
-  egress: "Egress",
-
+  federated_research_patterns: "Patterns Framework",
+  weaves: "Weaves",
   branding_sep: {
     title: "Branding",
     type: "separator"
   },
   branding: "Branding",
+
+
+  "404": {
+    title: "Page not found",
+    display: "hidden",
+    theme: {
+      breadcrumb: false,
+      layout: "full",
+      timestamp: false,
+      pagination: false,
+      sidebar: false,
+      toc: false,
+    },
+  },
 }

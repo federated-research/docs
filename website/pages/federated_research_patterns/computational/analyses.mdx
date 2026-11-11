@@ -1,0 +1,95 @@
+# Analyses by Pattern
+
+An analysis is what the researcher wants to know, such as the median of a variable or the effect of a treatment on survival. An algorithm is how it is calculated. The same analysis can often be calculated with different algorithms, and it is the algorithm that decides which [Computational Pattern](/federated_research_patterns/computational) is used, and whether the result is the same as it would be with the data in one location.
+
+For example, the median can be estimated in the Traditional Pattern by merging a t-digest from each TRE, calculated exactly in the Shared Pattern by a search that sends a candidate value back into each TRE over several rounds, or calculated exactly in the Pooled Pattern by sorting the pooled data.
+
+The tables below list common analyses, with the algorithm that can be used for each in the Traditional and Shared Patterns:
+
+- **Exact:** the same result as if the data were all in one location
+- **Estimated:** close to, but not the same as, the result with the data in one location
+- **Same as Traditional:** the analysis can be carried out in the Shared Pattern, but it gives the same result as the Traditional Pattern, with more rounds of exchange and results sent back into the TREs
+
+Every analysis can be carried out exactly in the [Pooled Pattern](/federated_research_patterns/computational/pooled), using the standard methods, so the Pooled Pattern is not listed in each table. The [final table](#analyses-that-need-pooled-data) lists the analyses that need it.
+
+These tables are not comprehensive. More detail on what each TRE sends is given on the [Traditional](/federated_research_patterns/computational/traditional) and [Shared](/federated_research_patterns/computational/shared) pages.
+
+## Describing the data
+
+| Analysis | Traditional | Shared |
+|-|-|-|
+| Counts, frequencies and proportions | Counts added across TREs (exact) | Same as Traditional |
+| Min/max | Min of the mins, max of the maxes (exact) | Same as Traditional |
+| Mean | Totals (n, Σx) added across TREs (exact) | Same as Traditional |
+| Variance, standard deviation and covariance | Totals (n, Σx, Σx², Σxy) added across TREs (exact) | Same as Traditional |
+| Median and quantiles | Merged t-digests, or histograms with agreed bins (estimated) | Bisection search on a candidate value (exact) |
+| Number of distinct individuals | Merged HyperLogLog sketches (estimated) | Same as Traditional |
+| Standardisation (z-scores) | Each TRE standardises with its own mean and standard deviation, which is not the same as the pooled values | Pooled mean and standard deviation sent back into each TRE (exact) |
+
+## Statistical tests and correlation
+
+| Analysis | Traditional | Shared |
+|-|-|-|
+| Chi-squared and Fisher's exact test | Contingency tables added cell by cell (exact) | Same as Traditional |
+| t-tests (one-sample, two-sample, Welch's) | n, mean and variance for each group (exact) | Same as Traditional |
+| ANOVA | n, Σx and Σx² for each group (exact) | Same as Traditional |
+| Hotelling's T² | n, mean vector and covariance matrix (exact) | Same as Traditional |
+| Pearson's correlation | Covariance totals (exact) | Same as Traditional |
+
+## Regression models
+
+| Analysis | Traditional | Shared |
+|-|-|-|
+| Linear regression | Closed-form fit from XᵀX, Xᵀy and yᵀy (exact) | Same as Traditional |
+| Ridge regression | Closed-form fit from XᵀX and Xᵀy (exact) | Same as Traditional |
+| Logistic, Poisson and other generalised linear models | Fit on summed tables, categorical covariates only (exact), or meta-analysis (estimated) | Newton–Raphson with score and information added across TREs, any covariates (exact) |
+| Generalised estimating equations (GEE) | Meta-analysis (estimated) | Estimating equations added across TREs (exact) |
+| Lasso and elastic net | Meta-analysis (estimated) | Gradient methods or ADMM (exact) |
+| Linear mixed models, site-level random effects | Closed-form fit from totals (exact) | Same as Traditional |
+| Linear mixed models, random effects below site level | Meta-analysis (estimated) | Likelihood added across TREs (exact) |
+| Principal component analysis (PCA) | Pooled covariance matrix from totals (exact) | Same as Traditional |
+
+## Survival analysis
+
+| Analysis | Traditional | Shared |
+|-|-|-|
+| Survival curves and log-rank test | Kaplan–Meier or Nelson–Aalen from numbers at risk and events on an agreed time grid (exact) | Same as Traditional |
+| Cox regression | Piecewise-exponential model (estimated), or meta-analysis (estimated) | Newton–Raphson, stratified by site (exact) |
+| Parametric survival models (Weibull, accelerated failure time) | Meta-analysis (estimated) | Score and information added across TREs (exact) |
+| Poisson and piecewise-exponential models, categorical covariates | Fit on summed tables (exact) | Same as Traditional |
+
+## Clustering and machine learning
+
+| Analysis | Traditional | Shared |
+|-|-|-|
+| Clustering | k-means at each TRE, with the local clusters merged centrally (estimated) | k-means with per-cluster sums and counts added each round (exact) |
+| Mixture models | None listed | EM algorithm with per-component totals added each round (exact) |
+| Neural networks | Trained at each TRE and compared | Federated averaging (estimated) |
+| Gradient-boosted trees | Trained at each TRE and compared | Federated XGBoost with binned gradient totals (estimated) |
+| Random forests | Trained at each TRE and compared | Merged local trees, or binned split summaries (estimated) |
+
+Any model in the Shared Pattern can be trained with differential privacy, which adds random noise to each update to protect individuals. This makes the result an estimate, even where the algorithm would otherwise be exact.
+
+## Comparing locations
+
+Comparing results between locations is often the aim in its own right, and is where the Traditional Pattern is strongest: any analysis that can run within a TRE can be run in full at each one.
+
+| Analysis | Traditional | Shared |
+|-|-|-|
+| Describe each population | Summary tables from each TRE, compared side by side | Same as Traditional |
+| Test for differences between locations | Estimates and standard errors from each TRE, tested centrally, including heterogeneity (Cochran's Q, I²) | A model with a location term, fitted across TREs |
+| Replicate a finding | The same analysis run in full at each TRE | Same as Traditional |
+| Validate a model agreed in advance | Performance measures (such as AUC and calibration) from each TRE, compared | Same as Traditional |
+| Check data quality and coding | Completeness, coding frequencies and ranges from each TRE, compared | Same as Traditional |
+
+## Analyses that need pooled data
+
+These analyses depend on having individuals' records together, so they need the Pooled Pattern.
+
+| Analysis | Why it needs pooled data |
+|-|-|
+| Linking records across TREs | Brings together data held about the same individuals in different TREs |
+| Removing duplicate individuals | Individuals present in more than one TRE are otherwise counted more than once. The Traditional Pattern can only estimate how many distinct individuals there are |
+| Different variables held for the same individuals | The Traditional and Shared Patterns assume each TRE holds the same variables for different individuals |
+| Cox regression, not stratified by site | The risk sets span TREs, so the model cannot be broken into parts each TRE calculates |
+| Exploratory analysis | The method is not known in advance, so cannot be broken into results each TRE calculates |

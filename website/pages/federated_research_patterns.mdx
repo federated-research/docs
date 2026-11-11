@@ -6,15 +6,45 @@ import { Steps,Callout } from "nextra/components"
     These concepts are still emerging, so get [in touch](mailto:healthinformatics@nottingham.ac.uk) if you have feedback.
 </Callout>
 
-Across research data infrastructure there is no shared understanding on what is achievable and required to enable sustainable federation. Beyond a definition, there is a gap in translating the technologically possible and what is operationally necessary.
+There are numerous ways to undertake federated analytics and federated learning, and many tools, algorithms and platforms that implement them. Rather than describing each one, we group them by what matters to a Trusted Research Environment (TRE): what data moves from the TREs, how it is checked before it moves, and what are the interfaces for the software
 
-To address these challenges, the Federated Research Patterns framework was created to:
-- consistently describe paths towards different models of federation
-- define what is required to operationalise federation for TREs
-- acknowledge the limitations of models of federation
+We frame the domain of federated analytics and federated learning via three concepts: what is **possible**, what is **acceptable**, and what is **useful**.
 
-The key to the framework is the representation of needs of stakeholders involved in deploying and using federated research data infrastructe:
-- **Researchers**: What analysis is possible?
-- **Data organisations**: Does the solution adhere to organisation policy and procedures?
-- **TREs**: What controls are there over the data? 
-- **Information Governance**: Does is adhere to data standards and best-practice?
+## Possible
+This concept captures what can be done technically: the platforms that run federated analyses. 
+
+The [Interface](/federated_research_patterns/interface) page describes how platforms initiate a federated project, process the analysis within each TRE, and share metadata.
+
+## Acceptable
+Our focus is on the use of these platforms within and between TREs, analysing data that is considered sensitive. These environments are heavily controlled, so not every possible approach is acceptable to them. Whether an approach is acceptable depends in  part on how results are checked before they move, which is described by the [Egress Inspection Patterns](/federated_research_patterns/egress):
+
+| Pattern | Check at each TRE | Check at the federation |
+|-|-|-|
+| <span style={{whiteSpace: "nowrap"}}>[Full local control](/federated_research_patterns/egress#full-local-control)</span> | Manual | Any |
+| <span style={{whiteSpace: "nowrap"}}>[Semi-automated](/federated_research_patterns/egress#semi-automated)</span> | Semi-automated, a person aided by a risk tool | Any |
+| <span style={{whiteSpace: "nowrap"}}>[Fully automated](/federated_research_patterns/egress#fully-automated)</span> | Automated, with no person involved | Any |
+| <span style={{whiteSpace: "nowrap"}}>[Full central control](/federated_research_patterns/egress#full-central-control)</span> | None | Manual, semi-automated or automated, as agreed by the federation |
+
+## Useful
+This concept captures the utility of an approach for the researcher: which analyses they can carry out, and how good the results are. The analyses fall into three [Computational Patterns](/federated_research_patterns/computational), defined by what data has to move:
+
+| Pattern | What moves | Example analyses |
+|-|-|-|
+| [Traditional](/federated_research_patterns/computational/traditional) | Summary results leave each TRE for a central location. Nothing calculated from one TRE's data enters another TRE | Counts, means, contingency tables, linear regression, survival curves |
+| [Shared](/federated_research_patterns/computational/shared) | Summary results, such as model parameters, leave each TRE for a central location. Derived values are sent into other TREs and used in their calculations | Iterative model fitting, such as logistic regression and federated learning |
+| [Pooled](/federated_research_patterns/computational/pooled) | Row-level data about individuals leaves a TRE, persistently or temporarily | Record linkage, removing duplicate individuals, exploratory analysis |
+
+The same analysis can often be carried out in more than one pattern, with different trade-offs. For example, quantiles can be estimated in the Traditional Pattern, or calculated exactly in the Shared Pattern at the cost of sending results back into the TREs.
+
+## Bringing them together
+The useful and the acceptable are linked. Each Computational Pattern needs more trust between TREs than the last. In the Traditional Pattern, data only leaves a TRE as summary results. In the Shared Pattern, each exchange is also an ingress into other TREs, so a TRE takes in derived data about another TRE's individuals. In the Pooled Pattern, row-level data leaves the TRE. An analysis that needs many rounds of exchange in the Shared Pattern cannot practically be checked by hand at every round, so it relies on automated egress, and the Pooled Pattern relies on checks at the boundary of the federation.
+
+Not every technical approach provides utility to researchers, and there is also a risk that in adjusting the possible to make it more acceptable, we lose its usefulness to the research community.
+
+## Patterns and Weaves
+The aim of creating patterns is to have a neutral language that simplifies the technical and governance complexities, so that similar approaches can be grouped together and compared.
+
+- The state of the **possible** is captured by the [Interface](/federated_research_patterns/interface).
+- The state of the **acceptable** is captured by the [Egress Inspection Patterns](/federated_research_patterns/egress): how results are checked before they move.
+- The state of the **useful** is captured by the [Computational Patterns](/federated_research_patterns/computational): which analyses a researcher can carry out, and how close the results are to those from the pooled data.
+- A [Weave](/weaves) brings an Interface, a Computational Pattern and an Egress Inspection Pattern together into a single entity, so that an approach can be assessed across what is possible, acceptable and useful together.

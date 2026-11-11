@@ -1,4 +1,5 @@
 export default {
-    patterns: 'Patterns framework',
-    weaves: 'Developing a Weave',
+    computational: 'Computational Patterns',
+    interface: 'Interface',
+    egress: 'Egress Inspection Patterns',
 }
