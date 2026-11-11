@@ -1,3 +1,5 @@
+import { ThemedVideo } from "../../../components/ThemedVideo"
+
 # Pooled Pattern
 **[Analytical](/federated_research_patterns/computational#analytical):** Centralised  
 **[Data Movement](/federated_research_patterns/computational#data-movement):** Row level data  
@@ -6,7 +8,7 @@ The defining feature of the Pooled Pattern is that row-level data leaves a TRE, 
 
 This approach requires a very high level of trust between TREs as it requires sharing of row-level data between TREs. Disclosure control can still be applied before the data leaves the TRE network. It is however by far the most powerful for a user as the analyses and learning are almost unlimited.
 
-![Animated diagram of the Pooled pattern: a temporary front-door connection forming between TREs to share row-level data](/assets/gif/Dynamics.gif)
+<ThemedVideo name="pattern-pooled" label="Animated diagram of the Pooled pattern: pseudonymised rows leave each of three TREs and are combined in a secure central store, where the analysis runs" />
 
 ## Analyses
 
