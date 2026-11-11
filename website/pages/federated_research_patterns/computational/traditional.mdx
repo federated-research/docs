@@ -1,3 +1,5 @@
+import { ThemedVideo } from "../../../components/ThemedVideo"
+
 # Traditional Pattern
 **[Analytical](/federated_research_patterns/computational#analytical):** Isolated  
 **[Data Movement](/federated_research_patterns/computational#data-movement):** Summary  
@@ -11,7 +13,7 @@ For a more limited set of results, discussed below, it is possible to use a Trad
 
 The analyses that can be run within the boundary of the TRE are almost unlimited and constrained only by the compute and permissions from the TRE. Egress can be applied which will limit the results that can be analysed together. 
 
-![Animated diagram of the Traditional pattern: each TRE running analysis independently and returning summary results to a central location](/assets/gif/Isolated%20Analytics.gif)
+<ThemedVideo name="pattern-traditional" label="Animated diagram of the Traditional pattern: the researcher's code goes into each of three TREs, runs on the local data, and only summary results come out to be combined" />
 
 ## Analyses 
 In the Traditional Pattern each analysis is *isolated*: it is carried out separately within each TRE, and the results are combined, compared or analysed centrally, based on what has been allowed out through the egress process. Some analyses can be broken into parts whose results combine to give the same answer as the pooled data. Others are run in full at each TRE, and the results are compared centrally.
