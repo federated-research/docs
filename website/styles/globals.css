@@ -12,3 +12,20 @@
     width: 25%;
   }
 }
+
+/* Show the light or dark version of each animation to match the site theme. */
+.themed-video {
+  width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.themed-video-dark,
+html.dark .themed-video-light {
+  display: none;
+}
+
+html.dark .themed-video-dark {
+  display: block;
+}
