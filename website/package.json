@@ -7,9 +7,9 @@
   "dependencies": {
     "@likec4/core": "1.44.0",
     "@likec4/diagram": "1.44.0",
-    "next": "^15.5.18",
-    "nextra": "^3.3.1",
-    "nextra-theme-docs": "^3.3.1",
+    "next": "^16.4.6",
+    "nextra": "^4.6.1",
+    "nextra-theme-docs": "^4.6.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
