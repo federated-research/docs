@@ -29,3 +29,17 @@ html.dark .themed-video-light {
 html.dark .themed-video-dark {
   display: block;
 }
+
+/* Headings written as <h3 className="no-toc"> show on the page but are left
+   out of the "On This Page" menu, which only lists Markdown headings. */
+h3.no-toc {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+}
+html.dark h3.no-toc {
+  color: #f1f5f9;
+}
